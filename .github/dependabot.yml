@@ -1,0 +1,45 @@
+# Version updates, a pull request a week for each group below. Security updates are turned on in
+# the repository's settings and use this file too (their pull requests are never grouped).
+# The titles are Conventional Commits that the Title check accepts and that the Release workflow
+# reads: `fix(deps): ...` for a package the code uses, so that an update of one is a patch release,
+# and `chore(deps-dev): ...` for a development tool, `chore(deps): ...` for an Action.
+# dependabot-auto-merge.yml merges the safe ones.
+version: 2
+updates:
+  - package-ecosystem: pub
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope
+    groups:
+      dev-dependencies:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: chore
+      include: scope
+    groups:
+      actions:
+        patterns:
+          - '*'
+        update-types:
+          - minor
+          - patch

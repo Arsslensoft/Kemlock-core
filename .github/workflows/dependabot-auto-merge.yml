@@ -1,0 +1,47 @@
+name: Dependabot auto-merge
+
+# Turns on auto-merge for the Dependabot pull requests that are safe to take once the checks pass:
+# a patch update of any dependency, and a minor update of a development dependency or of a GitHub
+# Action. A major update, and a minor one of a package the code uses, wait for a person. Auto-merge
+# merges only when the ruleset's required checks are green, and needs "Allow auto-merge" in the
+# repository's settings. It runs on pull_request, not pull_request_target: nothing here checks the
+# pull request's code out or runs it.
+
+on:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  auto-merge:
+    name: Auto-merge
+    # Dependabot's account id, from a branch of this repository: a name or a fork cannot match
+    if: >-
+      github.event.pull_request.user.id == 49699333 &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - id: metadata
+        uses: dependabot/fetch-metadata@25dd0e34f4fe68f24cc83900b1fe3fe149efef98 # v3.1.0
+
+      - name: Merge when the checks pass
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          UPDATE_TYPE: ${{ steps.metadata.outputs.update-type }}
+          DEPENDENCY_TYPE: ${{ steps.metadata.outputs.dependency-type }}
+          ECOSYSTEM: ${{ steps.metadata.outputs.package-ecosystem }}
+        run: |
+          if [ "${UPDATE_TYPE}" = "version-update:semver-patch" ]; then
+            echo "A patch update."
+          elif [ "${UPDATE_TYPE}" = "version-update:semver-minor" ] \
+            && { [ "${ECOSYSTEM}" = "github_actions" ] || [ "${DEPENDENCY_TYPE}" = "direct:development" ]; }; then
+            echo "A minor update of ${ECOSYSTEM} (${DEPENDENCY_TYPE})."
+          else
+            echo "::notice title=Dependabot::${UPDATE_TYPE} (${DEPENDENCY_TYPE}): left for a person"
+            exit 0
+          fi
+          gh pr merge --auto --squash "${PR_URL}"
