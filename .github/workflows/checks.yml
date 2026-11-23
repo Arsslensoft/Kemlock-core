@@ -142,7 +142,7 @@ jobs:
 
       # Chrome is the runner image's, not pinned: the image updates it weekly
       - name: Tests in Chrome with dart2wasm
-        run: dart test -p chrome -c dart2wasm
+        run: dart test -p chrome -c dart2wasm -t wasm
 
   # Known vulnerabilities of high severity or more in what the change adds, and the licences that
   # GPL-3.0-or-later cannot take in (the Licences job holds the whole tree to a list of its own).
