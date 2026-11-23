@@ -1,0 +1,44 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 9 (0x9)
+        Signature Algorithm: ecdsa-with-SHA384
+        Issuer: CN=Example Test CA,O=Example Test Authority
+        Validity
+            Not Before: Nov  1 00:00:00 2026 GMT
+            Not After : Nov  1 00:00:00 2027 GMT
+        Subject: CN=Ada Example
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:f1:79:45:9c:de:b5:b2:d1:03:0d:bc:82:1c:78:
+                    5f:e9:2c:c8:86:f3:cd:e6:34:c9:38:ba:bc:7b:7a:
+                    96:c7:1a:63:25:c0:6e:d2:12:e8:c9:83:4e:da:e9:
+                    3f:c3:b5:67:6b:51:96:be:ed:6f:26:a8:36:19:82:
+                    37:f7:af:ca:a3
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+            X509v3 Key Usage: critical
+                Digital Signature
+            X509v3 Subject Key Identifier: 
+                54:89:5B:D8:A7:5B:C4:23:C9:32:F2:3D:37:E8:F9:E5:51:C4:DC:58
+            X509v3 Authority Key Identifier: 
+                4D:B6:E7:12:85:D2:5E:A5:CD:8A:61:94:0C:0C:3C:E2:F8:B5:D6:6E
+    Signature Algorithm: ecdsa-with-SHA384
+    Signature Value:
+        30:65:02:31:00:95:28:50:48:df:2a:38:bc:ae:55:b8:65:ca:
+        ce:6f:c6:92:29:1c:93:20:54:3b:ac:c8:99:9c:ac:ce:2f:59:
+        80:ce:54:05:08:d7:7f:a8:76:63:bb:c0:6c:18:be:62:ba:02:
+        30:4e:2e:23:8f:f4:d7:4c:76:99:35:a0:e3:29:56:aa:98:d9:
+        e3:b4:08:0c:8b:0c:79:c8:9d:57:a1:37:86:d8:33:96:61:35:
+        30:5f:6c:22:fa:b9:5e:1e:ef:5e:c0:1c:75
+serial=09
+subject=CN=Ada Example
+issuer=CN=Example Test CA,O=Example Test Authority
+notBefore=2026-11-01 00:00:00Z
+notAfter=2027-11-01 00:00:00Z
+sha256 Fingerprint=CB:41:11:91:78:1E:28:D7:B1:A1:C9:7C:5F:4A:B5:2E:3C:00:5B:26:1B:D8:A4:19:18:DF:D5:35:B0:A5:F9:E5

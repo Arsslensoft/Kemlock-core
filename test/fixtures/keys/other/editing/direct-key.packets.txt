@@ -1,0 +1,159 @@
+# off=0 ctb=c5 tag=5 hlen=2 plen=88 new-ctb
+:secret key packet:
+	version 4, algo 22, created 1794889941, expires 0
+	pkey[0]: [80 bits] ed25519 (1.3.6.1.4.1.11591.15.1)
+	pkey[1]: [263 bits]
+	skey[2]: [255 bits]
+	checksum: 1048
+	keyid: BB39A337E9491EA8
+# off=90 ctb=c2 tag=2 hlen=3 plen=209 new-ctb
+:signature packet: algo 22, keyid BB39A337E9491EA8
+	version 4, created 1794889941, md5len 0, sigclass 0x1f
+	digest algo 10, begin of digest 3e d4
+	critical hashed subpkt 2 len 4 (sig created 2026-11-17)
+	critical hashed subpkt 9 len 4 (key expires after 3y45d19h27m)
+	hashed subpkt 11 len 2 (pref-sym-algos: 9 7)
+	hashed subpkt 16 len 8 (issuer key ID BB39A337E9491EA8)
+	hashed subpkt 20 len 70 (notation: salt@notations.sequoia-pgp.org=[not human readable])
+	hashed subpkt 21 len 2 (pref-hash-algos: 10 8)
+	critical hashed subpkt 27 len 1 (key flags: 01)
+	hashed subpkt 30 len 1 (features: 09)
+	hashed subpkt 33 len 21 (issuer fpr v4 499E7BB57AE197A655F02ACBBB39A337E9491EA8)
+	data: [256 bits]
+	data: [255 bits]
+# off=302 ctb=cd tag=13 hlen=2 plen=20 new-ctb
+:user ID packet: "<direct@example.org>"
+# off=324 ctb=c2 tag=2 hlen=3 plen=209 new-ctb
+:signature packet: algo 22, keyid BB39A337E9491EA8
+	version 4, created 1794889941, md5len 0, sigclass 0x13
+	digest algo 10, begin of digest 42 16
+	critical hashed subpkt 2 len 4 (sig created 2026-11-17)
+	critical hashed subpkt 9 len 4 (key expires after 3y45d19h27m)
+	hashed subpkt 11 len 2 (pref-sym-algos: 9 7)
+	hashed subpkt 16 len 8 (issuer key ID BB39A337E9491EA8)
+	hashed subpkt 20 len 70 (notation: salt@notations.sequoia-pgp.org=[not human readable])
+	hashed subpkt 21 len 2 (pref-hash-algos: 10 8)
+	critical hashed subpkt 27 len 1 (key flags: 01)
+	hashed subpkt 30 len 1 (features: 09)
+	hashed subpkt 33 len 21 (issuer fpr v4 499E7BB57AE197A655F02ACBBB39A337E9491EA8)
+	data: [249 bits]
+	data: [254 bits]
+# off=536 ctb=cd tag=13 hlen=2 plen=14 new-ctb
+:user ID packet: "Fixture Direct"
+# off=552 ctb=c2 tag=2 hlen=3 plen=212 new-ctb
+:signature packet: algo 22, keyid BB39A337E9491EA8
+	version 4, created 1794889941, md5len 0, sigclass 0x13
+	digest algo 10, begin of digest 63 4f
+	critical hashed subpkt 2 len 4 (sig created 2026-11-17)
+	critical hashed subpkt 9 len 4 (key expires after 3y45d19h27m)
+	hashed subpkt 11 len 2 (pref-sym-algos: 9 7)
+	hashed subpkt 16 len 8 (issuer key ID BB39A337E9491EA8)
+	hashed subpkt 20 len 70 (notation: salt@notations.sequoia-pgp.org=[not human readable])
+	hashed subpkt 21 len 2 (pref-hash-algos: 10 8)
+	critical hashed subpkt 25 len 1 (primary user ID)
+	critical hashed subpkt 27 len 1 (key flags: 01)
+	hashed subpkt 30 len 1 (features: 09)
+	hashed subpkt 33 len 21 (issuer fpr v4 499E7BB57AE197A655F02ACBBB39A337E9491EA8)
+	data: [256 bits]
+	data: [255 bits]
+# off=767 ctb=c7 tag=7 hlen=2 plen=88 new-ctb
+:secret sub key packet:
+	version 4, algo 22, created 1794889941, expires 0
+	pkey[0]: [80 bits] ed25519 (1.3.6.1.4.1.11591.15.1)
+	pkey[1]: [263 bits]
+	skey[2]: [254 bits]
+	checksum: 10e5
+	keyid: CB70DEBEAB0C815F
+# off=857 ctb=c2 tag=2 hlen=3 plen=389 new-ctb
+:signature packet: algo 22, keyid BB39A337E9491EA8
+	version 4, created 1794889941, md5len 0, sigclass 0x18
+	digest algo 10, begin of digest 02 96
+	critical hashed subpkt 2 len 4 (sig created 2026-11-17)
+	critical hashed subpkt 9 len 4 (key expires after 3y45d19h27m)
+	hashed subpkt 16 len 8 (issuer key ID BB39A337E9491EA8)
+	hashed subpkt 20 len 70 (notation: salt@notations.sequoia-pgp.org=[not human readable])
+	critical hashed subpkt 27 len 1 (key flags: 02)
+	critical hashed subpkt 32 len 189 (signature: v4, class 0x19, algo 22, digest algo 10)
+	hashed subpkt 33 len 21 (issuer fpr v4 499E7BB57AE197A655F02ACBBB39A337E9491EA8)
+	data: [254 bits]
+	data: [256 bits]
+# off=1249 ctb=c7 tag=7 hlen=2 plen=88 new-ctb
+:secret sub key packet:
+	version 4, algo 22, created 1794889941, expires 0
+	pkey[0]: [80 bits] ed25519 (1.3.6.1.4.1.11591.15.1)
+	pkey[1]: [263 bits]
+	skey[2]: [254 bits]
+	checksum: 1100
+	keyid: 05BEA29B893D3E4B
+# off=1339 ctb=c2 tag=2 hlen=3 plen=389 new-ctb
+:signature packet: algo 22, keyid BB39A337E9491EA8
+	version 4, created 1794889941, md5len 0, sigclass 0x18
+	digest algo 10, begin of digest bf 49
+	critical hashed subpkt 2 len 4 (sig created 2026-11-17)
+	critical hashed subpkt 9 len 4 (key expires after 3y45d19h27m)
+	hashed subpkt 16 len 8 (issuer key ID BB39A337E9491EA8)
+	hashed subpkt 20 len 70 (notation: salt@notations.sequoia-pgp.org=[not human readable])
+	critical hashed subpkt 27 len 1 (key flags: 20)
+	critical hashed subpkt 32 len 189 (signature: v4, class 0x19, algo 22, digest algo 10)
+	hashed subpkt 33 len 21 (issuer fpr v4 499E7BB57AE197A655F02ACBBB39A337E9491EA8)
+	data: [256 bits]
+	data: [256 bits]
+# off=1731 ctb=c7 tag=7 hlen=2 plen=93 new-ctb
+:secret sub key packet:
+	version 4, algo 18, created 1794889941, expires 0
+	pkey[0]: [88 bits] cv25519 (1.3.6.1.4.1.3029.1.5.1)
+	pkey[1]: [263 bits]
+	pkey[2]: [32 bits]
+	skey[3]: [255 bits]
+	checksum: 112f
+	keyid: E2C3BEBB31A672C5
+# off=1826 ctb=c2 tag=2 hlen=3 plen=198 new-ctb
+:signature packet: algo 22, keyid BB39A337E9491EA8
+	version 4, created 1794889941, md5len 0, sigclass 0x18
+	digest algo 10, begin of digest 87 6c
+	critical hashed subpkt 2 len 4 (sig created 2026-11-17)
+	critical hashed subpkt 9 len 4 (key expires after 3y45d19h27m)
+	hashed subpkt 16 len 8 (issuer key ID BB39A337E9491EA8)
+	hashed subpkt 20 len 70 (notation: salt@notations.sequoia-pgp.org=[not human readable])
+	critical hashed subpkt 27 len 1 (key flags: 0C)
+	hashed subpkt 33 len 21 (issuer fpr v4 499E7BB57AE197A655F02ACBBB39A337E9491EA8)
+	data: [256 bits]
+	data: [256 bits]
+direct-key.secret.asc: Transferable Secret Key.
+
+      Fingerprint: 499E7BB57AE197A655F02ACBBB39A337E9491EA8
+  Public-key algo: EdDSA
+  Public-key size: 256 bits
+       Secret key: Unencrypted
+    Creation time: 2026-11-17 04:32:21 UTC
+  Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+        Key flags: certification
+
+           Subkey: 6965890E0136316E5CF3AAE7CB70DEBEAB0C815F
+  Public-key algo: EdDSA
+  Public-key size: 256 bits
+       Secret key: Unencrypted
+    Creation time: 2026-11-17 04:32:21 UTC
+  Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+        Key flags: signing
+
+           Subkey: 13721AD37272696C80D8483C05BEA29B893D3E4B
+  Public-key algo: EdDSA
+  Public-key size: 256 bits
+       Secret key: Unencrypted
+    Creation time: 2026-11-17 04:32:21 UTC
+  Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+        Key flags: authentication
+
+           Subkey: F09C2088360EA5C2CCBC1306E2C3BEBB31A672C5
+  Public-key algo: ECDH
+  Public-key size: 256 bits
+       Secret key: Unencrypted
+    Creation time: 2026-11-17 04:32:21 UTC
+  Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: <direct@example.org>
+
+           UserID: Fixture Direct
+

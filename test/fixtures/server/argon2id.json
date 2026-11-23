@@ -1,0 +1,37 @@
+{
+  "cases": [
+    {
+      "iterations": 2,
+      "master_key": "bfb24327dcd8d09f65850edc7e5198d1df53220d3b7453b5ce087316a2231177",
+      "memory_kib": 64,
+      "name": "small",
+      "parallelism": 1,
+      "password": "636f727265637420686f727365206261747465727920737461706c65",
+      "password_text": "correct horse battery staple",
+      "salt": "1b9f4c86e60b71d48cc763f1f674d426"
+    },
+    {
+      "iterations": 3,
+      "master_key": "97e852014abc1ed1359ee8d0f88a6ac364ac06822bf488b7d0ff35c5a314321d",
+      "memory_kib": 65536,
+      "name": "default-parameters",
+      "parallelism": 4,
+      "password": "636f727265637420686f727365206261747465727920737461706c65",
+      "password_text": "correct horse battery staple",
+      "salt": "f03e142262609bbd5f539fb569c0ca66"
+    },
+    {
+      "iterations": 2,
+      "master_key": "9fec51674c1feccc27e3962025b1ee5fdfe90f3624afd3f7b21e0ecab5fe9e07",
+      "memory_kib": 64,
+      "name": "nfc-password",
+      "parallelism": 1,
+      "password": "636166c3a920f09f9491",
+      "password_text": "café 🔑",
+      "salt": "aa6116725390b83f17cdea49dc82746e"
+    }
+  ],
+  "description": "master_key = Argon2id(password, salt, m = memory_kib, t = iterations, p = parallelism, L = 32), version 0x13. The password is the UTF-8 of its NFC form.",
+  "format": "argon2id",
+  "version": 1
+}

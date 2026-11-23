@@ -1,0 +1,68 @@
+sq 1.5.0
+using sequoia-openpgp 2.4.1
+with cryptographic backend OpenSSL 4.0.3
+== inspect
+/keys/pq-standard.public.asc: OpenPGP Certificate.
+
+      Fingerprint: FF6AD4614037C9429626A88CFEF7C1D404B63DC573EA051869CC3AC04F63AF3E
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 08:25:19 UTC
+        Key flags: certification, signing
+
+           Subkey: C8D4A88B3AEACF2DD362C6C271B558F76B8211063B8E6D6358992CD2E8487A18
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 08:25:19 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: Ada Lovelace <pq-standard@example.org>
+
+== lint
+Examined 1 certificate.
+  0 certificates are invalid and were not linted. (GOOD)
+  1 certificate was linted.
+  0 of the 1 certificates (0%) have at least one issue. (GOOD)
+0 of the linted certificates were revoked.
+0 of the linted certificates were expired.
+1 of the non-revoked linted certificate has at least one non-revoked User ID.
+  0 have at least one User ID protected by SHA-1. (GOOD)
+  0 have all User IDs protected by SHA-1. (GOOD)
+1 of the non-revoked linted certificates has at least one non-revoked, live subkey:
+  0 have at least one non-revoked, live subkey with a binding signature that uses SHA-1. (GOOD)
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey.
+== encrypt and decrypt
+Public-Key Encrypted Session Key Packet, new CTB, 1197 bytes
+    Version: 6
+    Pk algo: ML-KEM-768+X25519
+Sym. Encrypted and Integrity Protected Data Packet, new CTB, 106 bytes
+    Version: 2
+    Symmetric algo: AES-256
+    AEAD algo: OCB
+Decrypted by FF6AD4614037C9429626A88CFEF7C1D404B63DC573EA051869CC3AC04F63AF3E, Ada Lovelace <pq-standard@example.org> (UNAUTHENTICATED)
+Encrypted and protected using AES-256/OCB
+0 authenticated signatures.
+encrypt and decrypt: ok
+== sign and verify
+Authenticated signature made by FF6AD4614037C9429626A88CFEF7C1D404B63DC573EA051869CC3AC04F63AF3E (Ada Lovelace <pq-standard@example.org>)
+
+1 authenticated signature.
+sign and verify: ok
+PASS: sq read, checked and used the standard key
+== Kemlock's messages
+Decrypted by FF6AD4614037C9429626A88CFEF7C1D404B63DC573EA051869CC3AC04F63AF3E, Ada Lovelace <pq-standard@example.org> (UNAUTHENTICATED)
+Encrypted and protected using AES-256/OCB
+Authenticated signature made by FF6AD4614037C9429626A88CFEF7C1D404B63DC573EA051869CC3AC04F63AF3E (Ada Lovelace <pq-standard@example.org>)
+
+1 authenticated signature.
+to-standard.asc: decrypted
+Decrypted by FF6AD4614037C9429626A88CFEF7C1D404B63DC573EA051869CC3AC04F63AF3E, Ada Lovelace <pq-standard@example.org> (UNAUTHENTICATED)
+Encrypted using AES-256
+0 authenticated signatures.
+to-all.gpg: decrypted
+to-standard.asc: the signature inside is good
+Authenticated signature made by FF6AD4614037C9429626A88CFEF7C1D404B63DC573EA051869CC3AC04F63AF3E (Ada Lovelace <pq-standard@example.org>)
+
+1 authenticated signature.
+Authenticated signature made by FF6AD4614037C9429626A88CFEF7C1D404B63DC573EA051869CC3AC04F63AF3E (Ada Lovelace <pq-standard@example.org>)
+
+1 authenticated signature.
+PASS: sq opened and verified what Kemlock wrote

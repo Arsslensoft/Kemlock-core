@@ -1,0 +1,49 @@
+{
+  "about": "Login inbox files, written once by login_inbox_test.dart with the inbox key and the ephemeral key of passkeys.json (openspec: add-passwords, design decision 9). Never regenerate: Dart, Kotlin and Swift must each seal every record here to its file, byte for byte, and open it.",
+  "cases": [
+    {
+      "name": "a login saved on a website, its password generated",
+      "nonce": "000102030405060708090a0b",
+      "record": {
+        "kind": "login",
+        "id": "5f0c9a8e-3b7d-4c2a-9e1f-6a8b2c4d0e11",
+        "name": "larkspur.example",
+        "username": "ada@example.org",
+        "password": "Hw7e%Ns3Ry_bX5tK?pM8a",
+        "site": "larkspur.example",
+        "generated": true,
+        "at": 1795300000000
+      },
+      "file": "{\"v\":1,\"kind\":\"login\",\"epk\":\"BAM4SZC30WTyJsmwEUrkqzN/iDgi5g/zpj9AMN6qZVQsxSuWtReEza+eaVywxNVgVoBAseN0Sk6CrP1Dl2Y1NVE=\",\"nonce\":\"AAECAwQFBgcICQoL\",\"ct\":\"YHbJSI6SElgCugmH23p7L85lY6TcLFO/ZV9NK8sf2u4nv0PR3vQpPg6VURi84g+PKe3tTUH0/Q+BUCDHxuQRIFe3pWtlZziDdJHHEkC13FIX1tfpXdCHWUaMcM+Ekwb1W/UwNkzybc/R+WjMdI0vB4Q0J/lVgjRoNuGDr5W2xBhYJgPcOZexJ20qfYKd7JF0SRIRmMCiLB/2IvSZU2jFJumpsptVuEAUC1zEDn9y8l7qHQbQfQjlB4gLhTCO/Z+4JtX8Tyhqx2eg1F3xbbnFHVWv0pTonVSxDGqnT2FSoVFOe0xU\"}"
+    },
+    {
+      "name": "a login saved in an Android app",
+      "nonce": "0c0d0e0f1011121314151617",
+      "record": {
+        "kind": "login",
+        "id": "0b7e6d5c-4a39-4281-b7f6-e5d4c3b2a190",
+        "name": "Larkspur Mail",
+        "username": "ada",
+        "password": "one-two-three",
+        "app": {
+          "package": "example.larkspur.mail",
+          "cert": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08"
+        },
+        "generated": false,
+        "at": 1795300060000
+      },
+      "file": "{\"v\":1,\"kind\":\"login\",\"epk\":\"BAM4SZC30WTyJsmwEUrkqzN/iDgi5g/zpj9AMN6qZVQsxSuWtReEza+eaVywxNVgVoBAseN0Sk6CrP1Dl2Y1NVE=\",\"nonce\":\"DA0ODxAREhMUFRYX\",\"ct\":\"4T6rZq2tme4GNfYMW/eECO4tRi7brb2Yu1GS9sh2KjxVTj66pakqLVqilZU8qFfHsAWKRLnk6WTT8LGdssqYanaomJL0m0Kxj08x3IhV6cHv/x09Lwpg6cigJlJS350dxI3y1fZvChCIWyk4ANstU8GBj814DjcT45wQyP3B5+4ZTWQwy08bf3LP7/Tz8WaWI9It2ydOFYayVUUdefDUE+ZJ6474NrRdwli6pyttfxNNtsusrCmOiT+hsa9DxSZSVxB2VB8qCX91iMXG0BjLXNkauCf0quD+ggap4o+J3z6Y3nqVectd7yL8h2kqvTid5asWGdNITHtyZtqvpI+rXbKoF2B1NUNU7WqB0rANW36ulkkbPlAmy9mfatOGpmt/gahYSpXfcoc=\"}"
+    },
+    {
+      "name": "a generated password no save followed",
+      "nonce": "18191a1b1c1d1e1f20212223",
+      "record": {
+        "kind": "generated",
+        "password": "kT9#vq2L-wPz8!mR4x",
+        "site": "larkspur.example",
+        "at": 1795300120000
+      },
+      "file": "{\"v\":1,\"kind\":\"login\",\"epk\":\"BAM4SZC30WTyJsmwEUrkqzN/iDgi5g/zpj9AMN6qZVQsxSuWtReEza+eaVywxNVgVoBAseN0Sk6CrP1Dl2Y1NVE=\",\"nonce\":\"GBkaGxwdHh8gISIj\",\"ct\":\"kAEGbj8pk4zXrOmcg+NQUiLsKIWxpmcCeYGuutcp74Ab98DmJQbkznNUGvIR+h4zmRzGwlPro+08QdmxK6Vr8eNJd9FvKNePAbH8yPppMcRxpSnmMDjnAHIzx8aO7xZaYnqXZgU/iZKhBxnnF5UUJvE=\"}"
+    }
+  ]
+}

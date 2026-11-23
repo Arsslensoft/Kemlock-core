@@ -1,0 +1,41 @@
+{
+  "cases": [
+    {
+      "aad": "6b656d6c6f636b2f76312f6974656d3c9d34fa589c5b3bc6e9d4ee23ace1320000000000000004000000056c6f67696e01a15cda2b4e6eba0399e10b58b4e870c2",
+      "ciphertext": "3fe16a18fc0a404243af753efba3cb4734da196f195290200b681d423c3b27f75301a4dccb37e589b6063708c6e82354639ea40a116d02df5ab54596809cb62af7d9d95782e3aab7788418ca754b8d1b46ce45688026e2ad3ec1e9b1cc28eeb2478683c33fa967654222da297300641c873b7d0d53",
+      "item_id": "3c9d34fa589c5b3bc6e9d4ee23ace132",
+      "item_json": "{\"name\":\"Example\",\"username\":\"alice\",\"password\":\"hunter2\",\"urls\":[\"https://example.com\"]}",
+      "item_key": "a9e8c9c083c59f344d575378036a1f6d2695bf58a1101b9f84c603c77fd394a3",
+      "key_version": 1,
+      "kind": "login",
+      "name": "login-in-a-vault",
+      "owner": "01a15cda2b4e6eba0399e10b58b4e870c2",
+      "revision": 4,
+      "root_key": "b37b00b4af03b94d81bb7b0c2f1468a6d6e97123898d25b3be7127ee444f29e04a7238cb5bde5122ad4d9d648343afb446718949cd2546db313c1e21ba27165a",
+      "user_key": "79f9fde37aa9f37b6c991811b6cb24b78ddde3426f237715768c06fcf4d7023c",
+      "wrap_aad": "6b656d6c6f636b2f76312f6974656d2d6b65793c9d34fa589c5b3bc6e9d4ee23ace13201a15cda2b4e6eba0399e10b58b4e870c200000001",
+      "wrap_key": "0d068dfae87d83b0074cedf8e6ebae5aefe477e44823ba6acb42c4376e971a03",
+      "wrapped_item_key": "13cd8431cdacf6718364b87a8fcf6f1dd5a70eda4aa6e9bacf9acd1f045273a18e4ecfbace926de2d9ddf59e4cba789582bf1a4e4ffbcad0af236779"
+    },
+    {
+      "aad": "6b656d6c6f636b2f76312f6974656da8a1dde003fde9b5b99373e81df0315f0000000000000004000000046e6f7465027c9816a33e49c7d3ec4ef24a80ad0f64",
+      "ciphertext": "387a717bf13dead777f843fad7cb5978b154716f67573eb21a13ec3b22b420dcc01cd0eab17621d13fbb81de5d98d2bd9caf7dfccee3a7b30ca8ebf10ae11b35e1ffccd82208d811b4554582a28e3b8c",
+      "item_id": "a8a1dde003fde9b5b99373e81df0315f",
+      "item_json": "{\"name\":\"Résumé\",\"text\":\"line one\\nline two 🔑\"}",
+      "item_key": "5aae929b6df3c18523ba70ef7e1acc44438a4874942d202d0437e56ae45d157d",
+      "key_version": 1,
+      "kind": "note",
+      "name": "note-in-a-space",
+      "owner": "027c9816a33e49c7d3ec4ef24a80ad0f64",
+      "revision": 4,
+      "root_key": "f9dfa8578fcf8d22fa89acd0548f4c1afee3e5b8e34146fbd5c5c84b0fc8c5c59a3e1780c8d4be3324b4f9e63dd1c733a26f429b14d79f0dfd61d56142fb7f2d",
+      "user_key": "1651188d06d0c48bcad56e4c5ab076fb67dd71705d0a6ea3e825b5cc58759b61",
+      "wrap_aad": "6b656d6c6f636b2f76312f6974656d2d6b6579a8a1dde003fde9b5b99373e81df0315f027c9816a33e49c7d3ec4ef24a80ad0f6400000001",
+      "wrap_key": "73065323bf422de75f9c7b4ce5202b9c5628c3ecf5603e64fe165ee537096919",
+      "wrapped_item_key": "ef74e911c977c898176068fb924036666e25c9249a35852b65f3de8cf969a130ca0482ccb2b7fc12e5c38951c6525a6a1761c3c6e4d21ff23408c93c"
+    }
+  ],
+  "description": "aad = \"kemlock/v1/item\" || item_id || u64be(revision) || lp(kind) || owner; ciphertext = nonce(12) || AES-256-GCM(item_key, nonce, item_json UTF-8, aad) with the 16-byte tag at the end; wrap_aad = \"kemlock/v1/item-key\" || item_id || owner || u32be(key_version); wrapped_item_key = nonce(12) || AES-256-GCM(wrap_key, nonce, item_key, wrap_aad) with the tag at the end; wrap_key is the user key's \"kemlock/v1/item-wrap\" child.",
+  "format": "kem1",
+  "version": 1
+}

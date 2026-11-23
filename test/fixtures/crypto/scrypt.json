@@ -1,0 +1,47 @@
+[
+  {
+    "password": "x",
+    "salt": "7c9f2d94ca89792dec6f01ec9307d10d",
+    "N": 2,
+    "r": 1,
+    "p": 1,
+    "dkLen": 1,
+    "output": "9f"
+  },
+  {
+    "password": "password",
+    "salt": "cd90cbbad1cd77ddf973d7550c1b70e72d41a8cf9f79e7d12436989c7ed653e8",
+    "N": 16,
+    "r": 1,
+    "p": 1,
+    "dkLen": 64,
+    "output": "49ec76b8e2c6672b2cede66d396b77425b2c05d9e280a045b372cba278c941c74a25de089fc8b31505d3752a934478de71d4172619a75db4aac7c02ac23d371b"
+  },
+  {
+    "password": "odd r and p",
+    "salt": "49a07c45c140d11dd98b5b9c533dfbca58ab3de1ce361e88b530b930fea45e99",
+    "N": 64,
+    "r": 3,
+    "p": 2,
+    "dkLen": 100,
+    "output": "cdb14152f493f47545765fe5f1e9fafac71192c01b7053325872fec30fa0165eceb3dff7e92facb5c70785f84d3da93aa1ff70fef7ef9632f16b0e1826caedcf4848c8f226ce88a04e6e47563218ca9f54259b633fe1dba2929f6b6b35fbd62814235b97"
+  },
+  {
+    "password": "hunter2",
+    "salt": "30e374df7d6d4ce03699091c22671a92915d652ee9ef255a6c1767bb38fa823c",
+    "N": 1024,
+    "r": 8,
+    "p": 1,
+    "dkLen": 32,
+    "output": "a961099ff30844bed111d0250b7e9f333dd3ede5057492ff2ef4fd1b0beba243"
+  },
+  {
+    "password": "Ünïcødé pässwörd 密码 🔑",
+    "salt": "fee8206132c74f37009be9912d3ef876b2712079a5be7d7cf4b2e12aeb514996",
+    "N": 131072,
+    "r": 8,
+    "p": 1,
+    "dkLen": 32,
+    "output": "407cf1a65c2f88bcb2d8d9331c6253dab6419abe8dce9ee02e6a69606cb4e61c"
+  }
+]

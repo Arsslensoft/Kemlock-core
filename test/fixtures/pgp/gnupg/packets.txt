@@ -1,0 +1,335 @@
+== aes128.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== aes192.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== bzip2.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=3
+  :literal data packet:
+== cast5.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== chunks.ocb.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :aead encrypted packet: cipher=9 aead=2 cb=10
+  :literal data packet:
+== default-to-ed25519.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== hidden.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 0000000000000000
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== inline-signed.gpg
+  :compressed packet: algo=1
+  :onepass_sig packet: keyid 77249ABE661CF8DB
+  	version 3, sigclass 0x00, digest 10, pubkey 22, last=1
+  :literal data packet:
+  :signature packet: algo 22, keyid 77249ABE661CF8DB
+  	version 4, created 1794880953, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 20 16
+== large.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :literal data packet:
+== no-mdc.gpg
+  :symkey enc packet: version 4, cipher 7, aead 0, s2k 3, hash 2
+  	salt EEBB78FD1A05CA41, count 22020096 (229)
+  :encrypted data packet:
+== signed-bzip2.ocb.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :aead encrypted packet: cipher=9 aead=2 cb=16
+  :compressed packet: algo=3
+  :onepass_sig packet: keyid 5D49D28C8EFC2F98
+  	version 3, sigclass 0x00, digest 10, pubkey 1, last=1
+  :literal data packet:
+  :signature packet: algo 1, keyid 5D49D28C8EFC2F98
+  	version 4, created 1794880952, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 9b 53
+== signed-encrypted-rsa.gpg
+  :pubkey enc packet: version 3, algo 1, keyid B8A3CCC781F74F29
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :onepass_sig packet: keyid 5D49D28C8EFC2F98
+  	version 3, sigclass 0x00, digest 10, pubkey 1, last=1
+  :literal data packet:
+  :signature packet: algo 1, keyid 5D49D28C8EFC2F98
+  	version 4, created 1794880953, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest f8 b8
+== signed-encrypted.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :onepass_sig packet: keyid 77249ABE661CF8DB
+  	version 3, sigclass 0x00, digest 10, pubkey 22, last=1
+  :literal data packet:
+  :signature packet: algo 22, keyid 77249ABE661CF8DB
+  	version 4, created 1794880953, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 20 16
+== sym-aes128.gpg
+  :symkey enc packet: version 4, cipher 7, aead 0, s2k 3, hash 2
+  	salt EEBB78FD1A05CA41, count 22020096 (229)
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-and-key.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :symkey enc packet: version 4, cipher 9, aead 0, s2k 3, hash 2, seskey 256 bits
+  	salt F9A4F3C7AB04193C, count 22020096 (229)
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== sym-cast5.gpg
+  :symkey enc packet: version 4, cipher 3, aead 0, s2k 3, hash 2
+  	salt AE9E7CD7279D59AB, count 22020096 (229)
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-default.gpg
+  :symkey enc packet: version 4, cipher 9, aead 0, s2k 3, hash 10
+  	salt 38D1437B3BBC1BBB, count 22020096 (229)
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-ocb.gpg
+  :symkey enc packet: version 5, cipher 9, aead 2, s2k 3, hash 10, encrypted seskey 63 bytes
+  	salt EB92C17F453CFCC2, count 22020096 (229)
+  :aead encrypted packet: cipher=9 aead=2 cb=16
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-s2k0.gpg
+  :symkey enc packet: version 4, cipher 9, aead 0, s2k 0, hash 2
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-s2k1.gpg
+  :symkey enc packet: version 4, cipher 9, aead 0, s2k 1, hash 2
+  	salt D2670DADA5C31BE2
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-s2k3-SHA1.gpg
+  :symkey enc packet: version 4, cipher 9, aead 0, s2k 3, hash 2
+  	salt BBC62D7DA5329927, count 22020096 (229)
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-s2k3-SHA224.gpg
+  :symkey enc packet: version 4, cipher 9, aead 0, s2k 3, hash 11
+  	salt 2D05E3A33C4D653B, count 22020096 (229)
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-s2k3-SHA256.gpg
+  :symkey enc packet: version 4, cipher 9, aead 0, s2k 3, hash 8
+  	salt D351BD1BDDFDB530, count 22020096 (229)
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-s2k3-SHA384.gpg
+  :symkey enc packet: version 4, cipher 9, aead 0, s2k 3, hash 9
+  	salt 1C7F793F28B72466, count 22020096 (229)
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== sym-s2k3-SHA512.gpg
+  :symkey enc packet: version 4, cipher 9, aead 0, s2k 3, hash 10
+  	salt 0C4303E442E6D945, count 22020096 (229)
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== to-ed25519.ocb.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :aead encrypted packet: cipher=9 aead=2 cb=16
+  :compressed packet: algo=2
+  :literal data packet:
+== to-ed25519.seipd.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== to-kemlock-ed25519.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 0D76404F1C786EC7
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== to-kemlock-rsa4096.gpg
+  :pubkey enc packet: version 3, algo 1, keyid DF7DE80526301D73
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== to-nistp256.gpg
+  :pubkey enc packet: version 3, algo 18, keyid C687393C98016431
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== to-protected-ed25519.gpg
+  :pubkey enc packet: version 3, algo 18, keyid E12DD2D2A5D8334C
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== to-protected-rsa3072.gpg
+  :pubkey enc packet: version 3, algo 1, keyid A0166FA099F1F980
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== to-rsa1024.gpg
+  :pubkey enc packet: version 3, algo 1, keyid C476C9EF5B24840E
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== to-rsa3072.ocb.gpg
+  :pubkey enc packet: version 3, algo 1, keyid B8A3CCC781F74F29
+  :aead encrypted packet: cipher=9 aead=2 cb=16
+  :compressed packet: algo=2
+  :literal data packet:
+== to-rsa3072.seipd.gpg
+  :pubkey enc packet: version 3, algo 1, keyid B8A3CCC781F74F29
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== to-signing-subkey.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 63406A57790C581C
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== to-two.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :pubkey enc packet: version 3, algo 1, keyid B8A3CCC781F74F29
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== two-signers-encrypted.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :onepass_sig packet: keyid 5D49D28C8EFC2F98
+  	version 3, sigclass 0x00, digest 10, pubkey 1, last=0
+  :onepass_sig packet: keyid 77249ABE661CF8DB
+  	version 3, sigclass 0x00, digest 10, pubkey 22, last=1
+  :literal data packet:
+  :signature packet: algo 22, keyid 77249ABE661CF8DB
+  	version 4, created 1794880953, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 20 16
+  :signature packet: algo 1, keyid 5D49D28C8EFC2F98
+  	version 4, created 1794880953, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest f8 b8
+== two-signers.gpg
+  :compressed packet: algo=1
+  :onepass_sig packet: keyid 5D49D28C8EFC2F98
+  	version 3, sigclass 0x00, digest 10, pubkey 1, last=0
+  :onepass_sig packet: keyid 77249ABE661CF8DB
+  	version 3, sigclass 0x00, digest 10, pubkey 22, last=1
+  :literal data packet:
+  :signature packet: algo 22, keyid 77249ABE661CF8DB
+  	version 4, created 1794880953, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 20 16
+  :signature packet: algo 1, keyid 5D49D28C8EFC2F98
+  	version 4, created 1794880953, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest f8 b8
+== uncompressed.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :literal data packet:
+== zip.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=1
+  :literal data packet:
+== zlib.gpg
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== armored-headers.asc
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== armored.asc
+  :pubkey enc packet: version 3, algo 18, keyid 841A40E3B199EA67
+  :encrypted data packet:
+  :compressed packet: algo=2
+  :literal data packet:
+== clearsigned-rsa.asc
+  :packet 63: length 19 - gpg control packet# off=21 ctb=cb tag=11 hlen=2 plen=0 partial new-ctb
+  :literal data packet:
+== clearsigned.asc
+  :packet 63: length 19 - gpg control packet# off=21 ctb=cb tag=11 hlen=2 plen=0 partial new-ctb
+  :literal data packet:
+== inline-signed.asc
+  :compressed packet: algo=1
+  :onepass_sig packet: keyid 77249ABE661CF8DB
+  	version 3, sigclass 0x00, digest 10, pubkey 22, last=1
+  :literal data packet:
+  :signature packet: algo 22, keyid 77249ABE661CF8DB
+  	version 4, created 1794880953, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 20 16
+== message.txt.ed25519-protected.asc
+  :signature packet: algo 22, keyid 3FCD57EBA0308CA9
+  	version 4, created 1794880958, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 2c 46
+== message.txt.ed25519.asc
+  :signature packet: algo 22, keyid 77249ABE661CF8DB
+  	version 4, created 1794880957, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest fe d0
+== message.txt.rsa3072-protected.asc
+  :signature packet: algo 1, keyid 6D181E7A2C932FEA
+  	version 4, created 1794880959, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 54 3d
+== message.txt.rsa3072.asc
+  :signature packet: algo 1, keyid 5D49D28C8EFC2F98
+  	version 4, created 1794880957, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 41 cf
+== message.txt.ed25519-protected.sig
+  :signature packet: algo 22, keyid 3FCD57EBA0308CA9
+  	version 4, created 1794880957, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest a1 07
+== message.txt.ed25519.sig
+  :signature packet: algo 22, keyid 77249ABE661CF8DB
+  	version 4, created 1794880957, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest fe d0
+== message.txt.nistp256.sig
+  :signature packet: algo 19, keyid 76A2714FAD13F199
+  	version 4, created 1794880959, md5len 0, sigclass 0x00
+  	digest algo 8, begin of digest fc 5a
+== message.txt.rsa1024.sig
+  :signature packet: algo 1, keyid 072C81B8334FE703
+  	version 4, created 1794880959, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 1d 56
+== message.txt.rsa3072-protected.sig
+  :signature packet: algo 1, keyid 6D181E7A2C932FEA
+  	version 4, created 1794880958, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 7f 02
+== message.txt.rsa3072.sig
+  :signature packet: algo 1, keyid 5D49D28C8EFC2F98
+  	version 4, created 1794880957, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 41 cf
+== message.txt.sha1.sig
+  :signature packet: algo 1, keyid 5D49D28C8EFC2F98
+  	version 4, created 1794880959, md5len 0, sigclass 0x00
+  	digest algo 2, begin of digest 8e ea
+== message.txt.signing-subkey.sig
+  :signature packet: algo 22, keyid 93C4BFC0EC95DCC6
+  	version 4, created 1794880959, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 2d ed
+== message.txt.text.sig
+  :signature packet: algo 22, keyid 77249ABE661CF8DB
+  	version 4, created 1794880959, md5len 0, sigclass 0x01
+  	digest algo 10, begin of digest 9e 35
+== report.txt.sig
+  :signature packet: algo 22, keyid 77249ABE661CF8DB
+  	version 4, created 1794880959, md5len 0, sigclass 0x00
+  	digest algo 10, begin of digest 7c 9b

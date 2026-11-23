@@ -1,0 +1,67 @@
+{
+  "cases": [
+    {
+      "children": [
+        {
+          "key": "2c3a96e67b747acacdd5f3f42eb1ba5ede2fa7e9bf2f385dbc2a9b3113e9d265",
+          "label": "kemlock/v1/item-wrap"
+        },
+        {
+          "key": "ba76ccb31885ed56cc5485920a2d3baeb660c1bfbade23a4c75b90c7ca1fa631",
+          "label": "kemlock/v1/private-keys"
+        },
+        {
+          "key": "be1e16f6f352521ed331b32d5d874621f9895334482f9899d68a0792f55b01bb",
+          "label": "kemlock/v1/manifest"
+        }
+      ],
+      "name": "zero-root",
+      "root_key": "00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "user_key": "a9b6d4e60e6505c89fc9a4b21c3966a11bd3db803e62e8e3cda2694123013506",
+      "user_label": "kemlock/v1/user"
+    },
+    {
+      "children": [
+        {
+          "key": "699777bc57bbf3c64ed4c635edd50f6ab8da6b14b8d5a0415d29628319457345",
+          "label": "kemlock/v1/item-wrap"
+        },
+        {
+          "key": "ffc09f1420dd15e1f7f82e2a0e8d865e96ec6a85f98d4d163ecc615dd6cfcbe9",
+          "label": "kemlock/v1/private-keys"
+        },
+        {
+          "key": "35d5fab84b80b6c143fed60691849a5185def22d50c6e6eead1dce4ff9c0e94a",
+          "label": "kemlock/v1/manifest"
+        }
+      ],
+      "name": "counting-root",
+      "root_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f",
+      "user_key": "cf4416dfad7dbb444dc19a13698ec1a1f35e28d705deeb6039d04f094783fe00",
+      "user_label": "kemlock/v1/user"
+    },
+    {
+      "children": [
+        {
+          "key": "8448a3781867b5fa407f2aa0ab6c3a2c112d339c9e8ae763303fbd2e65d0919a",
+          "label": "kemlock/v1/item-wrap"
+        },
+        {
+          "key": "684470c7e78a28fff2df41d32197385898a7dec83365338655cb5ca936196868",
+          "label": "kemlock/v1/private-keys"
+        },
+        {
+          "key": "dfd8cb358c28ea60e104d4b0af80e936017fc234b675cea8d5e133e90e2fd32f",
+          "label": "kemlock/v1/manifest"
+        }
+      ],
+      "name": "random-root",
+      "root_key": "7ad0101ec23c428fc8534da808a6ed7fc18c2337c035c2003b3d4afc6c8ce27548d3d1a97874d8251089d578b73b4c359627e900ae931be47f0fb7036ba6c5b7",
+      "user_key": "294ce82aecd4e600205a191bd8db0d02fcd607fbe4f55d187a8b3e6d30297c4a",
+      "user_label": "kemlock/v1/user"
+    }
+  ],
+  "description": "The root key (64 bytes), the Kemlock user key HKDF-SHA256(ikm = root, salt = absent, info = user_label, L = 32), and the labelled child keys HKDF-SHA256(ikm = user key, salt = absent, info = label, L = 32).",
+  "format": "account-keys",
+  "version": 1
+}

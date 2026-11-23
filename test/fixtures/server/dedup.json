@@ -1,0 +1,205 @@
+{
+  "cases": [
+    {
+      "dedup_key": "08fdc4134f6ec18af6122caa934b8e7b883ada4df550494fced375499df2608e",
+      "key_version": 1,
+      "name": "user-vault-key-version-1",
+      "owner": "019c8e8eb1afb0f9b325020c136d40d6b5",
+      "owner_key": "babb662b2d01e74d9e0e68e0d31e655a4d7d6af8e0da7bbe64a473c558ff3ce7",
+      "tags": [
+        {
+          "canonical_input": "[\"cred\",\"example.com\",\"alice\",\"hunter2\"]",
+          "canonical_input_hex": "5b2263726564222c226578616d706c652e636f6d222c22616c696365222c2268756e74657232225d",
+          "name": "cred",
+          "tag": "d8d4e9bbc6ec9e8862e1c7379c33d0f5ee2683b550444441153e2096eaa8caaf",
+          "values": [
+            "example.com",
+            "alice",
+            "hunter2"
+          ]
+        },
+        {
+          "canonical_input": "[\"account\",\"example.com\",\"alice\"]",
+          "canonical_input_hex": "5b226163636f756e74222c226578616d706c652e636f6d222c22616c696365225d",
+          "name": "account",
+          "tag": "978d8dcd4ad236051d3e70e62c7f40e3624db7ae5288d3816cc9dac5a786b90e",
+          "values": [
+            "example.com",
+            "alice"
+          ]
+        },
+        {
+          "canonical_input": "[\"secret\",\"JBSWY3DPEHPK3PXP\"]",
+          "canonical_input_hex": "5b22736563726574222c224a425357593344504548504b33505850225d",
+          "name": "secret",
+          "tag": "b68ea2c9e7ac5515c261be370fe0f5e9df750166cba0b2ea19a42103dbb3e935",
+          "values": [
+            "JBSWY3DPEHPK3PXP"
+          ]
+        },
+        {
+          "canonical_input": "[\"passkey\",\"example.com\",\"dGVzdC1jcmVkZW50aWFs\"]",
+          "canonical_input_hex": "5b22706173736b6579222c226578616d706c652e636f6d222c226447567a6443316a636d566b5a57353061574673225d",
+          "name": "passkey",
+          "tag": "d63e04ce7acc207aae8b70bdbc3657548ae2dd63c85cbd7a941e044aac516d61",
+          "values": [
+            "example.com",
+            "dGVzdC1jcmVkZW50aWFs"
+          ]
+        },
+        {
+          "canonical_input": "[\"card\",\"4111111111111111\",\"2030-12\"]",
+          "canonical_input_hex": "5b2263617264222c2234313131313131313131313131313131222c22323033302d3132225d",
+          "name": "card",
+          "tag": "c13003e88c1393c2c3d5835597a39cd8a54e3fc6f9ffaa0f8fdf0286bc59272b",
+          "values": [
+            "4111111111111111",
+            "2030-12"
+          ]
+        },
+        {
+          "canonical_input": "[\"note\",\"line one\\nline two\"]",
+          "canonical_input_hex": "5b226e6f7465222c226c696e65206f6e655c6e6c696e652074776f225d",
+          "name": "note",
+          "tag": "271994120d9a56de8d23e4ff7be2883f6143aa1f5ae46b4cac39957d00b17c67",
+          "values": [
+            "line one\nline two"
+          ]
+        },
+        {
+          "canonical_input": "[\"key\",\"SHA256:abcdef\"]",
+          "canonical_input_hex": "5b226b6579222c225348413235363a616263646566225d",
+          "name": "key",
+          "tag": "23dba8ef37b4592a70a4cc03c6cbe00c14200ee718d9dcd10cd59d4e0b8253cb",
+          "values": [
+            "SHA256:abcdef"
+          ]
+        },
+        {
+          "canonical_input": "[\"codes\",\"11111111\",\"22222222\",\"33333333\"]",
+          "canonical_input_hex": "5b22636f646573222c223131313131313131222c223232323232323232222c223333333333333333225d",
+          "name": "codes",
+          "tag": "1980072e153e9614a9fd02b6d479453c231f990df3499657e7cfd57e205259dc",
+          "values": [
+            "11111111",
+            "22222222",
+            "33333333"
+          ]
+        },
+        {
+          "canonical_input": "[\"cred\",\"ex\\\"ample\\\\.com\",\"\\u0001\\t\\u001f\",\"café 😀 a/b  \"]",
+          "canonical_input_hex": "5b2263726564222c2265785c22616d706c655c5c2e636f6d222c225c75303030315c745c7530303166222c22636166c3a920f09f988020612f6220e280a8225d",
+          "name": "cred",
+          "tag": "bcddce9294abe9a920dea7f069824a530f44c5cc02667140e6e9955bceedeb9d",
+          "values": [
+            "ex\"ample\\.com",
+            "\u0001\t\u001f",
+            "café 😀 a/b  "
+          ]
+        }
+      ]
+    },
+    {
+      "dedup_key": "a35724b7c180fa242e9ce927548d21cdcb1aeb6838c4ea20a341dc1ab1a4484c",
+      "key_version": 2,
+      "name": "space-key-version-2",
+      "owner": "0222d389816942a11f72449f7a893e9a78",
+      "owner_key": "892931c96d475c84703db86f32c5e6387573f6ce5d06d112439eb7e630597207",
+      "tags": [
+        {
+          "canonical_input": "[\"cred\",\"example.com\",\"alice\",\"hunter2\"]",
+          "canonical_input_hex": "5b2263726564222c226578616d706c652e636f6d222c22616c696365222c2268756e74657232225d",
+          "name": "cred",
+          "tag": "34a70ee21075cd384cc7f1322ba6d9113daf5cae4ec3bb55d399b5e9375c510e",
+          "values": [
+            "example.com",
+            "alice",
+            "hunter2"
+          ]
+        },
+        {
+          "canonical_input": "[\"account\",\"example.com\",\"alice\"]",
+          "canonical_input_hex": "5b226163636f756e74222c226578616d706c652e636f6d222c22616c696365225d",
+          "name": "account",
+          "tag": "f45fba993cf7c9fe92d92c0f595b099c5eeb8734efb3426704eeb0bf15cc1425",
+          "values": [
+            "example.com",
+            "alice"
+          ]
+        },
+        {
+          "canonical_input": "[\"secret\",\"JBSWY3DPEHPK3PXP\"]",
+          "canonical_input_hex": "5b22736563726574222c224a425357593344504548504b33505850225d",
+          "name": "secret",
+          "tag": "0ed6efca9e3edbb20bbfd92b7447466a389f65353678c550c33e21b581b65597",
+          "values": [
+            "JBSWY3DPEHPK3PXP"
+          ]
+        },
+        {
+          "canonical_input": "[\"passkey\",\"example.com\",\"dGVzdC1jcmVkZW50aWFs\"]",
+          "canonical_input_hex": "5b22706173736b6579222c226578616d706c652e636f6d222c226447567a6443316a636d566b5a57353061574673225d",
+          "name": "passkey",
+          "tag": "63b14c636aeebb3aec034b5a39f81b941f91c8ad93399722e8bdbb6bab2a952c",
+          "values": [
+            "example.com",
+            "dGVzdC1jcmVkZW50aWFs"
+          ]
+        },
+        {
+          "canonical_input": "[\"card\",\"4111111111111111\",\"2030-12\"]",
+          "canonical_input_hex": "5b2263617264222c2234313131313131313131313131313131222c22323033302d3132225d",
+          "name": "card",
+          "tag": "72d4625762dbd6fdcd6792a851144aa1226ffe1b2d95ffb9ed38ec196e707c86",
+          "values": [
+            "4111111111111111",
+            "2030-12"
+          ]
+        },
+        {
+          "canonical_input": "[\"note\",\"line one\\nline two\"]",
+          "canonical_input_hex": "5b226e6f7465222c226c696e65206f6e655c6e6c696e652074776f225d",
+          "name": "note",
+          "tag": "40a9e76375cf264751970d4ad69603edadd3cd76077237f42479aa56ad8f0369",
+          "values": [
+            "line one\nline two"
+          ]
+        },
+        {
+          "canonical_input": "[\"key\",\"SHA256:abcdef\"]",
+          "canonical_input_hex": "5b226b6579222c225348413235363a616263646566225d",
+          "name": "key",
+          "tag": "791c67c38256d677cd24f0285b68a27e705863d3108eb4937046a33a3c8488e6",
+          "values": [
+            "SHA256:abcdef"
+          ]
+        },
+        {
+          "canonical_input": "[\"codes\",\"11111111\",\"22222222\",\"33333333\"]",
+          "canonical_input_hex": "5b22636f646573222c223131313131313131222c223232323232323232222c223333333333333333225d",
+          "name": "codes",
+          "tag": "8d45a0023c6d015ec3082a968a0f814a642f7c2b68b1f1793605408b2d39b069",
+          "values": [
+            "11111111",
+            "22222222",
+            "33333333"
+          ]
+        },
+        {
+          "canonical_input": "[\"cred\",\"ex\\\"ample\\\\.com\",\"\\u0001\\t\\u001f\",\"café 😀 a/b  \"]",
+          "canonical_input_hex": "5b2263726564222c2265785c22616d706c655c5c2e636f6d222c225c75303030315c745c7530303166222c22636166c3a920f09f988020612f6220e280a8225d",
+          "name": "cred",
+          "tag": "c4f44468b105c8175104b7ed9c68c226a23bc00eecbf6de0a7c20d9c48677366",
+          "values": [
+            "ex\"ample\\.com",
+            "\u0001\t\u001f",
+            "café 😀 a/b  "
+          ]
+        }
+      ]
+    }
+  ],
+  "description": "dedup_key = HKDF-SHA256(ikm = owner_key, salt = absent, info = \"kemlock dedup v1\" || owner || u32be(key_version), L = 32); tag = HMAC-SHA256(dedup_key, canonical_input), where canonical_input is the JSON array [name, value, ...] as RFC 8785 text without whitespace. Values are taken as already normalised.",
+  "format": "dedup",
+  "version": 1
+}

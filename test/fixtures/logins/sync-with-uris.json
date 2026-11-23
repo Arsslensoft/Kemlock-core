@@ -1,0 +1,79 @@
+{
+  "about": "Written by hand for the add-cards-identities-and-websites plan (task 5.3), to match what the code writes, and never regenerated. It is unverified until the single build-and-test pass after merging. A login and an account whose websites use every rule, as this version writes them (written), and the same entries after a phone on the previous version renamed them (olderWritesBack): it knows no rules, keeps uris in its extra keys, and writes them back after the keys it knows.",
+  "login": {
+    "written": {
+      "id": "7c1e9a3b-5d2f-4b8a-a4c6-0e3f1d9b2a58",
+      "name": "Rules everywhere",
+      "username": "ada",
+      "password": "hunter2",
+      "websites": ["example.co", "accounts.larkspur.example", "example-co.okta.com", "intranet.example.co"],
+      "uris": [
+        {"uri": "example.co"},
+        {"uri": "accounts.larkspur.example", "match": 0},
+        {"uri": "example-co.okta.com", "match": 1},
+        {"uri": "https://intranet.example.co/login", "match": 2},
+        {"uri": "https://intranet.example.co/home", "match": 3},
+        {"uri": "^https://([a-z]+\\.)?example\\.co/", "match": 4},
+        {"uri": "wiki.example.co", "match": 5},
+        {"uri": "later.example", "match": 9}
+      ],
+      "addedAt": 1795300000000
+    },
+    "olderWritesBack": {
+      "id": "7c1e9a3b-5d2f-4b8a-a4c6-0e3f1d9b2a58",
+      "name": "Renamed by an older phone",
+      "username": "ada",
+      "password": "hunter2",
+      "websites": ["example.co", "accounts.larkspur.example", "example-co.okta.com", "intranet.example.co"],
+      "addedAt": 1795300000000,
+      "updatedAt": 1795300060000,
+      "uris": [
+        {"uri": "example.co"},
+        {"uri": "accounts.larkspur.example", "match": 0},
+        {"uri": "example-co.okta.com", "match": 1},
+        {"uri": "https://intranet.example.co/login", "match": 2},
+        {"uri": "https://intranet.example.co/home", "match": 3},
+        {"uri": "^https://([a-z]+\\.)?example\\.co/", "match": 4},
+        {"uri": "wiki.example.co", "match": 5},
+        {"uri": "later.example", "match": 9}
+      ]
+    }
+  },
+  "account": {
+    "written": {
+      "id": "9b2d4f6a-8c0e-4a1b-b3d5-7f9e1c3a5b20",
+      "issuer": "Example Co",
+      "label": "ada",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "addedAt": 1795300000000,
+      "websites": ["github.example.org", "example.co"],
+      "uris": [
+        {"uri": "github.example.org", "match": 1},
+        {"uri": "example.co"},
+        {"uri": "^https://admin\\.example\\.co/", "match": 4},
+        {"uri": "old.example.co", "match": 5}
+      ]
+    },
+    "olderWritesBack": {
+      "id": "9b2d4f6a-8c0e-4a1b-b3d5-7f9e1c3a5b20",
+      "issuer": "Example Co SSO",
+      "label": "ada",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "addedAt": 1795300000000,
+      "updatedAt": 1795300060000,
+      "websites": ["github.example.org", "example.co"],
+      "uris": [
+        {"uri": "github.example.org", "match": 1},
+        {"uri": "example.co"},
+        {"uri": "^https://admin\\.example\\.co/", "match": 4},
+        {"uri": "old.example.co", "match": 5}
+      ]
+    }
+  }
+}

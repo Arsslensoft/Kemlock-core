@@ -1,0 +1,226 @@
+{
+  "about": "Commands and answers of Yubico's OATH application, written from the protocol page. See README.md.",
+  "values": {
+    "id": "0102030405060708",
+    "password": "correct horse",
+    "accessKey": "49561f12fb17065dd680fc5a61d740a6",
+    "keyChallenge": "a1a2a3a4a5a6a7a8",
+    "ourChallenge": "1112131415161718",
+    "secret": "3132333435363738393031323334353637383930",
+    "longSecret": "6161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+    "shortSecret": "73686f7274"
+  },
+  "exchanges": {
+    "select": {
+      "command": "00a4040007a000000527210100",
+      "answer": "790305040371080102030405060708",
+      "sw": "9000",
+      "expect": {
+        "version": "5.4.3",
+        "device": "0102030405060708",
+        "hasPassword": false
+      }
+    },
+    "selectWithPassword": {
+      "command": "00a4040007a000000527210100",
+      "answer": "7903050701710801020304050607087408a1a2a3a4a5a6a7a87b0101",
+      "sw": "9000",
+      "expect": {
+        "version": "5.7.1",
+        "device": "0102030405060708",
+        "hasPassword": true,
+        "challenge": "a1a2a3a4a5a6a7a8"
+      }
+    },
+    "list": {
+      "command": "00a1000000",
+      "answer": "721a214578616d706c653a616c696365406578616d706c652e6f72677210124578616d706c653a636f756e74657272102336302f4578616d706c653a736c6f77",
+      "sw": "9000",
+      "expect": [
+        {
+          "name": "Example:alice@example.org",
+          "type": "totp",
+          "algorithm": "SHA1"
+        },
+        {
+          "name": "Example:counter",
+          "type": "hotp",
+          "algorithm": "SHA256"
+        },
+        {
+          "name": "60/Example:slow",
+          "type": "totp",
+          "algorithm": "SHA512"
+        }
+      ]
+    },
+    "calculate": {
+      "about": "RFC 6238: the SHA-1 secret at time step 1 (59 seconds), six digits of 94287082.",
+      "name": "Example:alice@example.org",
+      "step": 1,
+      "command": "00a200012571194578616d706c653a616c696365406578616d706c652e6f72677408000000000000000100",
+      "answer": "76050641397eea",
+      "sw": "9000",
+      "expect": {
+        "digits": 6,
+        "code": "287082"
+      }
+    },
+    "calculateFull": {
+      "about": "The same code asked for whole (P2 00): the digits, then the HMAC, truncated by the reader.",
+      "answer": "75150875a48a19d4cbe100644e8ac1397eea747a2d33ab",
+      "sw": "9000",
+      "expect": {
+        "digits": 8,
+        "code": "94287082"
+      }
+    },
+    "calculateHotp": {
+      "about": "A counter-based account is asked with an empty challenge. RFC 4226, count 0.",
+      "name": "Example:counter",
+      "command": "00a2000113710f4578616d706c653a636f756e746572740000",
+      "answer": "7605064c93cf18",
+      "sw": "9000",
+      "expect": {
+        "digits": 6,
+        "code": "755224"
+      }
+    },
+    "calculateAll": {
+      "step": 1,
+      "command": "00a400010a7408000000000000000100",
+      "answer": "71194578616d706c653a616c696365406578616d706c652e6f726776050641397eea710d4578616d706c653a746f7563687c0106710f4578616d706c653a636f756e746572770106",
+      "sw": "9000",
+      "expect": [
+        {
+          "name": "Example:alice@example.org",
+          "code": "287082"
+        },
+        {
+          "name": "Example:touch",
+          "touch": true
+        },
+        {
+          "name": "Example:counter",
+          "hotp": true
+        }
+      ]
+    },
+    "put": {
+      "name": "Example:alice@example.org",
+      "type": "totp",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "secret": "3132333435363738393031323334353637383930",
+      "command": "000100003371194578616d706c653a616c696365406578616d706c652e6f7267731621063132333435363738393031323334353637383930",
+      "answer": "",
+      "sw": "9000"
+    },
+    "putHotpWithTouch": {
+      "about": "The property is a tag and one byte with no length; the counter starts at 5.",
+      "name": "Example:counter",
+      "type": "hotp",
+      "algorithm": "SHA256",
+      "digits": 8,
+      "secret": "3132333435363738393031323334353637383930",
+      "touch": true,
+      "counter": 5,
+      "command": "0001000031710f4578616d706c653a636f756e74657273161208313233343536373839303132333435363738393078027a0400000005",
+      "answer": "",
+      "sw": "9000"
+    },
+    "putLongSecret": {
+      "about": "A secret longer than the hash's block (80 bytes for SHA-1's 64) is hashed first.",
+      "name": "Example:touch",
+      "type": "totp",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "secret": "6161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161616161",
+      "command": "0001000027710d4578616d706c653a746f7563687316210686f33652fcffd7fa1443e246dd34fe5d00e25ffd",
+      "answer": "",
+      "sw": "9000"
+    },
+    "putShortSecret": {
+      "about": "A secret under 14 bytes is padded with zeros to 14.",
+      "name": "Example:touch",
+      "type": "totp",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "secret": "73686f7274",
+      "command": "0001000021710d4578616d706c653a746f7563687310210673686f7274000000000000000000",
+      "answer": "",
+      "sw": "9000"
+    },
+    "delete": {
+      "name": "Example:alice@example.org",
+      "command": "000200001b71194578616d706c653a616c696365406578616d706c652e6f7267",
+      "answer": "",
+      "sw": "9000"
+    },
+    "setCode": {
+      "about": "The access key is PBKDF2-HMAC-SHA1 of the password, salted with the id, 1000 rounds, 16 bytes.",
+      "command": "000300003373112149561f12fb17065dd680fc5a61d740a6740811121314151617187514f6d8f21a2884376e196377fcafc5c93489878173",
+      "answer": "",
+      "sw": "9000"
+    },
+    "clearCode": {
+      "command": "00030000027300",
+      "answer": "",
+      "sw": "9000"
+    },
+    "validate": {
+      "command": "00a30000207514a51bc17e7acfa44e5f1a04ced4b938af52ee691d7408111213141516171800",
+      "answer": "7514f6d8f21a2884376e196377fcafc5c93489878173",
+      "sw": "9000"
+    },
+    "reset": {
+      "command": "0004dead",
+      "answer": "",
+      "sw": "9000"
+    },
+    "sendRemaining": {
+      "command": "00a5000000"
+    }
+  },
+  "malformed": {
+    "about": "Answers a key must never give: each is refused whole.",
+    "select": [
+      "",
+      "7903050403",
+      "710801020304050607",
+      "7902050471080102030405060708",
+      "79030504037108010203"
+    ],
+    "list": [
+      "72",
+      "7201",
+      "720121",
+      "7205214578",
+      "71054578616d70",
+      "721a214578616d706c653a616c696365406578616d706c652e6f72677209",
+      "721a414578616d706c653a616c696365406578616d706c652e6f7267",
+      "721a274578616d706c653a616c696365406578616d706c652e6f7267"
+    ],
+    "calculate": [
+      "",
+      "7604064139",
+      "76050641397eea00",
+      "7505060102",
+      "770106",
+      "76050641397eea76050641397eea"
+    ],
+    "calculateAll": [
+      "71194578616d706c653a616c696365406578616d706c652e6f7267",
+      "71194578616d706c653a616c696365406578616d706c652e6f72677604064139",
+      "76050641397eea71194578616d706c653a616c696365406578616d706c652e6f7267",
+      "71194578616d706c653a616c696365406578616d706c652e6f72677a0106",
+      "71194578616d706c653a616c696365406578616d706c652e6f726776050641397eea710d4578616d706c653a746f756368"
+    ],
+    "validate": [
+      "",
+      "7500",
+      "7403010203",
+      "75140102"
+    ]
+  }
+}

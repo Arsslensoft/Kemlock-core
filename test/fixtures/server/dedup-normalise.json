@@ -1,0 +1,662 @@
+{
+  "cases": [
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"example.com\",\"alice\",\"Hunter2 \"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c226578616d706c652e636f6d222c22616c696365222c2248756e7465723220225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-url-with-www-and-path",
+      "raw": {
+        "password": "Hunter2 ",
+        "username": " Alice ",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "https://www.Example.com/login?next=1"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": [
+        "f9ed3c32b986f2d3362277511da2ed205b628c25d537819617a6f73891a0e4a6"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"istanbul.example\",\"istanbul\",\"pw\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c22697374616e62756c2e6578616d706c65222c22697374616e62756c222c227077225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-istanbul",
+      "raw": {
+        "password": "pw",
+        "username": "İstanbul",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "https://İSTANBUL.example/"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": [
+        "015213dae92d92161ab27b3e2fdb4542f2934e059a2fd36aa11c23b21b13c433"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"example.com\",\"σασ\",\"pw\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c226578616d706c652e636f6d222c22cf83ceb1cf83222c227077225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-final-sigma-is-always-sigma",
+      "raw": {
+        "password": "pw",
+        "username": "ΣΑΣ",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "example.com"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": [
+        "ff84dc9e1050d5f41d2223ec0b54cf3e4c862879df967031c3b8cf92244762be"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"example.com\",\"straße\",\"pw\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c226578616d706c652e636f6d222c2273747261c39f65222c227077225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-sharp-s-stays",
+      "raw": {
+        "password": "pw",
+        "username": "Straße",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "example.com"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": [
+        "482c77489b289d1cc9f6247fe17a88f08c27d5b40cba153e596415c8df6f55e0"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"example.com\",\"strasse\",\"pw\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c226578616d706c652e636f6d222c2273747261737365222c227077225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-strasse-is-another-name",
+      "raw": {
+        "password": "pw",
+        "username": "STRASSE",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "example.com"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": [
+        "46aee51d8d1ab59ccd457d0b463d9b45ababec54dc970e76edac2e3dc85b6f4e"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"example.com\",\"ß\",\"pw\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c226578616d706c652e636f6d222c22c39f222c227077225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-capital-sharp-s",
+      "raw": {
+        "password": "pw",
+        "username": "ẞ",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "example.com"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": [
+        "764a689a1fa7408637a782e676ec6a8b52174e7b23301f5ac64e86c6e8951bd3"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"example.com\",\"café\",\"pw\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c226578616d706c652e636f6d222c22636166c3a9222c227077225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-decomposed-e",
+      "raw": {
+        "password": "pw",
+        "username": "Café",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "example.com"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": [
+        "867e4c6cfe7a8b8cbe708363db9bcc7350cfa51df6eeb3cc978069872f356994"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"alice.github.io\",\"bob\",\"pw\"]",
+        "[\"cred\",\"example.co.uk\",\"bob\",\"pw\"]",
+        "[\"cred\",\"shop.xn--55qx5d.cn\",\"bob\",\"pw\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c22616c6963652e6769746875622e696f222c22626f62222c227077225d",
+        "5b2263726564222c226578616d706c652e636f2e756b222c22626f62222c227077225d",
+        "5b2263726564222c2273686f702e786e2d2d3535717835642e636e222c22626f62222c227077225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-several-websites",
+      "raw": {
+        "password": "pw",
+        "username": "bob",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "https://a.example.co.uk"
+          },
+          {
+            "rule": "host",
+            "uri": "https://login.example.co.uk/x"
+          },
+          {
+            "rule": "domain",
+            "uri": "https://alice.github.io/blog"
+          },
+          {
+            "rule": "domain",
+            "uri": "https://shop.公司.cn"
+          },
+          {
+            "rule": "regex",
+            "uri": "https://x.example"
+          },
+          {
+            "rule": "never",
+            "uri": "https://y.example"
+          },
+          {
+            "rule": "domain",
+            "uri": "not a host"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": [
+        "e45405208ea87ed7420a4e2366ade431cce9e4b8b7389ac83360530fcb8c02cd",
+        "f026238905bd32047cf5b436d40a774e234e136df658157dc10c9c61d22a6bc2",
+        "e2c03f98602ec9e044172027b0281eb2c3ceda1e95dfbb8b62332a253bbecd88"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-no-site",
+      "raw": {
+        "password": "pw",
+        "username": "bob",
+        "websites": [
+          {
+            "rule": "regex",
+            "uri": "https://x.example"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": []
+    },
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"xn--mnchen-3ya.de\",\"bob\",\"pw\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c22786e2d2d6d6e6368656e2d3379612e6465222c22626f62222c227077225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-internationalised-host",
+      "raw": {
+        "password": "pw",
+        "username": "bob",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "https://MÜNCHEN.de/"
+          }
+        ]
+      },
+      "tag": "cred",
+      "tags": [
+        "e7a0f95e31ffc28146f0245c874aab475e1b7ff53a809e6e08a5ce185361e4de"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"account\",\"example.com\",\"alice\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226163636f756e74222c226578616d706c652e636f6d222c22616c696365225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "account-the-same-login",
+      "raw": {
+        "password": "Hunter2 ",
+        "username": " Alice ",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "https://www.Example.com/login?next=1"
+          }
+        ]
+      },
+      "tag": "account",
+      "tags": [
+        "5bcf54fd69a44fdddf702bca6553e69f148f3812f6f8dc8b6cce2dc5867144ba"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"account\",\"example.org\",\"alice\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226163636f756e74222c226578616d706c652e6f7267222c22616c696365225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "account-two-websites-one-site",
+      "raw": {
+        "password": "",
+        "username": "Alice",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "https://one.example.org"
+          },
+          {
+            "rule": "exact",
+            "uri": "http://two.example.org:8080/"
+          }
+        ]
+      },
+      "tag": "account",
+      "tags": [
+        "24ee92a43a1f4e7522fef39dd1537a19c13bbf9c684bc2cae18271128a06d2d5"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"cred\",\"192.168.0.1\",\"bob\",\"pw\"]",
+        "[\"cred\",\"2001:db8::1\",\"bob\",\"pw\"]",
+        "[\"cred\",\"example.net\",\"bob\",\"pw\"]",
+        "[\"cred\",\"mysite.sites.example.net\",\"bob\",\"pw\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263726564222c223139322e3136382e302e31222c22626f62222c227077225d",
+        "5b2263726564222c22323030313a6462383a3a31222c22626f62222c227077225d",
+        "5b2263726564222c226578616d706c652e6e6574222c22626f62222c227077225d",
+        "5b2263726564222c226d79736974652e73697465732e6578616d706c652e6e6574222c22626f62222c227077225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "cred-addresses-and-shared-hosts",
+      "raw": {
+        "password": "pw",
+        "username": "bob",
+        "websites": [
+          {
+            "rule": "domain",
+            "uri": "http://192.168.0.1:8080/admin"
+          },
+          {
+            "rule": "domain",
+            "uri": "https://[2001:DB8::1]/"
+          },
+          {
+            "rule": "domain",
+            "uri": "https://Mysite.sites.example.net/"
+          },
+          {
+            "rule": "domain",
+            "uri": "https://other.example.net"
+          }
+        ]
+      },
+      "shared_hosts": [
+        "sites.example.net"
+      ],
+      "tag": "cred",
+      "tags": [
+        "cc85e5d6eb9fd50eb268becbf0192768e4b19c39c7b95bd4fff41bd02a866f96",
+        "66d6b8a32dfea9a6ad14183ab2a051a4cd082c06df4699bd13c7caee1bd6b067",
+        "b70a016782f65950853481f38dfda7703c747c0f73431629ed7d8ece3e2dfba3",
+        "cdc78088ea9f6ffa551b9610facecffdf8f91d51e3fa0fa5c1a1265833298711"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"secret\",\"JBSWY3DPEHPK3PXP\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22736563726574222c224a425357593344504548504b33505850225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "secret-spaces-and-lower-case",
+      "raw": {
+        "secret": "jbsw y3dp ehpk 3pxp"
+      },
+      "tag": "secret",
+      "tags": [
+        "89e94a0f2374ef457adffa556712273ff9676d92db749ce93d25aa141e90dd5e"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"secret\",\"JBSWY3DPEHPK3PXP\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22736563726574222c224a425357593344504548504b33505850225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "secret-padding",
+      "raw": {
+        "secret": "jbswy3dpehpk3pxp======"
+      },
+      "tag": "secret",
+      "tags": [
+        "89e94a0f2374ef457adffa556712273ff9676d92db749ce93d25aa141e90dd5e"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"secret\",\"MFRGG\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22736563726574222c224d46524747225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "secret-short",
+      "raw": {
+        "secret": "MFRGG==="
+      },
+      "tag": "secret",
+      "tags": [
+        "85c6e71eb8b7c5a63cdbd9fcf3855ebeac42be47c507739094765165cf2cf1e6"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "secret-not-base32",
+      "raw": {
+        "secret": "not base32!"
+      },
+      "tag": "secret",
+      "tags": []
+    },
+    {
+      "canonical_inputs": [
+        "[\"passkey\",\"example.com\",\"dGVzdA\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22706173736b6579222c226578616d706c652e636f6d222c226447567a6441225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "passkey-case-and-padding",
+      "raw": {
+        "credential_id": "dGVzdA==",
+        "relying_party": "Example.COM"
+      },
+      "tag": "passkey",
+      "tags": [
+        "543a9ef4a4c3b02722f94ea10f2b199078ee8dfec7542c412a401116936ceef6"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"passkey\",\"example.com\",\"-__-\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22706173736b6579222c226578616d706c652e636f6d222c222d5f5f2d225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "passkey-standard-alphabet",
+      "raw": {
+        "credential_id": "+//+",
+        "relying_party": "example.com"
+      },
+      "tag": "passkey",
+      "tags": [
+        "369fedfc59b09208ad9dafa08fdb8b3f61ebd3ffec7d1efbd26e25fdfcf895ae"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"card\",\"4111111111111111\",\"2030-09\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263617264222c2234313131313131313131313131313131222c22323033302d3039225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "card-digits-and-expiry",
+      "raw": {
+        "expiry_month": "9",
+        "expiry_year": "30",
+        "number": "4111 1111-1111 1111"
+      },
+      "tag": "card",
+      "tags": [
+        "8cbe5b6d37973c830779a95f45b8249e123b902bba00670526be05b940eda6da"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"card\",\"4111111111111111\",\"\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2263617264222c2234313131313131313131313131313131222c22225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "card-unknown-expiry",
+      "raw": {
+        "expiry_month": "",
+        "expiry_year": "",
+        "number": "4111111111111111"
+      },
+      "tag": "card",
+      "tags": [
+        "9fd2a8ba20140967844c6dc913cb86840d31df22d2f43671794090acd58a8283"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "card-without-digits",
+      "raw": {
+        "expiry_month": "1",
+        "expiry_year": "2030",
+        "number": "none"
+      },
+      "tag": "card",
+      "tags": []
+    },
+    {
+      "canonical_inputs": [
+        "[\"note\",\"line one\\nline two\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226e6f7465222c226c696e65206f6e655c6e6c696e652074776f225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "note-crlf-and-trailing-blanks",
+      "raw": {
+        "text": "line one  \r\nline two\t\r\n\r\n  \r\n"
+      },
+      "tag": "note",
+      "tags": [
+        "94b9055c28d6f91fc3bc5ed12ce410e10b1778e2dd97cdd2047d5865812c714d"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"note\",\"café\\nx\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226e6f7465222c22636166c3a95c6e78225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "note-lone-cr-and-decomposed-e",
+      "raw": {
+        "text": "café\rx"
+      },
+      "tag": "note",
+      "tags": [
+        "e8ed9697861f3852bbfe11998f9b3390b3dad71cba16c6ff77c1be2efb373f2f"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "note-blank",
+      "raw": {
+        "text": "  \n"
+      },
+      "tag": "note",
+      "tags": []
+    },
+    {
+      "canonical_inputs": [
+        "[\"key\",\"SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226b6579222c225348413235363a754e69567a746b73437344686363307539653842756a51585655704b5a4944544d637a43766a3374443273225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "key-ssh",
+      "raw": {
+        "fingerprint": "SHA256:uNiVztksCsDhcc0u9e8BujQXVUpKZIDTMczCvj3tD2s"
+      },
+      "tag": "key",
+      "tags": [
+        "31d712a53e48c37a899badbbbbd83b9c44a9973b87c576d249eb7672d9eda804"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"key\",\"9F3A77C10B2E45D68A19C0DE12F45B6A77889900\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226b6579222c2239463341373743313042324534354436384131394330444531324634354236413737383839393030225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "key-pgp-v4",
+      "raw": {
+        "fingerprint": " 9f3a 77c1 0b2e 45d6 8a19 c0de 12f4 5b6a 7788 9900"
+      },
+      "tag": "key",
+      "tags": [
+        "6d10b9de5aedb46d3a877cddce5154362448918ca3a9c7004606c844d665e2c3"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "key-unknown",
+      "raw": {
+        "fingerprint": "MD5:ab:cd"
+      },
+      "tag": "key",
+      "tags": []
+    },
+    {
+      "canonical_inputs": [
+        "[\"codes\",\"11111111\",\"22222222\",\"33333333\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22636f646573222c223131313131313131222c223232323232323232222c223333333333333333225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "codes-duplicates",
+      "raw": {
+        "codes": [
+          " 22222222",
+          "11111111",
+          "22222222 ",
+          "",
+          "33333333"
+        ]
+      },
+      "tag": "codes",
+      "tags": [
+        "d4806aa83060fb2321787da6a547919b11d8d6ec858ee9a902c638e537bfbdf1"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "codes-none",
+      "raw": {
+        "codes": []
+      },
+      "tag": "codes",
+      "tags": []
+    },
+    {
+      "canonical_inputs": [
+        "[\"identity\",\"zoë müller\",\"zoe@example.com\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226964656e74697479222c227a6fc3ab206dc3bc6c6c6572222c227a6f65406578616d706c652e636f6d225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "identity-trimmed-composed-lower",
+      "raw": {
+        "email": " Zoe@Example.COM ",
+        "full_name": " Zoë MÜller "
+      },
+      "tag": "identity",
+      "tags": [
+        "2fda2418678bae438c707c30e6c118e82c3a7083057985f617c94e780e50bbc5"
+      ]
+    }
+  ],
+  "description": "Raw item values in, canonical inputs out (docs/crypto.md, Duplicate tags, Normalisation). raw holds the values as the app stores them; for a login, websites are {uri, rule} and shared_hosts the app's shared hosts. canonical_inputs are the RFC 8785 arrays, one per site for a login (none when the item makes no tag); tags are HMAC-SHA256(dedup_key, canonical input). The Public Suffix List is test-vectors/public_suffix_list.dat.",
+  "format": "dedup-normalise",
+  "version": 1
+}

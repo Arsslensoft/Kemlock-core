@@ -1,0 +1,2 @@
+OpenSSH_10.3p1, OpenSSL 3.5.7 9 Jun 2026
+git version 2.55.0.windows.3

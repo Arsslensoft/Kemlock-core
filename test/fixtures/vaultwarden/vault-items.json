@@ -1,0 +1,72 @@
+{
+  "about": "Formats Vaultwarden sync writes for keys, notes, passkeys and attached files, made by test/features/sync/vaultwarden/items_formats_test.dart on 2026-11-15. Never regenerate.",
+  "sealKey": "mFb1iZEFlkaGi3nN2oJKZc2lKGIWaHbWh3I0v3EJZKQ=",
+  "sealed": {
+    "key": "kemlock-sealed:1:wJ2kX9c4Qm1zR7tB:2b7c9e0a-0d4f-4b8e-9a3c-5f1e2d3c4b5a:nMJQMbVlibYKQR6b:XZubqlfDQqRNV/O6OzlBFH5822iMoxe0DMECYagOpPjmN20qs0wkORlkBZVL73SMyHTMNx6slf1z911d3qvhVF+WBUOg9r+CQfPR+iKKzOwC72iMuC1uCmb3wlcBH0GC4l9T/EgFwNo33gl2/hmWXCRXR2/sbmHVHTWqyK+4kigSzQJW2dgmljaInJlIdt2A0fnZ0mAX98XspijozJcvXxZx1O8pn6J4mBmXiPTvCanSmc4qlan52D79PjoHs9tToEVXvvGjGQmtAA69P8FGdA11hMsMJa3wKDZN1aOo0NH5fZHHs0QJBezib3iYVL8jR6XL0rBG9M53GfBBwODGgINnmMfaxHGgBeUzyfhmPxiH7EIv8BQ8N6oDId/MTxzwZzUH0FbnrTdVZ7dmj1UiVcgm351DrPzQEbGjdHhGpNHfMf51plzufv0gZZjlkWwxneqdRXAnshyr+AVKczvJzCJ9BxS0Z4NQlcGFQg==",
+    "note": "kemlock-sealed:1:wJ2kX9c4Qm1zR7tB:7d1e5c3a-9b2f-4e6d-8c0a-1f2e3d4c5b6a:wCMZdJc0uKPSQkCl:5MsoxqSS3aXCCF2C9Q82UuoD+VK1L0Y4e0xf81C+o01o7/TxzFiSvli+zbq7oGixC58job7fthqJV3WL+ceL3C/TBeLUqpDB2q0i4nIJCE/LMIM2cU4ANOlqlo/76xLh+bxCuX1wBgjyctCDBbCggOfA5U7vZ4rbxYp+Ebcu2JrCpXqnQQ64EHLdoPB+jovbvR4xuGMqC1i2ihCUFGZrck8lLhSn4suSdIezY1vdsY3hg5zCcwunNta6GOKC0hHrDBiS7V2miyark7C1ffWFVDyW3Gi5A4XZ5GgARjZHckpHLM041+VrEfPhCUMBJw5V6x+sqSHssUWmf8qOHpXNNUxoADSA6VHIOgc5xw2OAstSHQ8VmQNBGZydoPco9+7pfOJXSXLyGjgdxqGtKGAt7iS1E2IYr2tCM9yTRHDUn2P3IGjUFoZCUHtJzbwKSzaBUqz4Nndp50UU0nWq+u2Vu2iTPC5xQcJuMA==",
+    "passkey": "kemlock-sealed:1:wJ2kX9c4Qm1zR7tB:5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c1d:OHO5Wf78VNjDCfdY:/6FrtvZNwgl7XyzB7YBiMO1gbpEJouZeZiKOEPLckehCeXXhGM1NaaOW3c7kkyLqkZKcQHnng7UH+4j5UhEPrRBY2kvrxCPcg0L6w8cYnzQN8xvY5j3RV/tJxAsnAHftVZeqYLtdm7m/wCun8XLo6y1sAAfUEMEVLgHaRZj9zJAfr3GtKyV1/iE1Xozc95Yt3zNQ/cSxLKBny63NzHEfwyV/zRH3hY3K2azoBjawLpbNWL6U602htCNDjlM59J6lxCtfwSccwb3iW8zfveh9MZX7nidgOm1tviCLkFBU2DqyeYB4pmWqytenP+XpQyKOi2njDcyNDRppnTFZbWf2o7jWQA/HpOLnRldYroZWLK4vZE2ITILcdX3dem9+AwkGmL96alIwWvZpMKSnyHqPMM718KC71QRVwOk+WTgCrkp+s+pyAGH4BHFJmEg+Ba+AnGPrHw8u3PbzrOX9KQ=="
+  },
+  "plain": {
+    "key": "{\"v\":1,\"home\":\"wJ2kX9c4Qm1zR7tB\",\"id\":\"2b7c9e0a-0d4f-4b8e-9a3c-5f1e2d3c4b5a\",\"own\":true,\"kind\":\"key\",\"sum\":\"fcPnyhcxbhTuEwrI81LJxA==\",\"entry\":{\"id\":\"2b7c9e0a-0d4f-4b8e-9a3c-5f1e2d3c4b5a\",\"name\":\"laptop\",\"kind\":\"ssh\",\"algorithm\":\"ed25519\",\"private\":\"MC4CAQAwBQYDK2VwBCIEINTuctv5E1hK1bbY8fdp+K06/nwoy/HU++CXqI9EdVhC\",\"public\":\"MCowBQYDK2VwAyEAGb9ECWmEzf6FQbrBZ9w7lshQhqowtrbLDFw4rXAxZuE=\",\"origin\":\"generated\",\"note\":\"Work laptop\",\"pinned\":true,\"addedAt\":1794038400000}}",
+    "note": "{\"v\":1,\"home\":\"wJ2kX9c4Qm1zR7tB\",\"id\":\"7d1e5c3a-9b2f-4e6d-8c0a-1f2e3d4c5b6a\",\"own\":true,\"kind\":\"note\",\"sum\":\"o94p6KjoHi2zNdGGSE6d9w==\",\"entry\":{\"id\":\"7d1e5c3a-9b2f-4e6d-8c0a-1f2e3d4c5b6a\",\"title\":\"Passport\",\"text\":\"Number 12AB34567\\nIn the drawer\",\"pinned\":true,\"addedAt\":1794038400000,\"attachments\":[{\"id\":\"q8s3Lw0bVt9Yk2Rr4Xc1Zg\",\"name\":\"scan.pdf\",\"size\":17,\"type\":\"application/pdf\",\"key\":\"AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8=\",\"addedAt\":1794038400000}]}}",
+    "passkey": "{\"v\":1,\"home\":\"wJ2kX9c4Qm1zR7tB\",\"id\":\"5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c1d\",\"own\":true,\"kind\":\"passkey\",\"sum\":\"OIOuLDvZEIS/7ecw97Q1+g==\",\"entry\":{\"id\":\"5a4b3c2d-1e0f-4a9b-8c7d-6e5f4a3b2c1d\",\"credentialId\":\"AQIDBAUGBwgJCgsMDQ4PEA\",\"rpId\":\"github.com\",\"rpName\":\"GitHub\",\"userHandle\":\"dXNlci0xMjM\",\"userName\":\"octocat\",\"userDisplayName\":\"The Octocat\",\"privateKey\":\"MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQg\",\"algorithm\":-7,\"addedAt\":1794038400000}}"
+  },
+  "values": {
+    "note": {
+      "values": {
+        "name": "Passport",
+        "notes": "Number 12AB34567\nIn the drawer",
+        "favorite": true
+      },
+      "sum": "o94p6KjoHi2zNdGGSE6d9w=="
+    },
+    "keyAsNote": {
+      "values": {
+        "name": "laptop",
+        "notes": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBm/RAlphM3+hUG6wWfcO5bIUIaqMLa2ywxcOK1wMWbh laptop\n\n---\nWork laptop",
+        "favorite": true
+      },
+      "sum": "cNaHkwuwRPLwgjyNOgaELQ=="
+    },
+    "keyAsSshItem": {
+      "values": {
+        "name": "laptop",
+        "notes": "Work laptop",
+        "favorite": true
+      },
+      "sum": "fcPnyhcxbhTuEwrI81LJxA=="
+    },
+    "passkey": {
+      "values": {
+        "name": "GitHub",
+        "username": "octocat",
+        "notes": null,
+        "favorite": false
+      },
+      "sum": "OIOuLDvZEIS/7ecw97Q1+g=="
+    }
+  },
+  "credentialId": "01020304-0506-0708-090a-0b0c0d0e0f10",
+  "attachment": {
+    "key": "a/cqqXdjVWXu6vEFL16vH09kU7/m6h02wJE7xvT2l9Tjqsdmo587R0FpxgKsIk/grR/Gzby90fn1yWBL1wuW9A==",
+    "sealed": "AgyL//jSMiIX4P/MDczmyUUKdeK3rquj8UUD8Uie0zqc0g1Xk0qqs3n1z5p0Jv+5a+1qscuQvsrayQ9RihnQLH6vuA4tw1EG4Z40n4GS163ct/7sBrxoJPiesC+9AB40UA==",
+    "plain": "AuFcjcIrGOJoFJj9zUFE0qn1XNhwFyAiwFcNCt2b4XCdwYSqmSXWeeAKhyZODp+Eoqotdz+8gUIntRUQLzhMazwbr8f25PH/VX6EM6VGVDoO"
+  },
+  "settings": {
+    "personal": null,
+    "spaces": [],
+    "vaultwarden": {
+      "server": "https://vault.example.com",
+      "email": "me@example.com",
+      "home": "wJ2kX9c4Qm1zR7tB",
+      "mode": "plain",
+      "folderId": "00000000-0000-4000-8000-000000000002",
+      "pickUp": false,
+      "plainKinds": [
+        "key",
+        "note",
+        "passkey"
+      ]
+    }
+  }
+}

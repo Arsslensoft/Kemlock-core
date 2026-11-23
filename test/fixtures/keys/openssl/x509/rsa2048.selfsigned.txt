@@ -1,0 +1,64 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            1a:2b:3c:4d:5e:6f:70:81:92:a3:b4:c5:d6:e7:f8:01
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=Ada Example
+        Validity
+            Not Before: Nov  1 00:00:00 2026 GMT
+            Not After : Nov  1 00:00:00 2028 GMT
+        Subject: CN=Ada Example
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (2048 bit)
+                Modulus:
+                    00:e1:bd:5b:a3:42:42:6e:9f:41:bb:4b:f5:93:56:
+                    31:d1:a0:6c:3a:7f:0a:dc:cd:42:da:a9:68:0f:25:
+                    eb:55:2e:3d:ee:43:14:de:8c:09:1f:74:36:c6:54:
+                    5e:8f:88:09:d8:7d:69:cf:4a:ce:2c:20:96:23:45:
+                    ce:e2:35:df:a1:8f:53:9d:44:0d:db:e7:80:13:2e:
+                    69:21:92:5d:6c:5a:9f:68:c6:2b:97:a5:dd:77:27:
+                    43:3f:f6:c1:be:63:02:4f:72:85:6b:18:94:3c:2a:
+                    5e:06:d7:ee:ea:f5:0f:e3:f7:ea:8b:0b:6f:b0:3e:
+                    80:44:6d:6f:d0:71:5c:e8:e5:a6:8d:c7:9a:35:da:
+                    45:d1:48:58:f1:25:2d:ae:ec:57:94:3a:1b:ee:8f:
+                    eb:7f:46:2c:b8:ea:c2:b7:b2:36:64:11:b9:4f:3a:
+                    6a:58:5e:1f:b1:91:a9:de:43:a2:05:ad:4c:ef:b4:
+                    e7:64:0f:53:4d:d8:2a:9c:fa:37:e8:38:9d:49:ab:
+                    7e:b4:f3:23:9f:eb:69:83:06:23:80:c1:48:d0:1a:
+                    6e:3f:e9:bc:c9:1f:66:aa:c1:13:87:e3:36:48:6a:
+                    22:a2:b0:53:90:f8:f3:0d:a0:aa:0d:11:2f:29:7b:
+                    73:40:aa:ea:16:58:21:37:18:29:6d:87:af:be:c1:
+                    00:ab
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                4E:B0:46:5E:9D:2D:D3:13:37:EF:02:D4:75:64:89:8E:5A:90:0E:AC
+            X509v3 Authority Key Identifier: 
+                4E:B0:46:5E:9D:2D:D3:13:37:EF:02:D4:75:64:89:8E:5A:90:0E:AC
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+    Signature Algorithm: sha256WithRSAEncryption
+    Signature Value:
+        d6:13:41:f6:6c:89:a4:06:42:92:b8:a8:8b:7c:69:a5:5f:1c:
+        81:86:cc:51:87:03:f7:4a:e8:03:45:9d:87:ca:00:3c:67:e4:
+        d4:93:57:f2:45:ee:a6:af:33:93:98:73:40:78:a2:59:cc:06:
+        5a:d3:60:95:20:b2:25:b0:3c:a1:7a:e7:52:19:8b:f8:9d:25:
+        43:33:01:4a:64:3e:29:f8:64:3b:53:bd:42:57:8c:4b:47:92:
+        1f:0e:16:95:8d:de:ed:8d:1f:af:91:fb:8c:b1:5d:be:94:87:
+        a6:37:b0:cc:1f:c4:e7:34:a4:0e:8f:54:49:ad:51:0f:c5:f4:
+        89:64:ff:d1:6e:5e:4e:b2:5d:5f:7b:c8:58:43:5e:a6:bb:ca:
+        25:d6:c4:b0:3c:3d:76:9e:c1:43:2c:64:d3:ea:df:b9:d2:80:
+        d8:a1:54:07:87:fe:ca:c2:53:e9:fd:25:82:a2:7c:4c:44:b2:
+        55:8f:99:02:7e:23:5c:62:01:76:20:a4:ac:88:4e:9e:1e:52:
+        c4:0d:79:8e:13:14:0e:a7:07:77:53:02:1d:91:3e:63:e1:a2:
+        f7:b8:83:01:cc:d8:27:14:5c:46:69:29:74:b7:97:98:06:3d:
+        24:f0:62:cf:03:0f:94:c9:0e:84:0f:69:ef:c0:22:c9:fb:0e:
+        ef:31:07:6e
+serial=1A2B3C4D5E6F708192A3B4C5D6E7F801
+subject=CN=Ada Example
+issuer=CN=Ada Example
+notBefore=2026-11-01 00:00:00Z
+notAfter=2028-11-01 00:00:00Z
+sha256 Fingerprint=E4:29:03:B7:DF:AC:5E:92:C0:05:33:FD:44:D2:46:65:CD:A4:60:97:30:34:6A:3D:47:AD:16:BD:B8:51:2B:51

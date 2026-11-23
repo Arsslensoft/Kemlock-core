@@ -1,0 +1,83 @@
+{
+  "version": 2,
+  "app": "BackMyCodes",
+  "exportedAt": "2026-11-17T12:00:00.000Z",
+  "scheme": "plaintext",
+  "accounts": [
+    {
+      "id": "a1",
+      "issuer": "ACME",
+      "label": "me",
+      "secret": "JBSWY3DPEHPK3PXPJBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "addedAt": 1
+    }
+  ],
+  "backupServices": [
+    {
+      "id": "s1",
+      "serviceName": "GitHub",
+      "codes": [
+        {
+          "code": "abcd-1234",
+          "used": false
+        }
+      ],
+      "addedAt": 2
+    }
+  ],
+  "keys": [
+    {
+      "id": "k1",
+      "name": "laptop",
+      "kind": "ssh",
+      "algorithm": "ed25519",
+      "private": "MC4CAQAwBQYDK2VwBCIEIA==",
+      "public": "MCowBQYDK2VwAyEA",
+      "origin": "generated",
+      "addedAt": 3
+    }
+  ],
+  "notes": [
+    {
+      "id": "n1",
+      "title": "Passport",
+      "text": "In the drawer",
+      "addedAt": 4
+    }
+  ],
+  "passkeys": [
+    {
+      "id": "p1",
+      "credentialId": "AAECAwQFBgcICQoLDA0ODw",
+      "rpId": "github.com",
+      "userHandle": "dXNlcg",
+      "userName": "octocat",
+      "privateKey": "MIGHAgEAMBMGByqGSM49AgEG",
+      "algorithm": -7,
+      "addedAt": 5
+    }
+  ],
+  "contacts": [
+    {
+      "id": "c1",
+      "name": "Grace Hopper",
+      "public": "mDMEavvBvhYJKwYBBAHaRw8BAQdA5u9VJy0bk117b67pa3OynrS90v96RwuEYCascWUiiLm0IEdyYWNlIEhvcHBlciA8Z3JhY2VAZXhhbXBsZS5vcmc+iJYEExYKAD4WIQSJT2qsj84Pr37iG7a0Becq+6I0lQUCavvBvgIbAwUJAeEzgAULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRC0Becq+6I0lZHnAP0aEuf7pPKY3+PgggEK8oDIlS+W0sz0hn6rRt+mtThsrQEA2sg3V6NasUgEf59AmBn6c2rCF2A7RQriVz+aKwhEFAC4OARq+8G/EgorBgEEAZdVAQUBAQdArSbTTTT0ef9EWltvVaGhcsPh61c8I6kyVp/eiGkGWEcDAQgHiH4EGBYKACYWIQSJT2qsj84Pr37iG7a0Becq+6I0lQUCavvBvwIbDAUJAeEzgAAKCRC0Becq+6I0lcy/AQC92fRaVvUInl1KmFfhDzNhFlWocI1zY6of1ANhMCX4ZwD9ECewhbsDqnMuzhWPe4hZVheI8HLchVtqvTj3WBHsLgg=",
+      "source": "qr",
+      "checkedAt": 1793696400000,
+      "checkedFingerprint": "894F6AAC8FCE0FAF7EE21BB6B405E72AFBA23495",
+      "note": "Compared on a call",
+      "addedAt": 6,
+      "updatedAt": 1793696400000
+    },
+    {
+      "id": "c2",
+      "name": "Alan Turing",
+      "public": "mDMEavvBxRYJKwYBBAHaRw8BAQdAwg1KY2OohdSZN6ncht9A/1MOFtTr1SYrt/9XtX7ZIbe0HkFsYW4gVHVyaW5nIDxhbGFuQGV4YW1wbGUub3JnPoiQBBMWCgA4FiEExnfywmpeTE54zWADqM/xieZeS9wFAmr7wcUCGwMFCwkIBwIGFQoJCAsCBBYCAwECHgECF4AACgkQqM/xieZeS9yQ3gD9G15p4yuQ1oAJbIVET17VRRiNmoFlO3H3zYLxIjA6PXMA/2ixHWi6PosbTDL9kfb4owVHXZP68QaQ2K/8M7tVKpsNuDgEavvBxRIKKwYBBAGXVQEFAQEHQOwRioEwuuwuKinA6dVcWrTm7Z3ALvV779c9jTPYd9oyAwEIB4h4BBgWCgAgFiEExnfywmpeTE54zWADqM/xieZeS9wFAmr7wcUCGwwACgkQqM/xieZeS9xEpQD/fBYEnD7tkx1EF6ZLuj5ypEXXNbePRmn5AqXU1IH96nEBAO3nHScszU231h3lRHyWjuwcnzQGmg+uy0PhvhTl8tMO",
+      "source": "file",
+      "addedAt": 7
+    }
+  ]
+}

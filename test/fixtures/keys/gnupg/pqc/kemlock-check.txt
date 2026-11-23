@@ -1,0 +1,83 @@
+gpg (GnuPG) 2.5.24
+== ed25519
+gpg: key 02C3A151C75942A5: "Ada Lovelace <ed25519@example.org>" not changed
+gpg: key 02C3A151C75942A5: secret key imported
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+signatures: 2 good
+sec   ed25519 2026-11-17 [SC]
+      0AA2D96037A180A1404E0B9102C3A151C75942A5
+uid           [ unknown] Ada Lovelace <ed25519@example.org>
+ssb   cv25519 2026-11-17 [E]
+      0A5676C6E965B6F30148F4CF746EBD90175C3F09
+encrypt and decrypt: ok
+sign and verify: ok
+== rsa4096
+gpg: key E740C987BEDF456B: "Ada Lovelace <rsa4096@example.org>" not changed
+gpg: key E740C987BEDF456B: secret key imported
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+signatures: 2 good
+sec   rsa4096 2026-11-17 [SC]
+      E450654E5F8CCC66A44DE4DFE740C987BEDF456B
+uid           [ unknown] Ada Lovelace <rsa4096@example.org>
+ssb   rsa4096 2026-11-17 [E]
+      CC09078F219B012DF53748486EEDA22A1DF5227C
+encrypt and decrypt: ok
+sign and verify: ok
+== pq-gnupg
+gpg: key 73FF0DA564AF4520: "Ada Lovelace <pq-gnupg@example.org>" not changed
+gpg: key 73FF0DA564AF4520: secret key imported
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+signatures: 2 good
+sec   ed25519 2026-11-17 [SC]
+      9DD47A4E0E33507742E28F3073FF0DA564AF4520
+uid           [ unknown] Ada Lovelace <pq-gnupg@example.org>
+ssb   ky768_cv25519 2026-11-17 [E]
+      D5FB16EF9C312744FC341B5F71141C6D93FABC640D1C52F785402CB8CE9CEA04
+:pubkey enc packet: version 3, algo 8, keyid D5FB16EF9C312744
+:encrypted data packet:
+encrypt and decrypt: ok
+sign and verify: ok
+PASS: GnuPG imported, checked and used the three keys
+== pq-standard (by default)
+gpg: keybox '/tmp/kemlock-gpg.MNFEhC/home-standard/pubring.kbx' created
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: key 25BD6DB449E995FD: no valid user IDs
+gpg: this may be caused by a missing self-signature
+gpg: Total number processed: 1
+gpg:           w/o user IDs: 1
+gpg: read_block: read error: Invalid packet
+gpg: import from '/tmp/kemlock-gpg.MNFEhC/keys/pq-standard.secret.asc' failed: Invalid keyring
+gpg: Total number processed: 0
+gpg: error reading key: No public key
+gpg: can't connect to the dirmngr: IPC connect call failed
+gpg: error retrieving 'pq-standard@example.org' via WKD: No dirmngr
+gpg: pq-standard@example.org: skipped: No dirmngr
+gpg: /tmp/kemlock-gpg.MNFEhC/standard.message: encryption failed: No dirmngr
+== pq-standard --allow-9980
+gpg: keybox '/tmp/kemlock-gpg.MNFEhC/home-standard--allow-9980/pubring.kbx' created
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: key 25BD6DB449E995FD: no valid user IDs
+gpg: this may be caused by a missing self-signature
+gpg: Total number processed: 1
+gpg:           w/o user IDs: 1
+gpg: read_block: read error: Invalid packet
+gpg: import from '/tmp/kemlock-gpg.MNFEhC/keys/pq-standard.secret.asc' failed: Invalid keyring
+gpg: Total number processed: 0
+gpg: error reading key: No public key
+gpg: can't connect to the dirmngr: IPC connect call failed
+gpg: error retrieving 'pq-standard@example.org' via WKD: No dirmngr
+gpg: pq-standard@example.org: skipped: No dirmngr
+gpg: /tmp/kemlock-gpg.MNFEhC/standard.message: encryption failed: No dirmngr

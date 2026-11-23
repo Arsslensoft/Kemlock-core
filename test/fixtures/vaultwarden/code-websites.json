@@ -1,0 +1,40 @@
+{
+  "about": "A plain code with a website of its own as Vaultwarden sync writes its item (the directory's website first, then its own with Bitwarden's rule number), and the item after a Bitwarden app changed the rule of the second URI to Exact. Written once by hand on 2026-11-21 by the add-cards-identities-and-websites plan, task 8.3, and read by test/features/sync/vaultwarden/code_websites_test.dart. Never regenerate.",
+  "home": "wJ2kX9c4Qm1zR7tB",
+  "directoryWebsite": "github.com",
+  "item": {
+    "values": {
+      "name": "GitHub",
+      "username": "me@example.com",
+      "totp": "otpauth://totp/GitHub:me%40example.com?issuer=GitHub&secret=JBSWY3DPEHPK3PXP&algorithm=SHA256&digits=8&period=30",
+      "notes": "Main account",
+      "favorite": true
+    },
+    "valuesSum": "38VuzucYvApWyNui5IBjrQ==",
+    "uris": [
+      {
+        "uri": "github.com",
+        "match": null
+      },
+      {
+        "uri": "github.example.org",
+        "match": 1
+      }
+    ],
+    "uriSum": "A0uApTBPnCXnthuLRq9fGw==",
+    "field": "{\"v\":1,\"home\":\"wJ2kX9c4Qm1zR7tB\",\"id\":\"6f9e2c64-3c1d-4b7a-9a52-0d1f0c4e8b11\",\"own\":true,\"kind\":\"account\",\"sum\":\"38VuzucYvApWyNui5IBjrQ==\",\"entry\":{\"id\":\"6f9e2c64-3c1d-4b7a-9a52-0d1f0c4e8b11\",\"type\":\"totp\",\"issuer\":\"GitHub\",\"label\":\"me@example.com\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"algorithm\":\"SHA256\",\"digits\":8,\"period\":30,\"pinned\":true,\"tags\":[\"Work\"],\"order\":2,\"note\":\"Main account\",\"addedAt\":1794038400000,\"updatedAt\":1794042000000,\"websites\":[\"github.example.org\"],\"uris\":[{\"uri\":\"github.example.org\",\"match\":1}],\"aFutureKey\":{\"kept\":true}},\"uriSum\":\"A0uApTBPnCXnthuLRq9fGw==\"}"
+  },
+  "afterBitwardenEdit": {
+    "uris": [
+      {
+        "uri": "github.com",
+        "match": null
+      },
+      {
+        "uri": "github.example.org",
+        "match": 3
+      }
+    ],
+    "uriSum": "LSRf6MMnaoMCYCtc8rK/Og=="
+  }
+}

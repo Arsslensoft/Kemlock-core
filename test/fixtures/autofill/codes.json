@@ -1,0 +1,1499 @@
+{
+  "about": "The time-based accounts of test/fixtures/otp/codes.json, which the TypeScript app made, as the autofill copy holds them, with the codes that app made for them. Written by test/features/autofill/autofill_fixture_test.dart; the Swift and Kotlin autofill tests read it.",
+  "copy": {
+    "v": 1,
+    "vault": "fixture",
+    "accounts": [
+      {
+        "id": "c0",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c1",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c2",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c3",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c4",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c5",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c6",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=",
+        "domains": []
+      },
+      {
+        "id": "c7",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=",
+        "domains": []
+      },
+      {
+        "id": "c8",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=",
+        "domains": []
+      },
+      {
+        "id": "c9",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=",
+        "domains": []
+      },
+      {
+        "id": "c10",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=",
+        "domains": []
+      },
+      {
+        "id": "c11",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTI=",
+        "domains": []
+      },
+      {
+        "id": "c12",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNA==",
+        "domains": []
+      },
+      {
+        "id": "c13",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNA==",
+        "domains": []
+      },
+      {
+        "id": "c14",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNA==",
+        "domains": []
+      },
+      {
+        "id": "c15",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNA==",
+        "domains": []
+      },
+      {
+        "id": "c16",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNA==",
+        "domains": []
+      },
+      {
+        "id": "c17",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNA==",
+        "domains": []
+      },
+      {
+        "id": "c28",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c29",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c30",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c31",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "key": "MTIzNDU2Nzg5MDEyMzQ1Njc4OTA=",
+        "domains": []
+      },
+      {
+        "id": "c32",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60,
+        "key": "SGVsbG8h3q2+7w==",
+        "domains": []
+      },
+      {
+        "id": "c33",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60,
+        "key": "SGVsbG8h3q2+7w==",
+        "domains": []
+      },
+      {
+        "id": "c34",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60,
+        "key": "SGVsbG8h3q2+7w==",
+        "domains": []
+      },
+      {
+        "id": "c35",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60,
+        "key": "SGVsbG8h3q2+7w==",
+        "domains": []
+      },
+      {
+        "id": "c38",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 7,
+        "period": 7,
+        "key": "+4nZyQmxnQs3u1wNqFnIOtkakfs=",
+        "domains": []
+      },
+      {
+        "id": "c40",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 30,
+        "key": "KUpSlKUpSlKUpSlKUpSlKUpSlKU=",
+        "domains": []
+      },
+      {
+        "id": "c47",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 1,
+        "key": "38x3JN/3keSjaHHMNoRSaEjf7GdhJMn3v3vhHNWEXdM=",
+        "domains": []
+      },
+      {
+        "id": "c49",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 300,
+        "key": "uLxf/XPGg+n0FS4Oc6fUt6U3wfZ4VtMUdk1wYkRwmTSy0dWbLScdXO1PNLCMHCjacmDYOko5WJB70BHanJDTdw==",
+        "domains": []
+      },
+      {
+        "id": "c51",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 15,
+        "key": "IseFXIOlJitbg2CXC3rj19rs3DpsL+Ov+A5a29JLkGI=",
+        "domains": []
+      },
+      {
+        "id": "c55",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA224",
+        "digits": 6,
+        "period": 7,
+        "key": "V0X+pF0=",
+        "domains": []
+      },
+      {
+        "id": "c56",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 15,
+        "key": "B4RBdb7DMJT3lofFEGQFcRmH1lo=",
+        "domains": []
+      },
+      {
+        "id": "c59",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 7,
+        "key": "M8z7GyGio9zxSHy6Ur3orivv6os=",
+        "domains": []
+      },
+      {
+        "id": "c60",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 7,
+        "key": "Echjn44=",
+        "domains": []
+      },
+      {
+        "id": "c63",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 15,
+        "key": "qA==",
+        "domains": []
+      },
+      {
+        "id": "c64",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "key": "/gXaxXZCSGelEFO2IsH9UVB4P9I=",
+        "domains": []
+      },
+      {
+        "id": "c66",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 15,
+        "key": "4hN8DgbalapH1eU84Pw3wkyn2kH2C3HrS6p4f2moGX7bjmtEBy7Fe312qf+9v/hW+HJYe/ItN4heUrC2X83tsg==",
+        "domains": []
+      },
+      {
+        "id": "c67",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 1,
+        "period": 60,
+        "key": "nQ==",
+        "domains": []
+      },
+      {
+        "id": "c68",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 15,
+        "key": "9g==",
+        "domains": []
+      },
+      {
+        "id": "c70",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 300,
+        "key": "XuKhCpxu2sl88A==",
+        "domains": []
+      },
+      {
+        "id": "c73",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 30,
+        "key": "SGVsbG8h3q2+8g==",
+        "domains": []
+      },
+      {
+        "id": "c75",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "key": "GX3u8o8RcL7rNqxCDaDE3g==",
+        "domains": []
+      },
+      {
+        "id": "c76",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 60,
+        "key": "Fz1t21ti30oEtcMtQBV6d646r34=",
+        "domains": []
+      },
+      {
+        "id": "c81",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 300,
+        "key": "CUGlN3wcndZGHnH/I6bzIQ==",
+        "domains": []
+      },
+      {
+        "id": "c86",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 7,
+        "period": 15,
+        "key": "CA==",
+        "domains": []
+      },
+      {
+        "id": "c90",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 9,
+        "period": 15,
+        "key": "KUpSlKUpSlKUpSlKUpSlKUpSlKU=",
+        "domains": []
+      },
+      {
+        "id": "c94",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "key": "KUpSlKUpSlKUpSlKUpSlKUpSlKU=",
+        "domains": []
+      },
+      {
+        "id": "c95",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 30,
+        "key": "uaRuPJI=",
+        "domains": []
+      },
+      {
+        "id": "c97",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 10,
+        "period": 1,
+        "key": "fd/5YmW/SMI+yghYppXoJm/hVuQ=",
+        "domains": []
+      },
+      {
+        "id": "c108",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 9,
+        "period": 15,
+        "key": "m+V+cTVr3oNP+EeFOdKmy96L97I=",
+        "domains": []
+      },
+      {
+        "id": "c109",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 15,
+        "key": "GYuFHkOTDm5ZxS1JFpCnOpSvKE/7Vt944Xbo4LoAzlw=",
+        "domains": []
+      },
+      {
+        "id": "c110",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 30,
+        "key": "mMlyPOSR/jrThw==",
+        "domains": []
+      },
+      {
+        "id": "c114",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 15,
+        "key": "jw==",
+        "domains": []
+      },
+      {
+        "id": "c115",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 15,
+        "key": "R02Q+d2S1lUX+8fcTEdER+meULkLTyZaD3oOitBFrog=",
+        "domains": []
+      },
+      {
+        "id": "c116",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 1,
+        "period": 30,
+        "key": "60awqVrINXP83NvqwdQelhZmaeKqiFKfZURcqfjw1Bs=",
+        "domains": []
+      },
+      {
+        "id": "c117",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 1,
+        "key": "L+3ZkAkDtJaqJhWdzeuiSWiLrd4=",
+        "domains": []
+      },
+      {
+        "id": "c125",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60,
+        "key": "+04axH0=",
+        "domains": []
+      },
+      {
+        "id": "c126",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 7,
+        "key": "f1Za3yfSoHKiHFimarONAFBMLtHMlYPie1jOFZLq0DM=",
+        "domains": []
+      },
+      {
+        "id": "c128",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 7,
+        "key": "EyWaELQORdBK1I+wz/KTAp9gj9E=",
+        "domains": []
+      },
+      {
+        "id": "c130",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA224",
+        "digits": 5,
+        "period": 300,
+        "key": "uw==",
+        "domains": []
+      },
+      {
+        "id": "c133",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 10,
+        "period": 30,
+        "key": "5vU9dKZaOf7rbFn7rUig04faq4bWfjt6TPzHZ3KoZcKU+3oCLq/FRr1dj9p5HudxEwr+qPnm+Zyf3/YlJAjImg==",
+        "domains": []
+      },
+      {
+        "id": "c141",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 7,
+        "period": 30,
+        "key": "iUvlV6iaksN0fVIFxvWjZEC0WxE=",
+        "domains": []
+      },
+      {
+        "id": "c142",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 9,
+        "period": 1,
+        "key": "aQ+1s6G0QbjOoaciPRrsgxR+Ppxq2kOFFxux30lNKVw=",
+        "domains": []
+      },
+      {
+        "id": "c147",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 7,
+        "key": "xknarx1rmd3Y6dX677XWBJimedIfUZJy08EUbcwAHSg=",
+        "domains": []
+      },
+      {
+        "id": "c149",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 1,
+        "period": 30,
+        "key": "vbPzdA6j+LoUX3PRHIfJp1t1ii8=",
+        "domains": []
+      },
+      {
+        "id": "c150",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 1,
+        "key": "rhQ/XHc7awA+0HEulDfznTpVQSORtS+b7y5EmAPdFVAbyoZ+ECbNcC73Unp8LMxQPPAM/rHtGJWrwyIqBnLI+A==",
+        "domains": []
+      },
+      {
+        "id": "c162",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 30,
+        "key": "OcCTWoSfWazb6qy1sp0MS08VxUjs7mDMrrxf2U723kI=",
+        "domains": []
+      },
+      {
+        "id": "c163",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 1,
+        "key": "L6WDiB1Z04e7Fqzfc4K3QgxMLPA=",
+        "domains": []
+      },
+      {
+        "id": "c166",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 60,
+        "key": "1I4xTjvQe+FYbOfY3n3d3j0g0BbQED5rNZaFLXajzbvQafhCbPpXznojl7iYB7/62Q3LAGX8NyEWWukMw26NaA==",
+        "domains": []
+      },
+      {
+        "id": "c167",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 7,
+        "key": "JpJCayTDbHXM+A==",
+        "domains": []
+      },
+      {
+        "id": "c170",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA224",
+        "digits": 6,
+        "period": 300,
+        "key": "jYq9+2pwqf3OSts2m0uI4w==",
+        "domains": []
+      },
+      {
+        "id": "c171",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 9,
+        "period": 30,
+        "key": "DA==",
+        "domains": []
+      },
+      {
+        "id": "c172",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 60,
+        "key": "y1Do8beOF7VyCxIqO7AJug+U1zGN8iWyJNQUN6ISHU90r8nBbutN/xyirNu4swCSAMhg0p7c6zi+oBZLELoubQ==",
+        "domains": []
+      },
+      {
+        "id": "c180",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 15,
+        "key": "VHo1RH08WpwjthwG0EBqVg==",
+        "domains": []
+      },
+      {
+        "id": "c183",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 60,
+        "key": "ViqqOd3LjtvyOHLNXutXt3/5wAYnrg7Utck22yg8fxV9TM+Ny6g8Qs+oyj98BVdU6HMcwEqB+T1yZI3PsJQMDA==",
+        "domains": []
+      },
+      {
+        "id": "c184",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 7,
+        "key": "TQ==",
+        "domains": []
+      },
+      {
+        "id": "c188",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "key": "TV6rnEBB5Su8jBCy/iuVKQ==",
+        "domains": []
+      },
+      {
+        "id": "c189",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 60,
+        "key": "+w==",
+        "domains": []
+      },
+      {
+        "id": "c193",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 1,
+        "key": "e7Q2V/6VUcSzQWU+aQfuov7BMAQ=",
+        "domains": []
+      },
+      {
+        "id": "c195",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 9,
+        "period": 300,
+        "key": "/GIOgcqRFYiFaXSN0vOfbR6Sp0s=",
+        "domains": []
+      },
+      {
+        "id": "c198",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 7,
+        "period": 30,
+        "key": "eTjDBLm28rp7uUK/evsIPEXm0kA=",
+        "domains": []
+      },
+      {
+        "id": "c199",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA256",
+        "digits": 5,
+        "period": 7,
+        "key": "KUpSlKUpSlKUpSlKUpSlKUpSlKU=",
+        "domains": []
+      },
+      {
+        "id": "c204",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 30,
+        "key": "mOZez76RAoCIYnmfWi7KhPZAMw5ei0snUZFZJ5CsVu8=",
+        "domains": []
+      },
+      {
+        "id": "c212",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 15,
+        "key": "JXi3skiUvbZU4m5HS78i/3BjGyE42imoUMTReFENn3Q=",
+        "domains": []
+      },
+      {
+        "id": "c213",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 10,
+        "period": 300,
+        "key": "SQ==",
+        "domains": []
+      },
+      {
+        "id": "c214",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30,
+        "key": "ifFPakE=",
+        "domains": []
+      },
+      {
+        "id": "c217",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 7,
+        "key": "nPlsP17VcefsBKtY2/SQ2Q==",
+        "domains": []
+      },
+      {
+        "id": "c220",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30,
+        "key": "3v5kzwZanhU+6Zkkn0cD27yotixSXyWjJcvEShTVc3Q=",
+        "domains": []
+      },
+      {
+        "id": "c224",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 15,
+        "key": "h5Nvy1QkFQwhxxfc1VLxeQ==",
+        "domains": []
+      },
+      {
+        "id": "c225",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA224",
+        "digits": 1,
+        "period": 300,
+        "key": "0w==",
+        "domains": []
+      },
+      {
+        "id": "c233",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "steam",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 30,
+        "key": "BUGKyOaWnZC6LPWihcHwnianQbs=",
+        "domains": []
+      },
+      {
+        "id": "c235",
+        "issuer": "ACME",
+        "label": "alice",
+        "kind": "totp",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 1,
+        "key": "L45DiaGk32wDaiz5M/7MrfU5N8KLHkooLzQ3KMjaOE7LFW1B0iUGsK2E32YRluYENlyRnWtXuWL2DcNLxyQsKw==",
+        "domains": []
+      }
+    ]
+  },
+  "codes": [
+    {
+      "account": "c0",
+      "nowSec": 59,
+      "code": "94287082"
+    },
+    {
+      "account": "c1",
+      "nowSec": 1111111109,
+      "code": "07081804"
+    },
+    {
+      "account": "c2",
+      "nowSec": 1111111111,
+      "code": "14050471"
+    },
+    {
+      "account": "c3",
+      "nowSec": 1234567890,
+      "code": "89005924"
+    },
+    {
+      "account": "c4",
+      "nowSec": 2000000000,
+      "code": "69279037"
+    },
+    {
+      "account": "c5",
+      "nowSec": 20000000000,
+      "code": "65353130"
+    },
+    {
+      "account": "c6",
+      "nowSec": 59,
+      "code": "46119246"
+    },
+    {
+      "account": "c7",
+      "nowSec": 1111111109,
+      "code": "68084774"
+    },
+    {
+      "account": "c8",
+      "nowSec": 1111111111,
+      "code": "67062674"
+    },
+    {
+      "account": "c9",
+      "nowSec": 1234567890,
+      "code": "91819424"
+    },
+    {
+      "account": "c10",
+      "nowSec": 2000000000,
+      "code": "90698825"
+    },
+    {
+      "account": "c11",
+      "nowSec": 20000000000,
+      "code": "77737706"
+    },
+    {
+      "account": "c12",
+      "nowSec": 59,
+      "code": "90693936"
+    },
+    {
+      "account": "c13",
+      "nowSec": 1111111109,
+      "code": "25091201"
+    },
+    {
+      "account": "c14",
+      "nowSec": 1111111111,
+      "code": "99943326"
+    },
+    {
+      "account": "c15",
+      "nowSec": 1234567890,
+      "code": "93441116"
+    },
+    {
+      "account": "c16",
+      "nowSec": 2000000000,
+      "code": "38618901"
+    },
+    {
+      "account": "c17",
+      "nowSec": 20000000000,
+      "code": "47863826"
+    },
+    {
+      "account": "c28",
+      "nowSec": 59,
+      "code": "287082"
+    },
+    {
+      "account": "c29",
+      "nowSec": 1700000000,
+      "code": "921300"
+    },
+    {
+      "account": "c30",
+      "nowSec": 1700000029,
+      "code": "732303"
+    },
+    {
+      "account": "c31",
+      "nowSec": 1700000030,
+      "code": "732303"
+    },
+    {
+      "account": "c32",
+      "nowSec": 59,
+      "code": "96023015"
+    },
+    {
+      "account": "c33",
+      "nowSec": 1700000000,
+      "code": "71205722"
+    },
+    {
+      "account": "c34",
+      "nowSec": 1700000029,
+      "code": "71205722"
+    },
+    {
+      "account": "c35",
+      "nowSec": 1700000030,
+      "code": "71205722"
+    },
+    {
+      "account": "c38",
+      "nowSec": 15,
+      "code": "9980536"
+    },
+    {
+      "account": "c40",
+      "nowSec": 1787391302,
+      "code": "YDMRK"
+    },
+    {
+      "account": "c47",
+      "nowSec": 20000000000,
+      "code": "966031"
+    },
+    {
+      "account": "c49",
+      "nowSec": 2000000600,
+      "code": "478379"
+    },
+    {
+      "account": "c51",
+      "nowSec": 29,
+      "code": "604873"
+    },
+    {
+      "account": "c55",
+      "nowSec": 29895339942,
+      "code": "198855"
+    },
+    {
+      "account": "c56",
+      "nowSec": 2831090487,
+      "code": "210534"
+    },
+    {
+      "account": "c59",
+      "nowSec": 0,
+      "code": "5Q3XV"
+    },
+    {
+      "account": "c60",
+      "nowSec": 19999999979,
+      "code": "50007365"
+    },
+    {
+      "account": "c63",
+      "nowSec": 33797933905,
+      "code": "12903874"
+    },
+    {
+      "account": "c64",
+      "nowSec": 1234567950,
+      "code": "204210"
+    },
+    {
+      "account": "c66",
+      "nowSec": 44,
+      "code": "04735689"
+    },
+    {
+      "account": "c67",
+      "nowSec": 1290108824,
+      "code": "6"
+    },
+    {
+      "account": "c68",
+      "nowSec": 19549579798,
+      "code": "264878"
+    },
+    {
+      "account": "c70",
+      "nowSec": 22510891676,
+      "code": "RJF2B"
+    },
+    {
+      "account": "c73",
+      "nowSec": 1111111169,
+      "code": "XK5J6"
+    },
+    {
+      "account": "c75",
+      "nowSec": 89,
+      "code": "95520722"
+    },
+    {
+      "account": "c76",
+      "nowSec": 16388328388,
+      "code": "21109"
+    },
+    {
+      "account": "c81",
+      "nowSec": 6418171136,
+      "code": "930894"
+    },
+    {
+      "account": "c86",
+      "nowSec": 6818468735,
+      "code": "8892058"
+    },
+    {
+      "account": "c90",
+      "nowSec": 1234567905,
+      "code": "785153547"
+    },
+    {
+      "account": "c94",
+      "nowSec": 2000000030,
+      "code": "71618542"
+    },
+    {
+      "account": "c95",
+      "nowSec": 19423799272,
+      "code": "9XBJG"
+    },
+    {
+      "account": "c97",
+      "nowSec": 27,
+      "code": "0309422031"
+    },
+    {
+      "account": "c108",
+      "nowSec": 33932575113,
+      "code": "860401270"
+    },
+    {
+      "account": "c109",
+      "nowSec": 5764706776,
+      "code": "34V48"
+    },
+    {
+      "account": "c110",
+      "nowSec": 2000000060,
+      "code": "07521"
+    },
+    {
+      "account": "c114",
+      "nowSec": 2606652791,
+      "code": "0923993"
+    },
+    {
+      "account": "c115",
+      "nowSec": 29,
+      "code": "5VR6W"
+    },
+    {
+      "account": "c116",
+      "nowSec": 1111111079,
+      "code": "3"
+    },
+    {
+      "account": "c117",
+      "nowSec": 10398479743,
+      "code": "0636734"
+    },
+    {
+      "account": "c125",
+      "nowSec": 20000000060,
+      "code": "703263"
+    },
+    {
+      "account": "c126",
+      "nowSec": 6890535633,
+      "code": "98682759"
+    },
+    {
+      "account": "c128",
+      "nowSec": 1999999979,
+      "code": "37637560"
+    },
+    {
+      "account": "c130",
+      "nowSec": 24949827968,
+      "code": "79609"
+    },
+    {
+      "account": "c133",
+      "nowSec": 32619470414,
+      "code": "1142514807"
+    },
+    {
+      "account": "c141",
+      "nowSec": 30,
+      "code": "4589744"
+    },
+    {
+      "account": "c142",
+      "nowSec": 0,
+      "code": "251276520"
+    },
+    {
+      "account": "c147",
+      "nowSec": 2000000014,
+      "code": "47KRX"
+    },
+    {
+      "account": "c149",
+      "nowSec": 27923202248,
+      "code": "3"
+    },
+    {
+      "account": "c150",
+      "nowSec": 9490339855,
+      "code": "4648159"
+    },
+    {
+      "account": "c162",
+      "nowSec": 59,
+      "code": "FN2MC"
+    },
+    {
+      "account": "c163",
+      "nowSec": 19044209975,
+      "code": "PCG4G"
+    },
+    {
+      "account": "c166",
+      "nowSec": 150,
+      "code": "TWB57"
+    },
+    {
+      "account": "c167",
+      "nowSec": 988974657,
+      "code": "T5J4Q"
+    },
+    {
+      "account": "c170",
+      "nowSec": 20000000000,
+      "code": "000773"
+    },
+    {
+      "account": "c171",
+      "nowSec": 31670506398,
+      "code": "039703089"
+    },
+    {
+      "account": "c172",
+      "nowSec": 27449071524,
+      "code": "9157020"
+    },
+    {
+      "account": "c180",
+      "nowSec": 1234567845,
+      "code": "65HFV"
+    },
+    {
+      "account": "c183",
+      "nowSec": 60,
+      "code": "73306676"
+    },
+    {
+      "account": "c184",
+      "nowSec": 5564401536,
+      "code": "875575"
+    },
+    {
+      "account": "c188",
+      "nowSec": 1111111169,
+      "code": "54397813"
+    },
+    {
+      "account": "c189",
+      "nowSec": 30,
+      "code": "TBQP9"
+    },
+    {
+      "account": "c193",
+      "nowSec": 21270138509,
+      "code": "GB5C4"
+    },
+    {
+      "account": "c195",
+      "nowSec": 1111111709,
+      "code": "771617828"
+    },
+    {
+      "account": "c198",
+      "nowSec": 1234567920,
+      "code": "5632804"
+    },
+    {
+      "account": "c199",
+      "nowSec": 30,
+      "code": "57774"
+    },
+    {
+      "account": "c204",
+      "nowSec": 0,
+      "code": "2QGXF"
+    },
+    {
+      "account": "c212",
+      "nowSec": 1999999985,
+      "code": "X4X5Q"
+    },
+    {
+      "account": "c213",
+      "nowSec": 600,
+      "code": "0409091119"
+    },
+    {
+      "account": "c214",
+      "nowSec": 30,
+      "code": "12345283"
+    },
+    {
+      "account": "c217",
+      "nowSec": 22670000488,
+      "code": "6WMVD"
+    },
+    {
+      "account": "c220",
+      "nowSec": 1234567800,
+      "code": "43371216"
+    },
+    {
+      "account": "c224",
+      "nowSec": 1234567890,
+      "code": "2F2R7"
+    },
+    {
+      "account": "c225",
+      "nowSec": 2000000000,
+      "code": "2"
+    },
+    {
+      "account": "c233",
+      "nowSec": 15757975670,
+      "code": "4K9YH"
+    },
+    {
+      "account": "c235",
+      "nowSec": 1,
+      "code": "8784805"
+    }
+  ]
+}

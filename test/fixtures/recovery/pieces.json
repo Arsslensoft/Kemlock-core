@@ -1,0 +1,1708 @@
+{
+  "about": "Made by mobile/tool/fixtures/recovery_fixtures.mjs from src/lib/shamir.ts and src/lib/recoveryShares.ts. Bytes are hex; \"random\" is every byte the case drew, in order.",
+  "maxPieces": 9,
+  "shamir": [
+    {
+      "secret": "42",
+      "threshold": 2,
+      "count": 2,
+      "random": "6e",
+      "shares": [
+        {
+          "x": 1,
+          "y": "2c"
+        },
+        {
+          "x": 2,
+          "y": "9e"
+        }
+      ],
+      "fewer": {
+        "xs": [
+          2
+        ],
+        "result": "9e"
+      }
+    },
+    {
+      "secret": "",
+      "threshold": 2,
+      "count": 3,
+      "random": "",
+      "shares": [
+        {
+          "x": 1,
+          "y": ""
+        },
+        {
+          "x": 2,
+          "y": ""
+        },
+        {
+          "x": 3,
+          "y": ""
+        }
+      ],
+      "fewer": {
+        "xs": [
+          3
+        ],
+        "result": ""
+      }
+    },
+    {
+      "secret": "0b30557a9fc4e90e33587da2c7ec11365b80a5caef14395e83a8cdf2173c6186",
+      "threshold": 1,
+      "count": 1,
+      "random": "",
+      "shares": [
+        {
+          "x": 1,
+          "y": "0b30557a9fc4e90e33587da2c7ec11365b80a5caef14395e83a8cdf2173c6186"
+        }
+      ]
+    },
+    {
+      "secret": "0b30557a9fc4e90e33587da2c7ec11365b80a5caef14395e83a8cdf2173c6186",
+      "threshold": 2,
+      "count": 3,
+      "random": "b407659593ca18aace4f03b88100eba5614138f8376e7de9e1acce25d3de8757",
+      "shares": [
+        {
+          "x": 1,
+          "y": "bf3730ef0c0ef1a4fd177e1a46ecfa933ac19d32d87a44b7620403d7c4e2e6d1"
+        },
+        {
+          "x": 2,
+          "y": "783e9f4ba24bd941b4c67bc9deecdc679902d52181c8c3975aeb4ab8aa9b7428"
+        },
+        {
+          "x": 3,
+          "y": "cc39fade3181c1eb7a8978715fec37c2f843edd9b6a6be7ebb47849d7945f37f"
+        }
+      ],
+      "fewer": {
+        "xs": [
+          3
+        ],
+        "result": "cc39fade3181c1eb7a8978715fec37c2f843edd9b6a6be7ebb47849d7945f37f"
+      }
+    },
+    {
+      "secret": "fffefdfcfbfaf9f8f7f6f5f4f3f2f1f0efeeedecebeae9e8e7e6e5e4e3e2e1e0",
+      "threshold": 3,
+      "count": 5,
+      "random": "378adf39008b6ce54689360beef7fa5c97d9c48b5b1cc040dd0f69b2b6e45d4ded70877f173de3863d1d4fceada7314824cbdc51e42aa450687f40e335160f09",
+      "shares": [
+        {
+          "x": 1,
+          "y": "2504a5baec4c769b8c628c31b0a23ae45cfcf53654dc8df85296ccb56010b3a4"
+        },
+        {
+          "x": 2,
+          "y": "082a7269a70380078f8bbef7b6adda734a4623bee07ad433fd1f2c3a4069675e"
+        },
+        {
+          "x": 3,
+          "y": "d2d02a2fb0b50f64f41fc732f5fd1167f9543b645f4cb023486f056bc39b351a"
+        },
+        {
+          "x": 4,
+          "y": "71a104a9901de0f9092fb18c589d0977f3a3bf915e0c6a84646b36a870247e5f"
+        },
+        {
+          "x": 5,
+          "y": "ab5b5cef87ab6f9a72bbc8491bcdc26340b1a74be13a0e94d11b1ff9f3d62c1b"
+        }
+      ],
+      "fewer": {
+        "xs": [
+          4,
+          5
+        ],
+        "result": "34647faaccf3ea6efe494eb54fc6082709ebdfd494d4e1c486b092f74ac12d54"
+      }
+    },
+    {
+      "secret": "00102030405060708090a0b0c0d0e0f0",
+      "threshold": 5,
+      "count": 5,
+      "random": "ba80889d089b241275ace58922609819b5e8e5d1a80c44afa43c0654e9c2528c38fe0a6f49a603c0e0e031fdd1ef85021e9a6c2482858e1b2125041f6b2fe941",
+      "shares": [
+        {
+          "x": 1,
+          "y": "291c2b372be48d1690c5768fb1b24626"
+        },
+        {
+          "x": 2,
+          "y": "ad54585b4082032fab04bab035cacea8"
+        },
+        {
+          "x": 3,
+          "y": "146a6f2586cfe4ffcd27cab794fc5b72"
+        },
+        {
+          "x": 4,
+          "y": "d0b13172ca9cb19e89ffe198b2d8cc8d"
+        },
+        {
+          "x": 5,
+          "y": "b411b27862086061b685ce371559c073"
+        }
+      ],
+      "fewer": {
+        "xs": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "result": "279e8652e281d4d4618a5bef15d797a1"
+      }
+    },
+    {
+      "secret": "00ff01",
+      "threshold": 3,
+      "count": 255,
+      "random": "d8f34e333bcc",
+      "shares": [
+        {
+          "x": 1,
+          "y": "eb3783"
+        },
+        {
+          "x": 2,
+          "y": "67ee80"
+        },
+        {
+          "x": 3,
+          "y": "8c2602"
+        },
+        {
+          "x": 4,
+          "y": "508356"
+        },
+        {
+          "x": 5,
+          "y": "bb4bd4"
+        },
+        {
+          "x": 6,
+          "y": "3792d7"
+        },
+        {
+          "x": 7,
+          "y": "dc5a55"
+        },
+        {
+          "x": 8,
+          "y": "ee648c"
+        },
+        {
+          "x": 9,
+          "y": "05ac0e"
+        },
+        {
+          "x": 10,
+          "y": "89750d"
+        },
+        {
+          "x": 11,
+          "y": "62bd8f"
+        },
+        {
+          "x": 12,
+          "y": "be18db"
+        },
+        {
+          "x": 13,
+          "y": "55d059"
+        },
+        {
+          "x": 14,
+          "y": "d9095a"
+        },
+        {
+          "x": 15,
+          "y": "32c1d8"
+        },
+        {
+          "x": 16,
+          "y": "e4458c"
+        },
+        {
+          "x": 17,
+          "y": "0f8d0e"
+        },
+        {
+          "x": 18,
+          "y": "83540d"
+        },
+        {
+          "x": 19,
+          "y": "689c8f"
+        },
+        {
+          "x": 20,
+          "y": "b439db"
+        },
+        {
+          "x": 21,
+          "y": "5ff159"
+        },
+        {
+          "x": 22,
+          "y": "d3285a"
+        },
+        {
+          "x": 23,
+          "y": "38e0d8"
+        },
+        {
+          "x": 24,
+          "y": "0ade01"
+        },
+        {
+          "x": 25,
+          "y": "e11683"
+        },
+        {
+          "x": 26,
+          "y": "6dcf80"
+        },
+        {
+          "x": 27,
+          "y": "860702"
+        },
+        {
+          "x": 28,
+          "y": "5aa256"
+        },
+        {
+          "x": 29,
+          "y": "b16ad4"
+        },
+        {
+          "x": 30,
+          "y": "3db3d7"
+        },
+        {
+          "x": 31,
+          "y": "d67b55"
+        },
+        {
+          "x": 32,
+          "y": "5ffa06"
+        },
+        {
+          "x": 33,
+          "y": "b43284"
+        },
+        {
+          "x": 34,
+          "y": "38eb87"
+        },
+        {
+          "x": 35,
+          "y": "d32305"
+        },
+        {
+          "x": 36,
+          "y": "0f8651"
+        },
+        {
+          "x": 37,
+          "y": "e44ed3"
+        },
+        {
+          "x": 38,
+          "y": "6897d0"
+        },
+        {
+          "x": 39,
+          "y": "835f52"
+        },
+        {
+          "x": 40,
+          "y": "b1618b"
+        },
+        {
+          "x": 41,
+          "y": "5aa909"
+        },
+        {
+          "x": 42,
+          "y": "d6700a"
+        },
+        {
+          "x": 43,
+          "y": "3db888"
+        },
+        {
+          "x": 44,
+          "y": "e11ddc"
+        },
+        {
+          "x": 45,
+          "y": "0ad55e"
+        },
+        {
+          "x": 46,
+          "y": "860c5d"
+        },
+        {
+          "x": 47,
+          "y": "6dc4df"
+        },
+        {
+          "x": 48,
+          "y": "bb408b"
+        },
+        {
+          "x": 49,
+          "y": "508809"
+        },
+        {
+          "x": 50,
+          "y": "dc510a"
+        },
+        {
+          "x": 51,
+          "y": "379988"
+        },
+        {
+          "x": 52,
+          "y": "eb3cdc"
+        },
+        {
+          "x": 53,
+          "y": "00f45e"
+        },
+        {
+          "x": 54,
+          "y": "8c2d5d"
+        },
+        {
+          "x": 55,
+          "y": "67e5df"
+        },
+        {
+          "x": 56,
+          "y": "55db06"
+        },
+        {
+          "x": 57,
+          "y": "be1384"
+        },
+        {
+          "x": 58,
+          "y": "32ca87"
+        },
+        {
+          "x": 59,
+          "y": "d90205"
+        },
+        {
+          "x": 60,
+          "y": "05a751"
+        },
+        {
+          "x": 61,
+          "y": "ee6fd3"
+        },
+        {
+          "x": 62,
+          "y": "62b6d0"
+        },
+        {
+          "x": 63,
+          "y": "897e52"
+        },
+        {
+          "x": 64,
+          "y": "b84617"
+        },
+        {
+          "x": 65,
+          "y": "538e95"
+        },
+        {
+          "x": 66,
+          "y": "df5796"
+        },
+        {
+          "x": 67,
+          "y": "349f14"
+        },
+        {
+          "x": 68,
+          "y": "e83a40"
+        },
+        {
+          "x": 69,
+          "y": "03f2c2"
+        },
+        {
+          "x": 70,
+          "y": "8f2bc1"
+        },
+        {
+          "x": 71,
+          "y": "64e343"
+        },
+        {
+          "x": 72,
+          "y": "56dd9a"
+        },
+        {
+          "x": 73,
+          "y": "bd1518"
+        },
+        {
+          "x": 74,
+          "y": "31cc1b"
+        },
+        {
+          "x": 75,
+          "y": "da0499"
+        },
+        {
+          "x": 76,
+          "y": "06a1cd"
+        },
+        {
+          "x": 77,
+          "y": "ed694f"
+        },
+        {
+          "x": 78,
+          "y": "61b04c"
+        },
+        {
+          "x": 79,
+          "y": "8a78ce"
+        },
+        {
+          "x": 80,
+          "y": "5cfc9a"
+        },
+        {
+          "x": 81,
+          "y": "b73418"
+        },
+        {
+          "x": 82,
+          "y": "3bed1b"
+        },
+        {
+          "x": 83,
+          "y": "d02599"
+        },
+        {
+          "x": 84,
+          "y": "0c80cd"
+        },
+        {
+          "x": 85,
+          "y": "e7484f"
+        },
+        {
+          "x": 86,
+          "y": "6b914c"
+        },
+        {
+          "x": 87,
+          "y": "8059ce"
+        },
+        {
+          "x": 88,
+          "y": "b26717"
+        },
+        {
+          "x": 89,
+          "y": "59af95"
+        },
+        {
+          "x": 90,
+          "y": "d57696"
+        },
+        {
+          "x": 91,
+          "y": "3ebe14"
+        },
+        {
+          "x": 92,
+          "y": "e21b40"
+        },
+        {
+          "x": 93,
+          "y": "09d3c2"
+        },
+        {
+          "x": 94,
+          "y": "850ac1"
+        },
+        {
+          "x": 95,
+          "y": "6ec243"
+        },
+        {
+          "x": 96,
+          "y": "e74310"
+        },
+        {
+          "x": 97,
+          "y": "0c8b92"
+        },
+        {
+          "x": 98,
+          "y": "805291"
+        },
+        {
+          "x": 99,
+          "y": "6b9a13"
+        },
+        {
+          "x": 100,
+          "y": "b73f47"
+        },
+        {
+          "x": 101,
+          "y": "5cf7c5"
+        },
+        {
+          "x": 102,
+          "y": "d02ec6"
+        },
+        {
+          "x": 103,
+          "y": "3be644"
+        },
+        {
+          "x": 104,
+          "y": "09d89d"
+        },
+        {
+          "x": 105,
+          "y": "e2101f"
+        },
+        {
+          "x": 106,
+          "y": "6ec91c"
+        },
+        {
+          "x": 107,
+          "y": "85019e"
+        },
+        {
+          "x": 108,
+          "y": "59a4ca"
+        },
+        {
+          "x": 109,
+          "y": "b26c48"
+        },
+        {
+          "x": 110,
+          "y": "3eb54b"
+        },
+        {
+          "x": 111,
+          "y": "d57dc9"
+        },
+        {
+          "x": 112,
+          "y": "03f99d"
+        },
+        {
+          "x": 113,
+          "y": "e8311f"
+        },
+        {
+          "x": 114,
+          "y": "64e81c"
+        },
+        {
+          "x": 115,
+          "y": "8f209e"
+        },
+        {
+          "x": 116,
+          "y": "5385ca"
+        },
+        {
+          "x": 117,
+          "y": "b84d48"
+        },
+        {
+          "x": 118,
+          "y": "34944b"
+        },
+        {
+          "x": 119,
+          "y": "df5cc9"
+        },
+        {
+          "x": 120,
+          "y": "ed6210"
+        },
+        {
+          "x": 121,
+          "y": "06aa92"
+        },
+        {
+          "x": 122,
+          "y": "8a7391"
+        },
+        {
+          "x": 123,
+          "y": "61bb13"
+        },
+        {
+          "x": 124,
+          "y": "bd1e47"
+        },
+        {
+          "x": 125,
+          "y": "56d6c5"
+        },
+        {
+          "x": 126,
+          "y": "da0fc6"
+        },
+        {
+          "x": 127,
+          "y": "31c744"
+        },
+        {
+          "x": 128,
+          "y": "736c4d"
+        },
+        {
+          "x": 129,
+          "y": "98a4cf"
+        },
+        {
+          "x": 130,
+          "y": "147dcc"
+        },
+        {
+          "x": 131,
+          "y": "ffb54e"
+        },
+        {
+          "x": 132,
+          "y": "23101a"
+        },
+        {
+          "x": 133,
+          "y": "c8d898"
+        },
+        {
+          "x": 134,
+          "y": "44019b"
+        },
+        {
+          "x": 135,
+          "y": "afc919"
+        },
+        {
+          "x": 136,
+          "y": "9df7c0"
+        },
+        {
+          "x": 137,
+          "y": "763f42"
+        },
+        {
+          "x": 138,
+          "y": "fae641"
+        },
+        {
+          "x": 139,
+          "y": "112ec3"
+        },
+        {
+          "x": 140,
+          "y": "cd8b97"
+        },
+        {
+          "x": 141,
+          "y": "264315"
+        },
+        {
+          "x": 142,
+          "y": "aa9a16"
+        },
+        {
+          "x": 143,
+          "y": "415294"
+        },
+        {
+          "x": 144,
+          "y": "97d6c0"
+        },
+        {
+          "x": 145,
+          "y": "7c1e42"
+        },
+        {
+          "x": 146,
+          "y": "f0c741"
+        },
+        {
+          "x": 147,
+          "y": "1b0fc3"
+        },
+        {
+          "x": 148,
+          "y": "c7aa97"
+        },
+        {
+          "x": 149,
+          "y": "2c6215"
+        },
+        {
+          "x": 150,
+          "y": "a0bb16"
+        },
+        {
+          "x": 151,
+          "y": "4b7394"
+        },
+        {
+          "x": 152,
+          "y": "794d4d"
+        },
+        {
+          "x": 153,
+          "y": "9285cf"
+        },
+        {
+          "x": 154,
+          "y": "1e5ccc"
+        },
+        {
+          "x": 155,
+          "y": "f5944e"
+        },
+        {
+          "x": 156,
+          "y": "29311a"
+        },
+        {
+          "x": 157,
+          "y": "c2f998"
+        },
+        {
+          "x": 158,
+          "y": "4e209b"
+        },
+        {
+          "x": 159,
+          "y": "a5e819"
+        },
+        {
+          "x": 160,
+          "y": "2c694a"
+        },
+        {
+          "x": 161,
+          "y": "c7a1c8"
+        },
+        {
+          "x": 162,
+          "y": "4b78cb"
+        },
+        {
+          "x": 163,
+          "y": "a0b049"
+        },
+        {
+          "x": 164,
+          "y": "7c151d"
+        },
+        {
+          "x": 165,
+          "y": "97dd9f"
+        },
+        {
+          "x": 166,
+          "y": "1b049c"
+        },
+        {
+          "x": 167,
+          "y": "f0cc1e"
+        },
+        {
+          "x": 168,
+          "y": "c2f2c7"
+        },
+        {
+          "x": 169,
+          "y": "293a45"
+        },
+        {
+          "x": 170,
+          "y": "a5e346"
+        },
+        {
+          "x": 171,
+          "y": "4e2bc4"
+        },
+        {
+          "x": 172,
+          "y": "928e90"
+        },
+        {
+          "x": 173,
+          "y": "794612"
+        },
+        {
+          "x": 174,
+          "y": "f59f11"
+        },
+        {
+          "x": 175,
+          "y": "1e5793"
+        },
+        {
+          "x": 176,
+          "y": "c8d3c7"
+        },
+        {
+          "x": 177,
+          "y": "231b45"
+        },
+        {
+          "x": 178,
+          "y": "afc246"
+        },
+        {
+          "x": 179,
+          "y": "440ac4"
+        },
+        {
+          "x": 180,
+          "y": "98af90"
+        },
+        {
+          "x": 181,
+          "y": "736712"
+        },
+        {
+          "x": 182,
+          "y": "ffbe11"
+        },
+        {
+          "x": 183,
+          "y": "147693"
+        },
+        {
+          "x": 184,
+          "y": "26484a"
+        },
+        {
+          "x": 185,
+          "y": "cd80c8"
+        },
+        {
+          "x": 186,
+          "y": "4159cb"
+        },
+        {
+          "x": 187,
+          "y": "aa9149"
+        },
+        {
+          "x": 188,
+          "y": "76341d"
+        },
+        {
+          "x": 189,
+          "y": "9dfc9f"
+        },
+        {
+          "x": 190,
+          "y": "11259c"
+        },
+        {
+          "x": 191,
+          "y": "faed1e"
+        },
+        {
+          "x": 192,
+          "y": "cbd55b"
+        },
+        {
+          "x": 193,
+          "y": "201dd9"
+        },
+        {
+          "x": 194,
+          "y": "acc4da"
+        },
+        {
+          "x": 195,
+          "y": "470c58"
+        },
+        {
+          "x": 196,
+          "y": "9ba90c"
+        },
+        {
+          "x": 197,
+          "y": "70618e"
+        },
+        {
+          "x": 198,
+          "y": "fcb88d"
+        },
+        {
+          "x": 199,
+          "y": "17700f"
+        },
+        {
+          "x": 200,
+          "y": "254ed6"
+        },
+        {
+          "x": 201,
+          "y": "ce8654"
+        },
+        {
+          "x": 202,
+          "y": "425f57"
+        },
+        {
+          "x": 203,
+          "y": "a997d5"
+        },
+        {
+          "x": 204,
+          "y": "753281"
+        },
+        {
+          "x": 205,
+          "y": "9efa03"
+        },
+        {
+          "x": 206,
+          "y": "122300"
+        },
+        {
+          "x": 207,
+          "y": "f9eb82"
+        },
+        {
+          "x": 208,
+          "y": "2f6fd6"
+        },
+        {
+          "x": 209,
+          "y": "c4a754"
+        },
+        {
+          "x": 210,
+          "y": "487e57"
+        },
+        {
+          "x": 211,
+          "y": "a3b6d5"
+        },
+        {
+          "x": 212,
+          "y": "7f1381"
+        },
+        {
+          "x": 213,
+          "y": "94db03"
+        },
+        {
+          "x": 214,
+          "y": "180200"
+        },
+        {
+          "x": 215,
+          "y": "f3ca82"
+        },
+        {
+          "x": 216,
+          "y": "c1f45b"
+        },
+        {
+          "x": 217,
+          "y": "2a3cd9"
+        },
+        {
+          "x": 218,
+          "y": "a6e5da"
+        },
+        {
+          "x": 219,
+          "y": "4d2d58"
+        },
+        {
+          "x": 220,
+          "y": "91880c"
+        },
+        {
+          "x": 221,
+          "y": "7a408e"
+        },
+        {
+          "x": 222,
+          "y": "f6998d"
+        },
+        {
+          "x": 223,
+          "y": "1d510f"
+        },
+        {
+          "x": 224,
+          "y": "94d05c"
+        },
+        {
+          "x": 225,
+          "y": "7f18de"
+        },
+        {
+          "x": 226,
+          "y": "f3c1dd"
+        },
+        {
+          "x": 227,
+          "y": "18095f"
+        },
+        {
+          "x": 228,
+          "y": "c4ac0b"
+        },
+        {
+          "x": 229,
+          "y": "2f6489"
+        },
+        {
+          "x": 230,
+          "y": "a3bd8a"
+        },
+        {
+          "x": 231,
+          "y": "487508"
+        },
+        {
+          "x": 232,
+          "y": "7a4bd1"
+        },
+        {
+          "x": 233,
+          "y": "918353"
+        },
+        {
+          "x": 234,
+          "y": "1d5a50"
+        },
+        {
+          "x": 235,
+          "y": "f692d2"
+        },
+        {
+          "x": 236,
+          "y": "2a3786"
+        },
+        {
+          "x": 237,
+          "y": "c1ff04"
+        },
+        {
+          "x": 238,
+          "y": "4d2607"
+        },
+        {
+          "x": 239,
+          "y": "a6ee85"
+        },
+        {
+          "x": 240,
+          "y": "706ad1"
+        },
+        {
+          "x": 241,
+          "y": "9ba253"
+        },
+        {
+          "x": 242,
+          "y": "177b50"
+        },
+        {
+          "x": 243,
+          "y": "fcb3d2"
+        },
+        {
+          "x": 244,
+          "y": "201686"
+        },
+        {
+          "x": 245,
+          "y": "cbde04"
+        },
+        {
+          "x": 246,
+          "y": "470707"
+        },
+        {
+          "x": 247,
+          "y": "accf85"
+        },
+        {
+          "x": 248,
+          "y": "9ef15c"
+        },
+        {
+          "x": 249,
+          "y": "7539de"
+        },
+        {
+          "x": 250,
+          "y": "f9e0dd"
+        },
+        {
+          "x": 251,
+          "y": "12285f"
+        },
+        {
+          "x": 252,
+          "y": "ce8d0b"
+        },
+        {
+          "x": 253,
+          "y": "254589"
+        },
+        {
+          "x": 254,
+          "y": "a99c8a"
+        },
+        {
+          "x": 255,
+          "y": "425408"
+        }
+      ],
+      "fewer": {
+        "xs": [
+          254,
+          255
+        ],
+        "result": "e93788"
+      }
+    }
+  ],
+  "kits": [
+    {
+      "threshold": 1,
+      "shares": 1,
+      "random": "7014eb189b6cf84a1e16d46f6ed10c3d6195bdd83e585f2288908ba28b2f2389351bc8ccab",
+      "kitId": "GUN4RTFL",
+      "key": "7014eb189b6cf84a1e16d46f6ed10c3d6195bdd83e585f2288908ba28b2f2389",
+      "pieces": [
+        "BMCKIT1-GUN4RTFL-111-OAKOWGE3NT4EUHQW2RXW5UIMHVQZLPOYHZMF6IUISCF2FCZPEOEQ-RTCW"
+      ],
+      "displayed": [
+        "BMCKIT1-GUN4RTFL-111-OAKO WGE3 NT4E UHQW 2RXW 5UIM HVQZ LPOY HZMF 6IUI SCF2 FCZP EOEQ-RTCW"
+      ],
+      "y": [
+        "7014eb189b6cf84a1e16d46f6ed10c3d6195bdd83e585f2288908ba28b2f2389"
+      ]
+    },
+    {
+      "threshold": 1,
+      "shares": 3,
+      "random": "1144afcb843feb728457239664992353c320963ade0a8e6c45e5f7d7c1343c9333bb7c1413",
+      "kitId": "GO5XYFAT",
+      "key": "1144afcb843feb728457239664992353c320963ade0a8e6c45e5f7d7c1343c93",
+      "pieces": [
+        "BMCKIT1-GO5XYFAT-131-CFCK7S4EH7VXFBCXEOLGJGJDKPBSBFR23YFI43CF4X35PQJUHSJQ-G4U6",
+        "BMCKIT1-GO5XYFAT-132-CFCK7S4EH7VXFBCXEOLGJGJDKPBSBFR23YFI43CF4X35PQJUHSJQ-PFF6",
+        "BMCKIT1-GO5XYFAT-133-CFCK7S4EH7VXFBCXEOLGJGJDKPBSBFR23YFI43CF4X35PQJUHSJQ-SJNS"
+      ],
+      "displayed": [
+        "BMCKIT1-GO5XYFAT-131-CFCK 7S4E H7VX FBCX EOLG JGJD KPBS BFR2 3YFI 43CF 4X35 PQJU HSJQ-G4U6",
+        "BMCKIT1-GO5XYFAT-132-CFCK 7S4E H7VX FBCX EOLG JGJD KPBS BFR2 3YFI 43CF 4X35 PQJU HSJQ-PFF6",
+        "BMCKIT1-GO5XYFAT-133-CFCK 7S4E H7VX FBCX EOLG JGJD KPBS BFR2 3YFI 43CF 4X35 PQJU HSJQ-SJNS"
+      ],
+      "y": [
+        "1144afcb843feb728457239664992353c320963ade0a8e6c45e5f7d7c1343c93",
+        "1144afcb843feb728457239664992353c320963ade0a8e6c45e5f7d7c1343c93",
+        "1144afcb843feb728457239664992353c320963ade0a8e6c45e5f7d7c1343c93"
+      ]
+    },
+    {
+      "threshold": 2,
+      "shares": 2,
+      "random": "bd1a5b5403785f331b8d830dd485a54bb4ae796a7d56b8d20cec09637be56c3b202215c88d16223c8e335a5ce71f67f33ac43bc3c9657e3013a942a8b8038218ad991b4f3b",
+      "kitId": "EARBLSEN",
+      "key": "bd1a5b5403785f331b8d830dd485a54bb4ae796a7d56b8d20cec09637be56c3b",
+      "pieces": [
+        "BMCKIT1-EARBLSEN-221-VM4GPWRQEIB5IBHKOA3RBPTGQLI5ASLZ2QKBA2QPNYI45YX6EMAA-P5XQ",
+        "BMCKIT1-EARBLSEN-222-SFPCGU3FZTT6MJKDPZ4UP4ZYYJ7FEGKMGTJPHOIK6M4SEUWT6JGQ-JOCH"
+      ],
+      "displayed": [
+        "BMCKIT1-EARBLSEN-221-VM4G PWRQ EIB5 IBHK OA3R BPTG QLI5 ASLZ 2QKB A2QP NYI4 5YX6 EMAA-P5XQ",
+        "BMCKIT1-EARBLSEN-222-SFPC GU3F ZTT6 MJKD PZ4U P4ZY YJ7F EGKM GTJP HOIK 6M4S EUWT 6JGQ-JOCH"
+      ],
+      "y": [
+        "ab3867da302203d404ea703710be6682d1d04979d414106a0f6e11cee2fe2300",
+        "915e235365cce7e625437e7947f338c27e52194c34d2f3b90af3392252d3f24d"
+      ]
+    },
+    {
+      "threshold": 2,
+      "shares": 3,
+      "random": "fc117dbeb928527c72179faaa6afb232d5485e24a7eba4981710233439012a4197cff1b60469c9ed45ad5a00fc764928b6a426aeb1c987bb6e994d41b52d84acece873da37",
+      "kitId": "S7H7DNQE",
+      "key": "fc117dbeb928527c72179faaa6afb232d5485e24a7eba4981710233439012a41",
+      "pieces": [
+        "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+        "BMCKIT1-S7H7DNQE-232-F2MLYNHYTRJJ7HUFZ7O7LY7VJNOF2M7YRZYSN2KNANQPP4XHQUXQ-GUFN",
+        "BMCKIT1-S7H7DNQE-233-I5IVC4KVYZJGH2GM45VVDRK37KK5VCEWC46GOXDAQ7GBWGUUL4MA-5XJA"
+      ],
+      "displayed": [
+        "BMCKIT1-S7H7DNQE-231-SXMJ B6YU OJJI ABC6 W4OA FCI4 QMOM 7ZKK H2TO KLJ2 SSH5 RULS 6B3A-P4WU",
+        "BMCKIT1-S7H7DNQE-232-F2ML YNHY TRJJ 7HUF Z7O7 LY7V JNOF 2M7Y RZYS N2KN ANQP P4XH QUXQ-GUFN",
+        "BMCKIT1-S7H7DNQE-233-I5IV C4KV YZJG H2GM 45VV DRK3 7KK5 VCEW C46G OXDA Q7GB WGUU L4MA-5XJA"
+      ],
+      "y": [
+        "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076",
+        "2e98bc34f89c529f9e85cfddf5e3f54b5c5d33f88e7126e94d0360f7f2e7852f",
+        "4751517155c65263e8cce76b51c55bfa95da8896173c675c6087cc1b1a945f18"
+      ]
+    },
+    {
+      "threshold": 3,
+      "shares": 5,
+      "random": "803987dcecaa98e40c217deb3a4a224eab3325987c494f1c96d9c099235e8ee1d5f4302b11d6032cc3dd82353190d4cd6f38471f0ba674a8b04a49430498cf539311fcc55a49625d9d88a4895ea7413bc1bfe16762688f82b094a852a5b775d4b1ad4b4f90",
+      "kitId": "2X2DAKYR",
+      "key": "803987dcecaa98e40c217deb3a4a224eab3325987c494f1c96d9c099235e8ee1",
+      "pieces": [
+        "BMCKIT1-2X2DAKYR-351-D5MPNAVZRQSIWO5URNC333C2E5S4QD4YUKUF5PNZMND3XH7JAQVQ-LZFJ",
+        "BMCKIT1-2X2DAKYR-352-BCWLAA23CPQOLHMNCAOIA3M3ZND5CUAVRZGZVNSXSMNVNA4KHARQ-RYPU",
+        "BMCKIT1-2X2DAKYR-353-S7G4CXIOGVOIVKQY42ZAPS7DUKESU6QVKCWIWF3YFGOHIPZ5WLUQ-DNIF",
+        "BMCKIT1-2X2DAKYR-354-BFHZB3XNHICLPZBA7HUN7X3UDDP5AS43ZQMA7MSF3F4AMWK7FNIQ-X5X7",
+        "BMCKIT1-2X2DAKYR-355-SYXODMFYDS4NRU5VB5DFQ6IMOEISWYM3CL4R4E3KMP7SJZPIUGNQ-CLRU"
+      ],
+      "displayed": [
+        "BMCKIT1-2X2DAKYR-351-D5MP NAVZ RQSI WO5U RNC3 33C2 E5S4 QD4Y UKUF 5PNZ MND3 XH7J AQVQ-LZFJ",
+        "BMCKIT1-2X2DAKYR-352-BCWL AA23 CPQO LHMN CAOI A3M3 ZND5 CUAV RZGZ VNSX SMNV NA4K HARQ-RYPU",
+        "BMCKIT1-2X2DAKYR-353-S7G4 CXIO GVOI VKQY 42ZA PS7D UKES U6QV KCWI WF3Y FGOH IPZ5 WLUQ-DNIF",
+        "BMCKIT1-2X2DAKYR-354-BFHZ B3XN HICL PZBA 7HUN 7X3U DDP5 AS43 ZQMA 7MSF 3F4A MWK7 FNIQ-X5X7",
+        "BMCKIT1-2X2DAKYR-355-SYXO DMFY DS4N RU5V B5DF Q6IM OEIS WYM3 CL4R 4E3K MP7S JZPI UGNQ-CLRU"
+      ],
+      "y": [
+        "1f58f682b98c248b3bb48b45bdec5a2765c80f98a2a85ebdb96347bb9fe9042b",
+        "08acb0035b13e0e59d8d101c806d9bcb47d150158e4d9ab657931b56838a3823",
+        "97cdc15d0e355c8aaa18e6b207cbe3a2892a7a1550ac8b1778299c743f3db2e9",
+        "094f90eeed3a04b7e420f9e8dfdf7418dfd04b9bcc180fb245d97806595f2b51",
+        "962ee1b0b81cb8d8d3b50f4658790c71112b619b12f91e136a63ff24e5e8a19b"
+      ]
+    },
+    {
+      "threshold": 4,
+      "shares": 9,
+      "random": "210269c866788f7a441cc868d57123e3711b4dc2267e59f7f8745b1c31a65ba966c0671d18344820836e56ad67c7f57096af0238a4fa644a31997464f6b204f60134c4bed065ef3bca0b2bacabf617a30554e74697fbd410504f02ff425913ae80eb38d129f1089f338ce0aeac5f6ce9584a1deb136b0b64112d6edff35ac9cb21553307ce",
+      "kitId": "M3AGOHIY",
+      "key": "210269c866788f7a441cc868d57123e3711b4dc2267e59f7f8745b1c31a65ba9",
+      "pieces": [
+        "BMCKIT1-M3AGOHIY-491-QGW63MUP4UQBUKUS6KRWJCNWYMN2A45S3VTB3MCJVLELZO3JGOPA-6BCM",
+        "BMCKIT1-M3AGOHIY-492-B5BVCU42HFHTT2X4TO632LCJIIVPNFDTLPB6FSQ6EIQDWRSWNWOA-5HUZ",
+        "BMCKIT1-M3AGOHIY-493-X7OLVA3W2IUZYXIB4G62XGUQBAQXP2LFJ2SFFELIPQ7V2KJTC44Q-2SVT",
+        "BMCKIT1-M3AGOHIY-494-5F63REQVQMNRXJWQQWTXLCQHLIMISDK5LVF5ZXEQ36YFQT2C6EUQ-4VKH",
+        "BMCKIT1-M3AGOHIY-495-FFZEKOPCGE2NGKDPETQDXTJBDUX25ITC6RFJNU4FFQTFVLK46VPQ-RWJV",
+        "BMCKIT1-M3AGOHIY-496-I6T5KLWBL7ESVGUF4BYFFEJ3QZTK76XRCERYMAIU4XDRKUMVK7QA-UHNX",
+        "BMCKIT1-M3AGOHIY-497-S6MEOLZTTMXSPTKJAH6LXGCRVMYLEFVIKZOTQEWGS3O5CVRBIECA-CT2P",
+        "BMCKIT1-M3AGOHIY-498-EIGAUYPAHPZ3XJEEIYTO5DGSLEAHMKXNDPM75UILCQJPLTWTSSZQ-QZ2C",
+        "BMCKIT1-M3AGOHIY-499-LHK5N3DF3FRXILQZHXVCJHMWJWNGG4JZEZBH7XJNJCJ54RXLD7SQ-3W7P"
+      ],
+      "displayed": [
+        "BMCKIT1-M3AGOHIY-491-QGW6 3MUP 4UQB UKUS 6KRW JCNW YMN2 A45S 3VTB 3MCJ VLEL ZO3J GOPA-6BCM",
+        "BMCKIT1-M3AGOHIY-492-B5BV CU42 HFHT T2X4 TO63 2LCJ IIVP NFDT LPB6 FSQ6 EIQD WRSW NWOA-5HUZ",
+        "BMCKIT1-M3AGOHIY-493-X7OL VA3W 2IUZ YXIB 4G62 XGUQ BAQX P2LF J2SF FELI PQ7V 2KJT C44Q-2SVT",
+        "BMCKIT1-M3AGOHIY-494-5F63 REQV QMNR XJWQ QWTX LCQH LIMI SDK5 LVF5 ZXEQ 36YF QT2C 6EUQ-4VKH",
+        "BMCKIT1-M3AGOHIY-495-FFZE KOPC GE2N GKDP ETQD XTJB DUX2 5ITC 6RFJ NU4F FQTF VLK4 6VPQ-RWJV",
+        "BMCKIT1-M3AGOHIY-496-I6T5 KLWB L7ES VGUF 4BYF FEJ3 QZTK 76XR CERY MAIU 4XDR KUMV K7QA-UHNX",
+        "BMCKIT1-M3AGOHIY-497-S6ME OLZT TMXS PTKJ AH6L XGCR VMYL EFVI KZOT QEWG S3O5 CVRB IECA-CT2P",
+        "BMCKIT1-M3AGOHIY-498-EIGA UYPA HPZ3 XJEE IYTO 5DGS LEAH MKXN DPM7 5UIL CQJP LTWT SSZQ-QZ2C",
+        "BMCKIT1-M3AGOHIY-499-LHK5 N3DF 3FRX ILQZ HXVC JHMW JWNG G4JZ EZBH 7XJN JCJ5 4RXL D7SQ-3W7P"
+      ],
+      "y": [
+        "81adedb28fe5201a2a92f2a36489b6c31ba073b2dd661db049aac8bcbb69339e",
+        "0f4351539a394f39eafc9bbdbd2c49422af694735bc3e2ca1e22203b46566d9c",
+        "bfdcba8376d2299c5d01e1bdab9a90082177e9654ea45291687c3f5d29331739",
+        "e97db89215831b1ba6d085a7758a075a18890d5d5d4bdcdc90dfb0584f42f129",
+        "29724539e23134d3286f24e03bcd211d2faea262f44a96d3852c265aad5cf55f",
+        "47a7d52ec15fc92a9a85e07052913b8666affaf11123860114e5c715519557e0",
+        "9798472f339b2f27cd4901fcbb9851ab30b216a8565d3812c696ddd156214104",
+        "220c0a61e03bf3bba4844626ee8cd25900762aed1bd9fed10b1412f5ced394b3",
+        "59d5d6ec65d963742e193dea249d964d9a63713926427fdd2d4893de46eb1fe5"
+      ]
+    },
+    {
+      "threshold": 9,
+      "shares": 9,
+      "random": "c14fb8a67bcd25623c6b69549f764d83bea1dfdfae5b04706655def9af95018285425e424d89dc5819aeb0c408184b2eb79d656d8e9a3a492b48d6b0aa83bfea3ce7934e13c201a5a73519443f769637ab3d2019a2a99bfb987dd92c76684dc89527dc31c2643c6d5d2cfad8a00b3178326183d1607579f79cf1055cc6289d08eecb5cb26457ede1c614b6674c5527e15769ad7753f8643a4c2ad37530681db2c6bd995076f909b5460f776d2e3c07ff270b75501441c6a1caa64d5f20b6adeded8566760390de4cbab99e68326234258d2d33a700b63d9291a3b703dda2d78b4a420614aae31c89acc77f167023626d3644f692935c4e504bca204df19bacaaea16f22bf8243e2e76b4b8448d7442c6209cf471dfe23de01fda070f55413cfc668a4091b5",
+      "kitId": "QVBF4QSN",
+      "key": "c14fb8a67bcd25623c6b69549f764d83bea1dfdfae5b04706655def9af950182",
+      "pieces": [
+        "BMCKIT1-QVBF4QSN-991-C63JPJI5AZGVQBNTTCI4SWMLYREZKI5TKVP26AYDZV3FGQWNISSQ-4FZK",
+        "BMCKIT1-QVBF4QSN-992-CK5RGLTD2ZCGRISYCSECBFUOXACF7UZ6RS45GUSRIQ3TTVN2H6MA-CPA6",
+        "BMCKIT1-QVBF4QSN-993-YTG4N2YYONC3UBXSHMCI5HSZRN7FYAXAG2ZVZGGXOZERRTDWHPZA-6GPJ",
+        "BMCKIT1-QVBF4QSN-994-G3KKO5AUQYHIPVGIQ2WXHLVTSCYYMHIYVOZD3Q2B4M35PR523FEA-TPUD",
+        "BMCKIT1-QVBF4QSN-995-2FTCC4XGIRB5Y64TONAEAOORVQM3QQHXTVKVDP6UTERON4DE2FKA-NAZ5",
+        "BMCKIT1-QVBF4QSN-996-QO7I7KUA75V5GDAEQ4NEOKIQNBJOAGLJHHVW6PPNGKFKZFNMSB6A-UQLK",
+        "BMCKIT1-QVBF4QSN-997-JLU2FNH74TKNGF6BIRP3Y76PXXUSRIAAXB4LLCMVHQYZVTOEMP7A-YZRV",
+        "BMCKIT1-QVBF4QSN-998-D26MCIHY6HN3XGCBQ5GIJUMBFRCU72RWDBCDSK76RDSKBQBEAIOQ-T7XT",
+        "BMCKIT1-QVBF4QSN-999-WFVLYEQPF6GHLVFVR6RUONKIDTTEFOAGN7GBA76RRMSURIJ4CMZA-ETRT"
+      ],
+      "displayed": [
+        "BMCKIT1-QVBF4QSN-991-C63J PJI5 AZGV QBNT TCI4 SWML YREZ KI5T KVP2 6AYD ZV3F GQWN ISSQ-4FZK",
+        "BMCKIT1-QVBF4QSN-992-CK5R GLTD 2ZCG RISY CSEC BFUO XACF 7UZ6 RS45 GUSR IQ3T TVN2 H6MA-CPA6",
+        "BMCKIT1-QVBF4QSN-993-YTG4 N2YY ONC3 UBXS HMCI 5HSZ RN7F YAXA G2ZV ZGGX OZER RTDW HPZA-6GPJ",
+        "BMCKIT1-QVBF4QSN-994-G3KK O5AU QYHI PVGI Q2WX HLVT SCYY MHIY VOZD 3Q2B 4M35 PR52 3FEA-TPUD",
+        "BMCKIT1-QVBF4QSN-995-2FTC C4XG IRB5 Y64T ONAE AOOR VQM3 QQHX TVKV DP6U TERO N4DE 2FKA-NAZ5",
+        "BMCKIT1-QVBF4QSN-996-QO7I 7KUA 75V5 GDAE Q4NE OKIQ NBJO AGLJ HHVW 6PPN GKFK ZFNM SB6A-UQLK",
+        "BMCKIT1-QVBF4QSN-997-JLU2 FNH7 4TKN GF6B IRP3 Y76P XXUS RIAA XB4L LCMV HQYZ VTOE MP7A-YZRV",
+        "BMCKIT1-QVBF4QSN-998-D26M CIHY 6HN3 XGCB Q5GI JUMB FRCU 72RW DBCD SK76 RDSK BQBE AIOQ-T7XT",
+        "BMCKIT1-QVBF4QSN-999-WFVL YEQP F6GH LVFV R6RU ONKI DTTE FOAG N7GB A76R RMSU RIJ4 CMZA-ETRT"
+      ],
+      "y": [
+        "17b697a51d064d5805b39891c9598bc4499523b3555faf0303cd765342cd44a5",
+        "12bb132e63d64468a258148820968eb8045fd33e8cb9d35251443739d5ba3f98",
+        "c4cdc6eb187345ba06f23b048e9e598b7e5c02e036b35c98d7764918cc763bf2",
+        "36d4a77414860e87d4c886ad73aeb390b1861d18abb23dc341e337d7c7bad948",
+        "d1662172e64443dc7b9373404039d1ac19b840f79d5551bfd49922e6f064d154",
+        "83be8faa80ff6bd30c04871a4729106852e0196939eb6f3ded328aac95ac907c",
+        "4ae9a2b4ffe4d4d317c1445fbc7fcfbde928a000b878b589953c319acdc463fe",
+        "1ebcc120f8f1dbbb9841874c84d1812c454fea361844392bfe88e4a0c024021d",
+        "b16abc120f2f8c75d4b58fa34735481ce642b8066fcc107fd18b2548a13c1332"
+      ]
+    }
+  ],
+  "parse": [
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-232-F2MLYNHYTRJJ7HUFZ7O7LY7VJNOF2M7YRZYSN2KNANQPP4XHQUXQ-GUFN",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 2,
+        "y": "2e98bc34f89c529f9e85cfddf5e3f54b5c5d33f88e7126e94d0360f7f2e7852f"
+      },
+      "text": "BMCKIT1-S7H7DNQE-232-F2MLYNHYTRJJ7HUFZ7O7LY7VJNOF2M7YRZYSN2KNANQPP4XHQUXQ-GUFN"
+    },
+    {
+      "input": "bmckit1-s7h7dnqe-231-sxmjb6yuojjiabc6w4oafci4qmom7zkkh2toklj2ssh5ruls6b3a-p4wu",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJ B6YU OJJI ABC6 W4OA FCI4 QMOM 7ZKK H2TO KLJ2 SSH5 RULS 6B3A-P4WU",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "bmckit1-s7h7dnqe-231-sxmj b6yu ojji abc6 w4oa fci4 qmom 7zkk h2to klj2 ssh5 ruls 6b3a-p4wu",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "  BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU\n",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "B M C K I T 1 - S 7 H 7 D N Q E - 2 3 1 - S X M J B 6 Y U O J J I A B C 6 W 4 O A F C I 4 Q M O M 7 Z K K H 2 T O K L J 2 S S H 5 R U L S 6 B 3 A - P 4 W U",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "BMCKIT1-\tS7H7DNQE-\t231-\tSXMJB6YUOJJIABC6W4OAFCI4QM\r\n\tOM7ZKKH2TOKLJ2SSH5RULS6B3A-\tP4WU",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OA  　﻿FCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-p4wu",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "BMCKIT1-S7HADNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "checksum"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-213-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "checksum"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJBAYUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "checksum"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3B-P4WU",
+      "problem": "checksum"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-A4WU",
+      "problem": "checksum"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WUA",
+      "problem": "checksum"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-",
+      "problem": "checksum"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-XMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3AS-P4WU",
+      "problem": "checksum"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3P-GAZH",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 2,
+        "shares": 3,
+        "index": 1,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-431-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-4PDK",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-031-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-J3IZ",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-230-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-TDRQ",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-234-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-YZTN",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-200-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-ECTF",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-431-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "checksum"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-999-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-B4KY",
+      "piece": {
+        "kitId": "S7H7DNQE",
+        "threshold": 9,
+        "shares": 9,
+        "index": 9,
+        "y": "95d890fb14725280045eb71c02891c831ccfe54a3ea6e52d3a948fd8d172f076"
+      },
+      "text": "BMCKIT1-S7H7DNQE-999-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-B4KY"
+    },
+    {
+      "input": "",
+      "problem": "format"
+    },
+    {
+      "input": "hello",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-ABCDEFGH-231-SHORT-AAAA",
+      "problem": "format"
+    },
+    {
+      "input": "otpauth://totp/x?secret=ABC",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT2-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQEA-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-17H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-2a1-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-23-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-2311-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-XMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3AA-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6Y0OJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6Y8OJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6Y=OJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YÉOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "problem": "format"
+    },
+    {
+      "input": "BMCKIT1_S7H7DNQE_231_SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A_P4WU",
+      "problem": "format"
+    }
+  ],
+  "display": [
+    {
+      "input": "BMCKIT1-S7H7DNQE-231-SXMJB6YUOJJIABC6W4OAFCI4QMOM7ZKKH2TOKLJ2SSH5RULS6B3A-P4WU",
+      "output": "BMCKIT1-S7H7DNQE-231-SXMJ B6YU OJJI ABC6 W4OA FCI4 QMOM 7ZKK H2TO KLJ2 SSH5 RULS 6B3A-P4WU"
+    },
+    {
+      "input": "bmckit1-s7h7dnqe-231-sxmjb6yuojjiabc6w4oafci4qmom7zkkh2toklj2ssh5ruls6b3a-p4wu",
+      "output": "bmckit1-s7h7dnqe-231-sxmj b6yu ojji abc6 w4oa fci4 qmom 7zkk h2to klj2 ssh5 ruls 6b3a-p4wu"
+    },
+    {
+      "input": "",
+      "output": "---"
+    },
+    {
+      "input": "abc",
+      "output": "abc---"
+    },
+    {
+      "input": "a-b",
+      "output": "a-b--"
+    },
+    {
+      "input": "a-b-c",
+      "output": "a-b-c-"
+    },
+    {
+      "input": "a-b-c-",
+      "output": "a-b-c-"
+    },
+    {
+      "input": "a-b-c-defghij",
+      "output": "a-b-c-defg hij"
+    },
+    {
+      "input": "a-b-c-defghijk-l-m",
+      "output": "a-b-c-defg hijk-l-m"
+    },
+    {
+      "input": "a-b-c-de\nfghij-k",
+      "output": "a-b-c-de fghi j-k"
+    },
+    {
+      "input": "a-b-c-de fg-h",
+      "output": "a-b-c-de f g-h"
+    }
+  ]
+}

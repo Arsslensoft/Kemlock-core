@@ -1,0 +1,24 @@
+{
+  "note": "What fido-example.json holds that Apple's types can carry, item by item: the credential types of each, in order. Apple's ASImportableCredential has no file type, so the file credential of the second \"ID card\" item is taken out before the example is decoded into ASExportedCredentialData; that item stays, with none. ios/RunnerTests/CredentialExchangeTests.swift decodes the example, encodes it again with CredentialExchangeJSON and compares this list, and test/features/import/cxf_ios_roundtrip_test.dart holds the list to what the Dart reader reads from the example. Written by hand from the example, not recorded from a device: task 4.3 of docs/plans/add-credential-exchange.md checks what Passwords really sends.",
+  "accounts": [
+    {
+      "id": "DZSXp7iBQY-Fg-OofakQtQ",
+      "items": [
+        {"title": "GitHub Login", "types": ["basic-auth", "totp"]},
+        {"title": "WebAuthn.io", "types": ["passkey"]},
+        {"title": "Visa Credit Card", "types": ["credit-card"]},
+        {"title": "Wifi", "types": ["wifi"]},
+        {"title": "Home alarm", "types": ["note"]},
+        {"title": "Driver License", "types": ["drivers-license"]},
+        {"title": "House Address", "types": ["address"]},
+        {"title": "SSH Key", "types": ["ssh-key"]},
+        {"title": "ID card", "types": []},
+        {"title": "ID card", "types": ["identity-document"]},
+        {"title": "Passport", "types": ["passport"]},
+        {"title": "John Doe", "types": ["person-name"]},
+        {"title": "API key", "types": ["api-key"]},
+        {"title": "Generated Password", "types": ["generated-password"]}
+      ]
+    }
+  ]
+}

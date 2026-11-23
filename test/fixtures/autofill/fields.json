@@ -1,0 +1,3129 @@
+{
+  "about": "Field cases, written once from FieldFinderTest.kt by recording each FieldFinder call it made, with the screen it was given and what it found (openspec: add-browser-extension, task 7.1). Never regenerate: FieldFinder.kt and the extension's src/content/fields.ts must each find what every case expects. A screen is a tree of Android FieldNodes; the extension reads a web field from the same node. A case marked androidOnly relies on what only Android has (apps' autofill hints, Chrome's predictions, or frames of other sites in one screen), and the extension skips it.",
+  "cases": [
+    {
+      "name": "guessesAShortNumericFieldThatSaysItWantsACode #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "pw",
+              "idEntry": "password",
+              "inputType": 129
+            },
+            {
+              "id": "code",
+              "idEntry": "verification_code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "guessesAShortNumericFieldThatSaysItWantsACode #2",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "pw",
+              "idEntry": "password",
+              "inputType": 129
+            },
+            {
+              "id": "code",
+              "idEntry": "otp",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "guessesAShortNumericFieldThatSaysItWantsACode #3",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "pw",
+              "idEntry": "password",
+              "inputType": 129
+            },
+            {
+              "id": "code",
+              "idEntry": "twoFactorCode",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "guessesAShortNumericFieldThatSaysItWantsACode #4",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "pw",
+              "idEntry": "password",
+              "inputType": 129
+            },
+            {
+              "id": "code",
+              "idEntry": "mfa_token",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "guessesAShortNumericFieldThatSaysItWantsACode #5",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "pw",
+              "idEntry": "password",
+              "inputType": 129
+            },
+            {
+              "id": "code",
+              "idEntry": "code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "guessesAShortNumericFieldThatSaysItWantsACode #6",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "code",
+              "hint": "Code de vérification",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "prefersAFieldTheHintsNameOverAGuess #1",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "guess",
+              "idEntry": "code",
+              "inputType": 2
+            },
+            {
+              "id": "hinted",
+              "autofillHints": [
+                "2faAppOTPCode"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "hinted",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "putsACharacterInEachBoxTheHintsNumber #1",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "box6",
+              "autofillHints": [
+                "smsOTPCode6"
+              ],
+              "maxLength": 1
+            },
+            {
+              "id": "box5",
+              "autofillHints": [
+                "smsOTPCode5"
+              ],
+              "maxLength": 1
+            },
+            {
+              "id": "box4",
+              "autofillHints": [
+                "smsOTPCode4"
+              ],
+              "maxLength": 1
+            },
+            {
+              "id": "box3",
+              "autofillHints": [
+                "smsOTPCode3"
+              ],
+              "maxLength": 1
+            },
+            {
+              "id": "box2",
+              "autofillHints": [
+                "smsOTPCode2"
+              ],
+              "maxLength": 1
+            },
+            {
+              "id": "box1",
+              "autofillHints": [
+                "smsOTPCode1"
+              ],
+              "maxLength": 1
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "box1",
+            0
+          ],
+          [
+            "box2",
+            1
+          ],
+          [
+            "box3",
+            2
+          ],
+          [
+            "box4",
+            3
+          ],
+          [
+            "box5",
+            4
+          ],
+          [
+            "box6",
+            5
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAWebFieldByItsAutocomplete #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "github.com",
+          "children": [
+            {
+              "id": "code",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "autocomplete": "one-time-code",
+                "type": "text"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": "github.com"
+      }
+    },
+    {
+      "name": "fillsOnlyTheFieldsOfTheFocusedFieldsSite #1",
+      "androidOnly": "a frame from another site in the screen, apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "github.com",
+          "children": [
+            {
+              "isText": false,
+              "webDomain": "evil.test",
+              "children": [
+                {
+                  "id": "framed",
+                  "autofillHints": [
+                    "smsOTPCode"
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "page",
+              "autofillHints": [
+                "smsOTPCode"
+              ],
+              "focused": true
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "page",
+            null
+          ]
+        ],
+        "webDomain": "github.com"
+      }
+    },
+    {
+      "name": "fillsOnlyTheFieldsOfTheFocusedFieldsSite #2",
+      "androidOnly": "apps' autofill hints, a frame from another site in the screen",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "github.com",
+          "children": [
+            {
+              "id": "page",
+              "autofillHints": [
+                "smsOTPCode"
+              ]
+            },
+            {
+              "isText": false,
+              "webDomain": "evil.test",
+              "children": [
+                {
+                  "id": "framed",
+                  "autofillHints": [
+                    "smsOTPCode"
+                  ],
+                  "focused": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "framed",
+            null
+          ]
+        ],
+        "webDomain": "evil.test"
+      }
+    },
+    {
+      "name": "fillsOnlyTheFieldsOfTheFocusedFieldsSite #3",
+      "androidOnly": "a frame from another site in the screen",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "github.com",
+          "children": [
+            {
+              "id": "box1",
+              "inputType": 2,
+              "maxLength": 1,
+              "focused": true
+            },
+            {
+              "id": "box2",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box3",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "isText": false,
+              "webDomain": "evil.test",
+              "children": [
+                {
+                  "id": "box4",
+                  "inputType": 2,
+                  "maxLength": 1
+                },
+                {
+                  "id": "box5",
+                  "inputType": 2,
+                  "maxLength": 1
+                },
+                {
+                  "id": "box6",
+                  "inputType": 2,
+                  "maxLength": 1
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldNamedOtpOrTwoFactorHoweverLongItIs #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "otp"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldNamedOtpOrTwoFactorHoweverLongItIs #2",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "twoFactorCode"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldNamedOtpOrTwoFactorHoweverLongItIs #3",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "mfaToken"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldNamedOtpOrTwoFactorHoweverLongItIs #4",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "OTPCode"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldNamedOtpOrTwoFactorHoweverLongItIs #5",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "verification_code"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldNamedOtpOrTwoFactorHoweverLongItIs #6",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "auth-mfa-otpcode"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldNamedOtpOrTwoFactorHoweverLongItIs #7",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "2fa"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldNamedOtpOrTwoFactorHoweverLongItIs #8",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "hint": "Code de vérification"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldNamedOtpOrTwoFactorHoweverLongItIs #9",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "text",
+                "name": "totp"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesHiddenAndUnfillableFieldsAlone #1",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "autofillHints": [
+                "smsOTPCode"
+              ],
+              "visible": false
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesHiddenAndUnfillableFieldsAlone #2",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "autofillHints": [
+                "smsOTPCode"
+              ],
+              "isText": false
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesHiddenAndUnfillableFieldsAlone #3",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "autofillHints": [
+                "smsOTPCode"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "fillsTheFieldAPersonAsksToAutofillFromItsMenu #1",
+      "find": "code",
+      "manual": true,
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "other",
+              "idEntry": "city"
+            },
+            {
+              "id": "nick",
+              "idEntry": "nickname",
+              "focused": true
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "nick",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "fillsTheFieldAPersonAsksToAutofillFromItsMenu #2",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "other",
+              "idEntry": "city"
+            },
+            {
+              "id": "nick",
+              "idEntry": "nickname",
+              "focused": true
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "fillsTheFieldAPersonAsksToAutofillFromItsMenu #3",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "manual": true,
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "nick",
+              "idEntry": "nickname",
+              "focused": true
+            },
+            {
+              "id": "code",
+              "autofillHints": [
+                "smsOTPCode"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "fillsTheFieldAPersonAsksToAutofillFromItsMenu #4",
+      "find": "code",
+      "manual": true,
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "other",
+              "idEntry": "city"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "fillsTheFieldAPersonAsksToAutofillFromItsMenu #5",
+      "find": "code",
+      "manual": true,
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "box",
+              "isText": false,
+              "focused": true
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesPasswordsEmailsAndLongTextFieldsAlone #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "verification_code",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesPasswordsEmailsAndLongTextFieldsAlone #2",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "code",
+              "inputType": 33
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesPasswordsEmailsAndLongTextFieldsAlone #3",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "code"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesPasswordsEmailsAndLongTextFieldsAlone #4",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "password",
+                "name": "otp"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "takesChromesPredictionThatAFieldWantsACode #1",
+      "androidOnly": "Chrome's predictions",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "text",
+                "name": "q7",
+                "computed-autofill-hints": "ONE_TIME_CODE"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "takesChromesPredictionThatAFieldWantsACode #2",
+      "androidOnly": "Chrome's predictions",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "text",
+                "name": "q7",
+                "crowdsourcing-autofill-hints": "ONE_TIME_CODE"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "takesChromesPredictionThatAFieldWantsACode #3",
+      "androidOnly": "Chrome's predictions",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "text",
+                "name": "q7",
+                "crowdsourcing-predictions-autofill-hints": "NO_SERVER_DATA,ONE_TIME_CODE"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "takesChromesPredictionThatAFieldWantsACode #4",
+      "androidOnly": "Chrome's predictions",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "text",
+                "name": "q7",
+                "computed-autofill-hints": "USERNAME",
+                "crowdsourcing-autofill-hints": "NO_SERVER_DATA"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesRecoveryAndBackupCodeFieldsAlone #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "recovery_code",
+              "inputType": 2,
+              "maxLength": 10
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesRecoveryAndBackupCodeFieldsAlone #2",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "backupCode",
+              "inputType": 2,
+              "maxLength": 10
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesRecoveryAndBackupCodeFieldsAlone #3",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "otp_recovery",
+              "inputType": 2,
+              "maxLength": 10
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesRecoveryAndBackupCodeFieldsAlone #4",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "code_de_secours",
+              "inputType": 2,
+              "maxLength": 10
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "fillsARowOfOneCharacterBoxesThatNamesNoCode #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "box1",
+              "idEntry": "digit1",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box2",
+              "idEntry": "digit2",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box3",
+              "idEntry": "digit3",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box4",
+              "idEntry": "digit4",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box5",
+              "idEntry": "digit5",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box6",
+              "idEntry": "digit6",
+              "inputType": 2,
+              "maxLength": 1
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "box1",
+            0
+          ],
+          [
+            "box2",
+            1
+          ],
+          [
+            "box3",
+            2
+          ],
+          [
+            "box4",
+            3
+          ],
+          [
+            "box5",
+            4
+          ],
+          [
+            "box6",
+            5
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "fillsARowOfOneCharacterBoxesThatNamesNoCode #2",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "box1",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "tel",
+                "maxlength": "1"
+              }
+            },
+            {
+              "id": "box2",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "tel",
+                "maxlength": "1"
+              }
+            },
+            {
+              "id": "box3",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "tel",
+                "maxlength": "1"
+              }
+            },
+            {
+              "id": "box4",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "tel",
+                "maxlength": "1"
+              }
+            },
+            {
+              "id": "box5",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "tel",
+                "maxlength": "1"
+              }
+            },
+            {
+              "id": "box6",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "tel",
+                "maxlength": "1"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "box1",
+            0
+          ],
+          [
+            "box2",
+            1
+          ],
+          [
+            "box3",
+            2
+          ],
+          [
+            "box4",
+            3
+          ],
+          [
+            "box5",
+            4
+          ],
+          [
+            "box6",
+            5
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "fillsARowOfOneCharacterBoxesThatNamesNoCode #3",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "box1",
+              "idEntry": "digit1",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box2",
+              "idEntry": "digit2",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box3",
+              "idEntry": "digit3",
+              "inputType": 2,
+              "maxLength": 1
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "fillsARowOfOneCharacterBoxesThatNamesNoCode #4",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "box1",
+              "inputType": 129,
+              "maxLength": 1
+            },
+            {
+              "id": "box2",
+              "inputType": 129,
+              "maxLength": 1
+            },
+            {
+              "id": "box3",
+              "inputType": 129,
+              "maxLength": 1
+            },
+            {
+              "id": "box4",
+              "inputType": 129,
+              "maxLength": 1
+            },
+            {
+              "id": "box5",
+              "inputType": 129,
+              "maxLength": 1
+            },
+            {
+              "id": "box6",
+              "inputType": 129,
+              "maxLength": 1
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldByTheOtpHintsAppsSet #1",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "username"
+              ]
+            },
+            {
+              "id": "code",
+              "autofillHints": [
+                "2faAppOTPCode"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldByTheOtpHintsAppsSet #2",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "username"
+              ]
+            },
+            {
+              "id": "code",
+              "autofillHints": [
+                "smsOTPCode"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldByTheOtpHintsAppsSet #3",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "username"
+              ]
+            },
+            {
+              "id": "code",
+              "autofillHints": [
+                "emailOTPCode"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAFieldByTheOtpHintsAppsSet #4",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "username"
+              ]
+            },
+            {
+              "id": "code",
+              "autofillHints": [
+                "one-time-code"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsNothingOnALoginScreen #1",
+      "androidOnly": "apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "username"
+              ]
+            },
+            {
+              "id": "pw",
+              "autofillHints": [
+                "password"
+              ],
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAShortNumericFieldWhoseNameHasTheWordCode #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "smsCode",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "findsAShortNumericFieldWhoseNameHasTheWordCode #2",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "smsCode"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesOtherCodesAlone #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "zip_code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesOtherCodesAlone #2",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "postal_code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesOtherCodesAlone #3",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "promo_code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesOtherCodesAlone #4",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "coupon_code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesOtherCodesAlone #5",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "country_code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesOtherCodesAlone #6",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "phone",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesOtherCodesAlone #7",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "captcha_code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "leavesOtherCodesAlone #8",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "card_security_code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "putsACharacterInEachOfARowOfOneCharacterBoxes #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "box1",
+              "idEntry": "otp_digit_1",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box2",
+              "idEntry": "otp_digit_2",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box3",
+              "idEntry": "otp_digit_3",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box4",
+              "idEntry": "otp_digit_4",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box5",
+              "idEntry": "otp_digit_5",
+              "inputType": 2,
+              "maxLength": 1
+            },
+            {
+              "id": "box6",
+              "idEntry": "otp_digit_6",
+              "inputType": 2,
+              "maxLength": 1
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "box1",
+            0
+          ],
+          [
+            "box2",
+            1
+          ],
+          [
+            "box3",
+            2
+          ],
+          [
+            "box4",
+            3
+          ],
+          [
+            "box5",
+            4
+          ],
+          [
+            "box6",
+            5
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "readsWhatAFieldTellsScreenReaders #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "contentDescription": "Verification code",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "f",
+            null
+          ]
+        ],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "takesNoWordForOtpThatIsPartOfAnother #1",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "footprint",
+              "inputType": 2,
+              "maxLength": 6
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "takesNoWordForOtpThatIsPartOfAnother #2",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "f",
+              "idEntry": "laptop_tag",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [],
+        "webDomain": null
+      }
+    },
+    {
+      "name": "matchesAFieldInAFrameByTheFramesOwnSite #1",
+      "androidOnly": "a frame from another site in the screen, apps' autofill hints",
+      "find": "code",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "github.com",
+          "children": [
+            {
+              "isText": false,
+              "webDomain": "evil.test",
+              "children": [
+                {
+                  "id": "code",
+                  "autofillHints": [
+                    "smsOTPCode"
+                  ],
+                  "focused": true
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "fields": [
+          [
+            "code",
+            null
+          ]
+        ],
+        "webDomain": "evil.test"
+      }
+    },
+    {
+      "name": "tellsAChangeFormsCurrentPasswordFromTheNewOnes #1",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "pw",
+              "idEntry": "current_password",
+              "inputType": 129
+            },
+            {
+              "id": "new",
+              "idEntry": "new_password",
+              "inputType": 129
+            },
+            {
+              "id": "again",
+              "idEntry": "confirm_new_password",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": null,
+        "password": "pw",
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "tellsAChangeFormsCurrentPasswordFromTheNewOnes #2",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "pw",
+              "hint": "Mot de passe actuel",
+              "inputType": 129
+            },
+            {
+              "id": "new",
+              "hint": "Nouveau mot de passe",
+              "inputType": 129
+            },
+            {
+              "id": "again",
+              "hint": "Confirmer le nouveau mot de passe",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": null,
+        "password": "pw",
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "tellsAChangeFormsCurrentPasswordFromTheNewOnes #3",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "pw",
+              "inputType": 129
+            },
+            {
+              "id": "new",
+              "inputType": 129
+            },
+            {
+              "id": "again",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": null,
+        "password": "pw",
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "tellsAChangeFormsCurrentPasswordFromTheNewOnes #4",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "pw",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "autocomplete": "current-password",
+                "type": "password"
+              }
+            },
+            {
+              "id": "again",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "password",
+                "name": "confirm"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": null,
+        "password": "pw",
+        "newPasswords": [
+          "again"
+        ],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "tellsASignUpFormsPasswordAndItsConfirmation #1",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "inputType": 33
+            },
+            {
+              "id": "new",
+              "idEntry": "password",
+              "inputType": 129
+            },
+            {
+              "id": "again",
+              "idEntry": "confirm_password",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "tellsASignUpFormsPasswordAndItsConfirmation #2",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user"
+            },
+            {
+              "id": "new",
+              "inputType": 129
+            },
+            {
+              "id": "again",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "tellsASignUpFormsPasswordAndItsConfirmation #3",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "hint": "Adresse e-mail",
+              "inputType": 33
+            },
+            {
+              "id": "new",
+              "hint": "Mot de passe",
+              "inputType": 129
+            },
+            {
+              "id": "again",
+              "hint": "Confirmer le mot de passe",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsWebFieldsByChromesPredictions #1",
+      "androidOnly": "Chrome's predictions",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "computed-autofill-hints": "USERNAME_AND_EMAIL_ADDRESS"
+              }
+            },
+            {
+              "id": "pw",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "computed-autofill-hints": "PASSWORD"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsWebFieldsByChromesPredictions #2",
+      "androidOnly": "Chrome's predictions",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "computed-autofill-hints": "EMAIL_ADDRESS"
+              }
+            },
+            {
+              "id": "new",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "computed-autofill-hints": "ACCOUNT_CREATION_PASSWORD"
+              }
+            },
+            {
+              "id": "again",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "computed-autofill-hints": "CONFIRMATION_PASSWORD"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsANativeSignInByTheHintsAppsSet #1",
+      "androidOnly": "apps' autofill hints",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "username"
+              ]
+            },
+            {
+              "id": "pw",
+              "autofillHints": [
+                "password"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsANativeSignInByTheHintsAppsSet #2",
+      "androidOnly": "apps' autofill hints",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "emailAddress"
+              ]
+            },
+            {
+              "id": "pw",
+              "autofillHints": [
+                "password"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsNoLoginOnACodeScreen #1",
+      "androidOnly": "apps' autofill hints",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "code",
+              "autofillHints": [
+                "smsOTPCode"
+              ]
+            },
+            {
+              "id": "box",
+              "idEntry": "otp",
+              "inputType": 2
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": null,
+        "password": null,
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "countsAUsernameAloneOnlyWhenTheFieldSaysSo #1",
+      "androidOnly": "apps' autofill hints",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "emailAddress"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "countsAUsernameAloneOnlyWhenTheFieldSaysSo #2",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "inputType": 33
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": null,
+        "password": null,
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "countsAUsernameAloneOnlyWhenTheFieldSaysSo #3",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "name",
+              "idEntry": "first_name"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": null,
+        "password": null,
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsANativeSignInByItsInputTypes #1",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "inputType": 33
+            },
+            {
+              "id": "pw",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsANativeSignInByItsInputTypes #2",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user"
+            },
+            {
+              "id": "pw",
+              "inputType": 18
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "suggestsForTheNewPasswordAndItsConfirmationWithTheirLimits #1",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "inputType": 33
+            },
+            {
+              "id": "new",
+              "idEntry": "password",
+              "inputType": 129,
+              "maxLength": 20,
+              "focused": true
+            },
+            {
+              "id": "again",
+              "idEntry": "confirm_password",
+              "inputType": 129,
+              "maxLength": 16
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": "NEW_PASSWORD",
+        "newPasswordMaxLength": 16,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "suggestsForTheNewPasswordAndItsConfirmationWithTheirLimits #2",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "larkspur.example",
+          "children": [
+            {
+              "id": "pw",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "password",
+                "autocomplete": "current-password"
+              }
+            },
+            {
+              "id": "new",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "password",
+                "autocomplete": "new-password",
+                "maxlength": "32",
+                "passwordrules": "minlength: 10; required: digit;"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": null,
+        "password": "pw",
+        "newPasswords": [
+          "new"
+        ],
+        "webDomain": "larkspur.example",
+        "focused": null,
+        "newPasswordMaxLength": 32,
+        "newPasswordRules": "minlength: 10; required: digit;"
+      }
+    },
+    {
+      "name": "suggestsForTheNewPasswordAndItsConfirmationWithTheirLimits #3",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user"
+            },
+            {
+              "id": "pw",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsWebFieldsByTheAutocompleteChromeHandsOverAsHints #1",
+      "androidOnly": "apps' autofill hints",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "larkspur.example",
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "username"
+              ],
+              "htmlTag": "input"
+            },
+            {
+              "id": "pw",
+              "autofillHints": [
+                "current-password"
+              ],
+              "htmlTag": "input"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": "larkspur.example",
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsWebFieldsByTheAutocompleteChromeHandsOverAsHints #2",
+      "androidOnly": "apps' autofill hints",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "larkspur.example",
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "email"
+              ],
+              "htmlTag": "input"
+            },
+            {
+              "id": "new",
+              "autofillHints": [
+                "new-password"
+              ],
+              "htmlTag": "input"
+            },
+            {
+              "id": "again",
+              "autofillHints": [
+                "new-password"
+              ],
+              "htmlTag": "input"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": "larkspur.example",
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "takesTheTextFieldNearestBeforeThePasswordAsTheUsername #1",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "search",
+              "idEntry": "search_box"
+            },
+            {
+              "id": "name",
+              "idEntry": "first_name"
+            },
+            {
+              "id": "user",
+              "idEntry": "login"
+            },
+            {
+              "id": "pw",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "takesTheTextFieldNearestBeforeThePasswordAsTheUsername #2",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "search",
+              "hint": "Search"
+            },
+            {
+              "id": "pw",
+              "inputType": 129
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": null,
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "takesTheTextFieldNearestBeforeThePasswordAsTheUsername #3",
+      "androidOnly": "apps' autofill hints",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "autofillHints": [
+                "username"
+              ]
+            },
+            {
+              "id": "pw",
+              "inputType": 129
+            },
+            {
+              "id": "code",
+              "autofillHints": [
+                "smsOTPCode"
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "findsWebFieldsByTheirHtmlAttributes #1",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "larkspur.example",
+          "children": [
+            {
+              "id": "user",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "email",
+                "name": "email"
+              }
+            },
+            {
+              "id": "pw",
+              "htmlTag": "input",
+              "htmlAttributes": {
+                "type": "password",
+                "name": "password"
+              }
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": "pw",
+        "newPasswords": [],
+        "webDomain": "larkspur.example",
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "takesASignInFormInAFrameFromAnotherSiteAsThatSite #1",
+      "androidOnly": "a frame from another site in the screen",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "larkspur.example",
+          "children": [
+            {
+              "id": "outer-user",
+              "inputType": 33
+            },
+            {
+              "id": "outer-pw",
+              "inputType": 129
+            },
+            {
+              "isText": false,
+              "webDomain": "evil.test",
+              "children": [
+                {
+                  "id": "frame-user",
+                  "inputType": 33,
+                  "focused": true
+                },
+                {
+                  "id": "frame-pw",
+                  "inputType": 129
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "frame-user",
+        "password": "frame-pw",
+        "newPasswords": [],
+        "webDomain": "evil.test",
+        "focused": "USERNAME",
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "takesASignInFormInAFrameFromAnotherSiteAsThatSite #2",
+      "androidOnly": "a frame from another site in the screen",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "larkspur.example",
+          "children": [
+            {
+              "id": "outer-user",
+              "inputType": 33,
+              "focused": true
+            },
+            {
+              "id": "outer-pw",
+              "inputType": 129
+            },
+            {
+              "isText": false,
+              "webDomain": "evil.test",
+              "children": [
+                {
+                  "id": "frame-user",
+                  "inputType": 33
+                },
+                {
+                  "id": "frame-pw",
+                  "inputType": 129
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "outer-user",
+        "password": "outer-pw",
+        "newPasswords": [],
+        "webDomain": "larkspur.example",
+        "focused": "USERNAME",
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "takesASignInFormInAFrameFromAnotherSiteAsThatSite #3",
+      "androidOnly": "a frame from another site in the screen",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "webDomain": "larkspur.example",
+          "children": [
+            {
+              "id": "outer-user",
+              "inputType": 33
+            },
+            {
+              "id": "outer-pw",
+              "inputType": 129
+            },
+            {
+              "isText": false,
+              "webDomain": "evil.test",
+              "children": [
+                {
+                  "id": "frame-user",
+                  "inputType": 33
+                },
+                {
+                  "id": "frame-pw",
+                  "inputType": 129
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "outer-user",
+        "password": "outer-pw",
+        "newPasswords": [],
+        "webDomain": "larkspur.example",
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "saysWhatTheFocusedFieldIsFor #1",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "inputType": 33,
+              "focused": true
+            },
+            {
+              "id": "new",
+              "inputType": 129
+            },
+            {
+              "id": "again",
+              "inputType": 129
+            },
+            {
+              "id": "other",
+              "idEntry": "nickname"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": "USERNAME",
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "saysWhatTheFocusedFieldIsFor #2",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "inputType": 33
+            },
+            {
+              "id": "new",
+              "inputType": 129,
+              "focused": true
+            },
+            {
+              "id": "again",
+              "inputType": 129
+            },
+            {
+              "id": "other",
+              "idEntry": "nickname"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": "NEW_PASSWORD",
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "saysWhatTheFocusedFieldIsFor #3",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "inputType": 33
+            },
+            {
+              "id": "new",
+              "inputType": 129
+            },
+            {
+              "id": "again",
+              "inputType": 129,
+              "focused": true
+            },
+            {
+              "id": "other",
+              "idEntry": "nickname"
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": "NEW_PASSWORD",
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    },
+    {
+      "name": "saysWhatTheFocusedFieldIsFor #4",
+      "find": "login",
+      "screen": [
+        {
+          "isText": false,
+          "children": [
+            {
+              "id": "user",
+              "inputType": 33
+            },
+            {
+              "id": "new",
+              "inputType": 129
+            },
+            {
+              "id": "again",
+              "inputType": 129
+            },
+            {
+              "id": "other",
+              "idEntry": "nickname",
+              "focused": true
+            }
+          ]
+        }
+      ],
+      "expect": {
+        "username": "user",
+        "password": null,
+        "newPasswords": [
+          "new",
+          "again"
+        ],
+        "webDomain": null,
+        "focused": null,
+        "newPasswordMaxLength": null,
+        "newPasswordRules": null
+      }
+    }
+  ]
+}

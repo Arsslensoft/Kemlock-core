@@ -1,0 +1,22 @@
+gpg (GnuPG) 2.5.24
+== ed25519.pq-gnupg
+gpg: keybox '/tmp/tmp.MJNEDO/gnupg/pubring.kbx' created
+gpg: /tmp/tmp.MJNEDO/gnupg/trustdb.gpg: trustdb created
+gpg: key 8F02623305202D36: public key "Ada Lovelace <ada@example.org>" imported
+gpg: key 8F02623305202D36: secret key imported
+gpg: Total number processed: 1
+gpg:               imported: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+sec   ed25519 2026-11-15 [SC]
+      C594BB69FBE8671D507316868F02623305202D36
+uid           [ unknown] Ada Lovelace <ada@example.org>
+ssb   cv25519 2026-11-15 [E]
+      DB259E7FFDCF98F9B7912F7E0D76404F1C786EC7
+ssb   ky768_cv25519 2026-11-17 [E]
+      19F009B766BCE1007CC9C384B5092EBFADD12B8FCA5285CBEB8A2E3E8C78BD58
+:pubkey enc packet: version 3, algo 8, keyid 19F009B766BCE100
+:encrypted data packet:
+gpg: encrypted with ky768_cv25519 key, ID 19F009B766BCE100, created 2026-11-17
+      "Ada Lovelace <ada@example.org>"
+PASS: GnuPG took the Kyber subkey, encrypted to it and decrypted with it

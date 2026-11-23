@@ -1,0 +1,19 @@
+standard.public.asc: OpenPGP Certificate.
+
+      Fingerprint: CDB400EA83727C3BA3F4675018A8075B5A075B9F8C9D7AAAB9CA48BD4CCC609C
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 07:06:35 UTC
+        Key flags: certification
+
+           Subkey: 7E5E7146D0ED4487470593617313570A1CDCA55EFE23B85B510E79442959D986
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 07:06:35 UTC
+        Key flags: signing
+
+           Subkey: 4ADBB2A9430DDA62F6DDF70871C7ADD4D3C04C5138C4FC2296703B33F2EF6BA1
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 07:06:35 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: Fixture Sequoia <sq@example.org>
+

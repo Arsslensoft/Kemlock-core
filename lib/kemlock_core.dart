@@ -1,4 +1,7 @@
-/// The pure-Dart core of Kemlock: crypto, the vault, sync, OTP, the password generator and site matching.
+/// The pure-Dart core of Kemlock: the crypto, the vault, the sync engines, OTP, the password generator and
+/// site matching.
 ///
-/// This is a placeholder. The code moves in from the Kemlock app and replaces this library and its test.
+/// Its libraries are imported by path, at the paths they had in the app's `lib/`, for example
+/// `package:kemlock_core/crypto/ml_kem.dart` or `package:kemlock_core/features/sync/kemlock/km_sync.dart`.
+/// This library only names the package.
 library;

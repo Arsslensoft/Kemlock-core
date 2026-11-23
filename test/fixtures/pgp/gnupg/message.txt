@@ -1,0 +1,7 @@
+A message for the fixtures.
+- a line that starts with a dash
+From a line that starts with From
+trailing spaces   
+	a tab, then a trailing tab	
+
+Clé, naïve, 日本.

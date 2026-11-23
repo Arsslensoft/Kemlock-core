@@ -1,0 +1,242 @@
+sq 1.5.0
+== standard.expiry
+/keys/standard.expiry.public.asc: OpenPGP Certificate.
+
+      Fingerprint: 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 07:51:49 UTC
+  Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 16h 8m 11s)
+        Key flags: certification, signing
+
+           Subkey: B87E896E494DF59220AECA6C7DAFE1F80913A55F063A278D6D771D382BD12C01
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 07:51:49 UTC
+  Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 16h 8m 11s)
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: Ada Lovelace <pq-standard@example.org>
+
+Examined 1 certificate.
+  0 certificates are invalid and were not linted. (GOOD)
+  1 certificate was linted.
+  0 of the 1 certificates (0%) have at least one issue. (GOOD)
+0 of the linted certificates were revoked.
+0 of the linted certificates were expired.
+1 of the non-revoked linted certificate has at least one non-revoked User ID.
+  0 have at least one User ID protected by SHA-1. (GOOD)
+  0 have all User IDs protected by SHA-1. (GOOD)
+1 of the non-revoked linted certificates has at least one non-revoked, live subkey:
+  0 have at least one non-revoked, live subkey with a binding signature that uses SHA-1. (GOOD)
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey.
+== standard.uid
+/keys/standard.uid.public.asc: OpenPGP Certificate.
+
+      Fingerprint: 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: certification, signing
+
+           Subkey: B87E896E494DF59220AECA6C7DAFE1F80913A55F063A278D6D771D382BD12C01
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: Ada Added <added@example.org>
+
+           UserID: Ada Lovelace <pq-standard@example.org>
+
+Examined 1 certificate.
+  0 certificates are invalid and were not linted. (GOOD)
+  1 certificate was linted.
+  0 of the 1 certificates (0%) have at least one issue. (GOOD)
+0 of the linted certificates were revoked.
+0 of the linted certificates were expired.
+1 of the non-revoked linted certificate has at least one non-revoked User ID.
+  0 have at least one User ID protected by SHA-1. (GOOD)
+  0 have all User IDs protected by SHA-1. (GOOD)
+1 of the non-revoked linted certificates has at least one non-revoked, live subkey:
+  0 have at least one non-revoked, live subkey with a binding signature that uses SHA-1. (GOOD)
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey.
+== standard.encrypt
+/keys/standard.encrypt.public.asc: OpenPGP Certificate.
+
+      Fingerprint: 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: certification, signing
+
+           Subkey: B87E896E494DF59220AECA6C7DAFE1F80913A55F063A278D6D771D382BD12C01
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           Subkey: F80CA18C49453A99936C5C97FACB9924779BDA1A3E129418D2A9A13430BF2408
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 10:09:04 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: Ada Lovelace <pq-standard@example.org>
+
+Examined 1 certificate.
+  0 certificates are invalid and were not linted. (GOOD)
+  1 certificate was linted.
+  0 of the 1 certificates (0%) have at least one issue. (GOOD)
+0 of the linted certificates were revoked.
+0 of the linted certificates were expired.
+1 of the non-revoked linted certificate has at least one non-revoked User ID.
+  0 have at least one User ID protected by SHA-1. (GOOD)
+  0 have all User IDs protected by SHA-1. (GOOD)
+1 of the non-revoked linted certificates has at least one non-revoked, live subkey:
+  0 have at least one non-revoked, live subkey with a binding signature that uses SHA-1. (GOOD)
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey.
+== standard.sign
+/keys/standard.sign.public.asc: OpenPGP Certificate.
+
+      Fingerprint: 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: certification, signing
+
+           Subkey: 3C7E1237B00D15D44968D6D65C591215537D42D1E2C7A04E064CD8C298CCA06D
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 10:09:04 UTC
+        Key flags: signing
+
+           Subkey: B87E896E494DF59220AECA6C7DAFE1F80913A55F063A278D6D771D382BD12C01
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: Ada Lovelace <pq-standard@example.org>
+
+Examined 1 certificate.
+  0 certificates are invalid and were not linted. (GOOD)
+  1 certificate was linted.
+  0 of the 1 certificates (0%) have at least one issue. (GOOD)
+0 of the linted certificates were revoked.
+0 of the linted certificates were expired.
+1 of the non-revoked linted certificate has at least one non-revoked User ID.
+  0 have at least one User ID protected by SHA-1. (GOOD)
+  0 have all User IDs protected by SHA-1. (GOOD)
+1 of the non-revoked linted certificates has at least one non-revoked, live subkey:
+  0 have at least one non-revoked, live subkey with a binding signature that uses SHA-1. (GOOD)
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey.
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== standard.revoked
+/keys/standard.revoked.public.asc: OpenPGP Certificate.
+
+      Fingerprint: 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4
+                   Revoked:
+                    - Key material has been compromised
+                      On: 2026-11-17 10:09:04 UTC
+                      Message: Left on a train
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: certification, signing
+
+           Subkey: B87E896E494DF59220AECA6C7DAFE1F80913A55F063A278D6D771D382BD12C01
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: Ada Lovelace <pq-standard@example.org>
+
+Examined 1 certificate.
+  0 certificates are invalid and were not linted. (GOOD)
+  1 certificate was linted.
+  0 of the 1 certificates (0%) have at least one issue. (GOOD)
+1 of the linted certificates was revoked.
+  0 of the 1 certificates has revocation certificates that are weaker than the certificate and should be recreated. (GOOD)
+0 of the linted certificates were expired.
+0 of the non-revoked linted certificates have at least one non-revoked User ID.
+0 of the non-revoked linted certificates have at least one non-revoked, live subkey:
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey.
+== ed25519.pq-standard
+/keys/ed25519.pq-standard.public.asc: OpenPGP Certificate.
+
+      Fingerprint: C594BB69FBE8671D507316868F02623305202D36
+  Public-key algo: EdDSA
+  Public-key size: 256 bits
+            Curve: Ed25519
+    Creation time: 2026-11-15 19:52:57 UTC
+        Key flags: certification, signing
+
+           Subkey: C44E12FC913929ECA4D5F043127FE7B8FB039651
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 10:09:04 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           Subkey: DB259E7FFDCF98F9B7912F7E0D76404F1C786EC7
+  Public-key algo: ECDH
+  Public-key size: 256 bits
+            Curve: Curve25519
+    Creation time: 2026-11-15 19:52:57 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: Ada Lovelace <ada@example.org>
+
+Examined 1 certificate.
+  0 certificates are invalid and were not linted. (GOOD)
+  1 certificate was linted.
+  0 of the 1 certificates (0%) have at least one issue. (GOOD)
+0 of the linted certificates were revoked.
+0 of the linted certificates were expired.
+1 of the non-revoked linted certificate has at least one non-revoked User ID.
+  0 have at least one User ID protected by SHA-1. (GOOD)
+  0 have all User IDs protected by SHA-1. (GOOD)
+1 of the non-revoked linted certificates has at least one non-revoked, live subkey:
+  0 have at least one non-revoked, live subkey with a binding signature that uses SHA-1. (GOOD)
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey.
+== the revocation certificate over the original key
+/tmp/tmp.BWka1wUjjq/revoked.asc: OpenPGP Certificate.
+
+      Fingerprint: 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: certification, signing
+
+           Subkey: B87E896E494DF59220AECA6C7DAFE1F80913A55F063A278D6D771D382BD12C01
+  Public-key algo: ML-KEM-768+X25519
+    Creation time: 2026-11-17 07:51:49 UTC
+        Key flags: transport encryption, data-at-rest encryption
+
+           UserID: Ada Lovelace <pq-standard@example.org>
+
+Note: There is another block of armored OpenPGP data.
+Note: This is a non-standard extension to OpenPGP.
+
+/tmp/tmp.BWka1wUjjq/revoked.asc: Revocation Certificate.
+
+      Fingerprint: 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4
+                   Revoked:
+                    - Key is superseded
+                      On: 2026-11-17 10:09:04 UTC
+                      Message: 
+                   Invalid: No binding signature at time 2026-11-17T10:10:03Z
+  Public-key algo: ML-DSA-65+Ed25519
+    Creation time: 2026-11-17 07:51:49 UTC
+
+== standard.encrypt: a message to it
+    Pk algo: ML-KEM-768+X25519
+    Pk algo: ML-KEM-768+X25519
+    Symmetric algo: AES-256
+    AEAD algo: OCB
+    Decryption failed: Missing secret key material: couldn't decrypt any of the PKESKs (recipients: B87E896E494DF59220AECA6C7DAFE1F80913A55F063A278D6D771D382BD12C01, F80CA18C49453A99936C5C97FACB9924779BDA1A3E129418D2A9A13430BF2408)
+Decrypted by 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4, Ada Lovelace <pq-standard@example.org> (UNAUTHENTICATED)
+Encrypted and protected using AES-256/OCB
+0 authenticated signatures.
+== ed25519.pq-standard: a message to it
+    Pk algo: ECDH
+    Pk algo: ML-KEM-768+X25519
+    Decryption failed: Missing secret key material: couldn't decrypt any of the PKESKs (recipients: 0D76404F1C786EC7, 127FE7B8FB039651)
+Decrypted by C594BB69FBE8671D507316868F02623305202D36, Ada Lovelace <ada@example.org> (UNAUTHENTICATED)
+Encrypted using AES-256
+0 authenticated signatures.
+== standard.sign: a file signed with the key, which now has two keys that sign
+    Pk algo: ML-DSA-65+Ed25519
+    Hash algo: SHA512
+      Issuer Fingerprint: 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4
+Authenticated signature made by 5410791AF04D5C744C81B4D0E9836A8286C63DC89FFC99643E8D9F01AB81A3D4 (Ada Lovelace <pq-standard@example.org>)
+
+1 authenticated signature.
+PASS: sq took every change of the standard key and both new subkeys

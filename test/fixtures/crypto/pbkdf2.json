@@ -1,0 +1,65 @@
+[
+  {
+    "password": "password",
+    "salt": "73616c74",
+    "iterations": 1,
+    "length": 32,
+    "output": "120fb6cffcf8b32c43e7225256c4f837a86548c92ccc35480805987cb70be17b"
+  },
+  {
+    "password": "password",
+    "salt": "73616c74",
+    "iterations": 2,
+    "length": 32,
+    "output": "ae4d0c95af6b46d32d0adff928f06dd02a303f8ef3c251dfd6e2d85a95474c43"
+  },
+  {
+    "password": "password",
+    "salt": "73616c74",
+    "iterations": 4096,
+    "length": 32,
+    "output": "c5e478d59288c841aa530db6845c4c8d962893a001ce4e11a4963873aa98134a"
+  },
+  {
+    "password": "legacy-qr-password",
+    "salt": "4442407732e6741fe4c21b12718b02dd",
+    "iterations": 200000,
+    "length": 32,
+    "output": "4a24f386e47aec017ebb7cd38de55f6aec31709a0e1ec7f3a77c23ae3680644c"
+  },
+  {
+    "password": "Mot de passe très sûr 🔐 密码",
+    "salt": "1fd1ba5ea2400e9be9ac48f3086f7b24",
+    "iterations": 3,
+    "length": 64,
+    "output": "dd89fd846237889b965cea79cf2b909cd825db8c6d3a46c08c79a2f07f564abf4d88bd23a525dc2615ca4a54e87f459febfd0864737dac42ae36368308b876f6"
+  },
+  {
+    "password": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "salt": "e506d76cecfa7c3684bde46fb38e5958",
+    "iterations": 2,
+    "length": 33,
+    "output": "eb4d8165a32adb99c718418af5a179fdf76a2dc3664a891e1f34f8072f58a69f29"
+  },
+  {
+    "password": "longer than one SHA-256 block, so HMAC hashes the key before using itlonger than one SHA-256 block, so HMAC hashes the key before using it",
+    "salt": "643ac8342732056474c48fdbb5dca35c",
+    "iterations": 2,
+    "length": 40,
+    "output": "a0fcfbb17c25dc865fa9fed8a2b96f9ac12f866180fbf714f8f12b92a14df6c0c04016c04a9f1f4a"
+  },
+  {
+    "password": "",
+    "salt": "868b7938c2088f86dcba4713003a1535",
+    "iterations": 1,
+    "length": 1,
+    "output": "3b"
+  },
+  {
+    "password": "no salt",
+    "salt": "",
+    "iterations": 5,
+    "length": 100,
+    "output": "d34e34c39cc2fd5543aae0454de89f3d53061e8c9be2dc3b9b1a62b5ef45ecc05f5f75b4b3166a6d9b8c5930bcb1d4b7bd52234eea1fcf6fe0a0e116c91a17ef6f7925ed13a0f2755cd68f6382e8aa031c01ef1e5e435c51499ca26bfe4699f7cfaa5bce"
+  }
+]

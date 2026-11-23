@@ -1,0 +1,35 @@
+{
+  "cases": [
+    {
+      "name": "totp",
+      "purpose": "totp",
+      "sealed": "012bb8eb1bb3c3ec50e5154df453747a874475ced6a1db156ba87fc051d96d762363c6a76301750f7cb1bb3249a15e9cb0",
+      "server_key": "4d5826743b5222bdd619a5b0064dd927c40d4fcb76771b7f54c212c6de47b66b",
+      "value": "296f5982784f5c39cef504dd99bc7f674fc33dc7"
+    },
+    {
+      "name": "opaque-setup",
+      "purpose": "opaque-setup",
+      "sealed": "01a71439cbed16a4775076d9c5c8d93c02dc5793803b79726c14b85ec2c49c2154ee534b1d734e6dcabaa874e29d7a3f425f16f9a278df4863c2dda4a65a0fc01745cfb29c6c0cc39ff43f20e90101859ce8b40fd2cab2f01341c4eac9a46339544d6d8e4d1acc0d0270009b79a6b3b71eda6b1b0606e5e9cd2e76b4a6a86f7395defd198c4bddf519bcf813cfa4eaed2549b7a9eda16d0797a7d50304",
+      "server_key": "4d5826743b5222bdd619a5b0064dd927c40d4fcb76771b7f54c212c6de47b66b",
+      "value": "fe108cae24680759281c836e0549cdaa871cf9255dfb3d877d92b03644bba4d30c9b9d08531b3726eb91f6bdb254c99e37233587921575fe9a2355fb5726eb465fbb4e991a8eca5edda1b5752646499bc24aba005ceb54afab922441c090026dc3480c4d8c4be5e368899dc07020b49d95c9d1895a67bdeb7b62362e48e47b68"
+    },
+    {
+      "name": "token-signing-key",
+      "purpose": "token-signing-key",
+      "sealed": "01ba6efe25c0ccc66e87abf82a44df0af1fdc986831b69deedbf1b5da061a384cf1e719e269b52e60751e17897aa5405cf51d6dd2f7e3725fc187bc031",
+      "server_key": "4d5826743b5222bdd619a5b0064dd927c40d4fcb76771b7f54c212c6de47b66b",
+      "value": "e0c1408372906d5c1670c612627724b47022a3e96000f668f3f453e4544d2990"
+    },
+    {
+      "name": "smtp-password",
+      "purpose": "smtp-password",
+      "sealed": "0132b3ee876ab7d5a1fe150ce751e8fb7951a99932b4b14d5fe42a5345",
+      "server_key": "4d5826743b5222bdd619a5b0064dd927c40d4fcb76771b7f54c212c6de47b66b",
+      "value": ""
+    }
+  ],
+  "description": "sealed = u8(1) || nonce(12) || AES-256-GCM(key, nonce, value, aad = lp(purpose)) with the 16-byte tag at the end, key = HKDF-SHA256(ikm = server_key, salt = absent, info = \"kemlock/v1/server-seal\" || lp(purpose), L = 32). Another purpose must not open it.",
+  "format": "server-seal",
+  "version": 1
+}

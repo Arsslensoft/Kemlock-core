@@ -1,0 +1,4756 @@
+{
+ "files": [
+  {
+   "name": "an empty file",
+   "text": "",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "only blank lines",
+   "text": "  \n\t\r\n  ",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "JSON that is not an object: null",
+   "text": "null",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "JSON that is not an object: 123",
+   "text": "123",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "JSON that is not an object: true",
+   "text": "true",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "JSON that is not an object: []",
+   "text": "[]",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "JSON that is not an object: \"otpauth://totp/a?secret=JBSWY3DPEHPK3PXP\"",
+   "text": "\"otpauth://totp/a?secret=JBSWY3DPEHPK3PXP\"",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "a BackMyCodes file shaped like Aegis",
+   "text": "{\"app\":\"BackMyCodes\",\"header\":{},\"db\":{}}",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "an app field that is not BackMyCodes",
+   "text": "{\"app\":\"Other\",\"header\":{},\"db\":{\"entries\":[]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "error": "empty"
+  },
+  {
+   "name": "a __proto__ key",
+   "text": "{\"__proto__\":{\"app\":\"BackMyCodes\"},\"header\":{},\"db\":{\"entries\":[]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "error": "empty"
+  },
+  {
+   "name": "repeated keys, the last one wins",
+   "text": "{\"header\":{},\"db\":\"x\",\"db\":{\"entries\":[{\"type\":\"totp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"}}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a header that is an array",
+   "text": "{\"header\":[],\"db\":{}}",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "a db that is an array",
+   "text": "{\"header\":{},\"db\":[]}",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "services that are not a list",
+   "text": "{\"services\":{},\"schemaVersion\":4}",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "services without schemaVersion",
+   "text": "{\"services\":[]}",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "2FAS with a null schemaVersion",
+   "text": "{\"services\":[],\"schemaVersion\":null}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "error": "empty"
+  },
+  {
+   "name": "2FAS with only servicesEncrypted, empty",
+   "text": "{\"services\":[{\"secret\":\"JBSWY3DPEHPK3PXP\"}],\"servicesEncrypted\":\"\"}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "Bitwarden with a string for encrypted",
+   "text": "{\"encrypted\":\"false\",\"items\":[]}",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "Bitwarden without items or a marker",
+   "text": "{\"encrypted\":false,\"folders\":[]}",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "Bitwarden with only the key marker",
+   "text": "{\"encrypted\":false,\"encKeyValidation_DO_NOT_EDIT\":null}",
+   "detected": {
+    "source": "bitwarden",
+    "encrypted": false
+   },
+   "error": "empty"
+  },
+  {
+   "name": "Bitwarden marked password-protected but not encrypted",
+   "text": "{\"encrypted\":false,\"passwordProtected\":true}",
+   "detected": {
+    "source": "bitwarden",
+    "encrypted": false
+   },
+   "error": "empty"
+  },
+  {
+   "name": "Bitwarden with passwordProtected as a string",
+   "text": "{\"encrypted\":true,\"passwordProtected\":\"true\"}",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "Bitwarden encrypted, with a password",
+   "text": "{\"encrypted\":true,\"items\":[]}",
+   "password": "pw",
+   "detected": {
+    "source": "bitwarden",
+    "encrypted": true
+   },
+   "error": "bitwarden-encrypted"
+  },
+  {
+   "name": "a byte order mark before links",
+   "text": "﻿otpauth://totp/a?secret=JBSWY3DPEHPK3PXP",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "a",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "two byte order marks before links",
+   "text": "﻿﻿otpauth://totp/a?secret=JBSWY3DPEHPK3PXP",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "a",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "upper-case schemes",
+   "text": "  OTPAUTH://TOTP/A?secret=JBSWY3DPEHPK3PXP  \nSTEAM://KRUGS4ZANFZSAYJAONSWG4TFOQ\nOtpauth://Hotp/B?secret=JBSWY3DPEHPK3PXP&counter=2",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "A",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "steam",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Steam",
+      "label": "",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ"
+     },
+     {
+      "type": "hotp",
+      "issuer": "",
+      "label": "B",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 2
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "links around Unicode spaces",
+   "text": " otpauth://totp/a?secret=JBSWY3DPEHPK3PXP \n　steam://KRUGS4ZANFZSAYJAONSWG4TFOQ﻿",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "a",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "steam",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Steam",
+      "label": "",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a line that starts with U+0085",
+   "text": "otpauth://totp/a?secret=JBSWY3DPEHPK3PXP\notpauth://totp/a?secret=JBSWY3DPEHPK3PXP",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "a",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "a long s in steam://",
+   "text": "ſteam://KRUGS4ZANFZSAYJAONSWG4TFOQ\notpauth://totp/a?secret=JBSWY3DPEHPK3PXP",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "a",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "a dotless i in otpauth-migration",
+   "text": "otpauth-mıgration://offline?data=AA\notpauth://totp/a?secret=JBSWY3DPEHPK3PXP",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "a",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "lines split by carriage returns alone",
+   "text": "otpauth://totp/a?secret=JBSWY3DPEHPK3PXP\rotpauth://totp/a?secret=JBSWY3DPEHPK3PXP",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "a link list with a bad link",
+   "text": "otpauth://totp/a?secret=JBSWY3DPEHPK3PXP\notpauth://totp/b?secret=nope!",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "a",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "only steam links",
+   "text": "steam://KRUGS4ZANFZSAYJAONSWG4TFOQ\nsteam://JBSWY3DPEHPK3PXP====",
+   "detected": {
+    "source": "uris",
+    "encrypted": false
+   },
+   "result": {
+    "source": "uris",
+    "accounts": [
+     {
+      "type": "steam",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Steam",
+      "label": "",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ"
+     },
+     {
+      "type": "steam",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Steam",
+      "label": "",
+      "secret": "JBSWY3DPEHPK3PXP"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a scheme without slashes",
+   "text": "otpauth:totp/a?secret=JBSWY3DPEHPK3PXP",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "an otpauth-migration line with nothing after",
+   "text": "otpauth-migration://",
+   "detected": {
+    "source": "google",
+    "encrypted": false
+   },
+   "result": {
+    "source": "google",
+    "accounts": [],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "Aegis digits of every kind",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"8\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\" 6 \"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\" 8\\n\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"0x8\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"8.0\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"8.\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\".8e1\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"+8\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"-8\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"8e0\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"08\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"0b1000\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"0o10\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"1_0\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"Infinity\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":\"\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":[8]}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":[\"8\"]}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":[[6]]}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":[]}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":[6,8]}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":true}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":false}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":{}}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":null}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":8.0}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":6e0}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":1e400}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":7}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":5}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"digits\":6.5}}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 8,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     }
+    ],
+    "skipped": 12
+   }
+  },
+  {
+   "name": "Aegis periods of every kind",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":\"30\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":30.5}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":30.0}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":-30}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":0}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":-0}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":\"1e1\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":\"Infinity\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":1e400}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":9007199254740992}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":\"0x1e\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":[15]}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":true}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":false}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":null}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":\"\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":\" \"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":\"abc\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"period\":1}}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 10,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 9007199254740992,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 15,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 1,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 1,
+      "issuer": "i",
+      "label": "n"
+     }
+    ],
+    "skipped": 9
+   }
+  },
+  {
+   "name": "Steam periods of every kind",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":\"30\",\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":30.5,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":30.0,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":-30,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":0,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":-0,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":\"1e1\",\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":\"Infinity\",\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":1e400,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":9007199254740992,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":\"0x1e\",\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":[15],\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":true,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":false,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":null,\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":\"\",\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":\" \",\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":\"abc\",\"digits\":\"x\",\"algo\":\"MD5\"}},{\"type\":\"steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"period\":1,\"digits\":\"x\",\"algo\":\"MD5\"}}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 10,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 9007199254740992,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 15,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 1,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 1,
+      "issuer": "",
+      "label": ""
+     }
+    ],
+    "skipped": 9
+   }
+  },
+  {
+   "name": "Aegis counters of every kind",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":-1}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":1.5}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":\"7\"}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":9007199254740991}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":9007199254740992}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":\"0x10\"}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":0}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":-0}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":7.0}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":null}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":\"\"}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":[3]}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":true}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":\"x\"}},{\"type\":\"hotp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"counter\":1e400}}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 7,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 9007199254740991,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 16,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 7,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 3,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 1,
+      "issuer": "",
+      "label": ""
+     }
+    ],
+    "skipped": 5
+   }
+  },
+  {
+   "name": "Aegis algorithms of every kind",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"sha-256\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"SHA-1\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"sha1\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"Sha512\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":[\"sha512\"]}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":[[\"SHA-256\"]]}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"ſha1\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"ſha-512\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"SHA_256\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"SHA-256-\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"SHA--256\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"-SHA256\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"SHA256 \"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\" SHA1\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"SHA224\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"sha3-256\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"MD5\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":1}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":null}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":\"\"}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":true}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":{}}},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\",\"algo\":[]}}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA256",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA512",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA512",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA256",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA512",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA256",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     }
+    ],
+    "skipped": 12
+   }
+  },
+  {
+   "name": "Aegis secrets of every kind",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"totp\",\"info\":{\"secret\":\"jbsw y3dp ehpk 3pxp\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP====\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"JBSW-Y3DP-EHPK-3PXP\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"A\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"AB\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"0189\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"ß\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"ßss\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"ﬆabc\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"ıaaa\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"ſaa\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"jbsw\\ty3dp ehpk  3pxp\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"====\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"AAAA====AAAA\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"\"}},{\"type\":\"totp\",\"info\":{\"secret\":\" \"}},{\"type\":\"totp\",\"info\":{\"secret\":123}},{\"type\":\"totp\",\"info\":{\"secret\":[\"JBSWY3DPEHPK3PXP\"]}},{\"type\":\"totp\",\"info\":{\"secret\":null}},{\"type\":\"totp\",\"info\":{\"secret\":\"=JBSWY3DPEHPK3PXP\"}},{\"type\":\"totp\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXİ\"}}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "AB",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "SS",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "SSSS",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "STABC",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "IAAA",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "SAA",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     }
+    ],
+    "skipped": 11
+   }
+  },
+  {
+   "name": "Aegis types of every kind",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\" TOTP \",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"Steam\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"HOTP\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"Totp\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"tOtP\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"Kotp\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"totp\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"motp\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"yandex\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"\",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":1,\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":null,\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":[\"totp\"],\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}},{\"type\":\"steam \",\"info\":{\"secret\":\"KRUGS4ZANFZSAYJAONSWG4TFOQ\",\"counter\":1}}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 1,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     }
+    ],
+    "skipped": 8
+   }
+  },
+  {
+   "name": "Aegis names, notes and favourites",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"totp\",\"name\":\"  alice  \",\"issuer\":\" ACME﻿\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"note\":\"  a note  \",\"favorite\":true},{\"type\":\"totp\",\"name\":\"bob\",\"issuer\":5,\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"note\":\"   \",\"favorite\":\"true\"},{\"type\":\"totp\",\"name\":null,\"issuer\":[\"x\"],\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"note\":12,\"favorite\":1},{\"type\":\"totp\",\"name\":\"ACME:carol\",\"issuer\":\"ACME\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"note\":\" line \"}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice",
+      "note": "a note",
+      "pinned": true
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "ACME:carol",
+      "note": "line"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "Aegis groups and tags",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"groups\":[\"g1\",\"g1\",\"g2\",\"g3\",\"missing\",5,null,\" g1 \"],\"group\":\" Legacy \"},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"groups\":\"g1\",\"group\":\"g1\"},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"groups\":[{\"uuid\":\"g1\"}],\"group\":[\"Work\"]},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"groups\":[\"g4\",\"g5\"],\"group\":\"Work\"},{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"groups\":null,\"group\":\"\"}],\"groups\":[{\"uuid\":\"g1\",\"name\":\"Work\"},{\"uuid\":\" g2 \",\"name\":\" Dev \"},{\"uuid\":\"g3\",\"name\":\"\"},{\"uuid\":\"g4\",\"name\":7},{\"uuid\":5,\"name\":\"Number\"},{\"name\":\"No id\"},\"g5\",null,{\"uuid\":\"g1\",\"name\":\"Work again\"}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n",
+      "tags": [
+       "Work again",
+       "Dev",
+       "Legacy"
+      ]
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n",
+      "tags": [
+       "g1"
+      ]
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n",
+      "tags": [
+       "Work"
+      ]
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "Aegis entries that are not objects",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[null,5,\"x\",[],true,{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"}}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     }
+    ],
+    "skipped": 5
+   }
+  },
+  {
+   "name": "Aegis info that is not an object",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"totp\",\"info\":[\"JBSWY3DPEHPK3PXP\"]},{\"type\":\"totp\",\"info\":\"JBSWY3DPEHPK3PXP\"}]}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [],
+    "skipped": 2
+   }
+  },
+  {
+   "name": "Aegis entries that are not a list",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":{\"a\":{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"}}}}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "error": "empty"
+  },
+  {
+   "name": "Aegis without entries",
+   "text": "{\"header\":{\"slots\":[]},\"db\":{}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "error": "empty"
+  },
+  {
+   "name": "Aegis with groups that are not a list",
+   "text": "{\"version\":1,\"header\":{\"slots\":null,\"params\":null},\"db\":{\"version\":3,\"entries\":[{\"type\":\"totp\",\"name\":\"n\",\"issuer\":\"i\",\"info\":{\"secret\":\"JBSWY3DPEHPK3PXP\"},\"groups\":[\"g\"]}],\"groups\":{\"g\":\"G\"}}}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": false
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "i",
+      "label": "n"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "2FAS token types",
+   "text": "{\"services\":[{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\"totp\",\"digits\":6}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\"Steam\",\"digits\":6}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\"HOTP\",\"digits\":6}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\"hotp\",\"digits\":6}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\"MOTP\",\"digits\":6}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\"\",\"digits\":6}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\" TOTP \",\"digits\":6}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":5,\"digits\":6}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":null,\"digits\":6}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\"STEAM \",\"digits\":6}}],\"groups\":[{\"id\":\"grp\",\"name\":\"Group\"}],\"schemaVersion\":4}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "steam",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     }
+    ],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "2FAS order",
+   "text": "{\"services\":[{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"none\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"two\"},\"order\":{\"position\":2}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"first one\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"string\"},\"order\":{\"position\":\"0\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"second one\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"negative\"},\"order\":{\"position\":-5}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"fraction\"},\"order\":{\"position\":1.5}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"infinity\"},\"order\":{\"position\":1e400}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"minus infinity\"},\"order\":{\"position\":-1e400}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"max\"},\"order\":{\"position\":9007199254740991}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"huge\"},\"order\":{\"position\":1152921504606847000}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"order list\"},\"order\":[1]},null,{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"zero\"},\"order\":{\"position\":0}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"minus zero\"},\"order\":{\"position\":-0.0}},7,{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"infinity two\"},\"order\":{\"position\":1e999}}],\"groups\":[{\"id\":\"grp\",\"name\":\"Group\"}],\"schemaVersion\":4}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "minus infinity"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "negative"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "zero"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "minus zero"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "first one"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "second one"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "fraction"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "two"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "none"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "string"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "max"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "order list"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "huge"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "infinity"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "infinity two"
+     }
+    ],
+    "skipped": 2
+   }
+  },
+  {
+   "name": "2FAS order of many services",
+   "text": "{\"services\":[{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s0\"},\"order\":{\"position\":0}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s1\"},\"order\":{\"position\":3}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s2\"},\"order\":{\"position\":2}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s3\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s4\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s5\"},\"order\":{\"position\":3}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s6\"},\"order\":{\"position\":2}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s7\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s8\"},\"order\":{\"position\":0}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s9\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s10\"},\"order\":{\"position\":2}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s11\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s12\"},\"order\":{\"position\":0}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s13\"},\"order\":{\"position\":3}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s14\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s15\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s16\"},\"order\":{\"position\":0}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s17\"},\"order\":{\"position\":3}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s18\"},\"order\":{\"position\":2}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s19\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s20\"},\"order\":{\"position\":0}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s21\"},\"order\":{\"position\":3}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s22\"},\"order\":{\"position\":2}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s23\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s24\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s25\"},\"order\":{\"position\":3}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s26\"},\"order\":{\"position\":2}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s27\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s28\"},\"order\":{\"position\":0}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s29\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s30\"},\"order\":{\"position\":2}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s31\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s32\"},\"order\":{\"position\":0}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s33\"},\"order\":{\"position\":3}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s34\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s35\"},\"order\":{\"position\":1}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s36\"},\"order\":{\"position\":0}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s37\"},\"order\":{\"position\":3}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s38\"},\"order\":{\"position\":2}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"account\":\"s39\"}}],\"groups\":[{\"id\":\"grp\",\"name\":\"Group\"}],\"schemaVersion\":4}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s0"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s8"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s12"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s16"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s20"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s28"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s32"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s36"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s3"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s7"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s11"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s15"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s23"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s27"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s31"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s35"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s2"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s6"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s10"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s18"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s22"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s26"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s30"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s38"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s1"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s5"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s13"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s17"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s21"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s25"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s33"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s37"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s4"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s9"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s14"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s19"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s24"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s29"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s34"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "s39"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "2FAS names and labels",
+   "text": "{\"services\":[{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"issuer\":\"ACME\",\"label\":\"ACME:  alice  \"}},{\"name\":\" Svc \",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"issuer\":\"\",\"label\":\"Svc:bob\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"label\":\"Other:carol\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"issuer\":\"ACME\",\"label\":\"acme:dave\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"issuer\":\"ACME\",\"account\":\"  erin \",\"label\":\"ACME:x\"}},{\"name\":null,\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{}},{\"name\":6,\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"issuer\":5,\"account\":[]}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":null},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":\"x\"}],\"groups\":[{\"id\":\"grp\",\"name\":\"Group\"}],\"schemaVersion\":4}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "Other:carol"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "acme:dave"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "erin"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "2FAS groups",
+   "text": "{\"services\":[{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{},\"groupId\":\"grp\"},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{},\"groupId\":\" grp \"},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{},\"groupId\":\"empty\"},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{},\"groupId\":5},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{},\"groupId\":\"num\"},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{},\"groupId\":null}],\"groups\":[{\"id\":\"grp\",\"name\":\" Group \"},{\"id\":\"empty\",\"name\":\"\"},{\"id\":5,\"name\":\"Five\"},{\"id\":\"num\",\"name\":5},\"x\"],\"schemaVersion\":4}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "",
+      "tags": [
+       "Group"
+      ]
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "",
+      "tags": [
+       "Group"
+      ]
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "2FAS HOTP without a counter",
+   "text": "{\"services\":[{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\"HOTP\"}},{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"tokenType\":\"HOTP\",\"counter\":\"\"}}],\"groups\":[{\"id\":\"grp\",\"name\":\"Group\"}],\"schemaVersion\":4}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0,
+      "issuer": "Svc",
+      "label": ""
+     },
+     {
+      "type": "hotp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0,
+      "issuer": "Svc",
+      "label": ""
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "2FAS secrets",
+   "text": "{\"services\":[{\"name\":\"Svc\",\"secret\":\"jbsw-y3dp ehpk-3pxp==\",\"otp\":{}},{\"name\":\"Svc\",\"secret\":5,\"otp\":{}},{\"name\":\"Svc\",\"secret\":null,\"otp\":{}},{\"name\":\"Svc\",\"secret\":\"A\",\"otp\":{}}],\"groups\":[{\"id\":\"grp\",\"name\":\"Group\"}],\"schemaVersion\":4}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     }
+    ],
+    "skipped": 3
+   }
+  },
+  {
+   "name": "2FAS with groups that are not a list",
+   "text": "{\"services\":[{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{},\"groupId\":\"g\"}],\"groups\":\"g\",\"schemaVersion\":4}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": ""
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "2FAS services that are all skipped",
+   "text": "{\"services\":[null,\"x\",{\"name\":\"Svc\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"otp\":{\"algorithm\":\"MD5\"}}],\"groups\":[{\"id\":\"grp\",\"name\":\"Group\"}],\"schemaVersion\":4}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": false
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [],
+    "skipped": 3
+   }
+  },
+  {
+   "name": "Bitwarden items of every kind",
+   "text": "{\"encrypted\":false,\"folders\":[{\"id\":\"f\",\"name\":\"Folder\"},{\"id\":\"e\",\"name\":\"  \"},{\"id\":\"\",\"name\":\"Blank\"}],\"items\":[{\"type\":1,\"name\":\"Plain\",\"login\":{\"username\":\"user\",\"totp\":\"otpauth://totp/?secret=JBSWY3DPEHPK3PXP\"}},{\"type\":1,\"name\":\"Issuer only\",\"login\":{\"username\":\"user\",\"totp\":\"otpauth://totp/ACME:?secret=JBSWY3DPEHPK3PXP\"}},{\"type\":1,\"name\":\"Upper\",\"login\":{\"username\":\"user\",\"totp\":\"OTPAUTH://TOTP/x?secret=JBSWY3DPEHPK3PXP\"}},{\"type\":1,\"name\":\"Steam upper\",\"login\":{\"username\":\"user\",\"totp\":\"STEAM://KRUGS4ZANFZSAYJAONSWG4TFOQ\"}},{\"type\":1,\"name\":\"Steam bad\",\"login\":{\"username\":\"user\",\"totp\":\"steam://bad!\"}},{\"type\":1,\"name\":\"Bare padded\",\"login\":{\"username\":\"user\",\"totp\":\"jbswy3dpehpk3pxp====\"}},{\"type\":1,\"name\":\"Bare dashed\",\"login\":{\"username\":\"user\",\"totp\":\"JBSW-Y3DP-EHPK-3PXP\"}},{\"type\":1,\"name\":\"Bare short\",\"login\":{\"username\":\"user\",\"totp\":\"JBSWY3DP\"}},{\"type\":1,\"name\":\"Bare not base32\",\"login\":{\"username\":\"user\",\"totp\":\"JBSWY3DPEHPK3PX1\"}},{\"type\":1,\"name\":\"Spaces\",\"login\":{\"username\":\"user\",\"totp\":\"   \"}},{\"type\":1,\"name\":\"Number\",\"login\":{\"username\":\"user\",\"totp\":12345}},{\"type\":1,\"name\":5,\"login\":{\"username\":7,\"totp\":\"otpauth://totp/?secret=JBSWY3DPEHPK3PXP\"}},{\"type\":1,\"name\":\"  Trim  \",\"login\":{\"username\":\"  me  \",\"totp\":\"  otpauth://totp/?secret=JBSWY3DPEHPK3PXP  \"}},{\"type\":1,\"name\":\"Folder\",\"login\":{\"username\":\"user\",\"totp\":\"otpauth://totp/x?secret=JBSWY3DPEHPK3PXP\"},\"folderId\":\"f\"},{\"type\":1,\"name\":\"Folder spaced\",\"login\":{\"username\":\"user\",\"totp\":\"otpauth://totp/x?secret=JBSWY3DPEHPK3PXP\"},\"folderId\":\" f \"},{\"type\":1,\"name\":\"Folder unknown\",\"login\":{\"username\":\"user\",\"totp\":\"otpauth://totp/x?secret=JBSWY3DPEHPK3PXP\"},\"folderId\":\"g\"},{\"type\":1,\"name\":\"Folder empty name\",\"login\":{\"username\":\"user\",\"totp\":\"otpauth://totp/x?secret=JBSWY3DPEHPK3PXP\"},\"folderId\":\"e\"},{\"type\":1,\"name\":\"No login\"},{\"type\":1,\"name\":\"Login list\",\"login\":[]},null,\"item\",{\"type\":1,\"name\":\"HOTP\",\"login\":{\"username\":\"user\",\"totp\":\"otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=9\"}},{\"type\":1,\"name\":\"Long s\",\"login\":{\"username\":\"user\",\"totp\":\"ſteam://KRUGS4ZANFZSAYJAONSWG4TFOQ\"}}]}",
+   "detected": {
+    "source": "bitwarden",
+    "encrypted": false
+   },
+   "result": {
+    "source": "bitwarden",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "Issuer only",
+      "label": "ACME:",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "Upper",
+      "label": "x",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "steam",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Steam",
+      "label": "user",
+      "secret": "KRUGS4ZANFZSAYJAONSWG4TFOQ"
+     },
+     {
+      "type": "totp",
+      "issuer": "Bare padded",
+      "label": "user",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "Bare dashed",
+      "label": "user",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "Folder",
+      "label": "x",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "tags": [
+       "Folder"
+      ]
+     },
+     {
+      "type": "totp",
+      "issuer": "Folder spaced",
+      "label": "x",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "tags": [
+       "Folder"
+      ]
+     },
+     {
+      "type": "totp",
+      "issuer": "Folder unknown",
+      "label": "x",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "Folder empty name",
+      "label": "x",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "hotp",
+      "issuer": "HOTP",
+      "label": "x",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 9
+     }
+    ],
+    "skipped": 7
+   }
+  },
+  {
+   "name": "Bitwarden items that are not a list",
+   "text": "{\"encrypted\":false,\"items\":{},\"passwordProtected\":true}",
+   "detected": {
+    "source": "bitwarden",
+    "encrypted": false
+   },
+   "error": "empty"
+  },
+  {
+   "name": "Bitwarden with folders that are not a list",
+   "text": "{\"encrypted\":false,\"folders\":{\"f\":\"F\"},\"items\":[{\"type\":1,\"name\":\"A\",\"login\":{\"username\":\"u\",\"totp\":\"JBSWY3DPEHPK3PXP\"},\"folderId\":\"f\"}]}",
+   "detected": {
+    "source": "bitwarden",
+    "encrypted": false
+   },
+   "result": {
+    "source": "bitwarden",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "A",
+      "label": "u",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "transfer payloads with blank lines between",
+   "text": "\notpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB\n\n  otpauth-migration://offline?data=CicKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgNib2IaBEFDTUUgASgBMAIQAQ%3D%3D  \n",
+   "detected": {
+    "source": "google",
+    "encrypted": false
+   },
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "bob",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a transfer payload without any accounts",
+   "text": "otpauth-migration://offline?data=EAE%3D",
+   "detected": {
+    "source": "google",
+    "encrypted": false
+   },
+   "error": "empty"
+  },
+  {
+   "name": "a transfer payload of skipped accounts only",
+   "text": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSAEKAEwAhAB",
+   "detected": {
+    "source": "google",
+    "encrypted": false
+   },
+   "result": {
+    "source": "google",
+    "accounts": [],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "transfer payloads and a bad one",
+   "text": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB\notpauth-migration://offline?data=AAA",
+   "detected": {
+    "source": "google",
+    "encrypted": false
+   },
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, wrong password",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "wrong",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, no password",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "password-required"
+  },
+  {
+   "name": "encrypted Aegis, empty password",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "password-required"
+  },
+  {
+   "name": "encrypted Aegis, URL-safe base64 with line breaks",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Yp\\nu7nyMYaKjr_UIAyRFg7L\\nQSRBLpLzERNxKO0G8joa\\nlWZ7sDv3Vob8PHy62jIW\\nL_gATZ5FJnnEkpqrkq8t\\noUSxHPsD4ehu0vRed6H3\\nbOfsGqtlgi1pnjpdIsS_\\nWZ9kmw\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, no params",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":null},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, upper-case hex",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"CAC65E083DCD69B51C6193C0\",\"tag\":\"3E65989275646CE3B0C23C6D8F06DB98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, a short tag",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, slots that are not a list",
+   "text": "{\"version\":1,\"header\":{\"slots\":{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"},\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, a slot type as a string",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":\"1\",\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, a slot type written 1.0",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1.0,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, scrypt costs as strings",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":\"1024\",\"r\":\" 8 \",\"p\":[1],\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, scrypt costs written 1024.0",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024.0,\"r\":8e0,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, no scrypt costs",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, null scrypt costs",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":null,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, a cost that is not a power of two",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1000,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, too much memory",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1048576,\"r\":16,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, a cost past the limit",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":2097152,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, r of 0",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":0,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, a fractional p",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1.5,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, odd hex in the salt",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb00\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, a slot without key params",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":null,\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, a slot that is not an object",
+   "text": "{\"version\":1,\"header\":{\"slots\":[null,\"x\",{\"type\":1,\"key\":\"4b1c3b49ea30c64e49cbb025ddf228baa5af8a6edb45ba5011559674e0a3e804\",\"key_params\":{\"nonce\":\"2c3f06bc6a73f77b08f4e439\",\"tag\":\"297699d3d469561de523b7d5994d2863\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"4adfba318016f04b63f4e53ac61347b6affe46fc0cbb7b2305d2e29d8050ccb0\"}],\"params\":{\"nonce\":\"cac65e083dcd69b51c6193c0\",\"tag\":\"3e65989275646ce3b0c23c6d8f06db98\"}},\"db\":\"zw88bGa4pfiKSifNs3Ypu7nyMYaKjr/UIAyRFg7LQSRBLpLzERNxKO0G8joalWZ7sDv3Vob8PHy62jIWL/gATZ5FJnnEkpqrkq8toUSxHPsD4ehu0vRed6H3bOfsGqtlgi1pnjpdIsS/WZ9kmw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, the second slot opens",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"528133e5c3e4c57ccae2de51e4827ac35c5b06a4d20e6c79a6d3daf5664d83e0\",\"key_params\":{\"nonce\":\"6d3bcd01f86479f29a645de5\",\"tag\":\"258817eefd40cd391f9ecfb63ba67947\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"6ac72cb927ecebe006110160279292a19d2555bd6ebdcbf7122344edf6972eb0\"},{\"type\":1,\"key\":\"67e559c961657f84cdbec13acdb4b144cac0c15a6f8e0f4d64dd213565f1b639\",\"key_params\":{\"nonce\":\"f436ff4206312a3114da0b13\",\"tag\":\"ebaed09d16956b979de857b4aabccdb3\"},\"n\":512,\"r\":4,\"p\":2,\"salt\":\"8778e3a35492b4b5838a81a99ffdb595ca18f1a4ba1097c7fc57dee01806919a\"}],\"params\":{\"nonce\":\"18629ca648c890e193077f0a\",\"tag\":\"d2263e3778348860ce89e6101a401bdc\"}},\"db\":\"sMtBJ0DqixT7D4mlmZTOpujO4oiSA6YV7Xoa5xcOMVWBd0NfjhoHQBcHms6A2u6xKPaQipzaYCNQtWDTc4oSBZ1jr34bPCdgxrCnyCuqGvzp8zHiOL/2k9X2ahtxXsQGza5M1NU/q3QUHQc55Q==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, the first slot opens",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"528133e5c3e4c57ccae2de51e4827ac35c5b06a4d20e6c79a6d3daf5664d83e0\",\"key_params\":{\"nonce\":\"6d3bcd01f86479f29a645de5\",\"tag\":\"258817eefd40cd391f9ecfb63ba67947\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"6ac72cb927ecebe006110160279292a19d2555bd6ebdcbf7122344edf6972eb0\"},{\"type\":1,\"key\":\"67e559c961657f84cdbec13acdb4b144cac0c15a6f8e0f4d64dd213565f1b639\",\"key_params\":{\"nonce\":\"f436ff4206312a3114da0b13\",\"tag\":\"ebaed09d16956b979de857b4aabccdb3\"},\"n\":512,\"r\":4,\"p\":2,\"salt\":\"8778e3a35492b4b5838a81a99ffdb595ca18f1a4ba1097c7fc57dee01806919a\"}],\"params\":{\"nonce\":\"18629ca648c890e193077f0a\",\"tag\":\"d2263e3778348860ce89e6101a401bdc\"}},\"db\":\"sMtBJ0DqixT7D4mlmZTOpujO4oiSA6YV7Xoa5xcOMVWBd0NfjhoHQBcHms6A2u6xKPaQipzaYCNQtWDTc4oSBZ1jr34bPCdgxrCnyCuqGvzp8zHiOL/2k9X2ahtxXsQGza5M1NU/q3QUHQc55Q==\"}",
+   "password": "other",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, a 128-bit master key",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"6f5c34453d0fa4e1283875d167ccc245\",\"key_params\":{\"nonce\":\"6329d335da399fed8ab2bf1a\",\"tag\":\"12649e7ad5ea207ca565b7b9df421d3f\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"57d5093ffd20fb52db2c56ec429a50fb2350941f53dc89df9aea597a54a492d0\"}],\"params\":{\"nonce\":\"285067f910f61dd394857d58\",\"tag\":\"a0164263ffea5d3319b5298950352081\"}},\"db\":\"dePzTwRWpW2kY0zAeLDm21w16PPPNpqejOTMMJNJQ13F1NwrbX6d2KOvMN0b4tS3rxmouENkA0BJD6+QD4KoY5XposMPK4yYeXnnFD9GgQLxf182tM/00xzecFQGQM6jrU5BPDYKzP7lF/zFkw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, a 192-bit master key",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"251b30d723c58fb7e78bda97eca0aace8d3261a9a453eb2d\",\"key_params\":{\"nonce\":\"23d384b3bd6ef16c0845a0b2\",\"tag\":\"bc248fedc85086930379032f92958fcd\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"653f63e14523cc924b1b0f13f648bfa78c89a58c9895068a162939a569e3b621\"}],\"params\":{\"nonce\":\"2c61f7c9f01606dacb8583e4\",\"tag\":\"20aabd640037daa7ad083ebaec746d9f\"}},\"db\":\"gD1NoOqI+RKzo7loIVzQjcJJKN9n86/XmZWudCj2qYOf0PZdN27eglXG7TdFbJw9rRU9E6LGT76TgWB6w23qXoDlsBf/RHDsMrDPQRPtO3Od+wP1CJu+j2DSl780kKNg/lvYx4YPJcN/H4RR/Q==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, a 20-byte master key",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"085afa86a00b1c32ed33eddedf9d2fbb71000bc6\",\"key_params\":{\"nonce\":\"4bd1ff30efb1a158f8e4351c\",\"tag\":\"c8ac06896f55a68d5b3a13483ece6ed5\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"2450b0bffd00ecabcfbee401ce98ee42f4d9480407d036a63c712a650ed2eca7\"}],\"params\":{\"nonce\":\"67d1e0c8f4806ec81c67a4d1\",\"tag\":\"c445c1fe6af7550db0f6aa3fba006c4a\"}},\"db\":\"tb+HV2hL4y/PKZOM/x3bBT8T8wQHEHjQZVn5C66PFD2DEV5+AX8vmH3h7XRSIjZp1XuUJxpO4YSNR8udcyuDo/4IIHpPZrBnOAWNcY/adrR7I+3xvSnzW6zJv6kSlOnHWDt+BYjc/9XCpJbFTw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted Aegis, a byte order mark in the vault",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"e350ee23f518d305dcc02d2eb17b8f0d39f19685c3f45f2d234d12b7217b6dcd\",\"key_params\":{\"nonce\":\"56874bcb352677801492bafb\",\"tag\":\"7f40e579e462712e81aa30728875e653\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"2b54b8005482f056a27e5bb47c20da4730183f504f0fab846aee8c1765c18e39\"}],\"params\":{\"nonce\":\"cf8f231d96e73118009369df\",\"tag\":\"440485085a32ae9a9383e127c8f7f57f\"}},\"db\":\"OxQRF8A4/v7UvhuASyBS1dLorJF1/Tpl2ALXT8vVRNzQ8y+0NdbTFwyZZRsqDGrO0KbRtRBmz3LcUFSKw+GrRADsMw1LNU8OQHRT2fdyFYrL0ZoI89V5GqgZMCfOaKvZBRlar4q0K7pkEhD5x4lyiw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, a vault that is not JSON",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"97223c7b1185f804655fbda3bb6b0f7962ee96aaf70e434c4453aa565b1d5ba3\",\"key_params\":{\"nonce\":\"53cc3aa134fff73f0d47932f\",\"tag\":\"938ab7642442d4c2cf5b49c6cf385d90\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"85d5fdce01177c1cd4defcf74f015b55af934bcd6b2ae472fd96ab494d63ea6f\"}],\"params\":{\"nonce\":\"b8c11bdb77e17679be9919f5\",\"tag\":\"cea744aeb95c0fb8dd28046d63d9fb79\"}},\"db\":\"GGruOmeVES8=\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "unsupported"
+  },
+  {
+   "name": "encrypted Aegis, a vault that is a list",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"294b6f1f110764e543a4d0024244e332683d5c786c95ff1a07418f5b6375fa22\",\"key_params\":{\"nonce\":\"d6f2ed626bbb19e2f53b2bb2\",\"tag\":\"d1f23508385d56b7a61afe8da56d699b\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"8304def6fed47ce63f9f2634a49e48ddc2cdadab4a76950ad8681047f14804c4\"}],\"params\":{\"nonce\":\"4be7a06192ba6c7b7fc467d3\",\"tag\":\"5e6ab3b95bef02a24bd1dffba7af663d\"}},\"db\":\"/Qw=\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "error": "unsupported"
+  },
+  {
+   "name": "encrypted Aegis, a vault with bad UTF-8",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"bc764006226f01d7bd39364995823241e1c962ca2101c6641423a09687fa00c9\",\"key_params\":{\"nonce\":\"67f24aff6ed88c394ebc8ade\",\"tag\":\"12e66d741a57a15de9da93fde6641655\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"5521bc01ac3fa64b73ed0323d82db1ac4fc49d443f0df4835effe0dbe0e5ebe0\"}],\"params\":{\"nonce\":\"bb965beb340493cbbfb4e5cb\",\"tag\":\"d7d0d14d6b1e15a24f0fa8c79a2cbacd\"}},\"db\":\"r7N5SNYErO+IlzCLnZeokPS9iGRzgG+6dCnQJ4VSUf1hCRtuRWMfC4UY5X5if8XfygCKwkFSzp/2nRfd0Ry7Ac+DA20ziEF33znNdcg=\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "",
+      "label": "�"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted Aegis, unused bits set in the base64",
+   "text": "{\"version\":1,\"header\":{\"slots\":[{\"type\":1,\"key\":\"1c141dbf9deb2380b79eda6bb042086b016a600f89299185191b03df20d3bee0\",\"key_params\":{\"nonce\":\"fccf135a884c6175b988e476\",\"tag\":\"8389cb85a445d999780c5c1e77899c93\"},\"n\":1024,\"r\":8,\"p\":1,\"salt\":\"c3e4516d589bacbffc89fa7fa51ab142f00032d09a91986a75d9a35c6898ab29\"}],\"params\":{\"nonce\":\"93be2fefaac002e2e570d242\",\"tag\":\"76ee994ecc07a76e9fac1dd21f0100b0\"}},\"db\":\"h5Xq9S3tjWtImefK/Qqp70hLef8KImMgOHK7K8ylUb3dQAak0LeXI2cBjjYK2Or0eM0UxKcg6gFhd+NsFD5mzA0wM9nG8uzqS5qUDGDXsuMJItayNwLLbg/3GJOXH4//bmnU1HpZFlELHFX7q/8MgMU70y0THv==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "aegis",
+    "encrypted": true
+   },
+   "result": {
+    "source": "aegis",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted 2FAS",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==:xxhlLKgCNrM+gsVC\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted 2FAS, wrong password",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==:xxhlLKgCNrM+gsVC\"}",
+   "password": "wrong",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted 2FAS, no password",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==:xxhlLKgCNrM+gsVC\"}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "password-required"
+  },
+  {
+   "name": "encrypted 2FAS, two parts",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "unsupported"
+  },
+  {
+   "name": "encrypted 2FAS, two parts and no password",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==\"}",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "password-required"
+  },
+  {
+   "name": "encrypted 2FAS, four parts",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==:xxhlLKgCNrM+gsVC:x\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "unsupported"
+  },
+  {
+   "name": "encrypted 2FAS, URL-safe base64 without padding",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC-i4TGzPhRixIFTz-sse3UGmfyjjHAnp-59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD-xrvfXG3ruaa9C-EeK-JH6rTOp63TrBgHxMiC3X_ZvjsQNcBtLTnrDz5EK7ldki_jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF-2s_daEBhuYDAjor-N2rKWvjf6enEoH89IB-fntMwVYpDVwIsS_t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU-KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL_IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ_q4JXMxcGN8ZY_JuRQy7c-Yj-VGnoPyxyj4U_dEaFYby_LH5IlyJZKZd4L59lTqiL6cV-d-mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy-r5FuqCWgikDlnQ7J_jQagfhznCDotkxw:xxhlLKgCNrM-gsVC\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted 2FAS, a bad salt",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:!!:xxhlLKgCNrM+gsVC\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted 2FAS, an empty iv",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==:\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "bad-password"
+  },
+  {
+   "name": "encrypted 2FAS, no services list",
+   "text": "{\"services\":null,\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==:xxhlLKgCNrM+gsVC\"}",
+   "password": "pw",
+   "detected": null,
+   "error": "unsupported"
+  },
+  {
+   "name": "encrypted 2FAS, groups beside it",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==:xxhlLKgCNrM+gsVC\",\"groups\":[{\"id\":\"grp\",\"name\":\"G\"}]}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted 2FAS without schemaVersion",
+   "text": "{\"services\":[],\"servicesEncrypted\":\"l2gw3HW8RyC+i4TGzPhRixIFTz+sse3UGmfyjjHAnp+59WdrL8ws78Xeaev0b9sNs5XJKS9cmTiN7lptQfhVZD+xrvfXG3ruaa9C+EeK+JH6rTOp63TrBgHxMiC3X/ZvjsQNcBtLTnrDz5EK7ldki/jldyqWk4vSwvM1dMWMqzQu4IDyDFnPx8RmP3dKxjGCiF+2s/daEBhuYDAjor+N2rKWvjf6enEoH89IB+fntMwVYpDVwIsS/t1y9ZeUZs6TK6D6HMlBtluoWfWH5zfiYHFO84NtPQw=:3ZIZGGip9tp16JmXfWTGSSJteDrwWfpvqzZ26yS3kJvg47xStxuKU+KUfkfc63zVrSjkEgXcjuaFjyLOedAJHD24eHA7kbeJZCWCTJfeqL4l87gMTlVfTl95ryrUb9pRviwL/IAxTsJ5Nw9LWkAVSkNPwKHFXcR7z7aVj2qoPfL3weueNaGkNikHbxvkJ8KxqQ/q4JXMxcGN8ZY/JuRQy7c+Yj+VGnoPyxyj4U/dEaFYby/LH5IlyJZKZd4L59lTqiL6cV+d+mriDPLerxzLdTQxPVkrrLVUpMD7upbbz0lu3dHWVygLy+r5FuqCWgikDlnQ7J/jQagfhznCDotkxw==:xxhlLKgCNrM+gsVC\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted 2FAS, unused bits set in the base64",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"791dhh9QVjIM8DOREmUii+WHvk5VGTZZhb3IeElD+ItBsBX9vqupBvnZzbyhLTSQoxb3/Qje3Ty37IY4hSjXsXGfrLrTFoYAWu29UmUe5mRkD3VFp4Qt9BK6W1nnz27ncMJSrtHwZS6rWGEfzQxMpX5YdfCwbwZgxipfBbRcyrMmgInQU89jVijvu5kEvULDIjDHfYmdHtjPgax0FrjauV4wLKKJ5RriLFAxtUqUCcqly59rQyE9/4a15I1b0ntDdS6kcY3OxC49eL6+9WI5I28m4Kzrmy0m9Cg/1+2V+a23PDH=:9YYNFVkrBS5xHmC6Jpwarv==:5HAYQTz7amCvKIFY\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "encrypted 2FAS, not JSON inside",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"GRPOCkU4WlvpX7wKHXNKP7vAjVo=:Qr3y+uGHw40NjCb8saKe0X8wmLV/YjLZh1AsF+/uNagn0OJ/PlElge/IdSvmF8w8oBvlqWhrng45VIFDLQEgfRXqyTr+LKmEfvV66bGChgggciu0Cu/jNpsrqiGmoBfjUFnFb06O+auhzJWxjP4C2RzYW7tZS0T6OT5j2hOSh6wJ04D2fA/Tmgr7Xf7NxgEzvzoR0RR/MYuncjbr60NBGC6iFAdxHs33M4Y35RkP1VwEssEVxvh03iRPxIKooxxdKIlrisp5SSXbTOvlcKJhdz7LfHW8S/Bqsvnvn8MH1HiNDr/Keo3FVMYdW/REqGEEFxxVGWUmv/ELZ8Vwd8iGXw==:GP3p7uiIErkQDuIN\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "unsupported"
+  },
+  {
+   "name": "encrypted 2FAS, an object inside",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"A+lMhOz5JfptxLrrHXmtxShaD4NqG4igqc64OjO24w==:JJxN03VO2ELugnVy8WUloCK4aZN05f5eG7T6YYKzLCynpYdEx2OCKxqhFDZBCTM7y63q4QSv8el68XzwUBLVRagbYImH+Dzd4qsbPsqLbTPRHgvWRmhWCsmYXxDIjFYLA+S/Edf7PfIfX99OBSAx7Xyw1dkkRd/FGXEqB9UzzA6dliHxpT0tYWDgeg8a/BbX1uQlDO/hma6kgtbQFApMVTxHa+hUde4VcKhuCjr3g1VClvmqRkNdztMzsYl4j88ygSRvT0lPUfuCOVft5O5qRp5p5tr+vnjMT3odA4khxLNwRp13kXDDc7UxvOsTvrBdrEgSb8459zqvY8bhzZM/Zg==:oPfQj41G4ZKYey+t\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "unsupported"
+  },
+  {
+   "name": "encrypted 2FAS, an empty list inside",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"FbfPwpXVkjcBTFqOlKg4WjSA:clHV821V4feFN5RK5PiF531xUYWCJZx+2Jw3BRMV6rcF3LFKELL3ED3/VCuNOnZrjOlfaXytQSBiPNwBwyGsDEJ6jvX0NS/cfJfGhIVrGS3H33DlRSwRrp+9oL5LiFfqzhJRMXk2rXGWi7lgcn7JBPqJBnEbc7r7i3wKLBswvSEoG/Al1cbkE4diiSyvlGNwgtZQ4kcDlZZ3+LzSuSlOaUDQ9CmC6cR1FVJxKdjqSk16NCIM0u2mvrs7eu79NTWcnnhV2/Yj1GFECvdrKcSFHnsOIFBw4Eyn8R91xdjVq+D1+JnB3yZS6G3RM36m2uACMdSbZsX51D4eShgSBYWRug==:vg0LJyFCHWcUU1PB\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "error": "empty"
+  },
+  {
+   "name": "encrypted 2FAS, a byte order mark inside",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"YnPrg7m3F4OwAo3/ZbYJNCd0BQ2dQIB0IC2hanjs5XkmcYvJSffFlIy6kWb0ltOHCEcU+2+1m3jpVHmvD2YM+tPwCwjjkZ2Vyu6YwVCcHnHX9mIojE1A28CKjkNBKHNoB0x4d6xK6XrUou5sQRI8Wix0FQ2oZwICnaCUhtbs7KzthDrgGizsE7VHjJFErFg6LYax2SqiE0CXR3kbq9rXZ9D1tN8PwRD0JsJOdu9ryd75Q3EbkKrK+QaMP8EowhOsgEIOH4ExKliahj0KhHPTnJNUS3PQdhxU/uo=:V5oqSxrCjXadtYKYCF3R2u6WbWAGDruKKgXIZLjpQEmoF/PLL6txPa2MLNtu2KAbogdRvsccJHhU+xONzMqgTyvnkqVDTVmppGvdBlEGJ64Ln+5BJuOpu7zqad2VfMSw9yvOfuRYXD7xzTgmN/YKbBC9tLvgKmCHuNVRTJtCeDJ28ES7hUXz/n8sHMd5tUtbtQlULHwA9jFIL/qi45yQXW8Qv260PLC+5BGbVtatWNAmlnjUIzTEngE1nzz8GXEqU29h4GOjVQ1N5s+1KW96YA63PewVRxnQ4NqdYXpjSzLBho9W01GHLlmHYzVcUTaZq1GplOjGeGjRKcbfsHG/eg==:phJcc8u5RD63D1eP\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted 2FAS, a password outside ASCII",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"5MF1CkqdTkUypIkHT2kQ53VYf+fNSL5OWTo6bpO5z18OZwc6HltagT4vICzzTo0VAHPBxnCkyG8AHBZo2FveeJqE+gl4d5sIykLpVVftFgkgD88MpaGXFRBhF/38r5zBWPfkzkoLBEUSELU8m+/oTgTvw6J4JZnSSLV7sfLXh6wjvhoP35yPet5ypR8ogfY6dJnhlDSB7+Ssu6lHbgxDpMFu59Ox3opbADjsKJC6fj7MY0tqdzvDgS2AqkdkQYsU8KJXxjJnbncODvjodQtayrNeXg3uHH0=:u73z1zxcRzh/eNTRPlAwKM8vsP43ITARGjOfmij2gKviOFs1ulBZfhzsFw2iPa6O0BTarYSvNeweOgp7CcqjDL81R7Pg3iA2oR2YceR0gEJU+Pq6YoSFL1evg6U8AazMA/jwWzp86HwIiyVulf5w1RtJe2rOYfBVmTW5CDLKP01pfhMsb9qCFCKRMNolacyr7jR4Wi3QMG55mDJ6NNyjxH/zFVKnpwQxsB8+P55ldBlCQyZslLfuZmOYvRm+UcE87OWGXJwgyMYbbepBZDkojJSzpoSf2WJt4rWos3B/mRG+UEwdODnrpXYicDXOHBOKmYstC6YnnLFfVGy3hx5c4w==:GvrXJluF1SnlrhZb\"}",
+   "password": "päss 🔑",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "encrypted 2FAS, a 16-byte iv",
+   "text": "{\"services\":[],\"schemaVersion\":4,\"servicesEncrypted\":\"EIAGelTRgb+9fsUnSo/c7uumeYqkylDViDsIlL/vAsMld98C9k64x5whwC+kyJrDwqakWVq7G+DwZVCWc9dlGd0AkClQH+KcINIlEAkQLQU4ZxINDnZQ6Gl55Z9e8zeVjnaHsnMQvmfru5fEDMb6Hgzg4tUG13NnnUuAYYVWx1si097aHHXwi+oqSf1oTxSFkXnE6Z1PgM2KDCVNCvW4y7GoWzGDtOebhlhhIX6qLHsL24U52SRJ/F2YLzwh3DaetaJjKwnZwuCTw4XEvA5ZtvaRqnsZZX4=:tlRQB038XVaQsYXrGjRthpTOPMM9eKmBlXTL3rm/hBiidrK31LUvfAaWpuQseENnDiCVM11RHyBJWQYC467+ChqtTlxRM6J/3nWNeQhNcRU5UZX51qZ5yUfMgStSl6F09vxtnI61EmlHZXrYwEUG+uMgS6F7TuSLXpw4d6cURGnjIwp0C+gI1cY3RhzgUu1YPEpmqlumGvOHkiZKX7VcNVXkbRyDDUUnTYb1yTLlCgu24cZCj0+BA9I1BHbuCmNL3YybcJsvBsuZ871fYac0FpjLd8rKqglkhyu87sKBssICOYtNTs+5Nrw526pR+NaoXFO1K1gLeCs9XLc0NzFyVg==:BX8IBAmiBmOcTCWFCY2yOw==\"}",
+   "password": "pw",
+   "detected": {
+    "source": "2fas",
+    "encrypted": true
+   },
+   "result": {
+    "source": "2fas",
+    "accounts": [
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "Svc",
+      "label": "bob"
+     },
+     {
+      "type": "totp",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "issuer": "ACME",
+      "label": "alice"
+     }
+    ],
+    "skipped": 0
+   }
+  }
+ ],
+ "migrations": [
+  {
+   "name": "a plain transfer",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "several accounts",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAgopChQxMjM0NTY3ODkwMTIzNDU2Nzg5MBIDYm9iGgRBQ01FIAEoATABOAMKJQoUMTIzNDU2Nzg5MDEyMzQ1Njc4OTASAXgaBEFDTUUgAygCMAIQAQ%3D%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "hotp",
+      "issuer": "ACME",
+      "label": "bob",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 3
+     },
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "x",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA512",
+      "digits": 8,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "no accounts",
+   "uri": "otpauth-migration://offline?data=EAE%3D",
+   "result": {
+    "source": "google",
+    "accounts": [],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "an empty data",
+   "uri": "otpauth-migration://offline?data=",
+   "result": null
+  },
+  {
+   "name": "data without a value",
+   "uri": "otpauth-migration://offline?data",
+   "result": null
+  },
+  {
+   "name": "a raw +",
+   "uri": "otpauth-migration://offline?data=CikKFPv7+/v7+/v7+/v7+/v7+/v7+/v7EgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "7P57X6737P57X6737P57X6737P57X673",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "the URL-safe alphabet",
+   "uri": "otpauth-migration://offline?data=CikKFPv7-_v7-_v7-_v7-_v7-_v7-_v7EgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "7P57X6737P57X6737P57X6737P57X673",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "an escaped space for +",
+   "uri": "otpauth-migration://offline?data=CikKFPv7%20/v7%20/v7%20/v7%20/v7%20/v7%20/v7EgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "7P57X6737P57X6737P57X6737P57X673",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "spaces and line breaks in the data",
+   "uri": "otpauth-migration://offline?data=CikKFDEy%0A%20MzQ1Njc4%0A%20OTAxMjM0%0A%20NTY3ODkw%0A%20EgVhbGlj%0A%20ZRoEQUNN%0A%20RSABKAEw%0A%20AhAB",
+   "result": null
+  },
+  {
+   "name": "unused bits set in the base64",
+   "uri": "otpauth-migration://offline?data=CiUKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgFhGgRBQ01FIAEoATACEAH%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "a",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "base64 without padding",
+   "uri": "otpauth-migration://offline?data=CiUKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgFhGgRBQ01FIAEoATACEAE",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "a",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "base64 with padding in the middle",
+   "uri": "otpauth-migration://offline?data=AA==CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "base64 one character too long",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhABA",
+   "result": null
+  },
+  {
+   "name": "base64 with too much padding",
+   "uri": "otpauth-migration://offline?data=CiUKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgFhGgRBQ01FIAEoATACEAE===",
+   "result": null
+  },
+  {
+   "name": "data twice, the first wins",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB&data=AAAA",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "data after another parameter",
+   "uri": "otpauth-migration://offline?x=1&&data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "an escaped parameter name",
+   "uri": "otpauth-migration://offline?d%61ta=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "an upper-case parameter name",
+   "uri": "otpauth-migration://offline?DATA=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a fragment after the data",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB#frag",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a fragment before the query",
+   "uri": "otpauth-migration://offline#?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "an upper-case scheme",
+   "uri": "OTPAUTH-MIGRATION://OFFLINE?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "spaces around it",
+   "uri": "  \totpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB﻿　 ",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "tabs and line breaks inside",
+   "uri": "otpauth-migration://off\tli\nne?da\r\nta=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a control character at the end",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB\u0001",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "another scheme",
+   "uri": "otpauth://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "no scheme",
+   "uri": "//offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a scheme with a space",
+   "uri": "otpauth migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration:offline\"",
+   "uri": "otpauth-migration:offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration:/offline\"",
+   "uri": "otpauth-migration:/offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration:\"",
+   "uri": "otpauth-migration:?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration:///\"",
+   "uri": "otpauth-migration:///?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://\"",
+   "uri": "otpauth-migration://?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://off line\"",
+   "uri": "otpauth-migration://off line?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[::1]\"",
+   "uri": "otpauth-migration://[::1]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[::ffff:1.2.3.4]\"",
+   "uri": "otpauth-migration://[::ffff:1.2.3.4]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[1:2:3:4:5:6:7:8]\"",
+   "uri": "otpauth-migration://[1:2:3:4:5:6:7:8]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[1:2:3:4:5:6:7:8:9]\"",
+   "uri": "otpauth-migration://[1:2:3:4:5:6:7:8:9]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[1:2:3]\"",
+   "uri": "otpauth-migration://[1:2:3]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[1::2::3]\"",
+   "uri": "otpauth-migration://[1::2::3]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[::1.2.3]\"",
+   "uri": "otpauth-migration://[::1.2.3]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[::01.2.3.4]\"",
+   "uri": "otpauth-migration://[::01.2.3.4]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[::256.2.3.4]\"",
+   "uri": "otpauth-migration://[::256.2.3.4]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[1:2:3:4:5:6:1.2.3.4]\"",
+   "uri": "otpauth-migration://[1:2:3:4:5:6:1.2.3.4]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[1:2:3:4:5:6:7:1.2.3.4]\"",
+   "uri": "otpauth-migration://[1:2:3:4:5:6:7:1.2.3.4]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[12345::]\"",
+   "uri": "otpauth-migration://[12345::]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[:1]\"",
+   "uri": "otpauth-migration://[:1]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[1:]\"",
+   "uri": "otpauth-migration://[1:]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[]\"",
+   "uri": "otpauth-migration://[]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[x]\"",
+   "uri": "otpauth-migration://[x]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[::1\"",
+   "uri": "otpauth-migration://[::1?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[::1]x\"",
+   "uri": "otpauth-migration://[::1]x?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://a[b]\"",
+   "uri": "otpauth-migration://a[b]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://h:65535\"",
+   "uri": "otpauth-migration://h:65535?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://h:65536\"",
+   "uri": "otpauth-migration://h:65536?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://h:0000080\"",
+   "uri": "otpauth-migration://h:0000080?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://h:\"",
+   "uri": "otpauth-migration://h:?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://h:8x\"",
+   "uri": "otpauth-migration://h:8x?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://h:1:2\"",
+   "uri": "otpauth-migration://h:1:2?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://:80\"",
+   "uri": "otpauth-migration://:80?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://[::1]:80\"",
+   "uri": "otpauth-migration://[::1]:80?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://u@h\"",
+   "uri": "otpauth-migration://u@h?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://u:p@h:1\"",
+   "uri": "otpauth-migration://u:p@h:1?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://u@\"",
+   "uri": "otpauth-migration://u@?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://u@:1\"",
+   "uri": "otpauth-migration://u@:1?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://a@b@c\"",
+   "uri": "otpauth-migration://a@b@c?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://a^b\"",
+   "uri": "otpauth-migration://a^b?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://a|b\"",
+   "uri": "otpauth-migration://a|b?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://a<b\"",
+   "uri": "otpauth-migration://a<b?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://a>b\"",
+   "uri": "otpauth-migration://a>b?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://a\\\\b\"",
+   "uri": "otpauth-migration://a\\b?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://a%zz\"",
+   "uri": "otpauth-migration://a%zz?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://öffline\"",
+   "uri": "otpauth-migration://öffline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://\\u0000x\"",
+   "uri": "otpauth-migration://\u0000x?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": null
+  },
+  {
+   "name": "a URL like \"otpauth-migration://offline/path/more\"",
+   "uri": "otpauth-migration://offline/path/more?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a URL like \"otpauth-migration://offline/[x]\"",
+   "uri": "otpauth-migration://offline/[x]?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhAB",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a varint where an account should be",
+   "uri": "otpauth-migration://offline?data=CAUKKQoUMTIzNDU2Nzg5MDEyMzQ1Njc4OTASBWFsaWNlGgRBQ01FIAEoATAC",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "an account that is not a message",
+   "uri": "otpauth-migration://offline?data=CgMKBQE%3D",
+   "result": null
+  },
+  {
+   "name": "wire type 3",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAgs%3D",
+   "result": null
+  },
+  {
+   "name": "wire type 4",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAgw%3D",
+   "result": null
+  },
+  {
+   "name": "wire type 6",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAg4%3D",
+   "result": null
+  },
+  {
+   "name": "a truncated varint",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhCA",
+   "result": null
+  },
+  {
+   "name": "a ten-byte varint",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8B",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "an eleven-byte varint",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhD%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FAQ%3D%3D",
+   "result": null
+  },
+  {
+   "name": "a truncated fixed64",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAgkBAgM%3D",
+   "result": null
+  },
+  {
+   "name": "a truncated fixed32",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAg0BAgM%3D",
+   "result": null
+  },
+  {
+   "name": "a length past the end",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhIFAQ%3D%3D",
+   "result": null
+  },
+  {
+   "name": "a huge length",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAhKAgICAgICAgEA%3D",
+   "result": null
+  },
+  {
+   "name": "a key past 2^53 that rounds to another wire type",
+   "uri": "otpauth-migration://offline?data=goCAgICAgIAQBQopChQxMjM0NTY3ODkwMTIzNDU2Nzg5MBIFYWxpY2UaBEFDTUUgASgBMAI%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a key past 2^53 that keeps its wire type",
+   "uri": "otpauth-migration://offline?data=mICAgICAgIAQBQopChQxMjM0NTY3ODkwMTIzNDU2Nzg5MBIFYWxpY2UaBEFDTUUgASgBMAI%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a field number past 2^32",
+   "uri": "otpauth-migration://offline?data=CikKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAoCAgICAAgE%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "enum values past the lists",
+   "uri": "otpauth-migration://offline?data=Ci4KFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSCAgICAgCAoATACCjIKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKICAgICAgICAgAEwAgoyChQxMjM0NTY3ODkwMTIzNDU2Nzg5MBIFYWxpY2UaBEFDTUUgASgBMP%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEQAQ%3D%3D",
+   "result": {
+    "source": "google",
+    "accounts": [],
+    "skipped": 3
+   }
+  },
+  {
+   "name": "enum values that are bytes",
+   "uri": "otpauth-migration://offline?data=Ci8KFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAiIBeCoBAQ%3D%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a repeated enum, the last one wins",
+   "uri": "otpauth-migration://offline?data=Ci0KFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAiADIAI%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA256",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a repeated secret, the last one wins",
+   "uri": "otpauth-migration://offline?data=Ci4KFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAgoDYWJj",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "MFRGG",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "a secret that is a varint",
+   "uri": "otpauth-migration://offline?data=CgsSAWEIByABKAEwAg%3D%3D",
+   "result": {
+    "source": "google",
+    "accounts": [],
+    "skipped": 1
+   }
+  },
+  {
+   "name": "HOTP counters",
+   "uri": "otpauth-migration://offline?data=CjIKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwATj%2F%2F%2F%2F%2F%2F%2F%2F%2FDwoyChQxMjM0NTY3ODkwMTIzNDU2Nzg5MBIFYWxpY2UaBEFDTUUgASgBMAE4gICAgICAgBAKNAoUMTIzNDU2Nzg5MDEyMzQ1Njc4OTASBWFsaWNlGgRBQ01FIAEoATABOPv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEKKQoUMTIzNDU2Nzg5MDEyMzQ1Njc4OTASBWFsaWNlGgRBQ01FIAEoATABCisKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwATgACjQKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgVhbGljZRoEQUNNRSABKAEwAjj%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F%2F8BEAE%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "hotp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 9007199254740991
+     },
+     {
+      "type": "hotp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0
+     },
+     {
+      "type": "hotp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "counter": 0
+     },
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 2
+   }
+  },
+  {
+   "name": "names and issuers",
+   "uri": "otpauth-migration://offline?data=CjQKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEhAgIEFDTUU6ICBhbGljZSAgGgRBQ01FIAEoATACCi4KFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgpBQ01FOmFsaWNlGgRhY21lIAEoATACCiYKFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgY6YWxpY2UaACABKAEwAgopChQxMjM0NTY3ODkwMTIzNDU2Nzg5MBIFQTpCOkMaBEFDTUUgASgBMAIKMAoUMTIzNDU2Nzg5MDEyMzQ1Njc4OTASD8KgTWFpbCA6IGJvYuOAgBoBICABKAEwAgonChQxMjM0NTY3ODkwMTIzNDU2Nzg5MBIFwoV4woUaAsKFIAEoATACCi8KFDEyMzQ1Njc4OTAxMjM0NTY3ODkwEgbvu79ib20aCe%2B7v%2B%2B7v3R3byABKAEwAgorChQxMjM0NTY3ODkwMTIzNDU2Nzg5MBIHQeKCQv%2FArxoE8J%2BYgCABKAEwAgopChQxMjM0NTY3ODkwMTIzNDU2Nzg5MBIFQUNNRToaBEFDTUUgASgBMAIKIAoUMTIzNDU2Nzg5MDEyMzQ1Njc4OTASABoAIAEoATACEAE%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "acme",
+      "label": "ACME:alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "alice",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "A:B:C",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "Mail",
+      "label": "bob",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "x",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "two",
+      "label": "bom",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "😀",
+      "label": "A�B���",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "",
+      "label": "",
+      "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  },
+  {
+   "name": "secrets of odd lengths",
+   "uri": "otpauth-migration://offline?data=ChYKAQESBWFsaWNlGgRBQ01FIAEoATACChgKAwECAxIFYWxpY2UaBEFDTUUgASgBMAIKVQpABwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBxIFYWxpY2UaBEFDTUUgASgBMAIQAQ%3D%3D",
+   "result": {
+    "source": "google",
+    "accounts": [
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "AE",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "AEBAG",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     },
+     {
+      "type": "totp",
+      "issuer": "ACME",
+      "label": "alice",
+      "secret": "A4DQOBYHA4DQOBYHA4DQOBYHA4DQOBYHA4DQOBYHA4DQOBYHA4DQOBYHA4DQOBYHA4DQOBYHA4DQOBYHA4DQOBYHA4DQOBYHA4DQOBY",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30
+     }
+    ],
+    "skipped": 0
+   }
+  }
+ ]
+}

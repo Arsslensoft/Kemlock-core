@@ -1,0 +1,6 @@
+pub   rsa3072 2026-11-15 [SC]
+      40563A0693F24839F76000FE6D181E7A2C932FEA
+uid           [ultimate] Fixture RSA Protected <rsap@example.org>
+sub   rsa3072 2026-11-15 [E] [expires: 2029-11-14]
+      3BE1CED86CA9D41259607C7BA0166FA099F1F980
+

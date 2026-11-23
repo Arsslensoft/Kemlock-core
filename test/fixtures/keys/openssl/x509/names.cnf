@@ -1,0 +1,11 @@
+[req]
+prompt = no
+utf8 = yes
+string_mask = utf8only
+distinguished_name = dn
+
+[dn]
+C = FR
+O = Exemple SARL
+OU = Équipe sécurité
+CN = Zoé Müller

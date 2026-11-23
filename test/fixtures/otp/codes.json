@@ -1,0 +1,3502 @@
+{
+  "about": "Made by mobile/tool/fixtures/otp_vectors.mjs from src/lib/totp.ts and the otpauth package.",
+  "base32": [
+    {
+      "input": "",
+      "bytes": "",
+      "base32": ""
+    },
+    {
+      "input": "A",
+      "bytes": "",
+      "base32": ""
+    },
+    {
+      "input": "AB",
+      "bytes": "00",
+      "base32": "AA"
+    },
+    {
+      "input": "ABC",
+      "bytes": "00",
+      "base32": "AA"
+    },
+    {
+      "input": "ABCD",
+      "bytes": "0044",
+      "base32": "ABCA"
+    },
+    {
+      "input": "ABCDEFGH",
+      "bytes": "00443214c7",
+      "base32": "ABCDEFGH"
+    },
+    {
+      "input": "MZXW6===",
+      "bytes": "666f6f",
+      "base32": "MZXW6"
+    },
+    {
+      "input": "MZXW6YTBOI======",
+      "bytes": "666f6f626172",
+      "base32": "MZXW6YTBOI"
+    },
+    {
+      "input": "jbswy3dpehpk3pxp",
+      "bytes": "48656c6c6f21deadbeef",
+      "base32": "JBSWY3DPEHPK3PXP"
+    },
+    {
+      "input": "JBSW Y3DP EHPK 3PXP",
+      "bytes": "48656c6c6f21deadbeef",
+      "base32": "JBSWY3DPEHPK3PXP"
+    },
+    {
+      "input": "  JBSWY3DPEHPK3PXP  ",
+      "bytes": "48656c6c6f21deadbeef",
+      "base32": "JBSWY3DPEHPK3PXP"
+    },
+    {
+      "input": "JBSWY3DPEHPK3PXP====",
+      "bytes": "48656c6c6f21deadbeef",
+      "base32": "JBSWY3DPEHPK3PXP"
+    },
+    {
+      "input": "JBSWY3DPEHPK3PX=",
+      "bytes": "48656c6c6f21deadbe",
+      "base32": "JBSWY3DPEHPK3PQ"
+    },
+    {
+      "input": "====",
+      "bytes": "",
+      "base32": ""
+    },
+    {
+      "input": "MZ=XW6",
+      "bytes": null
+    },
+    {
+      "input": "JBSWY3DPEHPK3PX1",
+      "bytes": null
+    },
+    {
+      "input": "JBSWY3DPEHPK3PX0",
+      "bytes": null
+    },
+    {
+      "input": "JBSWY3DPEHPK3PX8",
+      "bytes": null
+    },
+    {
+      "input": "JBSWY3DP\tEHPK3PXP",
+      "bytes": null
+    },
+    {
+      "input": "JBSWY3DP\nEHPK3PXP",
+      "bytes": null
+    },
+    {
+      "input": "JBSWY3DP\u00a0EHPK3PXP",
+      "bytes": null
+    },
+    {
+      "input": "JBSW-Y3DP",
+      "bytes": null
+    },
+    {
+      "input": "stra\u00dfe",
+      "bytes": "94e20948",
+      "base32": "STRASSA"
+    },
+    {
+      "input": "\ufb00\ufb01\ufb02\ufb03\ufb04\ufb05\ufb06",
+      "bytes": "294a82aca5414ab94e53",
+      "base32": "FFFIFLFFIFFLSTST"
+    },
+    {
+      "input": "\u0131\u017f",
+      "bytes": "44",
+      "base32": "IQ"
+    },
+    {
+      "input": "\u00e9",
+      "bytes": null
+    },
+    {
+      "input": "\u212a",
+      "bytes": null
+    },
+    {
+      "input": "\ud83d\ude00",
+      "bytes": null
+    },
+    {
+      "input": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+      "bytes": "3132333435363738393031323334353637383930",
+      "base32": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ"
+    },
+    {
+      "input": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA",
+      "bytes": "3132333435363738393031323334353637383930313233343536373839303132",
+      "base32": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA"
+    },
+    {
+      "input": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+      "bytes": "31323334353637383930313233343536373839303132333435363738393031323334353637383930313233343536373839303132333435363738393031323334",
+      "base32": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA"
+    },
+    {
+      "input": "qf5r67lcuwsl7b47kcsq",
+      "bytes": "817b1f7d62a5a4bf879f50a5",
+      "base32": "QF5R67LCUWSL7B47KCSQ"
+    },
+    {
+      "input": "HMAPDMPJXKTWRVAKSBUSKV3ADQDFKQHNMQCJZLJ3V5CKCUJU3UBME",
+      "bytes": "3b00f1b1e9baa768d40a90692557601c065540ed64049cad3baf44a15134dd02c2",
+      "base32": "HMAPDMPJXKTWRVAKSBUSKV3ADQDFKQHNMQCJZLJ3V5CKCUJU3UBME"
+    },
+    {
+      "input": "AP5QDHGFPZ7UEQYBBHSOU42LADYLDELAFCE2QAZCRSTGR7GKKY",
+      "bytes": "03fb019cc57e7f42430109e4ea734b00f0b191602889a803228ca668fcca56",
+      "base32": "AP5QDHGFPZ7UEQYBBHSOU42LADYLDELAFCE2QAZCRSTGR7GKKY"
+    },
+    {
+      "input": "jkifjrefdy3qhlbdmc47kghi2losrlugt2472ha",
+      "bytes": "4a9054c4851e3703ac2360b9f518e8d2dd28ae869eb9fd1c",
+      "base32": "JKIFJREFDY3QHLBDMC47KGHI2LOSRLUGT2472HA"
+    },
+    {
+      "input": "3VIECUEQH4QFUWIXCVO2PUGIAW25DKJVRVUMAU54OPKWIB66SU6VT4I3GHL7CXQ====",
+      "bytes": "dd504150903f205a5917155da7d0c805b5d1a9358d68c053bc73d56407de953d59f11b31d7f15e",
+      "base32": "3VIECUEQH4QFUWIXCVO2PUGIAW25DKJVRVUMAU54OPKWIB66SU6VT4I3GHL7CXQ"
+    },
+    {
+      "input": "IXG2V2RIWRDOJDZ6FZIR4=====",
+      "bytes": "45cdaaea28b446e48f3e2e511e",
+      "base32": "IXG2V2RIWRDOJDZ6FZIR4"
+    },
+    {
+      "input": "AIKPDEGGXAY2EAQ5EI",
+      "bytes": "0214f190c6b831a2021d22",
+      "base32": "AIKPDEGGXAY2EAQ5EI"
+    },
+    {
+      "input": "LQCIMKUB7CTL26U6SSOGVOR5AUONHHIWW6BZ4UGHIN34RCAU234C6PWKX4LOW=====",
+      "bytes": "5c04862a81f8a6bd7a9e949c6aba3d051cd39d16b7839e50c74377c88814d6f82f3ecabf16eb",
+      "base32": "LQCIMKUB7CTL26U6SSOGVOR5AUONHHIWW6BZ4UGHIN34RCAU234C6PWKX4LOW"
+    },
+    {
+      "input": "SIDCEECWXHQ7A4N2IXKSIUZJIYNBGX7HLHV3SEX4K7W7SUN3JWAY36W7O6IRQ",
+      "bytes": "9206221056b9e1f071ba45d5245329461a135fe759ebb912fc57edf951bb4d818dfadf779118",
+      "base32": "SIDCEECWXHQ7A4N2IXKSIUZJIYNBGX7HLHV3SEX4K7W7SUN3JWAY36W7O6IRQ"
+    },
+    {
+      "input": "FGI3SBB4I6NZDKQTXMJU3I2VF3M5ZXVFZIO4PQKSOXPOIHG6H34Y7PTOBBXLN6Q",
+      "bytes": "2991b9043c479b91aa13bb134da3552ed9dcdea5ca1dc7c15275dee41cde3ef98fbe6e086eb6fa",
+      "base32": "FGI3SBB4I6NZDKQTXMJU3I2VF3M5ZXVFZIO4PQKSOXPOIHG6H34Y7PTOBBXLN6Q"
+    },
+    {
+      "input": "32WGCMOLRKUX2AEBIDXRQXP5IE6FV4A",
+      "bytes": "deac6131cb8aa97d008140ef185dfd413c5af0",
+      "base32": "32WGCMOLRKUX2AEBIDXRQXP5IE6FV4A"
+    },
+    {
+      "input": "",
+      "bytes": "",
+      "base32": ""
+    },
+    {
+      "input": "5DDDVIEISNPDUKKVJRVMIHMBDIEWYCTM3Y",
+      "bytes": "e8c63aa088935e3a29554c6ac41d811a096c0a6cde",
+      "base32": "5DDDVIEISNPDUKKVJRVMIHMBDIEWYCTM3Y"
+    },
+    {
+      "input": "DHL67CLBQOAGOUFM=====",
+      "bytes": "19d7ef896183806750ac",
+      "base32": "DHL67CLBQOAGOUFM"
+    },
+    {
+      "input": "DPXRNVQAPNQH3CXXOYTR3QKYJICWRLLKD73A",
+      "bytes": "1bef16d6007b607d8af776271dc1584a0568ad6a1ff6",
+      "base32": "DPXRNVQAPNQH3CXXOYTR3QKYJICWRLLKD73A"
+    },
+    {
+      "input": "TTQBJE72T6FSX4LDXB6CWLJE",
+      "bytes": "9ce01493fa9f8b2bf163b87c2b2d24",
+      "base32": "TTQBJE72T6FSX4LDXB6CWLJE"
+    },
+    {
+      "input": "UXJJG",
+      "bytes": "a5d293",
+      "base32": "UXJJG"
+    },
+    {
+      "input": "",
+      "bytes": "",
+      "base32": ""
+    },
+    {
+      "input": "XPNK SXFH QLON QUYE KA3T OWYI HA6H 4NXI RVAZ UAZX MDX7 OWQ",
+      "bytes": "bbdaa95ca782dcd853045037375b08383c7e36e88d419a033760eff75a",
+      "base32": "XPNKSXFHQLONQUYEKA3TOWYIHA6H4NXIRVAZUAZXMDX7OWQ"
+    },
+    {
+      "input": "32ZUIN57CMO5HYKK7UPFLPI==",
+      "bytes": "deb34437bf131dd3e14afd1e55bd",
+      "base32": "32ZUIN57CMO5HYKK7UPFLPI"
+    },
+    {
+      "input": "KHJEX3HCC44A",
+      "bytes": "51d24bece21738",
+      "base32": "KHJEX3HCC44A"
+    },
+    {
+      "input": "SP4HESDEJ64BF65MERGMKJNEBGEYBGLJPCN776DXQVX5UZY",
+      "bytes": "93f87248644fb812fbac244cc525a40989809969789bfff877856fda67",
+      "base32": "SP4HESDEJ64BF65MERGMKJNEBGEYBGLJPCN776DXQVX5UZY"
+    },
+    {
+      "input": "6AMSABXYYI7B4BSVDZICSHDB4B7X5SINAB5DQEKHA6JE6JFWDAMLMIY",
+      "bytes": "f0192006f8c23e1e06551e50291c61e07f7ec90d007a38114707924f24b61818b623",
+      "base32": "6AMSABXYYI7B4BSVDZICSHDB4B7X5SINAB5DQEKHA6JE6JFWDAMLMIY"
+    },
+    {
+      "input": "",
+      "bytes": "",
+      "base32": ""
+    },
+    {
+      "input": "LCLZ5GQ3TY26VJUJCLLQZATFM6R77XVR",
+      "bytes": "58979e9a1b9e35eaa68912d70c826567a3ffdeb1",
+      "base32": "LCLZ5GQ3TY26VJUJCLLQZATFM6R77XVR"
+    },
+    {
+      "input": "ANV3 XRCX 5U3I SKUM Y75H KEFZ EDNU K6EW 6UXT CWTJ AANX AIUG VECS KYM4",
+      "bytes": "036bbbc457ed36892a8cc7fa7510b920db457896f52f315a69001b702286a90525619c",
+      "base32": "ANV3XRCX5U3ISKUMY75HKEFZEDNUK6EW6UXTCWTJAANXAIUGVECSKYM4"
+    },
+    {
+      "input": "YGOU WDVN CXIU FWHK QKJW F5RX SVPC T426 THAM H5B2 RWUI Q",
+      "bytes": "c19d4b0ead15d142d8ea829362f637955e29f35e99c0c3f43a8da888",
+      "base32": "YGOUWDVNCXIUFWHKQKJWF5RXSVPCT426THAMH5B2RWUIQ"
+    },
+    {
+      "input": "UZO23T4J6M",
+      "bytes": "a65dadcf89f3",
+      "base32": "UZO23T4J6M"
+    },
+    {
+      "input": "QL7T7Y5NUA5BKCR3G6TQ",
+      "bytes": "82ff3fe3ada03a150a3b37a7",
+      "base32": "QL7T7Y5NUA5BKCR3G6TQ"
+    },
+    {
+      "input": "WWWLVMF43KTA",
+      "bytes": "b5acbab0bcdaa6",
+      "base32": "WWWLVMF43KTA"
+    }
+  ],
+  "encode": [
+    {
+      "bytes": "",
+      "base32": ""
+    },
+    {
+      "bytes": "d2",
+      "base32": "2I"
+    },
+    {
+      "bytes": "374f",
+      "base32": "G5HQ"
+    },
+    {
+      "bytes": "6c9149",
+      "base32": "NSIUS"
+    },
+    {
+      "bytes": "1cdd9ab6",
+      "base32": "DTOZVNQ"
+    },
+    {
+      "bytes": "65b773dfa7",
+      "base32": "MW3XHX5H"
+    },
+    {
+      "bytes": "0af385f86d6f",
+      "base32": "BLZYL6DNN4"
+    },
+    {
+      "bytes": "c0d2415ee8f20d",
+      "base32": "YDJECXXI6IGQ"
+    },
+    {
+      "bytes": "381b9cd85b198843",
+      "base32": "HANZZWC3DGEEG"
+    },
+    {
+      "bytes": "4134a36d7f4fb3e68e",
+      "base32": "IE2KG3L7J6Z6NDQ"
+    },
+    {
+      "bytes": "023522d9d06972b56d6f",
+      "base32": "AI2SFWOQNFZLK3LP"
+    },
+    {
+      "bytes": "4127855cbe1c5e8880ab5d",
+      "base32": "IETYKXF6DRPIRAFLLU"
+    },
+    {
+      "bytes": "8ce536cccfb042b808e69d93",
+      "base32": "RTSTNTGPWBBLQCHGTWJQ"
+    },
+    {
+      "bytes": "7cb67e7f1ad6188670614346d0",
+      "base32": "PS3H47Y22YMIM4DBINDNA"
+    },
+    {
+      "bytes": "f0db81e73e9a2f2cef9eaedcaf0f",
+      "base32": "6DNYDZZ6TIXSZ346V3OK6DY"
+    },
+    {
+      "bytes": "2211c38595c11bd332a4dfb5384d6a",
+      "base32": "EII4HBMVYEN5GMVE362TQTLK"
+    },
+    {
+      "bytes": "a0ec2e7c707e60807b05f66f5d6898ad",
+      "base32": "UDWC47DQPZQIA6YF6ZXV22EYVU"
+    },
+    {
+      "bytes": "0997334ce4e0855b78f863f765b74c384a",
+      "base32": "BGLTGTHE4CCVW6HYMP3WLN2MHBFA"
+    },
+    {
+      "bytes": "5c2c1dfade4841b3b50b5e794c4830128d51",
+      "base32": "LQWB36W6JBA3HNILLZ4UYSBQCKGVC"
+    },
+    {
+      "bytes": "15bdf3d7b5ada98a11db7b22ce9b696b30720d",
+      "base32": "CW67HV5VVWUYUEO3PMRM5G3JNMYHEDI"
+    }
+  ],
+  "codes": [
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 59,
+      "offset": 0,
+      "code": "94287082"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1111111109,
+      "offset": 0,
+      "code": "07081804"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1111111111,
+      "offset": 0,
+      "code": "14050471"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1234567890,
+      "offset": 0,
+      "code": "89005924"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 2000000000,
+      "offset": 0,
+      "code": "69279037"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 20000000000,
+      "offset": 0,
+      "code": "65353130"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 59,
+      "offset": 0,
+      "code": "46119246"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1111111109,
+      "offset": 0,
+      "code": "68084774"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1111111111,
+      "offset": 0,
+      "code": "67062674"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1234567890,
+      "offset": 0,
+      "code": "91819424"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 2000000000,
+      "offset": 0,
+      "code": "90698825"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 20000000000,
+      "offset": 0,
+      "code": "77737706"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 59,
+      "offset": 0,
+      "code": "90693936"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1111111109,
+      "offset": 0,
+      "code": "25091201"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1111111111,
+      "offset": 0,
+      "code": "99943326"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1234567890,
+      "offset": 0,
+      "code": "93441116"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 2000000000,
+      "offset": 0,
+      "code": "38618901"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 20000000000,
+      "offset": 0,
+      "code": "47863826"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 0
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "755224"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "287082"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 2
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "359152"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 3
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "969429"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 4
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "338314"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 5
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "254676"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 6
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "287922"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 7
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "162583"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 8
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "399871"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 9
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "520489"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "nowSec": 59,
+      "offset": 0,
+      "code": "287082"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "nowSec": 1700000000,
+      "offset": 0,
+      "code": "921300"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "nowSec": 1700000029,
+      "offset": 0,
+      "code": "732303"
+    },
+    {
+      "account": {
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "nowSec": 1700000030,
+      "offset": 0,
+      "code": "732303"
+    },
+    {
+      "account": {
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      },
+      "nowSec": 59,
+      "offset": 0,
+      "code": "96023015"
+    },
+    {
+      "account": {
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      },
+      "nowSec": 1700000000,
+      "offset": 0,
+      "code": "71205722"
+    },
+    {
+      "account": {
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      },
+      "nowSec": 1700000029,
+      "offset": 0,
+      "code": "71205722"
+    },
+    {
+      "account": {
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      },
+      "nowSec": 1700000030,
+      "offset": 0,
+      "code": "71205722"
+    },
+    {
+      "account": {
+        "secret": "",
+        "algorithm": "sha-256",
+        "digits": 8,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 1111111109,
+      "offset": -1,
+      "code": "19346805"
+    },
+    {
+      "account": {
+        "secret": "I3AWZP6KTPU5JANXUTAINUY7LV3AHXH47HQWIB2RH7JJ4JDGCQKA",
+        "algorithm": "MD5",
+        "digits": 0,
+        "period": 0,
+        "counter": 2147483648
+      },
+      "nowSec": 26365357312,
+      "offset": 2,
+      "code": ""
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "7OE5TSIJWGOQWN53LQG2QWOIHLMRVEP3",
+        "algorithm": "sha-256",
+        "digits": 7,
+        "period": 7,
+        "counter": 4294967301
+      },
+      "nowSec": 1,
+      "offset": 2,
+      "code": "9980536"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "",
+        "algorithm": "SHA384",
+        "digits": 9,
+        "period": 30,
+        "counter": 4503599627370496
+      },
+      "nowSec": 0,
+      "offset": 1,
+      "code": "DR2DK"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00",
+        "algorithm": "SHA2-512",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 1787391392,
+      "offset": -3,
+      "code": "YDMRK"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "",
+        "algorithm": "SHA1",
+        "digits": 0,
+        "period": -30,
+        "counter": 4294967301
+      },
+      "nowSec": 11633408008,
+      "offset": 0,
+      "code": "0"
+    },
+    {
+      "account": {
+        "secret": "ELKL7M3XBVHSD3TE267BOIN7MPQMCM66WHOBDKRJQ2XU4MZ2CNYA",
+        "algorithm": "SHA384",
+        "digits": 8,
+        "period": 300,
+        "counter": 4503599627370496
+      },
+      "nowSec": 1111111109,
+      "offset": -1,
+      "code": "38572282"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "DSMC7XK3WIYLUDLPOFIG66FQWLJ72QDBCY6WWPXXGVOVQ6GG2B7Q",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 7,
+        "counter": 1099511627779
+      },
+      "nowSec": 1,
+      "offset": 2,
+      "code": "015116"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "2QRI66J5BFQRHLMH",
+        "algorithm": "SHA224",
+        "digits": 9,
+        "period": -30,
+        "counter": 4294967301
+      },
+      "nowSec": 4738127680,
+      "offset": -3,
+      "code": "619650115"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "not base32!",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 1,
+        "counter": 0
+      },
+      "nowSec": 2000000000,
+      "offset": 0,
+      "code": "------"
+    },
+    {
+      "account": {
+        "secret": "",
+        "algorithm": "sha-256",
+        "digits": 5,
+        "period": 7,
+        "counter": 4503599627370496
+      },
+      "nowSec": 1111111109,
+      "offset": 2,
+      "code": "86372"
+    },
+    {
+      "account": {
+        "secret": "37GHOJG766I6JI3IOHGDNBCSNBEN73DHMESMT557PPQRZVMELXJQ",
+        "algorithm": "SHA2-512",
+        "digits": 6,
+        "period": 1,
+        "counter": 0
+      },
+      "nowSec": 20000000000,
+      "offset": 0,
+      "code": "966031"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "",
+        "algorithm": "SHA256",
+        "digits": 1,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 22461949992,
+      "offset": -1,
+      "code": "0"
+    },
+    {
+      "account": {
+        "secret": "XC6F77LTY2B6T5AVFYHHHJ6UW6STPQPWPBLNGFDWJVYGERDQTE2LFUOVTMWSOHK45VHTJMEMDQUNU4TA3A5EUOKYSB55AEO2TSING5Y",
+        "algorithm": "sha1",
+        "digits": 6,
+        "period": 300,
+        "counter": 2147483648
+      },
+      "nowSec": 2000000000,
+      "offset": 2,
+      "code": "478379"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "SHA256",
+        "digits": 0,
+        "period": -30,
+        "counter": 2147483648
+      },
+      "nowSec": 30,
+      "offset": 2,
+      "code": ""
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "ELDYKXEDUUTCWW4DMCLQW6XD27NOZXB2NQX6HL7YBZNNXUSLSBRA",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 15,
+        "counter": 1
+      },
+      "nowSec": 29,
+      "offset": 0,
+      "code": "604873"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "BP6X3VDEZDICXYEW3HBJQF5VM32EEMRPQEVQXO7QLTRRYURQSN2A",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 7,
+        "counter": 1099511627779
+      },
+      "nowSec": 0,
+      "offset": -1,
+      "code": "18100237"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "JJWYDYQPTFB6EXD2TCKDSVKYBPZXPJRPXTYGGXJV5ZCDD7C6LDQA72UMDHK64UDIULYCJFWB2YJD2K5WDAGH7HFAO627FUKVCEMWZFY",
+        "algorithm": "SHA2-512",
+        "digits": 7,
+        "period": 0,
+        "counter": 4503599627370496
+      },
+      "nowSec": 9998040320,
+      "offset": 2,
+      "code": "5082902"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "UE",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 0,
+        "counter": 1099511627779
+      },
+      "nowSec": 21310758768,
+      "offset": -1,
+      "code": "DV5GT"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "K5C75JC5",
+        "algorithm": "SHA224",
+        "digits": 6,
+        "period": 7
+      },
+      "nowSec": 29895339928,
+      "offset": 2,
+      "code": "198855"
+    },
+    {
+      "account": {
+        "secret": "A6CEC5N6YMYJJ54WQ7CRAZAFOEMYPVS2",
+        "algorithm": "sha-256",
+        "digits": 6,
+        "period": 15,
+        "counter": 1099511627779
+      },
+      "nowSec": 2831090472,
+      "offset": 1,
+      "code": "210534"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "4CM26SFN",
+        "algorithm": "SHA384",
+        "digits": 6,
+        "period": 60
+      },
+      "nowSec": 1111111109,
+      "offset": 0,
+      "code": "411934"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "",
+        "algorithm": "MD5",
+        "digits": 8,
+        "period": 300,
+        "counter": 1099511627779
+      },
+      "nowSec": 4649566152,
+      "offset": 0,
+      "code": "54NMY"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "GPGPWGZBUKR5Z4KIPS5FFPPIVYV672UL",
+        "algorithm": "",
+        "digits": 8,
+        "period": 7,
+        "counter": 1099511627779
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "5Q3XV"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "CHEGHH4O",
+        "algorithm": "SHA2-512",
+        "digits": 8,
+        "period": 7,
+        "counter": 2147483648
+      },
+      "nowSec": 20000000000,
+      "offset": -3,
+      "code": "50007365"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 1,
+        "counter": 1
+      },
+      "nowSec": 1,
+      "offset": -3,
+      "code": "--------"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "",
+        "algorithm": "sha1",
+        "digits": 8,
+        "period": 7,
+        "counter": 0
+      },
+      "nowSec": 12257480944,
+      "offset": 0,
+      "code": "7NCF7"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "VA",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 15,
+        "counter": 1099511627779
+      },
+      "nowSec": 33797933920,
+      "offset": -1,
+      "code": "12903874"
+    },
+    {
+      "account": {
+        "secret": "7YC5VRLWIJEGPJIQKO3CFQP5KFIHQP6S",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 1234567890,
+      "offset": 2,
+      "code": "204210"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00",
+        "algorithm": "SHA384",
+        "digits": 6,
+        "period": 30,
+        "counter": 4294967301
+      },
+      "nowSec": 29,
+      "offset": 2,
+      "code": "034556"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "4IJXYDQG3KK2UR6V4U6OB7BXYJGKPWSB6YFXD22LVJ4H62NIDF7NXDTLIQDS5RL3PV3KT755X74FN6DSLB57ELJXRBPFFMFWL7G63MQ",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 15,
+        "counter": 41
+      },
+      "nowSec": 29,
+      "offset": 1,
+      "code": "04735689"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "TU",
+        "algorithm": "sha1",
+        "digits": 1,
+        "period": 60,
+        "counter": 0
+      },
+      "nowSec": 1290108824,
+      "offset": 0,
+      "code": "6"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "6Y",
+        "algorithm": "SSL3-SHA1",
+        "digits": 6,
+        "period": 15,
+        "counter": 1
+      },
+      "nowSec": 19549579768,
+      "offset": 2,
+      "code": "264878"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "HRQKZUDG",
+        "algorithm": "SHA384",
+        "digits": 10,
+        "period": 7
+      },
+      "nowSec": 8804398072,
+      "offset": -1,
+      "code": "0409645947"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "l3rkccu4n3nms7hq",
+        "algorithm": "SHA2-512",
+        "digits": 7,
+        "period": 300
+      },
+      "nowSec": 22510891376,
+      "offset": 1,
+      "code": "RJF2B"
+    },
+    {
+      "account": {
+        "secret": "OVVMRDU5",
+        "algorithm": "SHA384",
+        "digits": 1,
+        "period": 7,
+        "counter": 41
+      },
+      "nowSec": 30,
+      "offset": 0,
+      "code": "2"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "QYXBZUG6YAU64SMOYF6YTBATYTUTE76M",
+        "algorithm": "SHA256",
+        "digits": 1,
+        "period": 15,
+        "counter": 41
+      },
+      "nowSec": 9453782896,
+      "offset": -3,
+      "code": "5"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "jbswy3dpehpk3px\u00df",
+        "algorithm": "SHA1",
+        "digits": 9,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 1111111109,
+      "offset": 2,
+      "code": "XK5J6"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "not base32!",
+        "algorithm": "SHA384",
+        "digits": 10,
+        "period": 7,
+        "counter": 2147483648
+      },
+      "nowSec": 30,
+      "offset": 1,
+      "code": "----------"
+    },
+    {
+      "account": {
+        "secret": "DF6654UPCFYL52ZWVRBA3IGE3Y",
+        "algorithm": "sha-256",
+        "digits": 8,
+        "period": 30,
+        "counter": 2147483648
+      },
+      "nowSec": 29,
+      "offset": 2,
+      "code": "95520722"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "C46W3W23MLPUUBFVYMWUAFL2O6XDVL36",
+        "algorithm": "SSL3-SHA1",
+        "digits": 5,
+        "period": 60,
+        "counter": 4294967301
+      },
+      "nowSec": 16388328568,
+      "offset": -3,
+      "code": "21109"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "KTW7JZTADHMLNNMEIYCNZVAOVJGPR4VKY4JMMOMB6JYLO676C2PA",
+        "algorithm": "SHA512",
+        "digits": 9,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 29,
+      "offset": 2,
+      "code": "626876110"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 300,
+        "counter": 41
+      },
+      "nowSec": 59,
+      "offset": -1,
+      "code": "YTRXP"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "GA2EGXLEFMUTUTJNIDVIM74U63Y3HOG6",
+        "algorithm": "SHA384",
+        "digits": 6,
+        "period": 30,
+        "counter": 0
+      },
+      "nowSec": 30,
+      "offset": -3,
+      "code": "GCB4J"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "DUYRGPVWA3NACSYZGBXALBJGFRG4QMCAQKN4AHKIA3TISS6I6DEQ",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 60,
+        "counter": 41
+      },
+      "nowSec": 20000000000,
+      "offset": 1,
+      "code": "88377393"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "BFA2KN34DSO5MRQ6OH7SHJXTEE",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 300,
+        "counter": 4294967301
+      },
+      "nowSec": 6418171136,
+      "offset": 0,
+      "code": "930894"
+    },
+    {
+      "account": {
+        "secret": "KTZOMNDQV6GN5E66BXDEMZF4O3R5YMJN",
+        "algorithm": "SHA384",
+        "digits": 6,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 29,
+      "offset": 0,
+      "code": "910317"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "MD5",
+        "digits": 7,
+        "period": 1,
+        "counter": 41
+      },
+      "nowSec": 30,
+      "offset": 2,
+      "code": "-------"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "BM",
+        "algorithm": "sha1",
+        "digits": 7,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 15000635312,
+      "offset": 1,
+      "code": "5763667"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "4EO5ACV3URAEY4RJO2U2DSBVRTM6A24M",
+        "algorithm": "MD5",
+        "digits": 6,
+        "period": 30,
+        "counter": 4294967301
+      },
+      "nowSec": 15511018608,
+      "offset": 0,
+      "code": "------"
+    },
+    {
+      "account": {
+        "secret": "BA",
+        "algorithm": "SHA2-512",
+        "digits": 7,
+        "period": 15
+      },
+      "nowSec": 6818468720,
+      "offset": 1,
+      "code": "8892058"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "PB334Y75LDABNUNB",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 30,
+        "counter": 4294967301
+      },
+      "nowSec": 1,
+      "offset": -3,
+      "code": "29231"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "QYJTMMERKIFUVYK2OPCDO6RNPIJ6AMOT",
+        "algorithm": "SHA384",
+        "digits": 10,
+        "period": -30,
+        "counter": 1099511627779
+      },
+      "nowSec": 30,
+      "offset": 0,
+      "code": "1893159761"
+    },
+    {
+      "account": {
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "SHA1",
+        "digits": 5,
+        "period": 30,
+        "counter": 0
+      },
+      "nowSec": 12334595736,
+      "offset": 0,
+      "code": "-----"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00",
+        "algorithm": "SSL3-SHA1",
+        "digits": 9,
+        "period": 15,
+        "counter": 1099511627779
+      },
+      "nowSec": 1234567890,
+      "offset": 1,
+      "code": "785153547"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "",
+        "algorithm": "SSL3-SHA1",
+        "digits": 6,
+        "period": 60,
+        "counter": 1
+      },
+      "nowSec": 20000000000,
+      "offset": 0,
+      "code": "812658"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "NNMKDFOMNGQ6J3L7FGUX4RX3OED6Y6RC",
+        "algorithm": "SHA2-512",
+        "digits": 8,
+        "period": -30,
+        "counter": 4503599627370496
+      },
+      "nowSec": 33451139264,
+      "offset": 2,
+      "code": "26392361"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "jbswy3dpehpk3px\u00df",
+        "algorithm": "SHA1",
+        "digits": 9,
+        "period": 30,
+        "counter": 4503599627370496
+      },
+      "nowSec": 29,
+      "offset": -1,
+      "code": "603238133"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 2000000000,
+      "offset": 1,
+      "code": "71618542"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "XGSG4PES",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 30,
+        "counter": 2147483648
+      },
+      "nowSec": 19423799272,
+      "offset": 0,
+      "code": "9XBJG"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "NWUS2K24RW7JL5UL",
+        "algorithm": "",
+        "digits": 0,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 22897695912,
+      "offset": -1,
+      "code": ""
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "PXP7SYTFX5EMEPWKBBMKNFPIEZX6CVXE",
+        "algorithm": "SHA1",
+        "digits": 10,
+        "period": 1,
+        "counter": 41
+      },
+      "nowSec": 30,
+      "offset": -3,
+      "code": "0309422031"
+    },
+    {
+      "account": {
+        "secret": "NRCDPISI46V7ELUP==",
+        "algorithm": "",
+        "digits": 0,
+        "period": 300,
+        "counter": 2147483648
+      },
+      "nowSec": 31539662960,
+      "offset": -3,
+      "code": ""
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "ODMKERS7",
+        "algorithm": "sha1",
+        "digits": 5,
+        "period": 30,
+        "counter": 2147483648
+      },
+      "nowSec": 33899761616,
+      "offset": -3,
+      "code": "67857"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "5OCDTI74SAETPMF7",
+        "algorithm": "",
+        "digits": 6,
+        "period": -30,
+        "counter": 1099511627779
+      },
+      "nowSec": 12830207600,
+      "offset": -3,
+      "code": "------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "UG7IJP7W",
+        "algorithm": "SHA224",
+        "digits": 6,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 1,
+      "offset": -1,
+      "code": "483665"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "",
+        "algorithm": "SHA224",
+        "digits": 6,
+        "period": -30,
+        "counter": 41
+      },
+      "nowSec": 20000000000,
+      "offset": 0,
+      "code": "670095"
+    },
+    {
+      "account": {
+        "secret": "",
+        "algorithm": "SHA1",
+        "digits": 1,
+        "period": 15,
+        "counter": 1099511627779
+      },
+      "nowSec": 2000000000,
+      "offset": -1,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "KM",
+        "algorithm": "SHA2-512",
+        "digits": 10,
+        "period": -30,
+        "counter": 1099511627779
+      },
+      "nowSec": 59,
+      "offset": -3,
+      "code": "0067250544"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "ZGHBGXFAZERAIJE2QD4AA2ZS3T744YYNCM6O2DPB63XQ44UH7Z47AQDYKNAILFHQVIZI7EQVFSCIKH6XHUIPBTXK2G33YXRO4Y3AYVA",
+        "algorithm": "",
+        "digits": 8,
+        "period": 300,
+        "counter": 2147483648
+      },
+      "nowSec": 26335253080,
+      "offset": -1,
+      "code": "--------"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "nhw6moghfmz2fnrv",
+        "algorithm": "",
+        "digits": 6,
+        "period": 30,
+        "counter": 0
+      },
+      "nowSec": 20756697656,
+      "offset": -3,
+      "code": "------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "",
+        "algorithm": "sha-256",
+        "digits": 9,
+        "period": 30
+      },
+      "nowSec": 31707909624,
+      "offset": 2,
+      "code": "526862762"
+    },
+    {
+      "account": {
+        "secret": "TPSX44JVNPPIGT7YI6CTTUVGZPPIX55S",
+        "algorithm": "sha1",
+        "digits": 9,
+        "period": 15,
+        "counter": 1099511627779
+      },
+      "nowSec": 33932575128,
+      "offset": -1,
+      "code": "860401270"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "DGFYKHSDSMHG4WOFFVERNEFHHKKK6KCP7NLN66HBO3UOBOQAZZOA",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 15,
+        "counter": 1
+      },
+      "nowSec": 5764706776,
+      "offset": 0,
+      "code": "34V48"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "tdexephesh7dvu4h",
+        "algorithm": "sha1",
+        "digits": 5,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 2000000000,
+      "offset": 2,
+      "code": "07521"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "rpfnborqwm5fzh25",
+        "algorithm": "SSL3-SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 59,
+      "offset": -3,
+      "code": "78531133"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "",
+        "digits": 5,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 982541480,
+      "offset": -3,
+      "code": "-----"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "6VNRT3DGDZDACIDRQQ7UJLSX65ZQZ6UL",
+        "algorithm": "SHA384",
+        "digits": 6,
+        "period": 60,
+        "counter": 0
+      },
+      "nowSec": 1,
+      "offset": -1,
+      "code": "YQJ33"
+    },
+    {
+      "account": {
+        "secret": "R4",
+        "algorithm": "sha1",
+        "digits": 7,
+        "period": 15,
+        "counter": 1
+      },
+      "nowSec": 2606652776,
+      "offset": 1,
+      "code": "0923993"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "i5gzb6o5sllfkf73y7oeyr2ei7uz4ufzbnhsmwqppihivucfv2ea",
+        "algorithm": "SHA384",
+        "digits": 8,
+        "period": 15,
+        "counter": 2147483648
+      },
+      "nowSec": 29,
+      "offset": 0,
+      "code": "5VR6W"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "5ndlbkk2za2xh7g43pvmdva6sylgm2pcvkeffh3firokt6hq2qnq",
+        "algorithm": "sha1",
+        "digits": 1,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 1111111109,
+      "offset": -1,
+      "code": "3"
+    },
+    {
+      "account": {
+        "secret": "F7W5TEAJAO2JNKRGCWO4325CJFUIXLO6",
+        "algorithm": "sha1",
+        "digits": 7,
+        "period": 1,
+        "counter": 0
+      },
+      "nowSec": 10398479744,
+      "offset": -1,
+      "code": "0636734"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "jbswy3dpehpk3px\u00df",
+        "algorithm": "SHA512",
+        "digits": 5,
+        "period": 1
+      },
+      "nowSec": 30431708600,
+      "offset": 2,
+      "code": "52201"
+    },
+    {
+      "account": {
+        "secret": "",
+        "algorithm": "",
+        "digits": 6,
+        "period": 7
+      },
+      "nowSec": 1111111109,
+      "offset": 0,
+      "code": "------"
+    },
+    {
+      "account": {
+        "secret": "",
+        "algorithm": "MD5",
+        "digits": 5,
+        "period": 300,
+        "counter": 1
+      },
+      "nowSec": 29353522192,
+      "offset": 2,
+      "code": "-----"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "",
+        "algorithm": "",
+        "digits": 5,
+        "period": 15,
+        "counter": 1099511627779
+      },
+      "nowSec": 1234567890,
+      "offset": 0,
+      "code": "-----"
+    },
+    {
+      "account": {
+        "secret": "OFNU EC4U 3EGV D53U",
+        "algorithm": "sha1",
+        "digits": 8,
+        "period": -30
+      },
+      "nowSec": 30,
+      "offset": -3,
+      "code": "31258355"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "not base32!",
+        "algorithm": "sha-256",
+        "digits": 8,
+        "period": 15,
+        "counter": 4294967301
+      },
+      "nowSec": 28024771024,
+      "offset": 2,
+      "code": "--------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "DVQMCW2BDCIF5F43",
+        "algorithm": "SHA384",
+        "digits": 9,
+        "period": 7,
+        "counter": 2147483648
+      },
+      "nowSec": 19952868512,
+      "offset": 0,
+      "code": "681136506"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "7NHBVRD5",
+        "algorithm": "sha1",
+        "digits": 6,
+        "period": 60
+      },
+      "nowSec": 20000000000,
+      "offset": 1,
+      "code": "703263"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "P5LFVXZH2KQHFIQ4LCTGVM4NABIEYLWRZSKYHYT3LDHBLEXK2AZQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 7,
+        "counter": 1099511627779
+      },
+      "nowSec": 6890535640,
+      "offset": -1,
+      "code": "98682759"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "4OSUD5FI",
+        "algorithm": "SSL3-SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 2000000000,
+      "offset": 0,
+      "code": "49690659"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "CMSZUEFUBZC5ASWUR6YM74UTAKPWBD6R",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 7,
+        "counter": 1
+      },
+      "nowSec": 2000000000,
+      "offset": -3,
+      "code": "37637560"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "MD5",
+        "digits": 6,
+        "period": 0,
+        "counter": 0
+      },
+      "nowSec": 1234567890,
+      "offset": 1,
+      "code": "------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "XM",
+        "algorithm": "SHA224",
+        "digits": 5,
+        "period": 300,
+        "counter": 1
+      },
+      "nowSec": 24949827368,
+      "offset": 2,
+      "code": "79609"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "KJU6J2ORCWHGK5OSMABYYJY334S3BIWE",
+        "algorithm": "sha-256",
+        "digits": 0,
+        "period": 300,
+        "counter": 1099511627779
+      },
+      "nowSec": 30883513280,
+      "offset": -3,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "tddujklsjl2hcisr3ahbg2kboetqvy67",
+        "algorithm": "SHA1",
+        "digits": 10,
+        "period": 0,
+        "counter": 1099511627779
+      },
+      "nowSec": 23623121632,
+      "offset": 0,
+      "code": "2071766833"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "432T25FGLI47523MLH522SFA2OD5VK4G2Z7DW6SM7TDWO4VIMXBJJ632AIXK7RKGXVOY7WTZD3TXCEYK72UPTZXZTSP575RFEQEMRGQ",
+        "algorithm": "SHA2-512",
+        "digits": 10,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 32619470384,
+      "offset": 1,
+      "code": "1142514807"
+    },
+    {
+      "account": {
+        "secret": "",
+        "algorithm": "SHA256",
+        "digits": 5,
+        "period": 60,
+        "counter": 0
+      },
+      "nowSec": 9938562272,
+      "offset": 0,
+      "code": "46180"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "",
+        "algorithm": "",
+        "digits": 8,
+        "period": 1
+      },
+      "nowSec": 20000000000,
+      "offset": 1,
+      "code": "--------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "BKJVVVJ7XS5PXDEP556FBJ6R3GYNI4T6572SRH2TV6Q6T3W7X7J2NXP5RF6ZIQFMRF2KAZUU2Y5VJNC7DABLTFUELXNRM2G6EYLC5XA",
+        "algorithm": "SHA384",
+        "digits": 7,
+        "period": 300,
+        "counter": 1
+      },
+      "nowSec": 30,
+      "offset": -1,
+      "code": "2468313"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "CB2VVKOQRWDJFIBKGKQQTF4CFQ",
+        "algorithm": "SHA384",
+        "digits": 0,
+        "period": 30,
+        "counter": 41
+      },
+      "nowSec": 30,
+      "offset": 0,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 30
+      },
+      "nowSec": 59,
+      "offset": -3,
+      "code": "N46FK"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "GW5IPJYCE553SO2HKAGI4YOXBJBOANRU",
+        "algorithm": "SSL3-SHA1",
+        "digits": 10,
+        "period": -30,
+        "counter": 2147483648
+      },
+      "nowSec": 4213732656,
+      "offset": -3,
+      "code": "1827930794"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "",
+        "algorithm": "SHA1",
+        "digits": 0,
+        "period": 0,
+        "counter": 1099511627779
+      },
+      "nowSec": 26815811056,
+      "offset": 1,
+      "code": "RYH4D"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "RFF6KV5ITKJMG5D5KIC4N5NDMRALIWYR",
+        "algorithm": "sha-256",
+        "digits": 7,
+        "period": 30,
+        "counter": 4503599627370496
+      },
+      "nowSec": 30,
+      "offset": 0,
+      "code": "4589744"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "NEH3LM5BWRA3RTVBU4RD2GXMQMKH4PU4NLNEHBIXDOY56SKNFFOA",
+        "algorithm": "SHA1",
+        "digits": 9,
+        "period": 1,
+        "counter": 1099511627779
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "251276520"
+    },
+    {
+      "account": {
+        "secret": "UDBITVE6WLCEQZCKTOC2OS5M7A",
+        "algorithm": "SHA384",
+        "digits": 10,
+        "period": 15
+      },
+      "nowSec": 1,
+      "offset": -3,
+      "code": "1709541980"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "KJHVUBCSBJDREIAXR6C2C2CWBWMRQ7GP",
+        "algorithm": "SHA256",
+        "digits": 10,
+        "period": -30,
+        "counter": 41
+      },
+      "nowSec": 25530491912,
+      "offset": 1,
+      "code": "0981954319"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "3I4PAHPWHJCJCJBS",
+        "algorithm": "SHA2-512",
+        "digits": 5,
+        "period": -30,
+        "counter": 41
+      },
+      "nowSec": 29474326584,
+      "offset": 1,
+      "code": "69912"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "72W2YFL55DYC7FLH2SXVW5Z3KG5HCOEBGQEHNUNGWPYBAOK5PABQ",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 0,
+        "counter": 0
+      },
+      "nowSec": 1,
+      "offset": -3,
+      "code": "29644294"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "YZE5 VLY5 NOM5 3WHJ 2X5O 7NOW ASMK M6OS D5IZ E4WT YEKG 3TAA DUUA",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 7,
+        "counter": 1
+      },
+      "nowSec": 2000000000,
+      "offset": 2,
+      "code": "47KRX"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "",
+        "algorithm": "SHA512",
+        "digits": 0,
+        "period": 15,
+        "counter": 0
+      },
+      "nowSec": 1111111109,
+      "offset": 2,
+      "code": "0"
+    },
+    {
+      "account": {
+        "secret": "xwz7g5aoup4lufc7opirzb6ju5nxlcrp",
+        "algorithm": "sha-256",
+        "digits": 1,
+        "period": 30,
+        "counter": 41
+      },
+      "nowSec": 27923202248,
+      "offset": 0,
+      "code": "3"
+    },
+    {
+      "account": {
+        "secret": "VYKD6XDXHNVQAPWQOEXJIN7TTU5FKQJDSG2S7G7PFZCJQA65CVIBXSUGPYICNTLQF33VE6T4FTGFAPHQBT7LD3IYSWV4GIRKAZZMR6A",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 1,
+        "counter": 2147483648
+      },
+      "nowSec": 9490339856,
+      "offset": -1,
+      "code": "4648159"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "7RWMEBBQYVYDCPWJ",
+        "algorithm": "SHA2-512",
+        "digits": 5,
+        "period": 0,
+        "counter": 0
+      },
+      "nowSec": 1234567890,
+      "offset": 1,
+      "code": "71597"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "WLQZBLCL5M4RJIUCO4CV7F6PUU",
+        "algorithm": "SHA384",
+        "digits": 7,
+        "period": -30
+      },
+      "nowSec": 6568493168,
+      "offset": 2,
+      "code": "4941174"
+    },
+    {
+      "account": {
+        "secret": "NQVEKMGZPJ2MFISGVIEUHTI5XM3JRXDN",
+        "algorithm": "",
+        "digits": 5,
+        "period": 0
+      },
+      "nowSec": 28663271600,
+      "offset": -1,
+      "code": "-----"
+    },
+    {
+      "account": {
+        "secret": "XGF5JRNXNNSWUEEZ",
+        "algorithm": "MD5",
+        "digits": 9,
+        "period": 30
+      },
+      "nowSec": 1234567890,
+      "offset": -1,
+      "code": "---------"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "MD5",
+        "digits": 8,
+        "period": 0,
+        "counter": 4503599627370496
+      },
+      "nowSec": 1475541768,
+      "offset": 0,
+      "code": "-----"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "OIBVYBLQ7P6IYNYPKTLGYFF6M54J7VJT",
+        "algorithm": "MD5",
+        "digits": 8,
+        "period": -30
+      },
+      "nowSec": 59,
+      "offset": 0,
+      "code": "--------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "SKTOHIZHG6YZJ35SXZCOGMYILYA25DLHSCZTFEONSLHRQSN7KVPQ",
+        "algorithm": "SHA1",
+        "digits": 0,
+        "period": -30,
+        "counter": 1
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "",
+        "algorithm": "SHA1",
+        "digits": 0,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 21819139032,
+      "offset": 0,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "JBSWY3DPEHPK3PX1",
+        "algorithm": "SHA1",
+        "digits": 9,
+        "period": 60,
+        "counter": 41
+      },
+      "nowSec": 1,
+      "offset": 1,
+      "code": "---------"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "",
+        "algorithm": "MD5",
+        "digits": 1,
+        "period": 300,
+        "counter": 41
+      },
+      "nowSec": 1593047952,
+      "offset": -3,
+      "code": "-"
+    },
+    {
+      "account": {
+        "secret": "XIDI3OQNWCZXQRGU3BK5QQZKS4H5DRRF",
+        "algorithm": "SHA512",
+        "digits": 0,
+        "period": 300,
+        "counter": 1
+      },
+      "nowSec": 29759785496,
+      "offset": 1,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "HHAJGWUET5M2ZW7KVS23FHIMJNHRLRKI5TXGBTFOXRP5STXW3ZBA",
+        "algorithm": "",
+        "digits": 8,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 59,
+      "offset": 0,
+      "code": "FN2MC"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "F6SYHCA5LHJYPOYWVTPXHAVXIIGEYLHQ",
+        "algorithm": "SSL3-SHA1",
+        "digits": 10,
+        "period": 1,
+        "counter": 0
+      },
+      "nowSec": 19044209976,
+      "offset": -1,
+      "code": "PCG4G"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "JBSWY3DPEHPK3PX1",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 0,
+        "counter": 0
+      },
+      "nowSec": 20000000000,
+      "offset": -1,
+      "code": "--------"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "JYTBIFMI2ESSXCKEUCOZ425V7M",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 0,
+        "counter": 4294967301
+      },
+      "nowSec": 13316134184,
+      "offset": -3,
+      "code": "23864739"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "2SHDCTR32B56CWDM47MN47O53Y6SBUAW2AID42ZVS2CS25VDZW55A2PYIJWPUV6OPIRZPOEYA677VWINZMAGL7BXEELFV2IMYNXI22A",
+        "algorithm": "SSL3-SHA1",
+        "digits": 9,
+        "period": 60,
+        "counter": 4503599627370496
+      },
+      "nowSec": 30,
+      "offset": 2,
+      "code": "TWB57"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "E2JEE2ZEYNWHLTHY",
+        "algorithm": "SHA1",
+        "digits": 1,
+        "period": 7,
+        "counter": 0
+      },
+      "nowSec": 988974664,
+      "offset": -1,
+      "code": "T5J4Q"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "not base32!",
+        "algorithm": "SHA384",
+        "digits": 7,
+        "period": 30,
+        "counter": 0
+      },
+      "nowSec": 13903699320,
+      "offset": -3,
+      "code": "-------"
+    },
+    {
+      "account": {
+        "secret": "JBSWY3DPEHPK3PX1",
+        "algorithm": "SHA256",
+        "digits": 1,
+        "period": -30,
+        "counter": 1099511627779
+      },
+      "nowSec": 3947559120,
+      "offset": 0,
+      "code": "-"
+    },
+    {
+      "account": {
+        "secret": "RWFL363KOCU73TSK3M3JWS4I4M",
+        "algorithm": "SHA224",
+        "digits": 6,
+        "period": 300,
+        "counter": 1099511627779
+      },
+      "nowSec": 20000000000,
+      "offset": 0,
+      "code": "000773"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "BQ",
+        "algorithm": "SHA1",
+        "digits": 9,
+        "period": 30,
+        "counter": 4294967301
+      },
+      "nowSec": 31670506488,
+      "offset": -3,
+      "code": "039703089"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "ZNIOR4NXRYL3K4QLCIVDXMAJXIHZJVZRRXZCLMRE2QKDPIQSDVHXJL6JYFXOWTP7DSRKZW5YWMAJEAGIMDJJ5XHLHC7KAFSLCC5C43I",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 60,
+        "counter": 1
+      },
+      "nowSec": 27449071464,
+      "offset": 1,
+      "code": "9157020"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "not base32!",
+        "algorithm": "SHA512",
+        "digits": 7,
+        "period": 60,
+        "counter": 4294967301
+      },
+      "nowSec": 29,
+      "offset": 1,
+      "code": "-------"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "A",
+        "algorithm": "SSL3-SHA1",
+        "digits": 7,
+        "period": 7,
+        "counter": 4294967301
+      },
+      "nowSec": 18153543720,
+      "offset": 2,
+      "code": "9701840"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "JBSWY3DPEHPK3PX1",
+        "algorithm": "SHA256",
+        "digits": 10,
+        "period": 7,
+        "counter": 1099511627779
+      },
+      "nowSec": 21018620352,
+      "offset": -1,
+      "code": "----------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "7JM676H3EK6SPQ2P",
+        "algorithm": "",
+        "digits": 6,
+        "period": 15,
+        "counter": 0
+      },
+      "nowSec": 1234567890,
+      "offset": 0,
+      "code": "------"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "SB3CSQFI",
+        "algorithm": "SSL3-SHA1",
+        "digits": 1,
+        "period": 1
+      },
+      "nowSec": 1111111109,
+      "offset": 1,
+      "code": "6"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "SHA1",
+        "digits": 10,
+        "period": -30,
+        "counter": 2147483648
+      },
+      "nowSec": 23575963216,
+      "offset": -3,
+      "code": "----------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "JBSWY3DPEHPK3PX1",
+        "algorithm": "MD5",
+        "digits": 6,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 20000000000,
+      "offset": 0,
+      "code": "------"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "KR5DKRD5HRNJYI5WDQDNAQDKKY",
+        "algorithm": "SHA384",
+        "digits": 7,
+        "period": 15,
+        "counter": 4503599627370496
+      },
+      "nowSec": 1234567890,
+      "offset": -3,
+      "code": "65HFV"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": -30,
+        "counter": 0
+      },
+      "nowSec": 18811794632,
+      "offset": 0,
+      "code": "03356306"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "56WUZE2IYGIJGUTUHKED5IXAUXWRF6ZR===",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 15,
+        "counter": 4294967301
+      },
+      "nowSec": 913937896,
+      "offset": -1,
+      "code": "415203"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "KYVKUOO5ZOHNX4RYOLGV522XW577TQAGE6XA5VFVZE3NWKB4P4KX2TGPRXF2QPCCZ6UMUP34AVLVJ2DTDTAEVAPZHVZGJDOPWCKAYDA",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 60,
+        "counter": 1
+      },
+      "nowSec": 0,
+      "offset": 1,
+      "code": "73306676"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "JU",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 7
+      },
+      "nowSec": 5564401536,
+      "offset": 0,
+      "code": "875575"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "SHA224",
+        "digits": 6,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 0,
+      "offset": 1,
+      "code": "-----"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "",
+        "algorithm": "sha-256",
+        "digits": 0,
+        "period": 0,
+        "counter": 2147483648
+      },
+      "nowSec": 2000000000,
+      "offset": 0,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "VBVLK5MBR5RKTSGWIJOHBJVC2I",
+        "algorithm": "sha1",
+        "digits": 8,
+        "period": 0,
+        "counter": 2147483648
+      },
+      "nowSec": 29,
+      "offset": -3,
+      "code": "59327067"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "JVPKXHCAIHSSXPEMCCZP4K4VFE",
+        "algorithm": "sha-256",
+        "digits": 8,
+        "period": 30,
+        "counter": 41
+      },
+      "nowSec": 1111111109,
+      "offset": 2,
+      "code": "54397813"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "7M",
+        "algorithm": "SHA224",
+        "digits": 7,
+        "period": 60,
+        "counter": 41
+      },
+      "nowSec": 30,
+      "offset": 0,
+      "code": "TBQP9"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "BIL2WYEC",
+        "algorithm": "SHA224",
+        "digits": 8,
+        "period": 1,
+        "counter": 2147483648
+      },
+      "nowSec": 0,
+      "offset": -1,
+      "code": "80340053"
+    },
+    {
+      "account": {
+        "secret": "57INOKUE",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": -30,
+        "counter": 0
+      },
+      "nowSec": 17022798240,
+      "offset": 0,
+      "code": "333331"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "lqyo2mrddu66wbjzk646g2vd3maubo3k",
+        "algorithm": "SHA512",
+        "digits": 5,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 30,
+      "offset": -3,
+      "code": "KM7Q8"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "PO2DMV76SVI4JM2BMU7GSB7OUL7MCMAE",
+        "algorithm": "sha-256",
+        "digits": 10,
+        "period": 1,
+        "counter": 1099511627779
+      },
+      "nowSec": 21270138512,
+      "offset": -3,
+      "code": "GB5C4"
+    },
+    {
+      "account": {
+        "secret": "\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00",
+        "algorithm": "",
+        "digits": 9,
+        "period": 15
+      },
+      "nowSec": 443465552,
+      "offset": 2,
+      "code": "---------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "7RRA 5AOK SEKY RBLJ OSG5 F447 NUPJ FJ2L",
+        "algorithm": "sha-256",
+        "digits": 9,
+        "period": 300,
+        "counter": 41
+      },
+      "nowSec": 1111111109,
+      "offset": 2,
+      "code": "771617828"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "QGFW JLOR YP4L 2VEF",
+        "algorithm": "SHA384",
+        "digits": 0,
+        "period": 60,
+        "counter": 0
+      },
+      "nowSec": 28038730256,
+      "offset": 0,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "N6KRXYBBIZHJMNFIF4B3G6MGOQ",
+        "algorithm": "SHA2-512",
+        "digits": 8,
+        "period": 30,
+        "counter": 2147483648
+      },
+      "nowSec": 27701803872,
+      "offset": 0,
+      "code": "24657121"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "PE4MGBFZW3ZLU65ZIK7XV6YIHRC6NUSA==",
+        "algorithm": "SHA512",
+        "digits": 7,
+        "period": 30,
+        "counter": 2147483648
+      },
+      "nowSec": 1234567890,
+      "offset": 1,
+      "code": "5632804"
+    },
+    {
+      "account": {
+        "secret": "\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00",
+        "algorithm": "SHA256",
+        "digits": 5,
+        "period": 7,
+        "counter": 4294967301
+      },
+      "nowSec": 30,
+      "offset": 0,
+      "code": "57774"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "SQ",
+        "algorithm": "SHA384",
+        "digits": 7,
+        "period": 60,
+        "counter": 2147483648
+      },
+      "nowSec": 4796102640,
+      "offset": -1,
+      "code": "4665945"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "TM54J2OQZQELYJ2H6LY2JIUXU4",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 1,
+        "counter": 0
+      },
+      "nowSec": 0,
+      "offset": -3,
+      "code": "GHC68"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "JGFSJ7PDC5ZJBJIJ662CTVIPNZVX7ZXBB4OD7MELJS5XZB25F6SA==",
+        "algorithm": "SHA384",
+        "digits": 5,
+        "period": 300,
+        "counter": 1
+      },
+      "nowSec": 1234567890,
+      "offset": 1,
+      "code": "86023"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "YQ",
+        "algorithm": "SHA1",
+        "digits": 1,
+        "period": 30,
+        "counter": 4294967301
+      },
+      "nowSec": 10671583856,
+      "offset": 1,
+      "code": "5"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "TDTF5T56SEBIBCDCPGPVULWKQT3EAMYOL2FUWJ2RSFMSPEFMK3XQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      },
+      "nowSec": 0,
+      "offset": 0,
+      "code": "2QGXF"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "QPTTHRRNVCMEURSJJJRSDHDUEZEDML72",
+        "algorithm": "SHA2-512",
+        "digits": 5,
+        "period": 30,
+        "counter": 4503599627370496
+      },
+      "nowSec": 21674138040,
+      "offset": 0,
+      "code": "24506"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "not base32!",
+        "algorithm": "SHA512",
+        "digits": 1,
+        "period": 300,
+        "counter": 0
+      },
+      "nowSec": 6452591128,
+      "offset": 1,
+      "code": "-----"
+    },
+    {
+      "account": {
+        "secret": "SOM2S7WYYX26T6VRRBUCTIDF6MTQV4MD",
+        "algorithm": "sha-256",
+        "digits": 5,
+        "period": 30
+      },
+      "nowSec": 1,
+      "offset": -1,
+      "code": "29570"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00",
+        "algorithm": "SHA384",
+        "digits": 7,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 59,
+      "offset": 1,
+      "code": "9005987"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "A",
+        "algorithm": "sha-256",
+        "digits": 7,
+        "period": -30,
+        "counter": 4294967301
+      },
+      "nowSec": 30,
+      "offset": 0,
+      "code": "0430451"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "",
+        "algorithm": "",
+        "digits": 0,
+        "period": 7,
+        "counter": 1099511627779
+      },
+      "nowSec": 32858318304,
+      "offset": 0,
+      "code": "Q787Y"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "",
+        "algorithm": "SSL3-SHA1",
+        "digits": 8,
+        "period": 300,
+        "counter": 2147483648
+      },
+      "nowSec": 10556918168,
+      "offset": 2,
+      "code": "84734618"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "EV4LPMSISS63MVHCNZDUXPZC75YGGGZBHDNCTKCQYTIXQUINT52A=",
+        "algorithm": "SHA2-512",
+        "digits": 6,
+        "period": 15,
+        "counter": 1
+      },
+      "nowSec": 2000000000,
+      "offset": -1,
+      "code": "X4X5Q"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "JE",
+        "algorithm": "SHA1",
+        "digits": 10,
+        "period": 300,
+        "counter": 4503599627370496
+      },
+      "nowSec": 0,
+      "offset": 2,
+      "code": "0409091119"
+    },
+    {
+      "account": {
+        "secret": "RHYU62SB",
+        "algorithm": "SHA2-512",
+        "digits": 8,
+        "period": 30,
+        "counter": 4503599627370496
+      },
+      "nowSec": 30,
+      "offset": 0,
+      "code": "12345283"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 1,
+        "counter": 4503599627370496
+      },
+      "nowSec": 8001054592,
+      "offset": 0,
+      "code": "61329424"
+    },
+    {
+      "account": {
+        "secret": "Y6BHNF4NOZAHLNETUVTVKJCGQ4",
+        "algorithm": "sha-256",
+        "digits": 0,
+        "period": 30,
+        "counter": 0
+      },
+      "nowSec": 32402424808,
+      "offset": 0,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "TT4WYP262VY6P3AEVNMNX5EQ3E",
+        "algorithm": "sha1",
+        "digits": 8,
+        "period": 7,
+        "counter": 1
+      },
+      "nowSec": 22670000488,
+      "offset": 0,
+      "code": "6WMVD"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "7KNNAPGFK7QUW7JI",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": -30,
+        "counter": 0
+      },
+      "nowSec": 0,
+      "offset": -1,
+      "code": "3HK96"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "3I",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 0,
+        "counter": 2147483648
+      },
+      "nowSec": 26267840896,
+      "offset": -3,
+      "code": "44656770"
+    },
+    {
+      "account": {
+        "secret": "337GJTYGLKPBKPXJTESJ6RYD3O6KRNRMKJPSLIZFZPCEUFGVON2A",
+        "algorithm": "SHA2-512",
+        "digits": 8,
+        "period": 30,
+        "counter": 1099511627779
+      },
+      "nowSec": 1234567890,
+      "offset": -3,
+      "code": "43371216"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "JBSWY3DPEHPK3PX1",
+        "algorithm": "SSL3-SHA1",
+        "digits": 0,
+        "period": 7,
+        "counter": 1
+      },
+      "nowSec": 16614092048,
+      "offset": 0,
+      "code": ""
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "JBSWY3DPEHPK3PX1",
+        "algorithm": "SSL3-SHA1",
+        "digits": 9,
+        "period": 30,
+        "counter": 1
+      },
+      "nowSec": 10134171944,
+      "offset": -3,
+      "code": "-----"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "QNZB PS3T 5PVE RVI5",
+        "algorithm": "SSL3-SHA1",
+        "digits": 0,
+        "period": 1,
+        "counter": 0
+      },
+      "nowSec": 20000000000,
+      "offset": 1,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "Q6JW7S2UEQKQYIOHC7ONKUXRPE",
+        "algorithm": "SHA384",
+        "digits": 10,
+        "period": 15,
+        "counter": 1099511627779
+      },
+      "nowSec": 1234567890,
+      "offset": 0,
+      "code": "2F2R7"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "2M",
+        "algorithm": "SHA224",
+        "digits": 1,
+        "period": 300
+      },
+      "nowSec": 2000000000,
+      "offset": 0,
+      "code": "2"
+    },
+    {
+      "account": {
+        "secret": "jbswy3dpehpk3px\u00df",
+        "algorithm": "SHA1",
+        "digits": 0,
+        "period": 15,
+        "counter": 41
+      },
+      "nowSec": 23560952408,
+      "offset": 0,
+      "code": "0"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "3Q",
+        "algorithm": "SHA384",
+        "digits": 7,
+        "period": -30,
+        "counter": 41
+      },
+      "nowSec": 20000000000,
+      "offset": 0,
+      "code": "6187791"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "not base32!",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 1,
+        "counter": 1099511627779
+      },
+      "nowSec": 2000000000,
+      "offset": 0,
+      "code": "------"
+    },
+    {
+      "account": {
+        "secret": "jbswy3dpehpk3px\u00df",
+        "algorithm": "sha-256",
+        "digits": 9,
+        "period": -30,
+        "counter": 0
+      },
+      "nowSec": 18076050264,
+      "offset": 0,
+      "code": "690279925"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "",
+        "algorithm": "SHA2-512",
+        "digits": 9,
+        "period": 30,
+        "counter": 0
+      },
+      "nowSec": 20000000000,
+      "offset": -3,
+      "code": "722936152"
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "secret": "3KDHM2OX",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "counter": 41
+      },
+      "nowSec": 30,
+      "offset": 2,
+      "code": "53839380"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "jbswy3dpehpk3px\u00df",
+        "algorithm": "SHA2-512",
+        "digits": 6,
+        "period": -30,
+        "counter": 4294967301
+      },
+      "nowSec": 1111111109,
+      "offset": 0,
+      "code": "JR2M5"
+    },
+    {
+      "account": {
+        "type": "steam",
+        "secret": "AVAYVSHGS2OZBORM6WRILQPQTYTKOQN3",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 30,
+        "counter": 0
+      },
+      "nowSec": 15757975640,
+      "offset": 1,
+      "code": "4K9YH"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "ON2X\u212aZLS",
+        "algorithm": "sha1",
+        "digits": 6,
+        "period": 7,
+        "counter": 2147483648
+      },
+      "nowSec": 29,
+      "offset": 0,
+      "code": "------"
+    },
+    {
+      "account": {
+        "type": "totp",
+        "secret": "F6HEHCNBUTPWYA3KFT4TH7WMVX2TSN6CRMPEUKBPGQ3SRSG2HBHMWFLNIHJCKBVQVWCN6ZQRS3TAINS4SGOWWV5ZML3A3Q2LY4SCYKY",
+        "algorithm": "sha1",
+        "digits": 7,
+        "period": 1,
+        "counter": 2147483648
+      },
+      "nowSec": 0,
+      "offset": 1,
+      "code": "8784805"
+    }
+  ],
+  "secrets": [
+    {
+      "input": "JBSWY3DPEHPK3PXP",
+      "normalized": "JBSWY3DPEHPK3PXP",
+      "valid": true,
+      "grouped": "JBSW Y3DP EHPK 3PXP"
+    },
+    {
+      "input": "jbsw y3dp-ehpk 3pxp",
+      "normalized": "JBSWY3DPEHPK3PXP",
+      "valid": false,
+      "grouped": "jbsw  y3d p-eh pk 3 pxp"
+    },
+    {
+      "input": "JBSWY3DPEHPK3PX",
+      "normalized": "JBSWY3DPEHPK3PX",
+      "valid": false,
+      "grouped": "JBSW Y3DP EHPK 3PX"
+    },
+    {
+      "input": "JBSWY3DPEHPK3PXP==",
+      "normalized": "JBSWY3DPEHPK3PXP==",
+      "valid": true,
+      "grouped": "JBSW Y3DP EHPK 3PXP =="
+    },
+    {
+      "input": "JBSWY3DPEHPK3PXP=A",
+      "normalized": "JBSWY3DPEHPK3PXP=A",
+      "valid": false,
+      "grouped": "JBSW Y3DP EHPK 3PXP =A"
+    },
+    {
+      "input": "JBSWY3DP\tEHPK3PXP\n",
+      "normalized": "JBSWY3DPEHPK3PXP",
+      "valid": false,
+      "grouped": "JBSW Y3DP \tEHP K3PX P"
+    },
+    {
+      "input": "jbswy3dp\u00a0ehpk3pxp\u3000",
+      "normalized": "JBSWY3DPEHPK3PXP",
+      "valid": false,
+      "grouped": "jbsw y3dp \u00a0ehp k3px p"
+    },
+    {
+      "input": "jbswy3dp\u0085ehpk3pxp",
+      "normalized": "JBSWY3DP\u0085EHPK3PXP",
+      "valid": false,
+      "grouped": "jbsw y3dp \u0085ehp k3px p"
+    },
+    {
+      "input": "ABCDEFGHIJKLMNOP\u2028QRST",
+      "normalized": "ABCDEFGHIJKLMNOPQRST",
+      "valid": false,
+      "grouped": "ABCD EFGH IJKL MNOP \u2028QRST"
+    },
+    {
+      "input": "stra\u00dfe stra\u00dfe stra\u00dfe",
+      "normalized": "STRASSESTRASSESTRASSE",
+      "valid": false,
+      "grouped": "stra \u00dfe s tra\u00df e st ra\u00dfe"
+    },
+    {
+      "input": "\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00\ufb00",
+      "normalized": "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF",
+      "valid": false,
+      "grouped": "\ufb00\ufb00\ufb00\ufb00 \ufb00\ufb00\ufb00\ufb00 \ufb00\ufb00\ufb00\ufb00 \ufb00\ufb00\ufb00\ufb00"
+    },
+    {
+      "input": "\u0131\u0131\u0131\u0131\u0131\u0131\u0131\u0131\u0131\u0131\u0131\u0131\u0131\u0131\u0131\u0131",
+      "normalized": "IIIIIIIIIIIIIIII",
+      "valid": false,
+      "grouped": "\u0131\u0131\u0131\u0131 \u0131\u0131\u0131\u0131 \u0131\u0131\u0131\u0131 \u0131\u0131\u0131\u0131"
+    },
+    {
+      "input": "\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a",
+      "normalized": "\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a\u212a",
+      "valid": false,
+      "grouped": "\u212a\u212a\u212a\u212a \u212a\u212a\u212a\u212a \u212a\u212a\u212a\u212a \u212a\u212a\u212a\u212a"
+    },
+    {
+      "input": "AB\nCDEFGH",
+      "normalized": "ABCDEFGH",
+      "valid": false,
+      "grouped": "AB\nCDEF GH"
+    },
+    {
+      "input": "ABC",
+      "normalized": "ABC",
+      "valid": false,
+      "grouped": "ABC"
+    },
+    {
+      "input": "ABCDE",
+      "normalized": "ABCDE",
+      "valid": false,
+      "grouped": "ABCD E"
+    },
+    {
+      "input": "\ud83d\ude00\ud83d\ude00\ud83d\ude00",
+      "normalized": "\ud83d\ude00\ud83d\ude00\ud83d\ude00",
+      "valid": false,
+      "grouped": "\ud83d\ude00\ud83d\ude00 \ud83d\ude00"
+    },
+    {
+      "input": "  ",
+      "normalized": "",
+      "valid": false,
+      "grouped": ""
+    },
+    {
+      "input": "",
+      "normalized": "",
+      "valid": false,
+      "grouped": ""
+    },
+    {
+      "input": "----",
+      "normalized": "",
+      "valid": false,
+      "grouped": "----"
+    },
+    {
+      "input": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+      "normalized": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+      "valid": true,
+      "grouped": "GEZD GNBV GY3T QOJQ GEZD GNBV GY3T QOJQ GEZD GNBV GY3T QOJQ GEZD GNBV GY3T QOJQ GEZD GNBV GY3T QOJQ GEZD GNBV GY3T QOJQ GEZD GNA"
+    }
+  ],
+  "format": [
+    {
+      "code": "287082",
+      "formatted": "287 082"
+    },
+    {
+      "code": "94287082",
+      "formatted": "9428 7082"
+    },
+    {
+      "code": "12345",
+      "formatted": "12345"
+    },
+    {
+      "code": "1234567",
+      "formatted": "1234567"
+    },
+    {
+      "code": "",
+      "formatted": ""
+    },
+    {
+      "code": "YRGQJ",
+      "formatted": "YRGQJ"
+    },
+    {
+      "code": "------",
+      "formatted": "--- ---"
+    },
+    {
+      "code": "--------",
+      "formatted": "---- ----"
+    },
+    {
+      "code": "0123456789",
+      "formatted": "0123456789"
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "about": "Written once by test/vault/key_unlock_fixtures_generator_test.dart, from fixed seeds and with the real scrypt parameters, when add-security-key-unlock was built, and never regenerated. A vault that needs its password and one of two security keys, each of which opens it on its own. key_unlock_fixtures_test.dart opens it with the secrets below and refuses it without each.",
+  "password": "fixture password",
+  "keySecret": "TEkaCouVscMaaE9tnialA25lfdyWncnGv1khJqU/q3w=",
+  "outputs": {
+    "first": "bgYIijLjL1233KEgLbOdf8m7ZSQIYPTQupwrlfJWq6U=",
+    "second": "imaCLoeHKaAPwyUHa055ot3k3CXby25//Nur5VrgrJs="
+  },
+  "secretKeySha256": "39e655682c73034dfe7db9626e653e7e4b0b19758604281d91e6f6cbe8b21206",
+  "config": {
+    "salt": "NtTVFrsWfe4Ub5h2aqYdoycsqjQMSgJU3RMB5d3Z0jA=",
+    "skNonce": "++gVJnsedmeMm9cC",
+    "skEnc": "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",
+    "publicKey": "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",
+    "scrypt": {
+      "N": 131072,
+      "r": 8,
+      "p": 1
+    },
+    "keyUnlock": {
+      "v": 1,
+      "mode": "both",
+      "salt": "CZYVsAq3z8tKDlNHnnAtI2Ny6V6B4QHXzYejSTZIcCw=",
+      "check": "BYFlHuCoZNVayQAMNd0YpTRVc+BqDLwXEhVjgaetPgY=",
+      "keys": [
+        {
+          "id": "8b358a2c73d4e2b5",
+          "credential": "ODQXn0Rzps2cXG9HOjMbdDCMf9CUmN0wuu8mIamH1c2mPJYfbL5O7VBVB5oaEJS/RhHTEBqbtaP6i1lUTOjNcg==",
+          "nonce": "wsGy3LsqMQFc6Oa4",
+          "ct": "n03JJoapiv7Ace7w7nBDf+60bQNXw+tfhfmNczTFnUkIUFEBYX983qs0y+d77udv",
+          "name": "YubiKey 5C NFC",
+          "addedAt": 1794000000000,
+          "pinBound": true
+        },
+        {
+          "id": "d0f2e1998f8e2d9d",
+          "credential": "oSse1A/tVP8S6KG37jerf9rWeJDqjvDNBk8btKw1CnlGZxF1D9pGsFHTaph/rMj8",
+          "nonce": "pUfC6TRs3ZTdxo7S",
+          "ct": "LSuT0gaHqFmGJow9bFWhM6BGGUpCjYts7iwUZPbLk5XSPjVGBzaYIqxPuCdsOimU",
+          "name": "Spare key",
+          "addedAt": 1794000600000,
+          "pinBound": true
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+Public-Key Encrypted Session Key Packet, new CTB, 1197 bytes
+    Version: 6
+    Recipient: 4ADBB2A9430DDA62F6DDF70871C7ADD4D3C04C5138C4FC2296703B33F2EF6BA1
+    Pk algo: ML-KEM-768+X25519
+  
+Sym. Encrypted and Integrity Protected Data Packet, new CTB, 3782 bytes
+    Version: 2
+    Symmetric algo: AES-256
+    AEAD algo: OCB
+    Chunk size: 4096
+    Salt: 1EA3FC659BEB7B34E913EABD7889508C5A0176BA5EF9F46D948A0287E76BF72E
+    Decryption failed: Missing secret key material: couldn't decrypt any of the PKESKs (recipients: 4ADBB2A9430DDA62F6DDF70871C7ADD4D3C04C5138C4FC2296703B33F2EF6BA1)
+  

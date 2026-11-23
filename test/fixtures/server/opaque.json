@@ -1,0 +1,44 @@
+{
+  "cases": [
+    {
+      "context": "6b656d6c6f636b2f76312f6f7061717565",
+      "context_text": "kemlock/v1/opaque",
+      "credential_identifier": "616c696365406578616d706c652e636f6d",
+      "credential_identifier_text": "alice@example.com",
+      "login": {
+        "client_session_key": "20a14f94fa858b978a4ff49b1aef18369e8727017e68eabef1df413d9af8a5f090ef29b5dfe0dabbf29250ac282f6fb00e550ed2bd4b76f7224cb373a59d5ca7",
+        "export_key": "0c7d1842dbfea5a8e313166fc44b9c4d8f57e83ac8372bab142922d0fb3d8034c565a51bf3ce1291ae48714f31a4688eec623325459f4a520ada18e34f8ff364",
+        "ke1": "7c398c815f982d785bbed18d7ebb664fedbc8bd87336b4c12eddfcc23eeeb76ee65a1b8bc505dc23c814419fd5914cd5ea41ddd032ddc955caccc3f3597304d5d248f288e9bbbe9ab5781b0609f0fdd0fbb0861f91ed20736cee1df7c9c63422",
+        "ke2": "c88f3c634eac6053751ef85e1a85bf649ccd6559f5e908611d20e8037b7c296ce61a28c01d21b68be58231ac49360361bb5811c7bc4ccc2a19b4cc9a7d55fe6d870beae17adc9efed5b49cfca9315721a9a0fb412142e02f9375e0cf9acf07f759ab35909315e91b9f3766d73ff5cae8f2be3df6ec03075dd4e3f15c82ea7debb286bb7703939b2c1d3c05914bfd9522b1a0f19e5064467be5ce2b395ec58f76bd0dd4b0a1060e7842299378b61e8a2ab56fdfcf49b55aec7337e31d8c8c161455d83c30af17eb0c0db5dd42cf8d0d3952cd973cb877a0e9ad776c0882fb40b16cbc0e9c385824ac735edb569fc5445b115614b7f6aa3be82ae27b1a99a27d5e3c87e26717debd04e0c0f8eacbae3229b7e147faddd7c1c6eb7cc225ca33f555ceb0367b26803d3d61e02ade4a0237e9523fec1e59c82915a8f3f02c56459ac9",
+        "ke3": "0e586350e65d1ccbfca3d2ffbe967093770864ff9375abf7fbdcf9d05d3fe1274a45f261ffef34b8b9d6cb1e0b2b9e5aa8acadd76c7e31dc1e2bd478447ad36d",
+        "server_session_key": "20a14f94fa858b978a4ff49b1aef18369e8727017e68eabef1df413d9af8a5f090ef29b5dfe0dabbf29250ac282f6fb00e550ed2bd4b76f7224cb373a59d5ca7"
+      },
+      "name": "alice",
+      "oprf_seed": "e845bb676941a2cce4b16066e6458bf7de22447f84506d97c210347c85ab9f218572e0399fdce48c33571cf86e254d81850f1809465a62d8a8c3707d9986b568",
+      "password": "85bbb5fcc967e5934aaeb9bd9fcf53804f423a4cc23778294c5c757c7fe8f613",
+      "random_inputs": {
+        "blind_login": "da7af7f4a5cb3b2c91e2beb691379b12434fb754a1f40c567531b94f4627b303",
+        "blind_registration": "c82ea0e8bf02aeeb457fefa8b97b440dbeea78f9f9bf55a761c34d60f67cf009",
+        "client_keyshare_seed": "16c198f0a44265842e5098796b6496aa983828547789a7c75d3d2136d1f67f3c",
+        "client_nonce": "e65a1b8bc505dc23c814419fd5914cd5ea41ddd032ddc955caccc3f3597304d5",
+        "envelope_nonce": "f3672a780db2a5681dd0d3641095b5a19120e162a4f84d738bb9882b4bc55e26",
+        "masking_nonce": "e61a28c01d21b68be58231ac49360361bb5811c7bc4ccc2a19b4cc9a7d55fe6d",
+        "server_keyshare_seed": "f0704cddbd99dfa6531e37918ec5c14c139ad58b32ac9074d7c665c7b7e6a7c6",
+        "server_nonce": "55d83c30af17eb0c0db5dd42cf8d0d3952cd973cb877a0e9ad776c0882fb40b1"
+      },
+      "registration": {
+        "export_key": "0c7d1842dbfea5a8e313166fc44b9c4d8f57e83ac8372bab142922d0fb3d8034c565a51bf3ce1291ae48714f31a4688eec623325459f4a520ada18e34f8ff364",
+        "record": "f4265e65bc0ca54d0e12ac58d04951c11cdf7faa2a3a56ae2c8fe91fcae0db1c885f8b08605c3d974afcaec4a5e8b258850eb17a44df48f7b1cfd298c3331b934c4a8b2d7792b8e816bd63ad444175a02f5581dd215b35b009e4c1dbbc9055baf3672a780db2a5681dd0d3641095b5a19120e162a4f84d738bb9882b4bc55e26b7954d6954c48ec9d8a13822e4cd7f1c186eaad2263b95e14036dcfd88ffb9a9b289d36239bfb257fffeaab826db97e15ac4f2512bca2e0c7ea6d0c3a0589f8a",
+        "request": "7059d1d30ceeae083e11746df0a4b11842046e54dc46c127dd233ab52103d248",
+        "response": "dec5122162a61b6e1a81deefbbfd89a8af4dad82f20feb996742036b778054600462c967e52ec58fae830aabeead246b389614329c1b3343705b33d563a3164b",
+        "upload": "f4265e65bc0ca54d0e12ac58d04951c11cdf7faa2a3a56ae2c8fe91fcae0db1c885f8b08605c3d974afcaec4a5e8b258850eb17a44df48f7b1cfd298c3331b934c4a8b2d7792b8e816bd63ad444175a02f5581dd215b35b009e4c1dbbc9055baf3672a780db2a5681dd0d3641095b5a19120e162a4f84d738bb9882b4bc55e26b7954d6954c48ec9d8a13822e4cd7f1c186eaad2263b95e14036dcfd88ffb9a9b289d36239bfb257fffeaab826db97e15ac4f2512bca2e0c7ea6d0c3a0589f8a"
+      },
+      "server_private_key": "4f10e5b8b1e740c048ab0b88617ce457db08afd6f5b0c835ab27fe2b9dd33007",
+      "server_public_key": "0462c967e52ec58fae830aabeead246b389614329c1b3343705b33d563a3164b",
+      "server_setup": "e845bb676941a2cce4b16066e6458bf7de22447f84506d97c210347c85ab9f218572e0399fdce48c33571cf86e254d81850f1809465a62d8a8c3707d9986b5684f10e5b8b1e740c048ab0b88617ce457db08afd6f5b0c835ab27fe2b9dd330071c6a0ce814b838bb9bebb00b8979c8ca8c62d27adfd222be653cf3287427de3a"
+    }
+  ],
+  "description": "OPAQUE-3DH (RFC 9807) with ristretto255-SHA512, KSF Identity, HKDF-SHA512, HMAC-SHA512, context \"kemlock/v1/opaque\", no client or server identity, the lower-cased e-mail as credential identifier and the 32-byte Argon2id master key as the password. server_setup = oprf_seed (64) || server_private_key (32) || a dummy public key (32). random_inputs are the values opaque-ke draws, in the order of the RFC 9807 appendix C vectors: blind scalars are 32-byte little-endian scalars below 2^252 (opaque-ke reads them as a 64-byte draw followed by 32 zero bytes), and the server also draws a 64-byte dummy masking key first (ignored for a real record). Messages: registration request 32, response 64, upload and record 192; KE1 96, KE2 320, KE3 64.",
+  "format": "opaque1",
+  "version": 1
+}

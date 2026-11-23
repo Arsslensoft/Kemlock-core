@@ -1,0 +1,112 @@
+gpg (GnuPG) 2.5.24
+== ed25519
+gpg: key 65F74E0CC0E202A2: "Ada Lovelace <ed25519@example.org>" not changed
+gpg: key 65F74E0CC0E202A2: secret key imported
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+signatures: 2 good
+sec   ed25519 2026-11-17 [SC]
+      048FF2A77169E99629A8822965F74E0CC0E202A2
+uid           [ unknown] Ada Lovelace <ed25519@example.org>
+ssb   cv25519 2026-11-17 [E]
+      D80E9E6204AC1E09291E9203204B65B037F12987
+encrypt and decrypt: ok
+sign and verify: ok
+== rsa4096
+gpg: key C8B6AA4E815A84D3: "Ada Lovelace <rsa4096@example.org>" not changed
+gpg: key C8B6AA4E815A84D3: secret key imported
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+signatures: 2 good
+sec   rsa4096 2026-11-17 [SC]
+      56E8540B4C0020F7F31059ACC8B6AA4E815A84D3
+uid           [ unknown] Ada Lovelace <rsa4096@example.org>
+ssb   rsa4096 2026-11-17 [E]
+      4EEE07CB215F63E10CD30C29A1BB31F29BD8EADB
+encrypt and decrypt: ok
+sign and verify: ok
+== pq-gnupg
+gpg: key 1762FD79D6085904: "Ada Lovelace <pq-gnupg@example.org>" not changed
+gpg: key 1762FD79D6085904: secret key imported
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+signatures: 2 good
+sec   ed25519 2026-11-17 [SC]
+      2297EB163E34EED63E528DE01762FD79D6085904
+uid           [ unknown] Ada Lovelace <pq-gnupg@example.org>
+ssb   ky768_cv25519 2026-11-17 [E]
+      C8E9D7B93F8503A6D60655A25850684CCABC12651990BA5EC386226376957B08
+:pubkey enc packet: version 3, algo 8, keyid C8E9D7B93F8503A6
+:encrypted data packet:
+encrypt and decrypt: ok
+sign and verify: ok
+PASS: GnuPG imported, checked and used the three keys
+== pq-standard (by default)
+gpg: keybox '/tmp/kemlock-gpg.kfIIkb/home-standard/pubring.kbx' created
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: key FF6AD4614037C942: no valid user IDs
+gpg: this may be caused by a missing self-signature
+gpg: Total number processed: 1
+gpg:           w/o user IDs: 1
+gpg: read_block: read error: Invalid packet
+gpg: import from '/tmp/kemlock-gpg.kfIIkb/keys/pq-standard.secret.asc' failed: Invalid keyring
+gpg: Total number processed: 0
+gpg: error reading key: No public key
+gpg: can't connect to the dirmngr: IPC connect call failed
+gpg: error retrieving 'pq-standard@example.org' via WKD: No dirmngr
+gpg: pq-standard@example.org: skipped: No dirmngr
+gpg: /tmp/kemlock-gpg.kfIIkb/standard.message: encryption failed: No dirmngr
+== pq-standard --allow-9980
+gpg: keybox '/tmp/kemlock-gpg.kfIIkb/home-standard--allow-9980/pubring.kbx' created
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: can't check signature with unsupported public-key algorithm (30): Invalid public key algorithm.
+gpg: key FF6AD4614037C942: no valid user IDs
+gpg: this may be caused by a missing self-signature
+gpg: Total number processed: 1
+gpg:           w/o user IDs: 1
+gpg: read_block: read error: Invalid packet
+gpg: import from '/tmp/kemlock-gpg.kfIIkb/keys/pq-standard.secret.asc' failed: Invalid keyring
+gpg: Total number processed: 0
+gpg: error reading key: No public key
+gpg: can't connect to the dirmngr: IPC connect call failed
+gpg: error retrieving 'pq-standard@example.org' via WKD: No dirmngr
+gpg: pq-standard@example.org: skipped: No dirmngr
+gpg: /tmp/kemlock-gpg.kfIIkb/standard.message: encryption failed: No dirmngr
+== Kemlock's messages
+gpg: encrypted with ky768_cv25519 key, ID C8E9D7B93F8503A6, created 2026-11-17
+      "Ada Lovelace <pq-gnupg@example.org>"
+gpg: Signature made Tue Nov 17 08:26:45 2026 UTC
+gpg:                using EDDSA key 2297EB163E34EED63E528DE01762FD79D6085904
+gpg: Good signature from "Ada Lovelace <pq-gnupg@example.org>" [unknown]
+gpg: WARNING: Using untrusted key!
+to-gnupg.gpg: decrypted, signature good
+gpg: encrypted with RSA key, ID A1BB31F29BD8EADB
+gpg: encrypted with ky768_cv25519 key, ID C8E9D7B93F8503A6, created 2026-11-17
+      "Ada Lovelace <pq-gnupg@example.org>"
+gpg: encrypted with mlk768 key, ID C8D4A88B3AEACF2D
+to-all.gpg: decrypted with pq-gnupg
+gpg: encrypted with rsa4096 key, ID A1BB31F29BD8EADB, created 2026-11-17
+      "Ada Lovelace <rsa4096@example.org>"
+gpg: encrypted with Kyber key, ID C8E9D7B93F8503A6
+gpg: encrypted with mlk768 key, ID C8D4A88B3AEACF2D
+to-all.gpg: decrypted with rsa4096
+:pubkey enc packet: version 3, algo 35, keyid C8D4A88B3AEACF2D
+:pubkey enc packet: version 3, algo 8, keyid C8E9D7B93F8503A6
+:pubkey enc packet: version 3, algo 1, keyid A1BB31F29BD8EADB
+:encrypted data packet:
+:literal data packet:
+gpg: Signature made Tue Nov 17 08:26:45 2026 UTC
+gpg:                using EDDSA key 2297EB163E34EED63E528DE01762FD79D6085904
+gpg: Good signature from "Ada Lovelace <pq-gnupg@example.org>" [unknown]
+gpg: WARNING: Using untrusted key!
+gnupg.sig: good
+PASS: GnuPG opened and verified what Kemlock wrote

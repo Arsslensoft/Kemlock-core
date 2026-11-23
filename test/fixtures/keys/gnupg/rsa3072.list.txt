@@ -1,0 +1,6 @@
+pub   rsa3072 2026-11-15 [SC]
+      EA29C79D1C6570277907BB485D49D28C8EFC2F98
+uid           [ultimate] Fixture RSA <rsa@example.org>
+sub   rsa3072 2026-11-15 [E]
+      6C37F218DD1709BF97071E1CB8A3CCC781F74F29
+

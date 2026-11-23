@@ -1,0 +1,72 @@
+{
+  "cases": [
+    {
+      "aad": "6b656d6c6f636b2f76312f6974656d5151515151515151515151515151515100000000000000010000000a73706163652d6e616d650251515151515151515151515151515151",
+      "ciphertext": "4ad8db24a1893b7b6a8ffbf4edfb6b500934bde63465e5bb43a53a76e85ab01a092a",
+      "id": "51515151515151515151515151515151",
+      "key_version": 1,
+      "kind": "space-name",
+      "name": "space-name",
+      "name_key": "4b223c8b696cb2a945c0ba91f19351f331f675aba8966f8245e7d9a09083f965",
+      "owner": "0251515151515151515151515151515151",
+      "space_id": "51515151515151515151515151515151",
+      "space_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "text": "Family"
+    },
+    {
+      "aad": "6b656d6c6f636b2f76312f6974656d5151515151515151515151515151515100000000000000010000000a73706163652d6e616d650251515151515151515151515151515151",
+      "ciphertext": "ad415994a7f0ea922318ac2cc94935eaeb8cd25bdc797c4e543061d4ee9f0ff0eb723d9910ab37",
+      "id": "51515151515151515151515151515151",
+      "key_version": 1,
+      "kind": "space-name",
+      "name": "space-name-renamed",
+      "name_key": "4b223c8b696cb2a945c0ba91f19351f331f675aba8966f8245e7d9a09083f965",
+      "owner": "0251515151515151515151515151515151",
+      "space_id": "51515151515151515151515151515151",
+      "space_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "text": "Family Home"
+    },
+    {
+      "aad": "6b656d6c6f636b2f76312f6974656dc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c000000000000000010000000f636f6c6c656374696f6e2d6e616d650251515151515151515151515151515151",
+      "ciphertext": "cd900728ddf9fa77fcf3afd899b0659084c326611c9a24b826c18b61bb4384ede5058176532edd4d86",
+      "id": "c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0",
+      "key_version": 1,
+      "kind": "collection-name",
+      "name": "collection-name",
+      "name_key": "4b223c8b696cb2a945c0ba91f19351f331f675aba8966f8245e7d9a09083f965",
+      "owner": "0251515151515151515151515151515151",
+      "space_id": "51515151515151515151515151515151",
+      "space_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "text": "Shared logins"
+    },
+    {
+      "aad": "6b656d6c6f636b2f76312f6974656d6060606060606060606060606060606000000000000000010000000a67726f75702d6e616d650251515151515151515151515151515151",
+      "ciphertext": "d01096ba4e47f54f5c0e61f66e4b3c6d9230e17223dbcfa39ef41e3221be942f0e00ea",
+      "id": "60606060606060606060606060606060",
+      "key_version": 1,
+      "kind": "group-name",
+      "name": "group-name",
+      "name_key": "4b223c8b696cb2a945c0ba91f19351f331f675aba8966f8245e7d9a09083f965",
+      "owner": "0251515151515151515151515151515151",
+      "space_id": "51515151515151515151515151515151",
+      "space_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "text": "Parents"
+    },
+    {
+      "aad": "6b656d6c6f636b2f76312f6974656dc0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c000000000000000020000000f636f6c6c656374696f6e2d6e616d650251515151515151515151515151515151",
+      "ciphertext": "ce3bc56014818544e5591a76ed8663dad8c9954d12594eb0c12deb31331798d369dacbc41c26",
+      "id": "c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0c0",
+      "key_version": 2,
+      "kind": "collection-name",
+      "name": "collection-name-key-version-2",
+      "name_key": "ebe0ec29b00c8fdfd8024e5b316a28a18b88cb9644e51822f2d8fd66ee543e7a",
+      "owner": "0251515151515151515151515151515151",
+      "space_id": "51515151515151515151515151515151",
+      "space_key": "a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5a5",
+      "text": "Café 🔑"
+    }
+  ],
+  "description": "The name of a space, a collection or a group is a kem1 envelope under the space key's child: name_key = HKDF-SHA256(space_key, salt = absent, info = \"kemlock/v1/space-name\", L = 32); ciphertext = nonce(12) || AES-256-GCM(name_key, nonce, text as UTF-8, aad) with the 16-byte tag at the end; aad = \"kemlock/v1/item\" || id || u64be(key_version) || lp(kind) || owner, where id is the object's own id (space_id for the space's name), kind is \"space-name\", \"collection-name\" or \"group-name\", owner is 0x02 || space_id and key_version is the space key version. There is no item-key wrap: name_key is the item key. A name must not open under another space, id, kind, key version or owner.",
+  "format": "space-names",
+  "version": 1
+}

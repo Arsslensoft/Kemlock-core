@@ -1,0 +1,1335 @@
+{
+  "provenance": "Written from the CXF 1.0 specification and its errata of 9 March 2026, by hand, to pin the reader. No case is the output of a real exporter: those are still to be collected on devices (add-credential-exchange plan, task 7.2).",
+  "cases": [
+    {
+      "name": "version 1.0 with a login and a code",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  },
+                  {
+                    "type": "totp",
+                    "secret": "JBSWY3DPEHPK3PXP",
+                    "period": 30,
+                    "digits": 6,
+                    "issuer": "GitHub",
+                    "algorithm": "sha256",
+                    "username": "jane.smith@example.com"
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "accounts": 1,
+        "itemCount": 1,
+        "classes": [
+          "CxfBasicAuth",
+          "CxfTotp"
+        ],
+        "minor": 0
+      }
+    },
+    {
+      "name": "version 1.3 is read as 1.0 is",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 3
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "a1",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "Larkspur Mail",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "itemCount": 1,
+        "classes": [
+          "CxfBasicAuth"
+        ],
+        "minor": 3
+      }
+    },
+    {
+      "name": "version 2.0 is refused, naming it",
+      "payload": {
+        "version": {
+          "major": 2,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "a1",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "x",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "problem": "unsupportedVersion",
+          "version": "2.0"
+        }
+      }
+    },
+    {
+      "name": "version 0.9 is refused, naming it",
+      "payload": {
+        "version": {
+          "major": 0,
+          "minor": 9
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "problem": "unsupportedVersion",
+          "version": "0.9"
+        }
+      }
+    },
+    {
+      "name": "a payload without a version is refused",
+      "payload": {
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "problem": "noVersion"
+        }
+      }
+    },
+    {
+      "name": "a version that is not an object is refused",
+      "payload": {
+        "version": 1,
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "problem": "noVersion"
+        }
+      }
+    },
+    {
+      "name": "text that is not JSON",
+      "payload": null,
+      "expect": {
+        "error": {
+          "problem": "notJson"
+        }
+      },
+      "text": "{\"version\": "
+    },
+    {
+      "name": "JSON that is not an object",
+      "payload": null,
+      "expect": {
+        "error": {
+          "problem": "notCxf"
+        }
+      },
+      "text": "[]"
+    },
+    {
+      "name": "unknown fields are ignored at every level",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    },
+                    "color": "blue"
+                  },
+                  {
+                    "type": "totp",
+                    "secret": "JBSWY3DPEHPK3PXP",
+                    "period": 30,
+                    "digits": 6,
+                    "issuer": "GitHub",
+                    "algorithm": "sha256",
+                    "username": "jane.smith@example.com",
+                    "sparkle": {
+                      "a": 1
+                    }
+                  }
+                ],
+                "tags": [],
+                "mood": "calm"
+              }
+            ],
+            "collections": [],
+            "extra": true
+          }
+        ],
+        "future": {
+          "x": 1
+        }
+      },
+      "expect": {
+        "itemCount": 1,
+        "classes": [
+          "CxfBasicAuth",
+          "CxfTotp"
+        ],
+        "fieldKeys": [
+          [
+            "password",
+            "username"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "an unknown field type in an optional member leaves it out",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "emoji",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "classes": [
+          "CxfBasicAuth"
+        ],
+        "fieldKeys": [
+          [
+            "password"
+          ]
+        ]
+      }
+    },
+    {
+      "name": "an unknown field type in a required member drops the credential",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "note",
+                    "content": {
+                      "fieldType": "rich-text",
+                      "value": "hello",
+                      "label": "Note"
+                    }
+                  },
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "classes": [
+          "CxfUnreadable",
+          "CxfBasicAuth"
+        ],
+        "types": [
+          "note",
+          "basic-auth"
+        ]
+      }
+    },
+    {
+      "name": "an unknown credential type is kept as unknown, its siblings read",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "loyalty-card",
+                    "cardNumber": "123"
+                  },
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "classes": [
+          "CxfUnknown",
+          "CxfBasicAuth"
+        ],
+        "types": [
+          "loyalty-card",
+          "basic-auth"
+        ]
+      }
+    },
+    {
+      "name": "a credential with no type is unknown",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "username": "x"
+                  },
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "classes": [
+          "CxfUnknown",
+          "CxfBasicAuth"
+        ]
+      }
+    },
+    {
+      "name": "a code with an algorithm this version has no name for is kept for the mapper to judge",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  },
+                  {
+                    "type": "totp",
+                    "secret": "JBSWY3DPEHPK3PXP",
+                    "period": 30,
+                    "digits": 6,
+                    "issuer": "GitHub",
+                    "algorithm": "sha3-256",
+                    "username": "jane.smith@example.com"
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "classes": [
+          "CxfBasicAuth",
+          "CxfTotp"
+        ],
+        "totpAlgorithms": [
+          "sha3-256"
+        ]
+      }
+    },
+    {
+      "name": "two basic-auth credentials in one item",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  },
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "janedoe"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "itemCount": 1,
+        "classes": [
+          "CxfBasicAuth",
+          "CxfBasicAuth"
+        ]
+      }
+    },
+    {
+      "name": "a shared collection keeps only accessors a reader may use",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [],
+            "collections": [
+              {
+                "id": "c1",
+                "title": "Family",
+                "items": [],
+                "extensions": [
+                  {
+                    "name": "shared",
+                    "accessors": [
+                      {
+                        "type": "user",
+                        "accountId": "u2",
+                        "name": "bob",
+                        "permissions": [
+                          "read",
+                          "teleport"
+                        ]
+                      },
+                      {
+                        "type": "robot",
+                        "accountId": "u3",
+                        "name": "r",
+                        "permissions": [
+                          "read"
+                        ]
+                      },
+                      {
+                        "type": "group",
+                        "accountId": "u4",
+                        "name": "kids",
+                        "permissions": [
+                          "teleport"
+                        ]
+                      },
+                      {
+                        "type": "user",
+                        "accountId": "u5",
+                        "name": "eve",
+                        "permissions": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "expect": {
+        "collectionPaths": [
+          [
+            "Family"
+          ]
+        ],
+        "accessors": [
+          [
+            {
+              "type": "user",
+              "accountId": "u2",
+              "permissions": [
+                "read"
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "name": "collections nest and their paths are joined for tags",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "a1",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "Rent",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": [
+              {
+                "id": "f",
+                "title": "Finance",
+                "items": [],
+                "subCollections": [
+                  {
+                    "id": "b",
+                    "title": "Banking",
+                    "items": [
+                      {
+                        "item": "a1",
+                        "account": "DZSXp7iBQY-Fg-OofakQtQ"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "expect": {
+        "collectionPaths": [
+          [
+            "Finance"
+          ],
+          [
+            "Finance",
+            "Banking"
+          ]
+        ],
+        "collectionLinks": [
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "name": "a payload whose items are not objects is refused with the position",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              1
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "problem": "malformed",
+          "position": "account 1, item 1"
+        }
+      }
+    },
+    {
+      "name": "a credential that is not an object is refused with the position",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "a1",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "x",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  "nope"
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "error": {
+          "problem": "malformed",
+          "position": "account 1, item 1, credential 1"
+        }
+      }
+    },
+    {
+      "name": "a payload without accounts is refused",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800
+      },
+      "expect": {
+        "error": {
+          "problem": "malformed",
+          "position": "header"
+        }
+      }
+    },
+    {
+      "name": "an account without its arrays is read as empty (an open question of the plan)",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "x",
+            "username": "u",
+            "email": "e"
+          }
+        ]
+      },
+      "expect": {
+        "accounts": 1,
+        "itemCount": 0
+      }
+    },
+    {
+      "name": "32 credentials an item: the rest are left out",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "itemCount": 1,
+        "credentialCount": 32,
+        "cuts": {
+          "credentialsLeftOut": 8
+        }
+      },
+      "generate": "credentials-40"
+    },
+    {
+      "name": "64 URLs a scope: the rest are dropped",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "urlCounts": [
+          64
+        ],
+        "cuts": {
+          "urlsLeftOut": 6
+        }
+      },
+      "generate": "urls-70"
+    },
+    {
+      "name": "10,000 items: the first 10,000 are read",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "itemCount": 10000,
+        "cuts": {
+          "itemsLeftOut": 2000
+        }
+      },
+      "generate": "items-12000"
+    },
+    {
+      "name": "4,096 characters a field: a longer one is left out",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [
+              {
+                "id": "9OF-QjVDQo2Wp2xWPw6ZhA",
+                "creationAt": 1705142400,
+                "modifiedAt": 1705228800,
+                "title": "GitHub Login",
+                "scope": {
+                  "urls": [
+                    "https://github.com"
+                  ],
+                  "androidApps": []
+                },
+                "credentials": [
+                  {
+                    "type": "basic-auth",
+                    "username": {
+                      "fieldType": "string",
+                      "value": "johndoe",
+                      "label": "Username field"
+                    },
+                    "password": {
+                      "fieldType": "concealed-string",
+                      "value": "securepassword123",
+                      "label": "Password field"
+                    }
+                  }
+                ],
+                "tags": []
+              }
+            ],
+            "collections": []
+          }
+        ]
+      },
+      "expect": {
+        "fieldKeys": [
+          [
+            "username"
+          ]
+        ],
+        "cuts": {
+          "valuesTooLong": 1
+        }
+      },
+      "generate": "long-password"
+    },
+    {
+      "name": "a payload over 32 MiB is refused before parsing",
+      "payload": null,
+      "expect": {
+        "error": {
+          "problem": "tooLarge"
+        }
+      },
+      "generate": "pad-40mib"
+    },
+    {
+      "name": "collections nested 500 deep stop at depth 8",
+      "payload": {
+        "version": {
+          "major": 1,
+          "minor": 0
+        },
+        "exporterRpId": "exporter.example.com",
+        "exporterDisplayName": "Exporter app",
+        "timestamp": 1705228800,
+        "accounts": [
+          {
+            "id": "DZSXp7iBQY-Fg-OofakQtQ",
+            "username": "jane_smith",
+            "email": "jane.smith@example.com",
+            "items": [],
+            "collections": [
+              {
+                "id": "c1",
+                "title": "c1",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      "expect": {
+        "collectionCount": 8,
+        "cuts": {
+          "collectionsTooDeep": 1
+        }
+      },
+      "generate": "deep-500"
+    }
+  ]
+}

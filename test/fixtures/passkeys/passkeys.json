@@ -1,0 +1,49 @@
+{
+  "about": "Passkey bytes and an inbox file, written once by lib/features/passkeys when the passkey provider was added, and never regenerated: the Dart, Swift and Kotlin tests read them, and each builds these bytes the same way. The three P-256 keys were made by OpenSSL 3.6. See README.md.",
+  "aaguid": "f85899be-d2db-4b3b-9b10-9b48e146dc1c",
+  "credential": {
+    "rpId": "webauthn.io",
+    "credentialId": "AAECAwQFBgcICQoLDA0ODw",
+    "privateKey": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgNc6FSUrJQrKQ/0EiE9JmsC4GFeHUF2jB/UB5ZStgsvChRANCAAQDgR8zNBagqmr48ZCUjodw7n5wlXUXSLlRGosIF8jPJYr2zKgS3UPz2tllpYfH1fo6rBijPiPSGqdv9DKyWP6k",
+    "d": "Nc6FSUrJQrKQ/0EiE9JmsC4GFeHUF2jB/UB5ZStgsvA=",
+    "point": "BAOBHzM0FqCqavjxkJSOh3DufnCVdRdIuVEaiwgXyM8livbMqBLdQ/Pa2WWlh8fV+jqsGKM+I9Iap2/0MrJY/qQ="
+  },
+  "registration": {
+    "coseKey": "pQECAyYgASFYIAOBHzM0FqCqavjxkJSOh3DufnCVdRdIuVEaiwgXyM8lIlggivbMqBLdQ/Pa2WWlh8fV+jqsGKM+I9Iap2/0MrJY/qQ=",
+    "authData": "dKbqkhPJnC90siSSsyDPQCYqlMGpUKA5fyklC2CEHvBdAAAAAPhYmb7S20s7mxCbSOFG3BwAEAABAgMEBQYHCAkKCwwNDg+lAQIDJiABIVggA4EfMzQWoKpq+PGQlI6HcO5+cJV1F0i5URqLCBfIzyUiWCCK9syoEt1D89rZZaWHx9X6OqwYoz4j0hqnb/Qyslj+pA==",
+    "attestationObject": "o2NmbXRkbm9uZWdhdHRTdG10oGhhdXRoRGF0YViUdKbqkhPJnC90siSSsyDPQCYqlMGpUKA5fyklC2CEHvBdAAAAAPhYmb7S20s7mxCbSOFG3BwAEAABAgMEBQYHCAkKCwwNDg+lAQIDJiABIVggA4EfMzQWoKpq+PGQlI6HcO5+cJV1F0i5URqLCBfIzyUiWCCK9syoEt1D89rZZaWHx9X6OqwYoz4j0hqnb/Qyslj+pA=="
+  },
+  "assertion": {
+    "clientDataJSON": "{\"type\":\"webauthn.get\",\"challenge\":\"a2VtbG9jay1maXh0dXJlLWNoYWxsZW5nZQ\",\"origin\":\"https://webauthn.io\",\"crossOrigin\":false}",
+    "clientDataHash": "/TVghAW/ZluBhcfq0hrd+apX5VTqvNg8/17/jrlh32U=",
+    "authData": "dKbqkhPJnC90siSSsyDPQCYqlMGpUKA5fyklC2CEHvAdAAAAAA==",
+    "signedBytes": "dKbqkhPJnC90siSSsyDPQCYqlMGpUKA5fyklC2CEHvAdAAAAAP01YIQFv2ZbgYXH6tIa3fmqV+VU6rzYPP9e/465Yd9l",
+    "signature": "MEQCIFY0bQnby/QJ4L0EnmSFswstMzlGk0tEkhuGd2jMGr4tAiBAQp3cGv9IAlm5U4CXak2MNPY/LeaTXCUE+8T/dr2oig=="
+  },
+  "inbox": {
+    "key": {
+      "privateKey": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgM4Saiha7cSZOrOtUQwV2oJ6IKFy6Q3PaJkJ7Hx7UHrGhRANCAAQWhY9LTLLBZURwaAS1ao/ybTe7OjvmIcpj9+hQVmP5qgE2I7QaP1kCMPSTBfilQZZZ6ma5bZxS4KCTZOBGQybN",
+      "d": "M4Saiha7cSZOrOtUQwV2oJ6IKFy6Q3PaJkJ7Hx7UHrE=",
+      "point": "BBaFj0tMssFlRHBoBLVqj/JtN7s6O+YhymP36FBWY/mqATYjtBo/WQIw9JMF+KVBllnqZrltnFLgoJNk4EZDJs0="
+    },
+    "ephemeral": {
+      "privateKey": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgkONz9JDh5HZkPxmNI2tOyJVFACZKc2937O3sEXW01xuhRANCAAQDOEmQt9Fk8ibJsBFK5Kszf4g4IuYP86Y/QDDeqmVULMUrlrUXhM2vnmlcsMTVYFaAQLHjdEpOgqz9Q5dmNTVR",
+      "d": "kONz9JDh5HZkPxmNI2tOyJVFACZKc2937O3sEXW01xs=",
+      "point": "BAM4SZC30WTyJsmwEUrkqzN/iDgi5g/zpj9AMN6qZVQsxSuWtReEza+eaVywxNVgVoBAseN0Sk6CrP1Dl2Y1NVE="
+    },
+    "nonce": "oKGio6Slpqeoqaqr",
+    "sharedSecret": "T0b2YJBchaaOPvBtMC0sFHCtogym4eDjHArMIlf5OEo=",
+    "fileKey": "ETEFTirRloylGmgUXxExjgy5b6PWjbqwK0TH3JrwfA4=",
+    "record": {
+      "credentialId": "AAECAwQFBgcICQoLDA0ODw",
+      "rpId": "webauthn.io",
+      "rpName": "WebAuthn.io",
+      "userHandle": "dXNlci1maXh0dXJlLTE",
+      "userName": "fixture@example.org",
+      "userDisplayName": "Fixture User",
+      "privateKey": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgNc6FSUrJQrKQ/0EiE9JmsC4GFeHUF2jB/UB5ZStgsvChRANCAAQDgR8zNBagqmr48ZCUjodw7n5wlXUXSLlRGosIF8jPJYr2zKgS3UPz2tllpYfH1fo6rBijPiPSGqdv9DKyWP6k",
+      "createdAt": 1763200000000
+    },
+    "file": "{\"v\":1,\"epk\":\"BAM4SZC30WTyJsmwEUrkqzN/iDgi5g/zpj9AMN6qZVQsxSuWtReEza+eaVywxNVgVoBAseN0Sk6CrP1Dl2Y1NVE=\",\"nonce\":\"oKGio6Slpqeoqaqr\",\"ct\":\"Z+SBBZ0qBxNOX3iBZJfZswlRWmMb57FZZ9UF6UR00o41pwyRgOkw/l+nPZ17gDlsGLfps3BneIwbaIPTkFp/iCt5JgugKac021YSCHUNr332rvHoGEAxdH625Y3bSJEkbkFe4sf0pDz/NI9c3BCTYGIr1dtpTg9ijvPCQwsJnyvQtM0QgXF9t6e2AfjJmCTYpSOWAG1RAet/1pvpeaeZkX2lfbu2pbjh2R7Vbz9Mamva4itddyFAh4FEaBE31xQE4JSlDM6FBAF1NwHyQLNogWuBe7CUTXCTdw8WyeUgCJu6i7VQJPJQYMV9VCbeHHT9dePUk8+6T8x/cPdLvn5MAmpJSSoB6cNREAge6H+/Zs/ojUiz6UeEf/0U/D/BSnpu6Y1tlpSuFYnUTr/tqbjiBlVdXYAhdrwedNsd7+AqbKqKEHjql+qdNj4x247+0HjGVTM0vXE0FMFiA5gciyDvpClEkRizr26eXG9SN4yfYd7eyX26c7goKxz5sVFhhFI24sXbAEiBO+nnYPX3PKPjO2/pOeCzDLIAmHihwAaDCZYKQ6FNVm83oAdLLyU=\"}"
+  }
+}

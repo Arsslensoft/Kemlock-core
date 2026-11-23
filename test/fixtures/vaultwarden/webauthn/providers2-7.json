@@ -1,0 +1,1 @@
+{"allowCredentials":[{"id":"K5batEojFBBKNyXM6Dn0zDxutfKnWjWVaMjT_5ODxJs","type":"public-key"}],"challenge":"x8G1k0ZH-D-N9AZUasBulEHWFpbehFLDT5O2O-L0Qmk","extensions":{"appid":"https://localhost:18443/app-id.json"},"rpId":"localhost","timeout":60000,"userVerification":"discouraged"}

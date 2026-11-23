@@ -1,0 +1,2572 @@
+{
+  "about": "Made by mobile/tool/fixtures/otp_vectors.mjs from src/utils/otp.ts and the otpauth package.",
+  "parse": [
+    {
+      "uri": "otpauth://totp/ACME%20Co:john@example.com?secret=HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ&issuer=ACME%20Co&algorithm=SHA256&digits=8&period=60",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME Co",
+        "label": "john@example.com",
+        "secret": "HXDMVJECJJWSRB3HWIZR4IFUGFTMXBOZ",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      }
+    },
+    {
+      "uri": "otpauth://totp/bob?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "OTPAUTH://TOTP/bob?SECRET=jbswy3dpehpk3pxp&ALGORITHM=sha512&Digits=8",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME:bob?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME:bob?secret=JBSWY3DPEHPK3PXP&issuer=Other",
+      "account": {
+        "type": "totp",
+        "issuer": "Other",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME:bob?secret=JBSWY3DPEHPK3PXP&issuer=",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/:bob?secret=JBSWY3DPEHPK3PXP&issuer=ACME",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/:bob?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/bob?secret=JBSWY3DPEHPK3PXP&issuer=ACME",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME%3Abob?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME%3abob?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME:   bob?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME%20:%20bob?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME ",
+        "label": " bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME%20Co%3A%20john?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME Co",
+        "label": " john",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME:?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "ACME:",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME: ?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": " ",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/ACME:  ?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": " ",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/A:B:C?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "A",
+        "label": "B:C",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/A%3AB:C?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "A",
+        "label": "B:C",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/Caf%C3%A9%20%E2%98%95:bob?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "Caf\u00e9 \u2615",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/Caf\u00e9 \u2615:bob?secret=JBSWY3DPEHPK3PXP&issuer=Caf\u00e9 \u2615",
+      "account": {
+        "type": "totp",
+        "issuer": "Caf\u00e9 \u2615",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/caf%c3%a9?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "caf\u00e9",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/a+b?secret=JBSWY3DPEHPK3PXP&issuer=a+b",
+      "account": {
+        "type": "totp",
+        "issuer": "a+b",
+        "label": "a+b",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/%F0%9F%98%80?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "\ud83d\ude00",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/\ud800?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "\ud800",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/a?b?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "a?b",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp//?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "/",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/a#b?secret=JBSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "a#b",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&issuer=100%25",
+      "account": {
+        "type": "totp",
+        "issuer": "100%",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&issuer=%EF%BB%BFACME",
+      "account": {
+        "type": "totp",
+        "issuer": "\ufeffACME",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&issuer=a\nb",
+      "account": {
+        "type": "totp",
+        "issuer": "a",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/bo\nb?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%E0%A4%A?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%E0%A4?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%ZZ?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%C0%AF?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%ED%A0%80?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%F4%90%80%80?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%80?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%F8%80%80%80%80?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/%C3%28?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&issuer=%",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&issuer=%E2%82",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/bob?secret=JBSWY3DPEHPK3PXP&x",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/bob?secret=JBSWY3DPEHPK3PXP&",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/bob?&secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/bob?secret=JBSWY3DPEHPK3PXP&image=https://example.com/a.png",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/bob?secret=JBSWY3DPEHPK3PXP&image=https://example.com/a.png?size=2",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&a.b~c_d-e=1",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&\u212aey=1",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&secret=GEZDGNBVGY3TQOJQ",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "GEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&period=30&period=abc",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSW%20Y3DP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP====",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP%3D%3D",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=%4ABSWY3DPEHPK3PXP",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PX",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=A",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP\u212a",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?issuer=ACME",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&algorithm=sha256",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&algorithm=SHA-256",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&algorithm=SHA224",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&algorithm=SHA3-256",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&algorithm=MD5",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&algorithm=",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&digits=08",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&digits=+8",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&digits=0",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&digits=6.0",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&digits=7",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&digits=10",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&period=0",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&period=+45",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 45
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&period=-30",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&period=015",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&period=1",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 1
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&period=99999999999",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 99999999999
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&counter=abc",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://hotp/ACME:bob?secret=JBSWY3DPEHPK3PXP&issuer=ACME&counter=42",
+      "account": {
+        "type": "hotp",
+        "issuer": "ACME",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 42
+      }
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=-5",
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": -5
+      }
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=+7",
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 7
+      }
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=007",
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 7
+      }
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=1.5",
+      "account": null
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=",
+      "account": null
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=9007199254740991",
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 9007199254740991
+      }
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=1&counter=2",
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 2
+      }
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=0&period=abc",
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 0
+      }
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=3&digits=5",
+      "account": null
+    },
+    {
+      "uri": "otpauth://hotp/x?secret=JBSWY3DPEHPK3PXP&counter=3&digits=8&algorithm=SHA512",
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 30,
+        "counter": 3
+      }
+    },
+    {
+      "uri": "otpauth://hotp/Steam:gaben?secret=JBSWY3DPEHPK3PXP&counter=1&digits=5",
+      "account": null
+    },
+    {
+      "uri": "otpauth://HOTP/x?secret=JBSWY3DPEHPK3PXP&counter=3&encoder=steam",
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 3
+      }
+    },
+    {
+      "uri": "otpauth://steam/Steam:gaben?secret=JBSWY3DPEHPK3PXP&issuer=Steam&digits=5",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Steam",
+        "label": "gaben",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://STEAM/gaben?secret=JBSWY3DPEHPK3PXP&period=60&algorithm=SHA256&digits=8",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60,
+        "issuer": "",
+        "label": "gaben",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://steam/x?secret=JBSWY3DPEHPK3PXP&algorithm=SHA224",
+      "account": null
+    },
+    {
+      "uri": "otpauth://steam/x?secret=JBSWY3DPEHPK3PXP&digits=0",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/Steam:gaben?secret=JBSWY3DPEHPK3PXP&issuer=Steam&encoder=steam",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Steam",
+        "label": "gaben",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=STEAM",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&Encoder=steam",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&enc%6Fder=steam",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=ste%61m",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=steam#frag",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/a#b?secret=JBSWY3DPEHPK3PXP&encoder=steam",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "a#b",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=+steam",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=steam&encoder=other",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=other&encoder=steam",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=%EF%BB%BFsteam",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=st%0Aeam",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=ste\nam",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=ste\tam",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&encoder=steam%",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?encoder=steam&secret=JBSWY3DPEHPK3PXP&digits=7",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/Steam:gaben?secret=JBSWY3DPEHPK3PXP&digits=5",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Steam",
+        "label": "gaben",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/steam?secret=JBSWY3DPEHPK3PXP&digits=5",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "",
+        "label": "steam",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/STEAM?secret=JBSWY3DPEHPK3PXP&digits=5&period=45",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 45,
+        "issuer": "",
+        "label": "STEAM",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/Valve:steam?secret=JBSWY3DPEHPK3PXP&digits=5",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&issuer=Steam&digits=5",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Steam",
+        "label": "x",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "otpauth://totp/x?secret=JBSWY3DPEHPK3PXP&issuer=\u212aSteam&digits=5",
+      "account": null
+    },
+    {
+      "uri": "steam://jbswy3dpehpk3pxp",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Steam",
+        "label": "",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "steam://JBSWY3DPEHPK3PXP==",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Steam",
+        "label": "",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "uri": "STEAM://abc",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Steam",
+        "label": "",
+        "secret": "ABC"
+      }
+    },
+    {
+      "uri": "steam://",
+      "account": null
+    },
+    {
+      "uri": "steam://ab1",
+      "account": null
+    },
+    {
+      "uri": "steam://ab=c",
+      "account": null
+    },
+    {
+      "uri": "  steam://abc  ",
+      "account": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Steam",
+        "label": "",
+        "secret": "ABC"
+      }
+    },
+    {
+      "uri": "  otpauth://totp/bob?secret=JBSWY3DPEHPK3PXP\n",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "\ufeffotpauth://totp/bob?secret=JBSWY3DPEHPK3PXP\u3000",
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "\u0085otpauth://totp/bob?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/bob?secret=JBSWY3DPEHPK3PXP&issuer=x\u0001",
+      "account": {
+        "type": "totp",
+        "issuer": "x\u0001",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "uri": "",
+      "account": null
+    },
+    {
+      "uri": "https://example.com",
+      "account": null
+    },
+    {
+      "uri": "otpauth://totp/bob",
+      "account": null
+    },
+    {
+      "uri": "not a uri at all",
+      "account": null
+    },
+    {
+      "uri": "otpauth:/totp/bob?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    },
+    {
+      "uri": "otpauth://xotp/bob?secret=JBSWY3DPEHPK3PXP",
+      "account": null
+    }
+  ],
+  "build": [
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/alice?secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "",
+        "label": "",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/?secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&period=30",
+      "parsed": null
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "ACME:",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "Caf\u00e9 \u2615",
+        "label": "user name",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 60
+      },
+      "uri": "otpauth://totp/Caf%C3%A9%20%E2%98%95:user%20name?issuer=Caf%C3%A9%20%E2%98%95&secret=GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA&algorithm=SHA512&digits=8&period=60",
+      "parsed": {
+        "type": "totp",
+        "issuer": "Caf\u00e9 \u2615",
+        "label": "user name",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQGEZDGNA",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 60
+      }
+    },
+    {
+      "account": {
+        "issuer": "a!b~c*d'e(f)g",
+        "label": "x-y_z.w",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "uri": "otpauth://totp/a!b~c*d'e(f)g:x-y_z.w?issuer=a!b~c*d'e(f)g&secret=JBSWY3DPEHPK3PXP&algorithm=SHA256&digits=8&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "a!b~c*d'e(f)g",
+        "label": "x-y_z.w",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "A:B",
+        "label": "c:d &?=#/%+",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/A%3AB:c%3Ad%20%26%3F%3D%23%2F%25%2B?issuer=A%3AB&secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "A:B",
+        "label": "B:c:d &?=#/%+",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "\ud83d\ude00",
+        "label": "\u00a0\u0085\u2028",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/%F0%9F%98%80:%C2%A0%C2%85%E2%80%A8?issuer=%F0%9F%98%80&secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "\ud83d\ude00",
+        "label": "\u00a0\u0085\u2028",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 7
+      },
+      "uri": "otpauth://hotp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&counter=7",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 7
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "uri": "otpauth://hotp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA256&digits=8&counter=0",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30,
+        "counter": 0
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": -1
+      },
+      "uri": "otpauth://hotp/bob?secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&counter=-1",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": -1
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "Steam",
+        "label": "gaben",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://steam/Steam:gaben?issuer=Steam&secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=5&period=30",
+      "parsed": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Steam",
+        "label": "gaben",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "",
+        "label": "gaben",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      },
+      "uri": "otpauth://steam/gaben?secret=JBSWY3DPEHPK3PXP&algorithm=SHA256&digits=5&period=60",
+      "parsed": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60,
+        "issuer": "",
+        "label": "gaben",
+        "secret": "JBSWY3DPEHPK3PXP"
+      }
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "sha-256",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA256&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SSL3-SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA2-512",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA512&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA224",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA224&digits=6&period=30",
+      "parsed": null
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "sha3-256",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA3-256&digits=6&period=30",
+      "parsed": null
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "MD5",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": null
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "jbsw y3dp ehpk 3pxp==",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PX",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PQ&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "stra\u00dfe",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=STRASSA&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "STRASSA",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=&algorithm=SHA1&digits=6&period=30",
+      "parsed": null
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "not base32!",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": null
+    },
+    {
+      "account": {
+        "issuer": "\ud800",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": null
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "a\udc00b",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": null
+    },
+    {
+      "account": {
+        "issuer": "ACME",
+        "label": "alice",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 7,
+        "period": 0
+      },
+      "uri": "otpauth://totp/ACME:alice?issuer=ACME&secret=JBSWY3DPEHPK3PXP&algorithm=SHA1&digits=7&period=0",
+      "parsed": null
+    },
+    {
+      "account": {
+        "issuer": "RFC6238",
+        "label": "alice@example.com",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/RFC6238:alice%40example.com?issuer=RFC6238&secret=GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ&algorithm=SHA1&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "RFC6238",
+        "label": "alice@example.com",
+        "secret": "GEZDGNBVGY3TQOJQGEZDGNBVGY3TQOJQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "Caf\u00e9 \u2615",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      },
+      "uri": "otpauth://totp/Caf%C3%A9%20%E2%98%95:bob?issuer=Caf%C3%A9%20%E2%98%95&secret=JBSWY3DPEHPK3PXP&algorithm=SHA256&digits=8&period=60",
+      "parsed": {
+        "type": "totp",
+        "issuer": "Caf\u00e9 \u2615",
+        "label": "bob",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "me@example.com",
+        "secret": "AFDYD3XRZROD4CXXAH2ETQSXV7V2OEWBNG2BOVGLLUW6ZM2QT26Q",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 837
+      },
+      "uri": "otpauth://hotp/GitHub:me%40example.com?issuer=GitHub&secret=AFDYD3XRZROD4CXXAH2ETQSXV7V2OEWBNG2BOVGLLUW6ZM2QT26Q&algorithm=SHA1&digits=6&counter=837",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "me@example.com",
+        "secret": "AFDYD3XRZROD4CXXAH2ETQSXV7V2OEWBNG2BOVGLLUW6ZM2QT26Q",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 837
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "first last",
+        "secret": "2YIIZGZ5LJQAXSH7",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 393
+      },
+      "uri": "otpauth://hotp/GitHub:first%20last?issuer=GitHub&secret=2YIIZGZ5LJQAXSH7&algorithm=SHA1&digits=8&counter=393",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "first last",
+        "secret": "2YIIZGZ5LJQAXSH7",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 393
+      }
+    },
+    {
+      "account": {
+        "issuer": "\u00dcn\u00efc\u00f6d\u00e9",
+        "label": "me@example.com",
+        "secret": "3OWN22Y3HEFQQ7DB4IB2F7NFEYHK425QFA6RI622WCAGFDFJM2WJP6OY3KHBJDHR4OZUPMXRFS5GIN3KSQRHJKFAC3D43KBKILRZLHQ",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 15
+      },
+      "uri": "otpauth://totp/%C3%9Cn%C3%AFc%C3%B6d%C3%A9:me%40example.com?issuer=%C3%9Cn%C3%AFc%C3%B6d%C3%A9&secret=3OWN22Y3HEFQQ7DB4IB2F7NFEYHK425QFA6RI622WCAGFDFJM2WJP6OY3KHBJDHR4OZUPMXRFS5GIN3KSQRHJKFAC3D43KBKILRZLHQ&algorithm=SHA512&digits=8&period=15",
+      "parsed": {
+        "type": "totp",
+        "issuer": "\u00dcn\u00efc\u00f6d\u00e9",
+        "label": "me@example.com",
+        "secret": "3OWN22Y3HEFQQ7DB4IB2F7NFEYHK425QFA6RI622WCAGFDFJM2WJP6OY3KHBJDHR4OZUPMXRFS5GIN3KSQRHJKFAC3D43KBKILRZLHQ",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 15
+      }
+    },
+    {
+      "account": {
+        "issuer": "a:b",
+        "label": "me@example.com",
+        "secret": "SSLOA36DLHKPCGVZ47BK7BGDXFIMIAGJZXBEEDDUASP3JIEV6FYOC75K7LKBLS6AQYBDF6HTQGXHVK6JGW7NYFL3QR74XS75DCQ3MUQ",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 15
+      },
+      "uri": "otpauth://totp/a%3Ab:me%40example.com?issuer=a%3Ab&secret=SSLOA36DLHKPCGVZ47BK7BGDXFIMIAGJZXBEEDDUASP3JIEV6FYOC75K7LKBLS6AQYBDF6HTQGXHVK6JGW7NYFL3QR74XS75DCQ3MUQ&algorithm=SHA256&digits=8&period=15",
+      "parsed": {
+        "type": "totp",
+        "issuer": "a:b",
+        "label": "b:me@example.com",
+        "secret": "SSLOA36DLHKPCGVZ47BK7BGDXFIMIAGJZXBEEDDUASP3JIEV6FYOC75K7LKBLS6AQYBDF6HTQGXHVK6JGW7NYFL3QR74XS75DCQ3MUQ",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 15
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "\u65e5\u672c",
+        "label": "x/y?z",
+        "secret": "7FUFAZURSZRNLSMBHCZ6FZG7U54TDHB3HII66GJO75ZVXAV3LYV4TPMIETTCO2OFRRNBLBUV77VDRV2KBZ5SQVROOMZWJRU4CL5T6MI",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60
+      },
+      "uri": "otpauth://steam/%E6%97%A5%E6%9C%AC:x%2Fy%3Fz?issuer=%E6%97%A5%E6%9C%AC&secret=7FUFAZURSZRNLSMBHCZ6FZG7U54TDHB3HII66GJO75ZVXAV3LYV4TPMIETTCO2OFRRNBLBUV77VDRV2KBZ5SQVROOMZWJRU4CL5T6MI&algorithm=SHA1&digits=5&period=60",
+      "parsed": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60,
+        "issuer": "\u65e5\u672c",
+        "label": "x/y?z",
+        "secret": "7FUFAZURSZRNLSMBHCZ6FZG7U54TDHB3HII66GJO75ZVXAV3LYV4TPMIETTCO2OFRRNBLBUV77VDRV2KBZ5SQVROOMZWJRU4CL5T6MI"
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "a:b",
+        "label": "50% off",
+        "secret": "V6MKU4RPTAF5NOY3FZSPAESFXQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 56
+      },
+      "uri": "otpauth://hotp/a%3Ab:50%25%20off?issuer=a%3Ab&secret=V6MKU4RPTAF5NOY3FZSPAESFXQ&algorithm=SHA1&digits=6&counter=56",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "a:b",
+        "label": "b:50% off",
+        "secret": "V6MKU4RPTAF5NOY3FZSPAESFXQ",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 56
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "a:b",
+        "label": "50% off",
+        "secret": "3TIL5O37KAARAE65W2VAO4SE2BZE5Y7SELJGQSIAH6VK63ZEZQ2BILB7WPPKOAHX2AMXU4DQGUJ25XCRHTHNN2H4PQQN2EHGQHG2HXY",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://steam/a%3Ab:50%25%20off?issuer=a%3Ab&secret=3TIL5O37KAARAE65W2VAO4SE2BZE5Y7SELJGQSIAH6VK63ZEZQ2BILB7WPPKOAHX2AMXU4DQGUJ25XCRHTHNN2H4PQQN2EHGQHG2HXY&algorithm=SHA1&digits=5&period=30",
+      "parsed": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "a:b",
+        "label": "b:50% off",
+        "secret": "3TIL5O37KAARAE65W2VAO4SE2BZE5Y7SELJGQSIAH6VK63ZEZQ2BILB7WPPKOAHX2AMXU4DQGUJ25XCRHTHNN2H4PQQN2EHGQHG2HXY"
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "",
+        "label": "",
+        "secret": "VWHJAEOD7WUOMM3YPXIDL5K7EDDCBJKI",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 15
+      },
+      "uri": "otpauth://steam/?secret=VWHJAEOD7WUOMM3YPXIDL5K7EDDCBJKI&algorithm=SHA1&digits=5&period=15",
+      "parsed": null
+    },
+    {
+      "account": {
+        "issuer": "Example Corp",
+        "label": "me@example.com",
+        "secret": "DPHSJCKJWERCWLNI6MCQU3FJ55RGHEAV",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/Example%20Corp:me%40example.com?issuer=Example%20Corp&secret=DPHSJCKJWERCWLNI6MCQU3FJ55RGHEAV&algorithm=SHA256&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "Example Corp",
+        "label": "me@example.com",
+        "secret": "DPHSJCKJWERCWLNI6MCQU3FJ55RGHEAV",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "GitHub",
+        "label": "x/y?z",
+        "secret": "REHU6CONDOENKH3LEK34BZH57CZF2CEZ7WT4ZK2Q4K3FZ6OJNNYA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "uri": "otpauth://totp/GitHub:x%2Fy%3Fz?issuer=GitHub&secret=REHU6CONDOENKH3LEK34BZH57CZF2CEZ7WT4ZK2Q4K3FZ6OJNNYA&algorithm=SHA256&digits=8&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "GitHub",
+        "label": "x/y?z",
+        "secret": "REHU6CONDOENKH3LEK34BZH57CZF2CEZ7WT4ZK2Q4K3FZ6OJNNYA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "Example Corp",
+        "label": "50% off",
+        "secret": "VJZZR2BKNVDGH6FQUO3XZZCAAU",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://steam/Example%20Corp:50%25%20off?issuer=Example%20Corp&secret=VJZZR2BKNVDGH6FQUO3XZZCAAU&algorithm=SHA1&digits=5&period=30",
+      "parsed": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Example Corp",
+        "label": "50% off",
+        "secret": "VJZZR2BKNVDGH6FQUO3XZZCAAU"
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "",
+        "label": "50% off",
+        "secret": "Y6FRLLHXT6SZEMW4DGT6NNUCFA",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60
+      },
+      "uri": "otpauth://steam/50%25%20off?secret=Y6FRLLHXT6SZEMW4DGT6NNUCFA&algorithm=SHA1&digits=5&period=60",
+      "parsed": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60,
+        "issuer": "",
+        "label": "50% off",
+        "secret": "Y6FRLLHXT6SZEMW4DGT6NNUCFA"
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "me@example.com",
+        "secret": "JP3NQ7W4JHF24FWO",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 409
+      },
+      "uri": "otpauth://hotp/GitHub:me%40example.com?issuer=GitHub&secret=JP3NQ7W4JHF24FWO&algorithm=SHA1&digits=8&counter=409",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "me@example.com",
+        "secret": "JP3NQ7W4JHF24FWO",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 409
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "Example Corp",
+        "label": "first last",
+        "secret": "TZ7QXIQ3DB4CU54ERNVK4UVUS3PJ64Y5",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 467
+      },
+      "uri": "otpauth://hotp/Example%20Corp:first%20last?issuer=Example%20Corp&secret=TZ7QXIQ3DB4CU54ERNVK4UVUS3PJ64Y5&algorithm=SHA1&digits=6&counter=467",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "Example Corp",
+        "label": "first last",
+        "secret": "TZ7QXIQ3DB4CU54ERNVK4UVUS3PJ64Y5",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 467
+      }
+    },
+    {
+      "account": {
+        "issuer": "",
+        "label": "first last",
+        "secret": "7Y2GLSKLQNDEMT3BWUWEJFAKVA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      },
+      "uri": "otpauth://totp/first%20last?secret=7Y2GLSKLQNDEMT3BWUWEJFAKVA&algorithm=SHA256&digits=8&period=60",
+      "parsed": {
+        "type": "totp",
+        "issuer": "",
+        "label": "first last",
+        "secret": "7Y2GLSKLQNDEMT3BWUWEJFAKVA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 60
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "GitHub",
+        "label": "first last",
+        "secret": "P26FKQZRAONLZRUIQJYERTNGL4",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60
+      },
+      "uri": "otpauth://steam/GitHub:first%20last?issuer=GitHub&secret=P26FKQZRAONLZRUIQJYERTNGL4&algorithm=SHA1&digits=5&period=60",
+      "parsed": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60,
+        "issuer": "GitHub",
+        "label": "first last",
+        "secret": "P26FKQZRAONLZRUIQJYERTNGL4"
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "x/y?z",
+        "secret": "733AE5GOZ372B4J3X5N6IN5HJU",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 825
+      },
+      "uri": "otpauth://hotp/GitHub:x%2Fy%3Fz?issuer=GitHub&secret=733AE5GOZ372B4J3X5N6IN5HJU&algorithm=SHA1&digits=6&counter=825",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "x/y?z",
+        "secret": "733AE5GOZ372B4J3X5N6IN5HJU",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 825
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "",
+        "secret": "YJ7K7FG5WRHI66MEYPLB3BRHYJMAQXEGRTSLC5SZASK7QOI4F64GZPPLGQVBXMFVRFFT3KBRBCWRUXCF546VOKKHCIBBPVUH2MVJZRQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 694
+      },
+      "uri": "otpauth://hotp/GitHub:?issuer=GitHub&secret=YJ7K7FG5WRHI66MEYPLB3BRHYJMAQXEGRTSLC5SZASK7QOI4F64GZPPLGQVBXMFVRFFT3KBRBCWRUXCF546VOKKHCIBBPVUH2MVJZRQ&algorithm=SHA1&digits=8&counter=694",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "GitHub:",
+        "secret": "YJ7K7FG5WRHI66MEYPLB3BRHYJMAQXEGRTSLC5SZASK7QOI4F64GZPPLGQVBXMFVRFFT3KBRBCWRUXCF546VOKKHCIBBPVUH2MVJZRQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 694
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "",
+        "secret": "UOJI7ISN2CSWB6F4R2PP5SOKN3BLHTWHI3TTWUPQAERVITALZ5SQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 299
+      },
+      "uri": "otpauth://hotp/GitHub:?issuer=GitHub&secret=UOJI7ISN2CSWB6F4R2PP5SOKN3BLHTWHI3TTWUPQAERVITALZ5SQ&algorithm=SHA1&digits=8&counter=299",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "GitHub",
+        "label": "GitHub:",
+        "secret": "UOJI7ISN2CSWB6F4R2PP5SOKN3BLHTWHI3TTWUPQAERVITALZ5SQ",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 299
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "GitHub",
+        "label": "",
+        "secret": "FWXPMLU2PGX57PO262FTWWVPAA",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60
+      },
+      "uri": "otpauth://steam/GitHub:?issuer=GitHub&secret=FWXPMLU2PGX57PO262FTWWVPAA&algorithm=SHA1&digits=5&period=60",
+      "parsed": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 60,
+        "issuer": "GitHub",
+        "label": "GitHub:",
+        "secret": "FWXPMLU2PGX57PO262FTWWVPAA"
+      }
+    },
+    {
+      "account": {
+        "issuer": "GitHub",
+        "label": "x/y?z",
+        "secret": "NUQIIEEQ6KDQGXTNM3XNZHZRBRB7W2WYCCFWQTD3IDJCE24NYQBVBLLUOOQKZPWTT6FTXEML3SPVKRDCQHDQBLPFT67KIWTNUXN3IWA",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 15
+      },
+      "uri": "otpauth://totp/GitHub:x%2Fy%3Fz?issuer=GitHub&secret=NUQIIEEQ6KDQGXTNM3XNZHZRBRB7W2WYCCFWQTD3IDJCE24NYQBVBLLUOOQKZPWTT6FTXEML3SPVKRDCQHDQBLPFT67KIWTNUXN3IWA&algorithm=SHA512&digits=6&period=15",
+      "parsed": {
+        "type": "totp",
+        "issuer": "GitHub",
+        "label": "x/y?z",
+        "secret": "NUQIIEEQ6KDQGXTNM3XNZHZRBRB7W2WYCCFWQTD3IDJCE24NYQBVBLLUOOQKZPWTT6FTXEML3SPVKRDCQHDQBLPFT67KIWTNUXN3IWA",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 15
+      }
+    },
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "",
+        "secret": "5ZDE4QQQNBZPI2AAJSJ77XTIIM",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 60
+      },
+      "uri": "otpauth://totp/?secret=5ZDE4QQQNBZPI2AAJSJ77XTIIM&algorithm=SHA512&digits=6&period=60",
+      "parsed": null
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "50% off",
+        "secret": "ZVBGOQ5AQS3FZDF6APMZIQHK3I6YFEP2AEMBDIKFMPJW4TPN64KWSCSNHKRNWAKJPWIAOVLNAZQKYHEVGDP6F3ZETIYBAOBVUMCFXEI",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 245
+      },
+      "uri": "otpauth://hotp/50%25%20off?secret=ZVBGOQ5AQS3FZDF6APMZIQHK3I6YFEP2AEMBDIKFMPJW4TPN64KWSCSNHKRNWAKJPWIAOVLNAZQKYHEVGDP6F3ZETIYBAOBVUMCFXEI&algorithm=SHA1&digits=6&counter=245",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "",
+        "label": "50% off",
+        "secret": "ZVBGOQ5AQS3FZDF6APMZIQHK3I6YFEP2AEMBDIKFMPJW4TPN64KWSCSNHKRNWAKJPWIAOVLNAZQKYHEVGDP6F3ZETIYBAOBVUMCFXEI",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 245
+      }
+    },
+    {
+      "account": {
+        "issuer": "a:b",
+        "label": "first last",
+        "secret": "M4NZZKDW3MR7CH56XMFCY6WH2MJJSQMKNYMWCPYAMX6HBAO4KMIE35ONIVG3UBJ4PW3D6OVF3UHQ2PNVWR6UFUTGKTOOBGSRR763IHY",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/a%3Ab:first%20last?issuer=a%3Ab&secret=M4NZZKDW3MR7CH56XMFCY6WH2MJJSQMKNYMWCPYAMX6HBAO4KMIE35ONIVG3UBJ4PW3D6OVF3UHQ2PNVWR6UFUTGKTOOBGSRR763IHY&algorithm=SHA256&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "a:b",
+        "label": "b:first last",
+        "secret": "M4NZZKDW3MR7CH56XMFCY6WH2MJJSQMKNYMWCPYAMX6HBAO4KMIE35ONIVG3UBJ4PW3D6OVF3UHQ2PNVWR6UFUTGKTOOBGSRR763IHY",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "Example Corp",
+        "label": "",
+        "secret": "NZTGIJ7QAKEOS6YX7G53HKYNETVSMM5U",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 849
+      },
+      "uri": "otpauth://hotp/Example%20Corp:?issuer=Example%20Corp&secret=NZTGIJ7QAKEOS6YX7G53HKYNETVSMM5U&algorithm=SHA1&digits=6&counter=849",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "Example Corp",
+        "label": "Example Corp:",
+        "secret": "NZTGIJ7QAKEOS6YX7G53HKYNETVSMM5U",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 849
+      }
+    },
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "\u65e5\u672c",
+        "label": "",
+        "secret": "X7ORF6U3A75V24FR2SQ24ZG64M",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 15
+      },
+      "uri": "otpauth://totp/%E6%97%A5%E6%9C%AC:?issuer=%E6%97%A5%E6%9C%AC&secret=X7ORF6U3A75V24FR2SQ24ZG64M&algorithm=SHA256&digits=6&period=15",
+      "parsed": {
+        "type": "totp",
+        "issuer": "\u65e5\u672c",
+        "label": "\u65e5\u672c:",
+        "secret": "X7ORF6U3A75V24FR2SQ24ZG64M",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 15
+      }
+    },
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "GitHub",
+        "label": "",
+        "secret": "KG56NVYYWI7P5B7E",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      },
+      "uri": "otpauth://totp/GitHub:?issuer=GitHub&secret=KG56NVYYWI7P5B7E&algorithm=SHA1&digits=8&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "GitHub",
+        "label": "GitHub:",
+        "secret": "KG56NVYYWI7P5B7E",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "\u65e5\u672c",
+        "label": "first last",
+        "secret": "MYRQ3WSD7R33DSMRAS2BXMDXLKEWHGTCTBL7EN6BFCK7FSYR3HHTZTJURRPZJ3HBDYDX3NCDOMIMADOYP5PWQPFAHXUP2UNK7JXV44Y",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 517
+      },
+      "uri": "otpauth://hotp/%E6%97%A5%E6%9C%AC:first%20last?issuer=%E6%97%A5%E6%9C%AC&secret=MYRQ3WSD7R33DSMRAS2BXMDXLKEWHGTCTBL7EN6BFCK7FSYR3HHTZTJURRPZJ3HBDYDX3NCDOMIMADOYP5PWQPFAHXUP2UNK7JXV44Y&algorithm=SHA1&digits=6&counter=517",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "\u65e5\u672c",
+        "label": "first last",
+        "secret": "MYRQ3WSD7R33DSMRAS2BXMDXLKEWHGTCTBL7EN6BFCK7FSYR3HHTZTJURRPZJ3HBDYDX3NCDOMIMADOYP5PWQPFAHXUP2UNK7JXV44Y",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "counter": 517
+      }
+    },
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "GitHub",
+        "label": "first last",
+        "secret": "VZLC24ERQLZA5UFAHODPBX5L6LQU5BPT5GYVAIFJUQDBLNMNBBTA",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 15
+      },
+      "uri": "otpauth://totp/GitHub:first%20last?issuer=GitHub&secret=VZLC24ERQLZA5UFAHODPBX5L6LQU5BPT5GYVAIFJUQDBLNMNBBTA&algorithm=SHA256&digits=6&period=15",
+      "parsed": {
+        "type": "totp",
+        "issuer": "GitHub",
+        "label": "first last",
+        "secret": "VZLC24ERQLZA5UFAHODPBX5L6LQU5BPT5GYVAIFJUQDBLNMNBBTA",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 15
+      }
+    },
+    {
+      "account": {
+        "issuer": "a:b",
+        "label": "",
+        "secret": "Y2P63G5JMB6FXQRCCKH7QWQ24WMDNSWP3KOR54XKBO55OGMWWPSWSLQMMCCLGTWJZSZLFDGNVM7LSRZF2CSHH7ATFKTCOUZN6O6JNWA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      },
+      "uri": "otpauth://totp/a%3Ab:?issuer=a%3Ab&secret=Y2P63G5JMB6FXQRCCKH7QWQ24WMDNSWP3KOR54XKBO55OGMWWPSWSLQMMCCLGTWJZSZLFDGNVM7LSRZF2CSHH7ATFKTCOUZN6O6JNWA&algorithm=SHA256&digits=8&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "a:b",
+        "label": "b:",
+        "secret": "Y2P63G5JMB6FXQRCCKH7QWQ24WMDNSWP3KOR54XKBO55OGMWWPSWSLQMMCCLGTWJZSZLFDGNVM7LSRZF2CSHH7ATFKTCOUZN6O6JNWA",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "issuer": "",
+        "label": "50% off",
+        "secret": "XI6AMGDGN4XR6YVYUXZPHKCN4VOPEBGIONYEZBWLNDY5L5AU35JA",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/50%25%20off?secret=XI6AMGDGN4XR6YVYUXZPHKCN4VOPEBGIONYEZBWLNDY5L5AU35JA&algorithm=SHA512&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "",
+        "label": "50% off",
+        "secret": "XI6AMGDGN4XR6YVYUXZPHKCN4VOPEBGIONYEZBWLNDY5L5AU35JA",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 30
+      }
+    },
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "\u65e5\u672c",
+        "label": "x/y?z",
+        "secret": "LEDMJBVURTONTSSEPNHN2KJTSE",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 60
+      },
+      "uri": "otpauth://totp/%E6%97%A5%E6%9C%AC:x%2Fy%3Fz?issuer=%E6%97%A5%E6%9C%AC&secret=LEDMJBVURTONTSSEPNHN2KJTSE&algorithm=SHA512&digits=6&period=60",
+      "parsed": {
+        "type": "totp",
+        "issuer": "\u65e5\u672c",
+        "label": "x/y?z",
+        "secret": "LEDMJBVURTONTSSEPNHN2KJTSE",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 60
+      }
+    },
+    {
+      "account": {
+        "type": "hotp",
+        "issuer": "Example Corp",
+        "label": "me@example.com",
+        "secret": "C42Q6ZQY5BZNXTINNMAAACBDL747FLWK337CRVPMRTE7UD2DZQKOTKDLJAXIC3WXS5O6I4LFPLMWFXF36EN4VN3NUECIJF37RTCFNEY",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 856
+      },
+      "uri": "otpauth://hotp/Example%20Corp:me%40example.com?issuer=Example%20Corp&secret=C42Q6ZQY5BZNXTINNMAAACBDL747FLWK337CRVPMRTE7UD2DZQKOTKDLJAXIC3WXS5O6I4LFPLMWFXF36EN4VN3NUECIJF37RTCFNEY&algorithm=SHA1&digits=8&counter=856",
+      "parsed": {
+        "type": "hotp",
+        "issuer": "Example Corp",
+        "label": "me@example.com",
+        "secret": "C42Q6ZQY5BZNXTINNMAAACBDL747FLWK337CRVPMRTE7UD2DZQKOTKDLJAXIC3WXS5O6I4LFPLMWFXF36EN4VN3NUECIJF37RTCFNEY",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 30,
+        "counter": 856
+      }
+    },
+    {
+      "account": {
+        "issuer": "",
+        "label": "50% off",
+        "secret": "N2RJOVS3GEQG4KJGPNN4KUUAMDYEJLFD7R32F5WMMF4RCFA6J7AQ",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 15
+      },
+      "uri": "otpauth://totp/50%25%20off?secret=N2RJOVS3GEQG4KJGPNN4KUUAMDYEJLFD7R32F5WMMF4RCFA6J7AQ&algorithm=SHA256&digits=8&period=15",
+      "parsed": {
+        "type": "totp",
+        "issuer": "",
+        "label": "50% off",
+        "secret": "N2RJOVS3GEQG4KJGPNN4KUUAMDYEJLFD7R32F5WMMF4RCFA6J7AQ",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 15
+      }
+    },
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "",
+        "label": "first last",
+        "secret": "XAB67J3NXW3YFBX7",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 60
+      },
+      "uri": "otpauth://totp/first%20last?secret=XAB67J3NXW3YFBX7&algorithm=SHA512&digits=8&period=60",
+      "parsed": {
+        "type": "totp",
+        "issuer": "",
+        "label": "first last",
+        "secret": "XAB67J3NXW3YFBX7",
+        "algorithm": "SHA512",
+        "digits": 8,
+        "period": 60
+      }
+    },
+    {
+      "account": {
+        "issuer": "a:b",
+        "label": "me@example.com",
+        "secret": "2LSPM74VXMMWZLLWNYFYEWYVVFJUZJP37GNOULA6PUWA6HIXEL5A",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 15
+      },
+      "uri": "otpauth://totp/a%3Ab:me%40example.com?issuer=a%3Ab&secret=2LSPM74VXMMWZLLWNYFYEWYVVFJUZJP37GNOULA6PUWA6HIXEL5A&algorithm=SHA1&digits=8&period=15",
+      "parsed": {
+        "type": "totp",
+        "issuer": "a:b",
+        "label": "b:me@example.com",
+        "secret": "2LSPM74VXMMWZLLWNYFYEWYVVFJUZJP37GNOULA6PUWA6HIXEL5A",
+        "algorithm": "SHA1",
+        "digits": 8,
+        "period": 15
+      }
+    },
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "\u00dcn\u00efc\u00f6d\u00e9",
+        "label": "50% off",
+        "secret": "P5RALFTNSVA3DO3ZGXAHOGFQTMZXVNSY",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 15
+      },
+      "uri": "otpauth://totp/%C3%9Cn%C3%AFc%C3%B6d%C3%A9:50%25%20off?issuer=%C3%9Cn%C3%AFc%C3%B6d%C3%A9&secret=P5RALFTNSVA3DO3ZGXAHOGFQTMZXVNSY&algorithm=SHA256&digits=8&period=15",
+      "parsed": {
+        "type": "totp",
+        "issuer": "\u00dcn\u00efc\u00f6d\u00e9",
+        "label": "50% off",
+        "secret": "P5RALFTNSVA3DO3ZGXAHOGFQTMZXVNSY",
+        "algorithm": "SHA256",
+        "digits": 8,
+        "period": 15
+      }
+    },
+    {
+      "account": {
+        "type": "steam",
+        "issuer": "Example Corp",
+        "label": "me@example.com",
+        "secret": "YXZCILPA2TSEKY72YUVMAGSCDIUKYFJ5",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://steam/Example%20Corp:me%40example.com?issuer=Example%20Corp&secret=YXZCILPA2TSEKY72YUVMAGSCDIUKYFJ5&algorithm=SHA1&digits=5&period=30",
+      "parsed": {
+        "type": "steam",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "issuer": "Example Corp",
+        "label": "me@example.com",
+        "secret": "YXZCILPA2TSEKY72YUVMAGSCDIUKYFJ5"
+      }
+    },
+    {
+      "account": {
+        "issuer": "a:b",
+        "label": "",
+        "secret": "JTC7I62BKR5CHHG5HS2ZIM7VVZNVWVFX",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 60
+      },
+      "uri": "otpauth://totp/a%3Ab:?issuer=a%3Ab&secret=JTC7I62BKR5CHHG5HS2ZIM7VVZNVWVFX&algorithm=SHA256&digits=6&period=60",
+      "parsed": {
+        "type": "totp",
+        "issuer": "a:b",
+        "label": "b:",
+        "secret": "JTC7I62BKR5CHHG5HS2ZIM7VVZNVWVFX",
+        "algorithm": "SHA256",
+        "digits": 6,
+        "period": 60
+      }
+    },
+    {
+      "account": {
+        "type": "totp",
+        "issuer": "GitHub",
+        "label": "x/y?z",
+        "secret": "EWX7ABBY7KQENSPIRAYMTDYGNY",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 30
+      },
+      "uri": "otpauth://totp/GitHub:x%2Fy%3Fz?issuer=GitHub&secret=EWX7ABBY7KQENSPIRAYMTDYGNY&algorithm=SHA512&digits=6&period=30",
+      "parsed": {
+        "type": "totp",
+        "issuer": "GitHub",
+        "label": "x/y?z",
+        "secret": "EWX7ABBY7KQENSPIRAYMTDYGNY",
+        "algorithm": "SHA512",
+        "digits": 6,
+        "period": 30
+      }
+    }
+  ]
+}

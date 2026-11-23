@@ -1,0 +1,25 @@
+Certificate request self-signature verify OK
+Certificate Request:
+    Data:
+        Version: 1 (0x0)
+        Subject: CN=Ada Example
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:f1:79:45:9c:de:b5:b2:d1:03:0d:bc:82:1c:78:
+                    5f:e9:2c:c8:86:f3:cd:e6:34:c9:38:ba:bc:7b:7a:
+                    96:c7:1a:63:25:c0:6e:d2:12:e8:c9:83:4e:da:e9:
+                    3f:c3:b5:67:6b:51:96:be:ed:6f:26:a8:36:19:82:
+                    37:f7:af:ca:a3
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        Attributes:
+            (none)
+            Requested Extensions:
+    Signature Algorithm: ecdsa-with-SHA256
+    Signature Value:
+        30:45:02:21:00:e2:ed:19:8c:ad:4e:fc:85:27:fa:18:90:59:
+        73:33:49:2a:54:e2:a8:c2:08:16:df:82:f9:e6:e3:ac:9b:b0:
+        56:02:20:32:88:3a:9e:d6:e9:5d:38:db:b2:05:67:a9:d1:c7:
+        6b:6b:db:0a:db:1b:c1:05:d9:40:9b:2e:39:f6:68:89:31

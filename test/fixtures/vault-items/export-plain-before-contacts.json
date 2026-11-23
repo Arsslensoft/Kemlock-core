@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "app": "BackMyCodes",
+  "exportedAt": "2026-11-17T12:00:00.000Z",
+  "scheme": "plaintext",
+  "accounts": [
+    {
+      "id": "a1",
+      "issuer": "ACME",
+      "label": "me",
+      "secret": "JBSWY3DPEHPK3PXPJBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "addedAt": 1
+    }
+  ],
+  "backupServices": [
+    {
+      "id": "s1",
+      "serviceName": "GitHub",
+      "codes": [
+        {
+          "code": "abcd-1234",
+          "used": false
+        }
+      ],
+      "addedAt": 2
+    }
+  ],
+  "keys": [
+    {
+      "id": "k1",
+      "name": "laptop",
+      "kind": "ssh",
+      "algorithm": "ed25519",
+      "private": "MC4CAQAwBQYDK2VwBCIEIA==",
+      "public": "MCowBQYDK2VwAyEA",
+      "origin": "generated",
+      "addedAt": 3
+    }
+  ],
+  "notes": [
+    {
+      "id": "n1",
+      "title": "Passport",
+      "text": "In the drawer",
+      "addedAt": 4
+    }
+  ],
+  "passkeys": [
+    {
+      "id": "p1",
+      "credentialId": "AAECAwQFBgcICQoLDA0ODw",
+      "rpId": "github.com",
+      "userHandle": "dXNlcg",
+      "userName": "octocat",
+      "privateKey": "MIGHAgEAMBMGByqGSM49AgEG",
+      "algorithm": -7,
+      "addedAt": 5
+    }
+  ]
+}

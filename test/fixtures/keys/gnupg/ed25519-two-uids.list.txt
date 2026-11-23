@@ -1,0 +1,7 @@
+pub   ed25519 2026-11-15 [SC]
+      1FCDA135EE42400EC2B77CE677249ABE661CF8DB
+uid           [ unknown] Fixture Second <second@example.org>
+uid           [ultimate] Fixture Ed25519 <ed25519@example.org>
+sub   cv25519 2026-11-15 [E] [expires: 2028-11-14]
+      4BA83174FC8CE762A23BF0A4841A40E3B199EA67
+

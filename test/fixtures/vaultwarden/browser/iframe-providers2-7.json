@@ -1,0 +1,15 @@
+{
+  "allowCredentials": [
+    {
+      "id": "Ah5Ez3lK6S2WGZOHHZ1j-JTJsRxJ9OTkeiYcT0FtcCc",
+      "type": "public-key"
+    }
+  ],
+  "challenge": "5r2nZhPGoP6DVAMaa1G3TLfwK-SPrLhreylV5m0erEY",
+  "extensions": {
+    "appid": "http://localhost:8081/app-id.json"
+  },
+  "rpId": "localhost",
+  "timeout": 60000,
+  "userVerification": "discouraged"
+}

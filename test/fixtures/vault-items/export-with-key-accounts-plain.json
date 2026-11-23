@@ -1,0 +1,63 @@
+{
+  "version": 2,
+  "app": "BackMyCodes",
+  "exportedAt": "2026-11-16T12:00:00.000Z",
+  "scheme": "plaintext",
+  "accounts": [
+    {
+      "id": "f3c1a9e2-5b7d-4e0a-9c1f-2d8b6a4e7c10",
+      "issuer": "GitHub",
+      "label": "adalovelace",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "addedAt": 1763251200000
+    }
+  ],
+  "backupServices": [],
+  "keyAccounts": [
+    {
+      "id": "7a2e4c91-0d3b-4f6a-8e5c-1b9d2f7a3c40",
+      "device": "0102030405060708",
+      "keyName": "YubiKey 5C NFC",
+      "name": "Bank:ada@example.org",
+      "issuer": "Bank",
+      "label": "ada@example.org",
+      "period": 30,
+      "type": "totp",
+      "algorithm": "SHA1",
+      "tags": [
+        "money"
+      ],
+      "note": "Backup codes in the safe",
+      "addedAt": 1763251200000,
+      "updatedAt": 1763254800000
+    },
+    {
+      "id": "c5d8e1f2-3a4b-4c6d-9e0f-a1b2c3d4e5f6",
+      "device": "0102030405060708",
+      "keyName": "YubiKey 5C NFC",
+      "name": "60/Mail server:root",
+      "issuer": "Mail server",
+      "label": "root",
+      "period": 60,
+      "type": "totp",
+      "algorithm": "SHA256",
+      "touch": true,
+      "addedAt": 1763251200000
+    },
+    {
+      "id": "1e2f3a4b-5c6d-4e7f-8a9b-0c1d2e3f4a5b",
+      "device": "0102030405060708",
+      "keyName": "YubiKey 5C NFC",
+      "name": "Example:counter",
+      "issuer": "Example",
+      "label": "counter",
+      "period": 30,
+      "type": "hotp",
+      "algorithm": "SHA1",
+      "addedAt": 1763251200000
+    }
+  ]
+}

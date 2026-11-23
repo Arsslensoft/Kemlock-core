@@ -1,0 +1,88 @@
+{
+  "cases": [
+    {
+      "old": "acc-1",
+      "type": "space",
+      "uuid": "3dff59c4de7e89829a4eb2afa3ed90c9",
+      "uuid_text": "3dff59c4-de7e-8982-9a4e-b2afa3ed90c9"
+    },
+    {
+      "old": "svc-1",
+      "type": "space",
+      "uuid": "ef61522829c588e7ad4291b7a0de920b",
+      "uuid_text": "ef615228-29c5-88e7-ad42-91b7a0de920b"
+    },
+    {
+      "old": "3f2c9a71e4b0d856",
+      "type": "space",
+      "uuid": "d8e6e18459bb85a4af4be430cf67d51a",
+      "uuid_text": "d8e6e184-59bb-85a4-af4b-e430cf67d51a"
+    },
+    {
+      "old": "team_Alpha-01",
+      "type": "space",
+      "uuid": "8bcd2174583d8a2f99d170b1086bbaa4",
+      "uuid_text": "8bcd2174-583d-8a2f-99d1-70b1086bbaa4"
+    },
+    {
+      "old": "item-1",
+      "owner": "028bcd2174583d8a2f99d170b1086bbaa4",
+      "owner_label": "mapped-space",
+      "type": "item",
+      "uuid": "9745d5e1202a89d7823a3040d73da5be",
+      "uuid_text": "9745d5e1-202a-89d7-823a-3040d73da5be"
+    },
+    {
+      "old": "3f2c9a71e4b0d856",
+      "owner": "028bcd2174583d8a2f99d170b1086bbaa4",
+      "owner_label": "mapped-space",
+      "type": "item",
+      "uuid": "4f03d20dd9f387e89f4c07445c26f7d2",
+      "uuid_text": "4f03d20d-d9f3-87e8-9f4c-07445c26f7d2"
+    },
+    {
+      "old": "item-1",
+      "owner": "0111111111111111111111111111111111",
+      "owner_label": "user",
+      "type": "item",
+      "uuid": "23280d170c548f3a8b1b48ce55eb6f85",
+      "uuid_text": "23280d17-0c54-8f3a-8b1b-48ce55eb6f85"
+    },
+    {
+      "old": "3f2c9a71e4b0d856",
+      "owner": "0111111111111111111111111111111111",
+      "owner_label": "user",
+      "type": "item",
+      "uuid": "f66e0173af718df39a8e3457b591f9ae",
+      "uuid_text": "f66e0173-af71-8df3-9a8e-3457b591f9ae"
+    },
+    {
+      "input": "0190a1b2-c3d4-8e5f-9a0b-1c2d3e4f5a6b",
+      "is_uuid": true,
+      "type": "is_uuid"
+    },
+    {
+      "input": "0190A1B2-C3D4-8E5F-9A0B-1C2D3E4F5A6B",
+      "is_uuid": false,
+      "type": "is_uuid"
+    },
+    {
+      "input": "3f2c9a71e4b0d856",
+      "is_uuid": false,
+      "type": "is_uuid"
+    },
+    {
+      "input": "acc-1",
+      "is_uuid": false,
+      "type": "is_uuid"
+    },
+    {
+      "input": "",
+      "is_uuid": false,
+      "type": "is_uuid"
+    }
+  ],
+  "description": "space uuid = uuidv8(SHA-256(\"kemlock/v1/legacy-id\" || lp(\"space\") || lp(old))); item uuid = uuidv8(SHA-256(\"kemlock/v1/legacy-id\" || lp(\"item\") || owner || lp(old))); uuidv8 takes the first 16 bytes and sets b[6] = b[6] & 0x0f | 0x80 and b[8] = b[8] & 0x3f | 0x80. Old ids are UTF-8 bytes. An id that already is a hyphenated lower-case UUID is never mapped (is_uuid).",
+  "format": "legacy-ids",
+  "version": 1
+}

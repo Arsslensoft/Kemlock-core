@@ -1,0 +1,46 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 8 (0x8)
+        Signature Algorithm: ecdsa-with-SHA384
+        Issuer: CN=Example Test CA,O=Example Test Authority
+        Validity
+            Not Before: Nov  1 00:00:00 2026 GMT
+            Not After : Nov  1 00:00:00 2036 GMT
+        Subject: CN=Example Test CA,O=Example Test Authority
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (384 bit)
+                pub:
+                    04:56:f4:04:b4:76:b8:3a:f0:45:2e:bb:93:62:67:
+                    27:22:3f:53:a9:6b:99:15:81:4b:9b:ee:d1:68:24:
+                    67:a2:e3:0c:3b:b8:77:5d:23:cf:1b:69:ea:f7:7a:
+                    83:61:df:82:2f:78:28:a8:a2:e1:47:27:28:0a:59:
+                    44:e2:6c:0b:99:46:f7:1a:13:95:a2:d6:4f:86:e6:
+                    73:74:d6:75:8a:e5:bc:20:99:36:b8:30:33:26:b9:
+                    52:31:1e:51:5d:e4:81
+                ASN1 OID: secp384r1
+                NIST CURVE: P-384
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                4D:B6:E7:12:85:D2:5E:A5:CD:8A:61:94:0C:0C:3C:E2:F8:B5:D6:6E
+            X509v3 Authority Key Identifier: 
+                4D:B6:E7:12:85:D2:5E:A5:CD:8A:61:94:0C:0C:3C:E2:F8:B5:D6:6E
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+            X509v3 Key Usage: critical
+                Certificate Sign, CRL Sign
+    Signature Algorithm: ecdsa-with-SHA384
+    Signature Value:
+        30:65:02:31:00:e5:17:b7:65:9c:6b:43:e3:27:b3:5d:a0:8c:
+        0f:bc:f2:cb:ce:74:c6:3f:c0:6a:bb:59:8e:a3:ed:b6:e2:d8:
+        ab:db:eb:bd:7c:d8:27:26:f0:9e:d0:c9:fd:2e:e6:2b:31:02:
+        30:4d:dd:eb:4c:ff:8d:47:14:8a:56:ae:6e:c6:73:58:ef:58:
+        20:a5:57:c2:a9:ba:89:f9:5d:9d:03:21:91:e5:cc:98:eb:c1:
+        99:39:c7:24:c4:59:c4:bf:62:1d:61:9d:dd
+serial=08
+subject=CN=Example Test CA,O=Example Test Authority
+issuer=CN=Example Test CA,O=Example Test Authority
+notBefore=2026-11-01 00:00:00Z
+notAfter=2036-11-01 00:00:00Z
+sha256 Fingerprint=5C:0F:07:2F:A1:74:64:C4:E6:37:5E:06:21:EF:91:B3:7F:97:44:3D:9B:F0:EB:A0:22:0D:48:06:BA:78:97:3F

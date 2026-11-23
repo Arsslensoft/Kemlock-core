@@ -1,0 +1,24 @@
+{
+  "about": "KMA1 files written by lib/crypto/attachment_format.dart when the format was added. Never regenerate them: they pin the format other versions read.",
+  "key": "oKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9vr8=",
+  "files": [
+    {
+      "name": "empty",
+      "plain": "",
+      "kma1": "S01BMQECAwQFBgcIKhagqRxyfnvq3Op0BIto6w=="
+    },
+    {
+      "name": "short",
+      "plain": "S2VtbG9jayBhdHRhY2htZW50IGZpeHR1cmUK",
+      "kma1": "S01BMQkKCwwNDg8QcBhCp2QM5Uy1Uh+49+LAliJNIc6/GZJt0fZV0Ucr3UQiTpez7LLVkjnsAg=="
+    },
+    {
+      "name": "two chunks",
+      "plainLength": 65636,
+      "plainPattern": "byte i is (i * 31 + 7) & 0xff",
+      "plainSha256": "0727d145bff1189e84dc96e94bd57fccfb9eb9b8dbbba5650621782fd427b4b4",
+      "kma1File": "two-chunks.kma1",
+      "kma1Sha256": "474215910f09a7227da1743364683c855eae4b9638d54e1914c3b52d91446fef"
+    }
+  ]
+}

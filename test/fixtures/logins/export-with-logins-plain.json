@@ -1,0 +1,76 @@
+{
+  "version": 2,
+  "app": "BackMyCodes",
+  "exportedAt": "2026-11-21T12:00:00.000Z",
+  "scheme": "plaintext",
+  "accounts": [
+    {
+      "id": "3b9e2f4a-6c1d-4e8b-a07f-5d2c9e1b4a63",
+      "issuer": "Larkspur Mail",
+      "label": "ada@example.org",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "addedAt": 1795300000000
+    }
+  ],
+  "backupServices": [],
+  "logins": [
+    {
+      "id": "8d4f2a1c-9e3b-4c7d-b6a5-2f1e0d9c8b74",
+      "name": "Larkspur Mail",
+      "username": "ada@example.org",
+      "password": "Hw7e%Ns3Ry_bX5tK?pM8a",
+      "websites": [
+        "mail.larkspur.example",
+        "larkspur.example"
+      ],
+      "note": "Recovery email is the work one",
+      "tags": [
+        "mail",
+        "personal"
+      ],
+      "pinned": true,
+      "accountId": "3b9e2f4a-6c1d-4e8b-a07f-5d2c9e1b4a63",
+      "passwordChangedAt": 1795300120000,
+      "previousPasswords": [
+        {
+          "password": "one-two-three",
+          "until": 1795300120000
+        },
+        {
+          "password": "first password",
+          "until": 1795300060000
+        }
+      ],
+      "codeWarning": false,
+      "source": "autofill",
+      "addedAt": 1795300000000,
+      "updatedAt": 1795300120000,
+      "later": {
+        "what": "a key a later version writes",
+        "kept": true
+      }
+    },
+    {
+      "id": "0c6e8a2b-4d1f-4a9e-8b3c-7e5d1f0a2c96",
+      "name": "Banking app",
+      "username": "ada",
+      "password": "4815 1623",
+      "addedAt": 1795300180000
+    },
+    {
+      "id": "5a1d3f7b-2e9c-4b6a-9d8e-1c0f2b4a6e38",
+      "name": "Family streaming",
+      "username": "family@example.org",
+      "password": "kT9#vq2L-wPz8!mR4x",
+      "websites": [
+        "=10.0.0.20",
+        "stream.example"
+      ],
+      "spaceId": "fam",
+      "addedAt": 1795300240000
+    }
+  ]
+}

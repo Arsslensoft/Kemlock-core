@@ -1,0 +1,4 @@
+Notes from the meeting on mail encryption.
+
+An armored message starts with the line BEGIN PGP MESSAGE between
+two rows of five dashes, and ends with END PGP MESSAGE.

@@ -1,0 +1,116 @@
+@TestOn('vm')
+library;
+
+import 'dart:convert';
+import 'dart:typed_data';
+
+import 'package:crypto/crypto.dart' as hash;
+import 'package:kemlock_core/crypto/account/encoding.dart';
+import 'package:kemlock_core/crypto/account/password_wrap.dart';
+import 'package:kemlock_core/crypto/aes_gcm.dart';
+import 'package:test/test.dart';
+
+/// HKDF-SHA256 with one output block, straight from RFC 5869 with
+/// `package:crypto`: PRK = HMAC(zeros(32), ikm), OKM = HMAC(PRK, info || 0x01).
+Uint8List _hkdfOneBlock(List<int> ikm, List<int> info) {
+  final prk = hash.Hmac(hash.sha256, Uint8List(32)).convert(ikm).bytes;
+  return Uint8List.fromList(hash.Hmac(hash.sha256, prk).convert([...info, 1]).bytes);
+}
+
+void main() {
+  final masterKey = Uint8List.fromList(List.generate(32, (i) => i + 1));
+  final exportKey = Uint8List.fromList(List.generate(64, (i) => 0x80 + i));
+  final root = Uint8List.fromList(List.generate(64, (i) => (i * 9 + 4) & 0xff));
+  final accountId = uuidBytes('0189f7c2-5a3e-7b21-8d4f-0123456789ab');
+
+  Future<Uint8List> wrap({Uint8List? master, Uint8List? export, List<int>? id, int keyVersion = 1}) => wrapRootWithPassword(
+    masterKey: master ?? masterKey,
+    exportKey: export ?? exportKey,
+    accountId: id ?? accountId,
+    keyVersion: keyVersion,
+    rootKey: root,
+  );
+
+  Future<Uint8List> unwrap(Uint8List wrapped, {Uint8List? master, Uint8List? export, List<int>? id, int keyVersion = 1}) =>
+      unwrapRootWithPassword(
+        masterKey: master ?? masterKey,
+        exportKey: export ?? exportKey,
+        accountId: id ?? accountId,
+        keyVersion: keyVersion,
+        wrapped: wrapped,
+      );
+
+  group('the password wrap of the root key', () {
+    test('is AES-256-GCM under HKDF of the master key and the export key, with the aad crypto.md gives', () async {
+      final nonce = Uint8List.fromList(List.generate(12, (i) => 0x70 + i));
+      final wrapped = await wrapRootWithPassword(
+        masterKey: masterKey,
+        exportKey: exportKey,
+        accountId: accountId,
+        keyVersion: 3,
+        rootKey: root,
+        nonce: nonce,
+      );
+      // wrap key = HKDF(master key || export key, info = "kemlock/v1/password-wrap")
+      final wrapKey = _hkdfOneBlock([...masterKey, ...exportKey], utf8.encode('kemlock/v1/password-wrap'));
+      // aad = "kemlock/v1/root-wrap" || account id || u32be(key version), by hand
+      final aad = [...utf8.encode('kemlock/v1/root-wrap'), ...accountId, 0, 0, 0, 3];
+      final expected = await aesGcmEncrypt(wrapKey, root, nonce: nonce, aad: aad);
+      expect(wrapped, [...nonce, ...expected.ct]);
+      expect(wrapped, hasLength(wrappedRootLength));
+      expect(wrappedRootLength, 92);
+    });
+
+    test('with the right password the wrap gives the root', () async {
+      expect(await unwrap(await wrap()), root);
+    });
+
+    test('wrapping twice gives different bytes, both of which open', () async {
+      final first = await wrap();
+      final second = await wrap();
+      expect(first, isNot(second));
+      expect(await unwrap(second), root);
+    });
+
+    test('the right master key with another export key fails, and the reverse', () async {
+      final wrapped = await wrap();
+      final otherExport = Uint8List.fromList(exportKey)..[0] ^= 1;
+      final otherMaster = Uint8List.fromList(masterKey)..[0] ^= 1;
+      await expectLater(unwrap(wrapped, export: otherExport), throwsA(isA<CorruptedException>()));
+      await expectLater(unwrap(wrapped, master: otherMaster), throwsA(isA<CorruptedException>()));
+    });
+
+    test('neither key alone opens it: a wrap key from the master key alone, or the export key alone, fails', () async {
+      final wrapped = await wrap();
+      await expectLater(unwrap(wrapped, export: Uint8List(64)), throwsA(isA<CorruptedException>()));
+      await expectLater(unwrap(wrapped, master: Uint8List(32)), throwsA(isA<CorruptedException>()));
+    });
+
+    test('another account id or another key version fails', () async {
+      final wrapped = await wrap();
+      await expectLater(unwrap(wrapped, id: uuidBytes('0189f7c2-5a3e-7b21-8d4f-0123456789ac')), throwsA(isA<CorruptedException>()));
+      await expectLater(unwrap(wrapped, keyVersion: 2), throwsA(isA<CorruptedException>()));
+    });
+
+    test('a changed byte fails', () async {
+      final wrapped = await wrap();
+      for (final index in [0, 11, 12, 50, 75, 76, 91]) {
+        final changed = Uint8List.fromList(wrapped)..[index] ^= 1;
+        await expectLater(unwrap(changed), throwsA(isA<CorruptedException>()), reason: 'byte $index');
+      }
+    });
+
+    test('a wrapped value, key or id of the wrong length is malformed', () async {
+      final wrapped = await wrap();
+      await expectLater(unwrap(wrapped.sublist(0, 91)), throwsA(isA<MalformedException>()));
+      await expectLater(unwrap(Uint8List.fromList([...wrapped, 0])), throwsA(isA<MalformedException>()));
+      await expectLater(unwrap(wrapped, master: Uint8List(31)), throwsA(isA<MalformedException>()));
+      await expectLater(unwrap(wrapped, export: Uint8List(63)), throwsA(isA<MalformedException>()));
+      await expectLater(unwrap(wrapped, id: Uint8List(15)), throwsA(isA<MalformedException>()));
+      await expectLater(
+        wrapRootWithPassword(masterKey: masterKey, exportKey: exportKey, accountId: accountId, keyVersion: 1, rootKey: Uint8List(32)),
+        throwsA(isA<MalformedException>()),
+      );
+    });
+  });
+}

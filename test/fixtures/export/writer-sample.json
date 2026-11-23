@@ -1,0 +1,63 @@
+{
+  "version": { "major": 1, "minor": 0 },
+  "exporterRpId": "kemlock.app",
+  "exporterDisplayName": "Kemlock",
+  "timestamp": 1800000000,
+  "accounts": [
+    {
+      "id": "a2VtbG9jaw",
+      "username": "",
+      "email": "",
+      "collections": [
+        {
+          "id": "Y29sbGVjdGlvbi0w",
+          "title": "Work",
+          "items": [{ "item": "MGIzYzhhNTItNWYwZS00YzYzLTliNmQtMWE3ZTJmNGQ5YzEw" }],
+          "subCollections": []
+        }
+      ],
+      "items": [
+        {
+          "id": "MGIzYzhhNTItNWYwZS00YzYzLTliNmQtMWE3ZTJmNGQ5YzEw",
+          "creationAt": 1700000000,
+          "modifiedAt": 1700000100,
+          "title": "Larkspur",
+          "favorite": true,
+          "scope": { "urls": ["https://larkspur.example"], "androidApps": [] },
+          "credentials": [
+            {
+              "type": "basic-auth",
+              "username": { "fieldType": "string", "value": "ada" },
+              "password": { "fieldType": "concealed-string", "value": "hunter2-sample" }
+            },
+            {
+              "type": "totp",
+              "secret": "JBSWY3DPEHPK3PXP",
+              "period": 30,
+              "digits": 6,
+              "algorithm": "sha1",
+              "issuer": "Larkspur",
+              "username": "ada"
+            },
+            { "type": "note", "content": { "fieldType": "string", "value": "sample note" } }
+          ]
+        },
+        {
+          "id": "N2QxZTQ0ZjAtMmE5Yi00ZTg1LThjM2QtNmI1ZjBhMmU3YzMx",
+          "creationAt": 1700000200,
+          "modifiedAt": 1700000200,
+          "title": "Everyday Visa",
+          "credentials": [
+            {
+              "type": "credit-card",
+              "number": { "fieldType": "string", "value": "4111111111111111" },
+              "fullName": { "fieldType": "string", "value": "Ada Lovelace" },
+              "verificationNumber": { "fieldType": "concealed-string", "value": "123" },
+              "expiryDate": { "fieldType": "year-month", "value": "2030-04" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

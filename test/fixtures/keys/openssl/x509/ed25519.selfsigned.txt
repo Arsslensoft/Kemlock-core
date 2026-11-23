@@ -1,0 +1,36 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 7 (0x7)
+        Signature Algorithm: ED25519
+        Issuer: CN=Ed Example
+        Validity
+            Not Before: Nov  1 00:00:00 2026 GMT
+            Not After : Nov  1 00:00:00 2028 GMT
+        Subject: CN=Ed Example
+        Subject Public Key Info:
+            Public Key Algorithm: ED25519
+                ED25519 Public-Key:
+                pub:
+                    f4:63:c4:a9:39:17:38:59:48:0c:bc:46:d0:87:82:
+                    bd:6a:e4:ac:0a:e8:58:01:c6:a3:63:b3:95:8b:b0:
+                    8c:8d
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                09:DB:F4:D5:F0:BF:4D:7A:EB:BE:1B:9C:5A:AB:FD:05:E1:BB:99:BC
+            X509v3 Authority Key Identifier: 
+                09:DB:F4:D5:F0:BF:4D:7A:EB:BE:1B:9C:5A:AB:FD:05:E1:BB:99:BC
+            X509v3 Basic Constraints: critical
+                CA:TRUE
+    Signature Algorithm: ED25519
+    Signature Value:
+        01:d3:f6:f7:72:9a:e2:b1:3b:5f:da:dc:ec:05:0f:3c:6e:e7:
+        db:af:d3:3e:e6:d9:4c:8a:8f:7c:54:a5:c6:ca:e3:d7:76:a8:
+        63:41:b4:bb:87:c0:17:2d:f4:5f:40:f1:6b:e4:f2:e3:31:d6:
+        af:cc:84:06:ea:4a:f8:12:30:04
+serial=07
+subject=CN=Ed Example
+issuer=CN=Ed Example
+notBefore=2026-11-01 00:00:00Z
+notAfter=2028-11-01 00:00:00Z
+sha256 Fingerprint=C2:68:C2:53:5C:B0:73:33:6F:77:F1:48:0A:D3:91:2A:94:E9:5D:48:2B:30:39:B7:17:0E:64:90:81:59:2C:6B

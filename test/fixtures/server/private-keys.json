@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "aad": "6b656d6c6f636b2f76312f707269766174652d6b657973ca39dc93eb495b5efd00a0ea785d2d4b00000001",
+      "account_id": "ca39dc93eb495b5efd00a0ea785d2d4b",
+      "child_key": "db8751378e5a281248c5dc722227315276736f1ba1eee16da6857d82423e860b",
+      "child_label": "kemlock/v1/private-keys",
+      "key_version": 1,
+      "kx1_private_key": "1e863bef705e5fd429217c877bb8adf7292b8dea4b0fdb895504e40b4de6edd0e679320978acb91f1c993a4244f70846ff72ccfc9155cd5c5ad630180e41f4e5c29ffd7f9b45c4355e23be2781ae309b266fe89462ae48b64b57896473a26a3c",
+      "name": "key-version-1",
+      "plaintext": "011e863bef705e5fd429217c877bb8adf7292b8dea4b0fdb895504e40b4de6edd0e679320978acb91f1c993a4244f70846ff72ccfc9155cd5c5ad630180e41f4e5c29ffd7f9b45c4355e23be2781ae309b266fe89462ae48b64b57896473a26a3cfc7f50f4280c36b0294f9729a07153e54358002b0b5053f71bfb83ff838d42493eee21d6025a1037a0795308c76f33b6022418992e3d647fd1e90ba95afc270c",
+      "sealed": "25dae087985cb3d6d7979ad29cc1576fef61fd4dd709dcecfb3a167530618bf03ed8f748ad20ec177c5457fb99ec62005d7605f40d7f5f37e01eef360d711781d5bee6fc5680078685cee17a7a744650be42befa70bb669c16631646bc849430b7ecd158bbd87d527fb9dd33f5b04f55fb1e89bd4c681df580509fccc2d3779d729cc3ac15f40948b7ed16b7ecd27f538006e6c8a84f26f5879daa15e09c6b87b470476d5c5f4177cd4c4221cfe32ed0bda9e074425dbc8d1e4402687b",
+      "sig1_private_key": "fc7f50f4280c36b0294f9729a07153e54358002b0b5053f71bfb83ff838d42493eee21d6025a1037a0795308c76f33b6022418992e3d647fd1e90ba95afc270c",
+      "user_key": "85ba59f205362dfd1270fe69c7c2c957efee51a222e521a7cf23b485a9bef3b5"
+    },
+    {
+      "aad": "6b656d6c6f636b2f76312f707269766174652d6b657973256927ca926da56d7da8cc889619dc5100000002",
+      "account_id": "256927ca926da56d7da8cc889619dc51",
+      "child_key": "01000d2f154768e63121afc53c65d0a95049d1879bc3ad7d3f7547d03f4fa6ed",
+      "child_label": "kemlock/v1/private-keys",
+      "key_version": 2,
+      "kx1_private_key": "ba9f03360fe4eb7a78dc32e73fd39bb5dcc2347b73f5b9713a5fbca9608a1c527b2b62df1bc561109f1596bfe1c48cbfa0f88a28ad3b1244fb9c528f2d33c7571ee2c654e92734d7b3100cb987a60a203dea182156adae2a028bd622f47698ef",
+      "name": "key-version-2",
+      "plaintext": "01ba9f03360fe4eb7a78dc32e73fd39bb5dcc2347b73f5b9713a5fbca9608a1c527b2b62df1bc561109f1596bfe1c48cbfa0f88a28ad3b1244fb9c528f2d33c7571ee2c654e92734d7b3100cb987a60a203dea182156adae2a028bd622f47698efd6489ca2ababe13660d8cdfc7bdd9c01df7f719c33afeae90af8fda1ac6d986bf5a90130bdd2e6674cc448331ed9030ba2ac88b7f8e35535c81b5390687b6605",
+      "sealed": "8ea2bdaa5fc58c56c0b47a9096a3ca3e5cd297259f66428538ee8ab51a7375c30a4ea2d1dfd9919289b9aa636bea8dba23c6fc691ecbb17023a67a2910a24c4ccd1c887d6bda3c9f6fc69c8b1bbb502d4ad486a00aabe138cd1d27368ded2d6d3b2d6387d7c791382320c4a2b57ecb7bcc485cad524d1872bd5f4d0e519443e070f1998b47a7d673790f32db5c375a02fad2ec7cd7d5ef74d5efa6b8f0e929c3b99f98ed708ef0fe010a1709aad2c3088eb4291ffc0e980b3fdefc8eef",
+      "sig1_private_key": "d6489ca2ababe13660d8cdfc7bdd9c01df7f719c33afeae90af8fda1ac6d986bf5a90130bdd2e6674cc448331ed9030ba2ac88b7f8e35535c81b5390687b6605",
+      "user_key": "d1770f39abf27868d1b3c928c04f3910ef66c7278df2de8fd9f42947b91d9ffd"
+    }
+  ],
+  "description": "The account's sealed private keys (docs/crypto.md): child_key = HKDF-SHA256(ikm = user_key, salt = absent, info = child_label, L = 32); plaintext = u8(1) || kx1 private key (96) || sig1 private key (64); aad = \"kemlock/v1/private-keys\" || account_id || u32be(key_version); sealed = nonce(12) || AES-256-GCM(child_key, nonce, plaintext, aad) with the 16-byte tag at the end (189 bytes).",
+  "format": "private-keys",
+  "version": 1
+}

@@ -1,0 +1,474 @@
+sq 1.3.1
+== signing-subkey, encrypt
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+signing-subkey.encrypt.public.asc: OpenPGP Certificate.
+Fingerprint: E770227F48E661EAF271EAA7F92D39E6751913DD
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 59s)
+Key flags: certification
+Subkey: 13E0D5FE64BE764AE765F58CF6D1A549EE2E64F8
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 56s)
+Key flags: signing
+Subkey: FAFDE0729E6589DEE553CA227DDA6D04D3AE4186
+Expiration time: 2027-11-17 12:00:00 UTC (creation time + 1year 51m 57s)
+Key flags: transport encryption, data-at-rest encryption
+Subkey: DA6A82BA2059255648250A7E8744F46143F82A3A
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 54s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Signing <signing@example.org>
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== signing-subkey, expiry
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+signing-subkey.expiry.public.asc: OpenPGP Certificate.
+Fingerprint: E770227F48E661EAF271EAA7F92D39E6751913DD
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 29m 35s)
+Key flags: certification
+Subkey: 13E0D5FE64BE764AE765F58CF6D1A549EE2E64F8
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 29m 32s)
+Key flags: signing
+Subkey: DA6A82BA2059255648250A7E8744F46143F82A3A
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 29m 30s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Signing <signing@example.org>
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== signing-subkey, never
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+signing-subkey.never.public.asc: OpenPGP Certificate.
+Fingerprint: E770227F48E661EAF271EAA7F92D39E6751913DD
+Key flags: certification
+Subkey: 13E0D5FE64BE764AE765F58CF6D1A549EE2E64F8
+Key flags: signing
+Subkey: DA6A82BA2059255648250A7E8744F46143F82A3A
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Signing <signing@example.org>
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== signing-subkey, revoked
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+signing-subkey.revoked.public.asc: OpenPGP Certificate.
+Fingerprint: E770227F48E661EAF271EAA7F92D39E6751913DD
+Revoked:
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 59s)
+Key flags: certification
+Subkey: 13E0D5FE64BE764AE765F58CF6D1A549EE2E64F8
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 56s)
+Key flags: signing
+Subkey: DA6A82BA2059255648250A7E8744F46143F82A3A
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 54s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Signing <signing@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== signing-subkey, sign
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+signing-subkey.sign.public.asc: OpenPGP Certificate.
+Fingerprint: E770227F48E661EAF271EAA7F92D39E6751913DD
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 59s)
+Key flags: certification
+Subkey: E537D32083DA31BE2451FBE723BAD8E469DD566D
+Key flags: signing
+Subkey: 13E0D5FE64BE764AE765F58CF6D1A549EE2E64F8
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 56s)
+Key flags: signing
+Subkey: DA6A82BA2059255648250A7E8744F46143F82A3A
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 54s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Signing <signing@example.org>
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== signing-subkey, subkey-expiry
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+signing-subkey.subkey-expiry.public.asc: OpenPGP Certificate.
+Fingerprint: E770227F48E661EAF271EAA7F92D39E6751913DD
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 59s)
+Key flags: certification
+Subkey: 13E0D5FE64BE764AE765F58CF6D1A549EE2E64F8
+Expiration time: 2027-11-17 12:00:00 UTC (creation time + 1year 1h 29m 32s)
+Key flags: signing
+Subkey: DA6A82BA2059255648250A7E8744F46143F82A3A
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 54s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Signing <signing@example.org>
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== signing-subkey, uid
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+signing-subkey.uid.public.asc: OpenPGP Certificate.
+Fingerprint: E770227F48E661EAF271EAA7F92D39E6751913DD
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 59s)
+Key flags: certification
+Subkey: 13E0D5FE64BE764AE765F58CF6D1A549EE2E64F8
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 56s)
+Key flags: signing
+Subkey: DA6A82BA2059255648250A7E8744F46143F82A3A
+Expiration time: 2030-01-01 17:00:00 UTC (creation time + 3years 1month 15days 7h 55m 54s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Added <added@example.org>
+UserID: Fixture Signing <signing@example.org>
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== signing-subkey, its revocation certificate over the original public key
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+   └ Fixture Signing <signing@example.org> (UNAUTHENTICATED)
+   - imported revocation certificate
+Imported 0 new certificates, updated 1 certificate, 0 certificates unchanged, 0 errors.
+Aborted (core dumped)
+Revoked:
+Message: Kept in a drawer
+== rsa3072-expiring, encrypt
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 58C801B0C0B434123849CEAF55BA84D9598A17CC
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 53s)
+Key flags: certification, signing
+Subkey: DDFD2EC1D843DD9BA1E60FAD59A8383294853481
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 50s)
+Key flags: transport encryption, data-at-rest encryption
+Subkey: 6DC7F154DD8C5EBC02C14F50830417FFDCD08707
+Expiration time: 2027-11-17 12:00:00 UTC (creation time + 1year 51m 57s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture RSA <rsa@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== rsa3072-expiring, expiry
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 58C801B0C0B434123849CEAF55BA84D9598A17CC
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 29m 29s)
+Key flags: certification, signing
+Subkey: DDFD2EC1D843DD9BA1E60FAD59A8383294853481
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 29m 26s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture RSA <rsa@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== rsa3072-expiring, never
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 58C801B0C0B434123849CEAF55BA84D9598A17CC
+Key flags: certification, signing
+Subkey: DDFD2EC1D843DD9BA1E60FAD59A8383294853481
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture RSA <rsa@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== rsa3072-expiring, revoked
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+rsa3072-expiring.revoked.public.asc: OpenPGP Certificate.
+Fingerprint: 58C801B0C0B434123849CEAF55BA84D9598A17CC
+Revoked:
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 53s)
+Key flags: certification, signing
+Subkey: DDFD2EC1D843DD9BA1E60FAD59A8383294853481
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 50s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture RSA <rsa@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== rsa3072-expiring, rsa-sign
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 58C801B0C0B434123849CEAF55BA84D9598A17CC
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 53s)
+Key flags: certification, signing
+Subkey: DDFD2EC1D843DD9BA1E60FAD59A8383294853481
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 50s)
+Key flags: transport encryption, data-at-rest encryption
+Subkey: 0C56FF34C20466B94119C8247C3540AC6F86F88F
+Key flags: signing
+UserID: Fixture RSA <rsa@example.org>
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== rsa3072-expiring, sign
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 58C801B0C0B434123849CEAF55BA84D9598A17CC
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 53s)
+Key flags: certification, signing
+Subkey: DDFD2EC1D843DD9BA1E60FAD59A8383294853481
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 50s)
+Key flags: transport encryption, data-at-rest encryption
+Subkey: 357D38707441F711F944A2B6181220294835A578
+Key flags: signing
+UserID: Fixture RSA <rsa@example.org>
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== rsa3072-expiring, subkey-expiry
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+rsa3072-expiring.subkey-expiry.public.asc: OpenPGP Certificate.
+Fingerprint: 58C801B0C0B434123849CEAF55BA84D9598A17CC
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 53s)
+Key flags: certification, signing
+Subkey: DDFD2EC1D843DD9BA1E60FAD59A8383294853481
+Expiration time: 2027-11-17 12:00:00 UTC (creation time + 1year 1h 29m 26s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture RSA <rsa@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== rsa3072-expiring, uid
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 58C801B0C0B434123849CEAF55BA84D9598A17CC
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 53s)
+Key flags: certification, signing
+Subkey: DDFD2EC1D843DD9BA1E60FAD59A8383294853481
+Expiration time: 2027-01-01 17:00:00 UTC (creation time + 1month 15days 1h 55m 50s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Added <added@example.org>
+UserID: Fixture RSA <rsa@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== rsa3072-expiring, its revocation certificate over the original public key
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+   └ Fixture RSA <rsa@example.org> (UNAUTHENTICATED)
+   - imported revocation certificate
+Imported 0 new certificates, updated 1 certificate, 0 certificates unchanged, 0 errors.
+Aborted (core dumped)
+Revoked:
+Message: Kept in a drawer
+== protected, encrypt
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: BE038405D09F2725E54A7829080FDBF879C952A8
+Key flags: certification, signing
+Subkey: 10A93D43FC1ADDA887CBE63F56B4A6AE2E23EFCD
+Expiration time: 2027-11-17 12:00:00 UTC (creation time + 1year 51m 57s)
+Key flags: transport encryption, data-at-rest encryption
+Subkey: 322DCFA229B912417CE68518FB9754D4B1AE8B13
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Protected <protected@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== protected, expiry
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: BE038405D09F2725E54A7829080FDBF879C952A8
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 29m 25s)
+Key flags: certification, signing
+Subkey: 322DCFA229B912417CE68518FB9754D4B1AE8B13
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 29m 23s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Protected <protected@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== protected, never
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: BE038405D09F2725E54A7829080FDBF879C952A8
+Key flags: certification, signing
+Subkey: 322DCFA229B912417CE68518FB9754D4B1AE8B13
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Protected <protected@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== protected, revoked
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+protected.revoked.public.asc: OpenPGP Certificate.
+Fingerprint: BE038405D09F2725E54A7829080FDBF879C952A8
+Revoked:
+Key flags: certification, signing
+Subkey: 322DCFA229B912417CE68518FB9754D4B1AE8B13
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Protected <protected@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== protected, sign
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: BE038405D09F2725E54A7829080FDBF879C952A8
+Key flags: certification, signing
+Subkey: 67FAD3FBA982D98782F0A6F0F5FBDE4972C20296
+Key flags: signing
+Subkey: 322DCFA229B912417CE68518FB9754D4B1AE8B13
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Protected <protected@example.org>
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== protected, subkey-expiry
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+protected.subkey-expiry.public.asc: OpenPGP Certificate.
+Fingerprint: BE038405D09F2725E54A7829080FDBF879C952A8
+Key flags: certification, signing
+Subkey: 322DCFA229B912417CE68518FB9754D4B1AE8B13
+Expiration time: 2027-11-17 12:00:00 UTC (creation time + 1year 1h 29m 23s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Protected <protected@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== protected, uid
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: BE038405D09F2725E54A7829080FDBF879C952A8
+Key flags: certification, signing
+Subkey: 322DCFA229B912417CE68518FB9754D4B1AE8B13
+Key flags: transport encryption, data-at-rest encryption
+UserID: Fixture Added <added@example.org>
+UserID: Fixture Protected <protected@example.org>
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== protected, its revocation certificate over the original public key
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+   └ Fixture Protected <protected@example.org> (UNAUTHENTICATED)
+   - imported revocation certificate
+Imported 0 new certificates, updated 1 certificate, 0 certificates unchanged, 0 errors.
+Revoked:
+Message: Kept in a drawer
+== direct-key, encrypt
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 499E7BB57AE197A655F02ACBBB39A337E9491EA8
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: certification
+Subkey: 6965890E0136316E5CF3AAE7CB70DEBEAB0C815F
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: signing
+Subkey: 13721AD37272696C80D8483C05BEA29B893D3E4B
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: authentication
+Subkey: FD399C210173713E80B25A02D6B81346FE814740
+Expiration time: 2027-11-17 12:00:00 UTC (creation time + 1year 51m 57s)
+Key flags: transport encryption, data-at-rest encryption
+Subkey: F09C2088360EA5C2CCBC1306E2C3BEBB31A672C5
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: <direct@example.org>
+UserID: Fixture Direct
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== direct-key, expiry
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 499E7BB57AE197A655F02ACBBB39A337E9491EA8
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 27m 39s)
+Key flags: certification
+Subkey: 6965890E0136316E5CF3AAE7CB70DEBEAB0C815F
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 27m 39s)
+Key flags: signing
+Subkey: 13721AD37272696C80D8483C05BEA29B893D3E4B
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 27m 39s)
+Key flags: authentication
+Subkey: F09C2088360EA5C2CCBC1306E2C3BEBB31A672C5
+Expiration time: 2028-11-17 12:00:00 UTC (creation time + 2years 19h 27m 39s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: <direct@example.org>
+UserID: Fixture Direct
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== direct-key, never
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 499E7BB57AE197A655F02ACBBB39A337E9491EA8
+Key flags: certification
+Subkey: 6965890E0136316E5CF3AAE7CB70DEBEAB0C815F
+Key flags: signing
+Subkey: 13721AD37272696C80D8483C05BEA29B893D3E4B
+Key flags: authentication
+Subkey: F09C2088360EA5C2CCBC1306E2C3BEBB31A672C5
+Key flags: transport encryption, data-at-rest encryption
+UserID: <direct@example.org>
+UserID: Fixture Direct
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== direct-key, revoked
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+direct-key.revoked.public.asc: OpenPGP Certificate.
+Fingerprint: 499E7BB57AE197A655F02ACBBB39A337E9491EA8
+Revoked:
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: certification
+Subkey: 6965890E0136316E5CF3AAE7CB70DEBEAB0C815F
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: signing
+Subkey: 13721AD37272696C80D8483C05BEA29B893D3E4B
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: authentication
+Subkey: F09C2088360EA5C2CCBC1306E2C3BEBB31A672C5
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: <direct@example.org>
+UserID: Fixture Direct
+0 of the non-revoked linted certificates have at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== direct-key, sign
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 499E7BB57AE197A655F02ACBBB39A337E9491EA8
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: certification
+Subkey: D5C80B9943398044D1F7858952B9A6A669BF551A
+Expiration time: 2030-01-01 00:35:41 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: signing
+Subkey: 6965890E0136316E5CF3AAE7CB70DEBEAB0C815F
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: signing
+Subkey: 13721AD37272696C80D8483C05BEA29B893D3E4B
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: authentication
+Subkey: F09C2088360EA5C2CCBC1306E2C3BEBB31A672C5
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: <direct@example.org>
+UserID: Fixture Direct
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== direct-key, subkey-expiry
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+direct-key.subkey-expiry.public.asc: OpenPGP Certificate.
+Fingerprint: 499E7BB57AE197A655F02ACBBB39A337E9491EA8
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: certification
+Subkey: 6965890E0136316E5CF3AAE7CB70DEBEAB0C815F
+Expiration time: 2027-11-17 12:00:00 UTC (creation time + 1year 1h 27m 39s)
+Key flags: signing
+Subkey: 13721AD37272696C80D8483C05BEA29B893D3E4B
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: authentication
+Subkey: F09C2088360EA5C2CCBC1306E2C3BEBB31A672C5
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: <direct@example.org>
+UserID: Fixture Direct
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== direct-key, uid
+   - imported
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+Fingerprint: 499E7BB57AE197A655F02ACBBB39A337E9491EA8
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: certification
+Subkey: 6965890E0136316E5CF3AAE7CB70DEBEAB0C815F
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: signing
+Subkey: 13721AD37272696C80D8483C05BEA29B893D3E4B
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: authentication
+Subkey: F09C2088360EA5C2CCBC1306E2C3BEBB31A672C5
+Expiration time: 2029-12-31 23:59:59 UTC (creation time + 3years 1month 14days 14h 54m 2s)
+Key flags: transport encryption, data-at-rest encryption
+UserID: <direct@example.org>
+UserID: Fixture Added <added@example.org>
+UserID: Fixture Direct
+1 of the non-revoked linted certificates has at least one non-revoked, live, signing-capable subkey:
+  0 certificates have at least one non-revoked, live, signing-capable subkey with a strong binding signature, but a backsig that uses SHA-1. (GOOD)
+== direct-key, its revocation certificate over the original public key
+Imported 1 new certificate, updated 0 certificates, 0 certificates unchanged, 0 errors.
+   └ Fixture Direct (UNAUTHENTICATED)
+   - imported revocation certificate
+Imported 0 new certificates, updated 1 certificate, 0 certificates unchanged, 0 errors.
+Aborted (core dumped)
+Revoked:
+Message: Kept in a drawer

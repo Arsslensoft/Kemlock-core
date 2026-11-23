@@ -1,0 +1,38 @@
+{
+ "source": "https://github.com/C2SP/wycheproof, testvectors_v1/aes_gcm_test.json (Apache-2.0), AES-256, 96-bit IV, 128-bit tag, with additional data; kept with its tcId and field names",
+ "tests": [
+  {
+   "tcId": 91,
+   "kind": "valid",
+   "comment": "",
+   "key": "92ace3e348cd821092cd921aa3546374299ab46209691bc28b8752d17f123c20",
+   "iv": "00112233445566778899aabb",
+   "aad": "00000000ffffffff",
+   "msg": "00010203040506070809",
+   "ct": "e27abdd2d2a53d2f136b",
+   "tag": "9a4a2579529301bcfb71c78d4060f52c"
+  },
+  {
+   "tcId": 100,
+   "kind": "valid",
+   "comment": "",
+   "key": "b279f57e19c8f53f2f963f5f2519fdb7c1779be2ca2b3ae8e1128b7d6c627fc4",
+   "iv": "98bc2c7438d5cd7665d76f6e",
+   "aad": "c0",
+   "msg": "fcc515b294408c8645c9183e3f4ecee5127846d1",
+   "ct": "eb5500e3825952866d911253f8de860c00831c81",
+   "tag": "ecb660e1fb0541ec41e8d68a64141b3a"
+  },
+  {
+   "tcId": 101,
+   "kind": "valid",
+   "comment": "",
+   "key": "cdccfe3f46d782ef47df4e72f0c02d9c7f774def970d23486f11a57f54247f17",
+   "iv": "376187894605a8d45e30de51",
+   "aad": "956846a209e087ed",
+   "msg": "e28e0e9f9d22463ac0e42639b530f42102fded75",
+   "ct": "feca44952447015b5df1f456df8ca4bb4eee2ce2",
+   "tag": "082e91924deeb77880e1b1c84f9b8d30"
+  }
+ ]
+}

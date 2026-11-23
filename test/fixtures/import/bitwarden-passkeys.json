@@ -1,0 +1,106 @@
+{
+  "encrypted": false,
+  "folders": [
+    { "id": "6b1c2f4e-0000-4000-8000-000000000001", "name": "Work" }
+  ],
+  "items": [
+    {
+      "passwordHistory": null,
+      "revisionDate": "2026-11-02T10:15:00.000Z",
+      "creationDate": "2026-03-04T08:00:00.000Z",
+      "deletedDate": null,
+      "id": "9f3a1d2e-0000-4000-8000-000000000101",
+      "organizationId": null,
+      "folderId": "6b1c2f4e-0000-4000-8000-000000000001",
+      "type": 1,
+      "reprompt": 0,
+      "name": "GitHub",
+      "notes": null,
+      "favorite": false,
+      "login": {
+        "fido2Credentials": [
+          {
+            "credentialId": "4f8d5c0e-9b2a-4c7e-8d1f-2a3b4c5d6e7f",
+            "keyType": "public-key",
+            "keyAlgorithm": "ECDSA",
+            "keyCurve": "P-256",
+            "keyValue": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgNc6FSUrJQrKQ_0EiE9JmsC4GFeHUF2jB_UB5ZStgsvChRANCAAQDgR8zNBagqmr48ZCUjodw7n5wlXUXSLlRGosIF8jPJYr2zKgS3UPz2tllpYfH1fo6rBijPiPSGqdv9DKyWP6k",
+            "rpId": "github.com",
+            "userHandle": "dXNlci1vY3RvY2F0LTEyMw",
+            "userName": "octocat@example.com",
+            "counter": "0",
+            "rpName": "GitHub",
+            "userDisplayName": "Octo Cat",
+            "discoverable": "true",
+            "creationDate": "2026-03-04T08:00:00.000Z"
+          }
+        ],
+        "uris": [{ "match": null, "uri": "https://github.com" }],
+        "username": "octocat@example.com",
+        "password": "correct-horse-battery",
+        "totp": "otpauth://totp/GitHub:octocat?secret=JBSWY3DPEHPK3PXP&issuer=GitHub"
+      },
+      "collectionIds": null
+    },
+    {
+      "passwordHistory": null,
+      "revisionDate": "2026-11-03T09:00:00.000Z",
+      "creationDate": "2026-05-06T12:30:00.000Z",
+      "deletedDate": null,
+      "id": "9f3a1d2e-0000-4000-8000-000000000102",
+      "organizationId": null,
+      "folderId": null,
+      "type": 1,
+      "reprompt": 0,
+      "name": "Example Bank",
+      "notes": null,
+      "favorite": true,
+      "login": {
+        "fido2Credentials": [
+          {
+            "credentialId": "b64.AQIDBAUGBwgJCgsMDQ4PEBESExQVFhcYGRobHB0eHyA",
+            "keyType": "public-key",
+            "keyAlgorithm": "ECDSA",
+            "keyCurve": "P-256",
+            "keyValue": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgM4Saiha7cSZOrOtUQwV2oJ6IKFy6Q3PaJkJ7Hx7UHrGhRANCAAQWhY9LTLLBZURwaAS1ao_ybTe7OjvmIcpj9-hQVmP5qgE2I7QaP1kCMPSTBfilQZZZ6ma5bZxS4KCTZOBGQybN",
+            "rpId": "bank.example",
+            "userHandle": "YWNjb3VudC00Mg",
+            "userName": "ada",
+            "counter": "7",
+            "rpName": null,
+            "userDisplayName": null,
+            "discoverable": "true",
+            "creationDate": "2026-05-06T12:30:00.000Z"
+          },
+          {
+            "credentialId": "8a7b6c5d-4e3f-4a1b-9c8d-7e6f5a4b3c2d",
+            "keyType": "public-key",
+            "keyAlgorithm": "EdDSA",
+            "keyCurve": "Ed25519",
+            "keyValue": "MC4CAQAwBQYDK2VwBCIEIA",
+            "rpId": "bank.example",
+            "userHandle": "YWNjb3VudC00Mg",
+            "userName": "ada",
+            "counter": "0",
+            "rpName": null,
+            "userDisplayName": null,
+            "discoverable": "true",
+            "creationDate": "2026-05-06T12:31:00.000Z"
+          }
+        ],
+        "uris": [{ "match": null, "uri": "https://bank.example/login" }],
+        "username": "ada",
+        "password": "hunter2",
+        "totp": null
+      },
+      "collectionIds": null
+    },
+    {
+      "id": "9f3a1d2e-0000-4000-8000-000000000103",
+      "type": 2,
+      "name": "A secure note",
+      "notes": "Not a login",
+      "secureNote": { "type": 0 }
+    }
+  ]
+}

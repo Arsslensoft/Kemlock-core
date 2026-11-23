@@ -1,0 +1,556 @@
+gpg (GnuPG) 2.4.9
+Running build hooks...Running build hooks...ed25519: 45AD FBCD 06F7 BBB4 6701 4E00 65AA 4122 76A7 40AD
+rsa4096: D940 DB77 9961 468C 9545 BCC3 8E8B DD50 2860 3354
+== ed25519
+gpg: key 65AA412276A740AD: "Ada Lovelace <ed25519@example.org>" not changed
+gpg: key 65AA412276A740AD: secret key imported
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+signatures: 2 good
+sec   ed25519 2026-11-17 [SC]
+      45ADFBCD06F7BBB467014E0065AA412276A740AD
+uid           [ unknown] Ada Lovelace <ed25519@example.org>
+ssb   cv25519 2026-11-17 [E]
+      A3E53FAF706B9EBD158CB1B5989DDC9412AF3768
+encrypt and decrypt: ok
+sign and verify: ok
+== rsa4096
+gpg: key 8E8BDD5028603354: "Ada Lovelace <rsa4096@example.org>" not changed
+gpg: key 8E8BDD5028603354: secret key imported
+gpg: Total number processed: 1
+gpg:              unchanged: 1
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+signatures: 2 good
+sec   rsa4096 2026-11-17 [SC]
+      D940DB779961468C9545BCC38E8BDD5028603354
+uid           [ unknown] Ada Lovelace <rsa4096@example.org>
+ssb   rsa4096 2026-11-17 [E]
+      D9AAF72B35FE84B987747DDBE8D0360ED073B5AE
+encrypt and decrypt: ok
+sign and verify: ok
+PASS: GnuPG imported, checked and used both keys
+Running build hooks...Running build hooks...signing-subkey: E770 227F 48E6 61EA F271 EAA7 F92D 39E6 7519 13DD
+rsa3072-expiring: 58C8 01B0 C0B4 3412 3849 CEAF 55BA 84D9 598A 17CC
+protected: BE03 8405 D09F 2725 E54A 7829 080F DBF8 79C9 52A8
+direct-key: 499E 7BB5 7AE1 97A6 55F0 2ACB BB39 A337 E949 1EA8
+== signing-subkey, encrypt
+signatures: 4 good
+pub   ed25519 2026-11-17 [C] [expires: 2030-01-01]
+      E770227F48E661EAF271EAA7F92D39E6751913DD
+uid           [ unknown] Fixture Signing <signing@example.org>
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2030-01-01]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2030-01-01]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2027-11-17]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+pub:-:255:22:F92D39E6751913DD:1794889825:1893517200::-:::cESC:::::ed25519:::0:
+uid:-::::1794889825::F81DD448564C1B8D2A886AAF5464FEB7226ACAB5::Fixture Signing <signing@example.org>::::::::::0:
+sub:-:255:22:F6D1A549EE2E64F8:1794889828:1893517200:::::s:::::ed25519::
+sub:-:255:18:8744F46143F82A3A:1794889830:1893517200:::::e:::::cv25519::
+sub:-:255:18:ED7E1C53B7BC7774:1794891915:1826452800:::::e:::::cv25519::
+== signing-subkey, expiry
+signatures: 4 good
+pub   ed25519 2026-11-17 [C] [expires: 2028-11-17]
+      E770227F48E661EAF271EAA7F92D39E6751913DD
+uid           [ unknown] Fixture Signing <signing@example.org>
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2028-11-17]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2028-11-17]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+pub:-:255:22:F92D39E6751913DD:1794889825:1858075200::-:::cESC:::::ed25519:::0:
+uid:-::::1794891915::F81DD448564C1B8D2A886AAF5464FEB7226ACAB5::Fixture Signing <signing@example.org>::::::::::0:
+sub:-:255:22:F6D1A549EE2E64F8:1794889828:1858075200:::::s:::::ed25519::
+sub:-:255:18:8744F46143F82A3A:1794889830:1858075200:::::e:::::cv25519::
+== signing-subkey, never
+signatures: 4 good
+pub   ed25519 2026-11-17 [C]
+      E770227F48E661EAF271EAA7F92D39E6751913DD
+uid           [ unknown] Fixture Signing <signing@example.org>
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+pub:-:255:22:F92D39E6751913DD:1794889825:::-:::cESC:::::ed25519:::0:
+uid:-::::1794891915::F81DD448564C1B8D2A886AAF5464FEB7226ACAB5::Fixture Signing <signing@example.org>::::::::::0:
+sub:-:255:22:F6D1A549EE2E64F8:1794889828::::::s:::::ed25519::
+sub:-:255:18:8744F46143F82A3A:1794889830::::::e:::::cv25519::
+== signing-subkey, revoked
+signatures: 4 good
+pub   ed25519 2026-11-17 [C] [revoked: 2026-11-17]
+      E770227F48E661EAF271EAA7F92D39E6751913DD
+rev!         F92D39E6751913DD 2026-11-17  [self-signature]
+      reason for revocation: Key has been compromised
+         revocation comment: Left on a train
+uid           [ revoked] Fixture Signing <signing@example.org>
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+pub:r:255:22:F92D39E6751913DD:1794889825:1893517200::-:::c:::::ed25519:::0:
+uid:r::::1794889825::F81DD448564C1B8D2A886AAF5464FEB7226ACAB5::Fixture Signing <signing@example.org>::::::::::0:
+sub:r:255:22:F6D1A549EE2E64F8:1794889828:1893517200:::::s:::::ed25519::
+sub:r:255:18:8744F46143F82A3A:1794889830:1893517200:::::e:::::cv25519::
+== signing-subkey, sign
+signatures: 4 good
+pub   ed25519 2026-11-17 [C] [expires: 2030-01-01]
+      E770227F48E661EAF271EAA7F92D39E6751913DD
+uid           [ unknown] Fixture Signing <signing@example.org>
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2030-01-01]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2030-01-01]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+pub:-:255:22:F92D39E6751913DD:1794889825:1893517200::-:::cESC:::::ed25519:::0:
+uid:-::::1794889825::F81DD448564C1B8D2A886AAF5464FEB7226ACAB5::Fixture Signing <signing@example.org>::::::::::0:
+sub:-:255:22:F6D1A549EE2E64F8:1794889828:1893517200:::::s:::::ed25519::
+sub:-:255:18:8744F46143F82A3A:1794889830:1893517200:::::e:::::cv25519::
+sub:-:255:22:9902312F5ED1167A:1794891915::::::s:::::ed25519::
+== signing-subkey, subkey-expiry
+signatures: 3 good
+pub   ed25519 2026-11-17 [C] [expires: 2030-01-01]
+      E770227F48E661EAF271EAA7F92D39E6751913DD
+uid           [ unknown] Fixture Signing <signing@example.org>
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2027-11-17]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2030-01-01]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+pub:-:255:22:F92D39E6751913DD:1794889825:1893517200::-:::cESC:::::ed25519:::0:
+uid:-::::1794889825::F81DD448564C1B8D2A886AAF5464FEB7226ACAB5::Fixture Signing <signing@example.org>::::::::::0:
+sub:-:255:22:F6D1A549EE2E64F8:1794889828:1826452800:::::s:::::ed25519::
+sub:-:255:18:8744F46143F82A3A:1794889830:1893517200:::::e:::::cv25519::
+== signing-subkey, uid
+signatures: 4 good
+pub   ed25519 2026-11-17 [C] [expires: 2030-01-01]
+      E770227F48E661EAF271EAA7F92D39E6751913DD
+uid           [ unknown] Fixture Added <added@example.org>
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+uid           [ unknown] Fixture Signing <signing@example.org>
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2030-01-01]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2030-01-01]
+sig!         F92D39E6751913DD 2026-11-17  [self-signature]
+pub:-:255:22:F92D39E6751913DD:1794889825:1893517200::-:::cESC:::::ed25519:::0:
+uid:-::::1794891915::8DCECCF622BC0B1584E70E7A65D5FD033608EFA0::Fixture Added <added@example.org>::::::::::0:
+uid:-::::1794889825::F81DD448564C1B8D2A886AAF5464FEB7226ACAB5::Fixture Signing <signing@example.org>::::::::::0:
+sub:-:255:22:F6D1A549EE2E64F8:1794889828:1893517200:::::s:::::ed25519::
+sub:-:255:18:8744F46143F82A3A:1794889830:1893517200:::::e:::::cv25519::
+== signing-subkey, its revocation certificate over the original public key
+signatures: 4 good
+pub   ed25519 2026-11-17 [C] [revoked: 2026-11-17]
+      E770227F48E661EAF271EAA7F92D39E6751913DD
+rev!         F92D39E6751913DD 2026-11-17  [self-signature]
+      reason for revocation: Key is no longer used
+         revocation comment: Kept in a drawer
+uid           [ revoked] Fixture Signing <signing@example.org>
+sig!3        F92D39E6751913DD 2026-11-17  [self-signature]
+pub:r:255:22:F92D39E6751913DD:1794889825:1893517200::-:::c:::::ed25519:::0:
+uid:r::::1794889825::F81DD448564C1B8D2A886AAF5464FEB7226ACAB5::Fixture Signing <signing@example.org>::::::::::0:
+sub:r:255:22:F6D1A549EE2E64F8:1794889828:1893517200:::::s:::::ed25519::
+sub:r:255:18:8744F46143F82A3A:1794889830:1893517200:::::e:::::cv25519::
+== rsa3072-expiring, encrypt
+signatures: 3 good
+pub   rsa3072 2026-11-17 [SC] [expires: 2027-01-01]
+      58C801B0C0B434123849CEAF55BA84D9598A17CC
+uid           [ unknown] Fixture RSA <rsa@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   rsa3072 2026-11-17 [E] [expires: 2027-01-01]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2027-11-17]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+pub:-:3072:1:55BA84D9598A17CC:1794889831:1798822800::-:::scESC::::::23::0:
+uid:-::::1794889831::B395C36F4C3A949AC8BE7950B27A0DC29754761F::Fixture RSA <rsa@example.org>::::::::::0:
+sub:-:3072:1:59A8383294853481:1794889834:1798822800:::::e::::::23:
+sub:-:255:18:C74AF3447E1A01B1:1794891915:1826452800:::::e:::::cv25519::
+== rsa3072-expiring, expiry
+signatures: 3 good
+pub   rsa3072 2026-11-17 [SC] [expires: 2028-11-17]
+      58C801B0C0B434123849CEAF55BA84D9598A17CC
+uid           [ unknown] Fixture RSA <rsa@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   rsa3072 2026-11-17 [E] [expires: 2028-11-17]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+pub:-:3072:1:55BA84D9598A17CC:1794889831:1858075200::-:::scESC::::::23::0:
+uid:-::::1794891915::B395C36F4C3A949AC8BE7950B27A0DC29754761F::Fixture RSA <rsa@example.org>::::::::::0:
+sub:-:3072:1:59A8383294853481:1794889834:1858075200:::::e::::::23:
+== rsa3072-expiring, never
+signatures: 3 good
+pub   rsa3072 2026-11-17 [SC]
+      58C801B0C0B434123849CEAF55BA84D9598A17CC
+uid           [ unknown] Fixture RSA <rsa@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   rsa3072 2026-11-17 [E]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+pub:-:3072:1:55BA84D9598A17CC:1794889831:::-:::scESC::::::23::0:
+uid:-::::1794891915::B395C36F4C3A949AC8BE7950B27A0DC29754761F::Fixture RSA <rsa@example.org>::::::::::0:
+sub:-:3072:1:59A8383294853481:1794889834::::::e::::::23:
+== rsa3072-expiring, revoked
+signatures: 3 good
+pub   rsa3072 2026-11-17 [SC] [revoked: 2026-11-17]
+      58C801B0C0B434123849CEAF55BA84D9598A17CC
+rev!         55BA84D9598A17CC 2026-11-17  [self-signature]
+      reason for revocation: Key has been compromised
+         revocation comment: Left on a train
+uid           [ revoked] Fixture RSA <rsa@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+pub:r:3072:1:55BA84D9598A17CC:1794889831:1798822800::-:::sc::::::23::0:
+uid:r::::1794889831::B395C36F4C3A949AC8BE7950B27A0DC29754761F::Fixture RSA <rsa@example.org>::::::::::0:
+sub:r:3072:1:59A8383294853481:1794889834:1798822800:::::e::::::23:
+== rsa3072-expiring, rsa-sign
+signatures: 3 good
+pub   rsa3072 2026-11-17 [SC] [expires: 2027-01-01]
+      58C801B0C0B434123849CEAF55BA84D9598A17CC
+uid           [ unknown] Fixture RSA <rsa@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   rsa3072 2026-11-17 [E] [expires: 2027-01-01]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   rsa4096 2026-11-17 [S]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+pub:-:3072:1:55BA84D9598A17CC:1794889831:1798822800::-:::scESC::::::23::0:
+uid:-::::1794889831::B395C36F4C3A949AC8BE7950B27A0DC29754761F::Fixture RSA <rsa@example.org>::::::::::0:
+sub:-:3072:1:59A8383294853481:1794889834:1798822800:::::e::::::23:
+sub:-:4096:1:CC09774DA6FA72D4:1794891915::::::s::::::23:
+== rsa3072-expiring, sign
+signatures: 3 good
+pub   rsa3072 2026-11-17 [SC] [expires: 2027-01-01]
+      58C801B0C0B434123849CEAF55BA84D9598A17CC
+uid           [ unknown] Fixture RSA <rsa@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   rsa3072 2026-11-17 [E] [expires: 2027-01-01]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+pub:-:3072:1:55BA84D9598A17CC:1794889831:1798822800::-:::scESC::::::23::0:
+uid:-::::1794889831::B395C36F4C3A949AC8BE7950B27A0DC29754761F::Fixture RSA <rsa@example.org>::::::::::0:
+sub:-:3072:1:59A8383294853481:1794889834:1798822800:::::e::::::23:
+sub:-:255:22:7DD0D9B40D6CC7D9:1794891915::::::s:::::ed25519::
+== rsa3072-expiring, subkey-expiry
+signatures: 2 good
+pub   rsa3072 2026-11-17 [SC] [expires: 2027-01-01]
+      58C801B0C0B434123849CEAF55BA84D9598A17CC
+uid           [ unknown] Fixture RSA <rsa@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   rsa3072 2026-11-17 [E] [expires: 2027-11-17]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+pub:-:3072:1:55BA84D9598A17CC:1794889831:1798822800::-:::scESC::::::23::0:
+uid:-::::1794889831::B395C36F4C3A949AC8BE7950B27A0DC29754761F::Fixture RSA <rsa@example.org>::::::::::0:
+sub:-:3072:1:59A8383294853481:1794889834:1826452800:::::e::::::23:
+== rsa3072-expiring, uid
+signatures: 3 good
+pub   rsa3072 2026-11-17 [SC] [expires: 2027-01-01]
+      58C801B0C0B434123849CEAF55BA84D9598A17CC
+uid           [ unknown] Fixture Added <added@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+uid           [ unknown] Fixture RSA <rsa@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+sub   rsa3072 2026-11-17 [E] [expires: 2027-01-01]
+sig!         55BA84D9598A17CC 2026-11-17  [self-signature]
+pub:-:3072:1:55BA84D9598A17CC:1794889831:1798822800::-:::scESC::::::23::0:
+uid:-::::1794891915::8DCECCF622BC0B1584E70E7A65D5FD033608EFA0::Fixture Added <added@example.org>::::::::::0:
+uid:-::::1794889831::B395C36F4C3A949AC8BE7950B27A0DC29754761F::Fixture RSA <rsa@example.org>::::::::::0:
+sub:-:3072:1:59A8383294853481:1794889834:1798822800:::::e::::::23:
+== rsa3072-expiring, its revocation certificate over the original public key
+signatures: 3 good
+pub   rsa3072 2026-11-17 [SC] [revoked: 2026-11-17]
+      58C801B0C0B434123849CEAF55BA84D9598A17CC
+rev!         55BA84D9598A17CC 2026-11-17  [self-signature]
+      reason for revocation: Key is no longer used
+         revocation comment: Kept in a drawer
+uid           [ revoked] Fixture RSA <rsa@example.org>
+sig!3        55BA84D9598A17CC 2026-11-17  [self-signature]
+pub:r:3072:1:55BA84D9598A17CC:1794889831:1798822800::-:::sc::::::23::0:
+uid:r::::1794889831::B395C36F4C3A949AC8BE7950B27A0DC29754761F::Fixture RSA <rsa@example.org>::::::::::0:
+sub:r:3072:1:59A8383294853481:1794889834:1798822800:::::e::::::23:
+== protected, encrypt
+signatures: 3 good
+pub   ed25519 2026-11-17 [SC]
+      BE038405D09F2725E54A7829080FDBF879C952A8
+uid           [ unknown] Fixture Protected <protected@example.org>
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E]
+sig!         080FDBF879C952A8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2027-11-17]
+sig!         080FDBF879C952A8 2026-11-17  [self-signature]
+pub:-:255:22:080FDBF879C952A8:1794889835:::-:::scESC:::::ed25519:::0:
+uid:-::::1794889835::E1EAD4FF029B0E7FF812EC1A50ACCE0F1983C1DB::Fixture Protected <protected@example.org>::::::::::0:
+sub:-:255:18:FB9754D4B1AE8B13:1794889837::::::e:::::cv25519::
+sub:-:255:18:798B105162629432:1794891915:1826452800:::::e:::::cv25519::
+== protected, expiry
+signatures: 3 good
+pub   ed25519 2026-11-17 [SC] [expires: 2028-11-17]
+      BE038405D09F2725E54A7829080FDBF879C952A8
+uid           [ unknown] Fixture Protected <protected@example.org>
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2028-11-17]
+sig!         080FDBF879C952A8 2026-11-17  [self-signature]
+pub:-:255:22:080FDBF879C952A8:1794889835:1858075200::-:::scESC:::::ed25519:::0:
+uid:-::::1794891915::E1EAD4FF029B0E7FF812EC1A50ACCE0F1983C1DB::Fixture Protected <protected@example.org>::::::::::0:
+sub:-:255:18:FB9754D4B1AE8B13:1794889837:1858075200:::::e:::::cv25519::
+== protected, never
+signatures: 3 good
+pub   ed25519 2026-11-17 [SC]
+      BE038405D09F2725E54A7829080FDBF879C952A8
+uid           [ unknown] Fixture Protected <protected@example.org>
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E]
+sig!         080FDBF879C952A8 2026-11-17  [self-signature]
+pub:-:255:22:080FDBF879C952A8:1794889835:::-:::scESC:::::ed25519:::0:
+uid:-::::1794891915::E1EAD4FF029B0E7FF812EC1A50ACCE0F1983C1DB::Fixture Protected <protected@example.org>::::::::::0:
+sub:-:255:18:FB9754D4B1AE8B13:1794889837::::::e:::::cv25519::
+== protected, revoked
+signatures: 3 good
+pub   ed25519 2026-11-17 [SC] [revoked: 2026-11-17]
+      BE038405D09F2725E54A7829080FDBF879C952A8
+rev!         080FDBF879C952A8 2026-11-17  [self-signature]
+      reason for revocation: Key has been compromised
+         revocation comment: Left on a train
+uid           [ revoked] Fixture Protected <protected@example.org>
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+pub:r:255:22:080FDBF879C952A8:1794889835:::-:::sc:::::ed25519:::0:
+uid:r::::1794889835::E1EAD4FF029B0E7FF812EC1A50ACCE0F1983C1DB::Fixture Protected <protected@example.org>::::::::::0:
+sub:r:255:18:FB9754D4B1AE8B13:1794889837::::::e:::::cv25519::
+== protected, sign
+signatures: 3 good
+pub   ed25519 2026-11-17 [SC]
+      BE038405D09F2725E54A7829080FDBF879C952A8
+uid           [ unknown] Fixture Protected <protected@example.org>
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E]
+sig!         080FDBF879C952A8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S]
+sig!         080FDBF879C952A8 2026-11-17  [self-signature]
+pub:-:255:22:080FDBF879C952A8:1794889835:::-:::scESC:::::ed25519:::0:
+uid:-::::1794889835::E1EAD4FF029B0E7FF812EC1A50ACCE0F1983C1DB::Fixture Protected <protected@example.org>::::::::::0:
+sub:-:255:18:FB9754D4B1AE8B13:1794889837::::::e:::::cv25519::
+sub:-:255:22:C84D8EAD7DFDA4FB:1794891915::::::s:::::ed25519::
+== protected, subkey-expiry
+signatures: 2 good
+pub   ed25519 2026-11-17 [SC]
+      BE038405D09F2725E54A7829080FDBF879C952A8
+uid           [ unknown] Fixture Protected <protected@example.org>
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2027-11-17]
+sig!         080FDBF879C952A8 2026-11-17  [self-signature]
+pub:-:255:22:080FDBF879C952A8:1794889835:::-:::scESC:::::ed25519:::0:
+uid:-::::1794889835::E1EAD4FF029B0E7FF812EC1A50ACCE0F1983C1DB::Fixture Protected <protected@example.org>::::::::::0:
+sub:-:255:18:FB9754D4B1AE8B13:1794889837:1826452800:::::e:::::cv25519::
+== protected, uid
+signatures: 3 good
+pub   ed25519 2026-11-17 [SC]
+      BE038405D09F2725E54A7829080FDBF879C952A8
+uid           [ unknown] Fixture Added <added@example.org>
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+uid           [ unknown] Fixture Protected <protected@example.org>
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E]
+sig!         080FDBF879C952A8 2026-11-17  [self-signature]
+pub:-:255:22:080FDBF879C952A8:1794889835:::-:::scESC:::::ed25519:::0:
+uid:-::::1794891915::8DCECCF622BC0B1584E70E7A65D5FD033608EFA0::Fixture Added <added@example.org>::::::::::0:
+uid:-::::1794889835::E1EAD4FF029B0E7FF812EC1A50ACCE0F1983C1DB::Fixture Protected <protected@example.org>::::::::::0:
+sub:-:255:18:FB9754D4B1AE8B13:1794889837::::::e:::::cv25519::
+== protected, its revocation certificate over the original public key
+signatures: 3 good
+pub   ed25519 2026-11-17 [SC] [revoked: 2026-11-17]
+      BE038405D09F2725E54A7829080FDBF879C952A8
+rev!         080FDBF879C952A8 2026-11-17  [self-signature]
+      reason for revocation: Key is no longer used
+         revocation comment: Kept in a drawer
+uid           [ revoked] Fixture Protected <protected@example.org>
+sig!3        080FDBF879C952A8 2026-11-17  [self-signature]
+pub:r:255:22:080FDBF879C952A8:1794889835:::-:::sc:::::ed25519:::0:
+uid:r::::1794889835::E1EAD4FF029B0E7FF812EC1A50ACCE0F1983C1DB::Fixture Protected <protected@example.org>::::::::::0:
+sub:r:255:18:FB9754D4B1AE8B13:1794889837::::::e:::::cv25519::
+== direct-key, encrypt
+signatures: 7 good
+pub   ed25519 2026-11-17 [C] [expires: 2029-12-31]
+      499E7BB57AE197A655F02ACBBB39A337E9491EA8
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] Fixture Direct
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] <direct@example.org>
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [A] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2027-11-17]
+sig!         BB39A337E9491EA8 2026-11-17  [self-signature]
+pub:-:255:22:BB39A337E9491EA8:1794889941:1893455999::-:::cESCA:::::ed25519:::0:
+uid:-::::1794889941::10943974C87D53FEBAF8F974F6F4DD8C18D2249C::Fixture Direct::::::::::0:
+uid:-::::1794889941::6C755258E4D73C293C33019877628AAFCEDC1D68::<direct@example.org>::::::::::0:
+sub:-:255:22:CB70DEBEAB0C815F:1794889941:1893455999:::::s:::::ed25519::
+sub:-:255:22:05BEA29B893D3E4B:1794889941:1893455999:::::a:::::ed25519::
+sub:-:255:18:E2C3BEBB31A672C5:1794889941:1893455999:::::e:::::cv25519::
+sub:-:255:18:85B9396BBF21C3AF:1794891915:1826452800:::::e:::::cv25519::
+== direct-key, expiry
+signatures: 9 good
+pub   ed25519 2026-11-17 [C] [expires: 2028-11-17]
+      499E7BB57AE197A655F02ACBBB39A337E9491EA8
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] Fixture Direct
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] <direct@example.org>
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2028-11-17]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [A] [expires: 2028-11-17]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2028-11-17]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+pub:-:255:22:BB39A337E9491EA8:1794889941:1858075200::-:::cESCA:::::ed25519:::0:
+uid:-::::1794891915::10943974C87D53FEBAF8F974F6F4DD8C18D2249C::Fixture Direct::::::::::0:
+uid:-::::1794891915::6C755258E4D73C293C33019877628AAFCEDC1D68::<direct@example.org>::::::::::0:
+sub:-:255:22:CB70DEBEAB0C815F:1794889941:1858075200:::::s:::::ed25519::
+sub:-:255:22:05BEA29B893D3E4B:1794889941:1858075200:::::a:::::ed25519::
+sub:-:255:18:E2C3BEBB31A672C5:1794889941:1858075200:::::e:::::cv25519::
+== direct-key, never
+signatures: 9 good
+pub   ed25519 2026-11-17 [C]
+      499E7BB57AE197A655F02ACBBB39A337E9491EA8
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] Fixture Direct
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] <direct@example.org>
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [A]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+pub:-:255:22:BB39A337E9491EA8:1794889941:::-:::cESCA:::::ed25519:::0:
+uid:-::::1794891915::10943974C87D53FEBAF8F974F6F4DD8C18D2249C::Fixture Direct::::::::::0:
+uid:-::::1794891915::6C755258E4D73C293C33019877628AAFCEDC1D68::<direct@example.org>::::::::::0:
+sub:-:255:22:CB70DEBEAB0C815F:1794889941::::::s:::::ed25519::
+sub:-:255:22:05BEA29B893D3E4B:1794889941::::::a:::::ed25519::
+sub:-:255:18:E2C3BEBB31A672C5:1794889941::::::e:::::cv25519::
+== direct-key, revoked
+signatures: 7 good
+pub   ed25519 2026-11-17 [C] [revoked: 2026-11-17]
+      499E7BB57AE197A655F02ACBBB39A337E9491EA8
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+rev!         BB39A337E9491EA8 2026-11-17  [self-signature]
+      reason for revocation: Key has been compromised
+         revocation comment: Left on a train
+uid           [ revoked] Fixture Direct
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ revoked] <direct@example.org>
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+pub:r:255:22:BB39A337E9491EA8:1794889941:1893455999::-:::c:::::ed25519:::0:
+uid:r::::1794889941::10943974C87D53FEBAF8F974F6F4DD8C18D2249C::Fixture Direct::::::::::0:
+uid:r::::1794889941::6C755258E4D73C293C33019877628AAFCEDC1D68::<direct@example.org>::::::::::0:
+sub:r:255:22:CB70DEBEAB0C815F:1794889941:1893455999:::::s:::::ed25519::
+sub:r:255:22:05BEA29B893D3E4B:1794889941:1893455999:::::a:::::ed25519::
+sub:r:255:18:E2C3BEBB31A672C5:1794889941:1893455999:::::e:::::cv25519::
+== direct-key, sign
+signatures: 7 good
+pub   ed25519 2026-11-17 [C] [expires: 2029-12-31]
+      499E7BB57AE197A655F02ACBBB39A337E9491EA8
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] Fixture Direct
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] <direct@example.org>
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [A] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S]
+sig!         BB39A337E9491EA8 2026-11-17  [self-signature]
+pub:-:255:22:BB39A337E9491EA8:1794889941:1893455999::-:::cESCA:::::ed25519:::0:
+uid:-::::1794889941::10943974C87D53FEBAF8F974F6F4DD8C18D2249C::Fixture Direct::::::::::0:
+uid:-::::1794889941::6C755258E4D73C293C33019877628AAFCEDC1D68::<direct@example.org>::::::::::0:
+sub:-:255:22:CB70DEBEAB0C815F:1794889941:1893455999:::::s:::::ed25519::
+sub:-:255:22:05BEA29B893D3E4B:1794889941:1893455999:::::a:::::ed25519::
+sub:-:255:18:E2C3BEBB31A672C5:1794889941:1893455999:::::e:::::cv25519::
+sub:-:255:22:4D35A85125CA623B:1794891915::::::s:::::ed25519::
+== direct-key, subkey-expiry
+signatures: 6 good
+pub   ed25519 2026-11-17 [C] [expires: 2029-12-31]
+      499E7BB57AE197A655F02ACBBB39A337E9491EA8
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] Fixture Direct
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] <direct@example.org>
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2027-11-17]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [A] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+pub:-:255:22:BB39A337E9491EA8:1794889941:1893455999::-:::cESCA:::::ed25519:::0:
+uid:-::::1794889941::10943974C87D53FEBAF8F974F6F4DD8C18D2249C::Fixture Direct::::::::::0:
+uid:-::::1794889941::6C755258E4D73C293C33019877628AAFCEDC1D68::<direct@example.org>::::::::::0:
+sub:-:255:22:CB70DEBEAB0C815F:1794889941:1826452800:::::s:::::ed25519::
+sub:-:255:22:05BEA29B893D3E4B:1794889941:1893455999:::::a:::::ed25519::
+sub:-:255:18:E2C3BEBB31A672C5:1794889941:1893455999:::::e:::::cv25519::
+== direct-key, uid
+signatures: 7 good
+pub   ed25519 2026-11-17 [C] [expires: 2029-12-31]
+      499E7BB57AE197A655F02ACBBB39A337E9491EA8
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] Fixture Added <added@example.org>
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] <direct@example.org>
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ unknown] Fixture Direct
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [S] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   ed25519 2026-11-17 [A] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+sub   cv25519 2026-11-17 [E] [expires: 2029-12-31]
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+pub:-:255:22:BB39A337E9491EA8:1794889941:1893455999::-:::cESCA:::::ed25519:::0:
+uid:-::::1794891915::8DCECCF622BC0B1584E70E7A65D5FD033608EFA0::Fixture Added <added@example.org>::::::::::0:
+uid:-::::1794889941::6C755258E4D73C293C33019877628AAFCEDC1D68::<direct@example.org>::::::::::0:
+uid:-::::1794889941::10943974C87D53FEBAF8F974F6F4DD8C18D2249C::Fixture Direct::::::::::0:
+sub:-:255:22:CB70DEBEAB0C815F:1794889941:1893455999:::::s:::::ed25519::
+sub:-:255:22:05BEA29B893D3E4B:1794889941:1893455999:::::a:::::ed25519::
+sub:-:255:18:E2C3BEBB31A672C5:1794889941:1893455999:::::e:::::cv25519::
+== direct-key, its revocation certificate over the original public key
+signatures: 7 good
+pub   ed25519 2026-11-17 [C] [revoked: 2026-11-17]
+      499E7BB57AE197A655F02ACBBB39A337E9491EA8
+sig!     N   BB39A337E9491EA8 2026-11-17  [self-signature]
+rev!         BB39A337E9491EA8 2026-11-17  [self-signature]
+      reason for revocation: Key is no longer used
+         revocation comment: Kept in a drawer
+uid           [ revoked] Fixture Direct
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+uid           [ revoked] <direct@example.org>
+sig!3    N   BB39A337E9491EA8 2026-11-17  [self-signature]
+pub:r:255:22:BB39A337E9491EA8:1794889941:1893455999::-:::c:::::ed25519:::0:
+uid:r::::1794889941::10943974C87D53FEBAF8F974F6F4DD8C18D2249C::Fixture Direct::::::::::0:
+uid:r::::1794889941::6C755258E4D73C293C33019877628AAFCEDC1D68::<direct@example.org>::::::::::0:
+sub:r:255:22:CB70DEBEAB0C815F:1794889941:1893455999:::::s:::::ed25519::
+sub:r:255:22:05BEA29B893D3E4B:1794889941:1893455999:::::a:::::ed25519::
+sub:r:255:18:E2C3BEBB31A672C5:1794889941:1893455999:::::e:::::cv25519::
+== protected: the new subkeys open with the key's passphrase
+decrypted with the new subkey D7611ED8A8C02DA306A6D365798B105162629432
+signed by the new subkey AC24673236C640C653A951D9C84D8EAD7DFDA4FB
+PASS: GnuPG took every change and every certificate

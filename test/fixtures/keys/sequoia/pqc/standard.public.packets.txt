@@ -1,0 +1,94 @@
+Public-Key Packet, new CTB, 1994 bytes
+    Version: 6
+    Creation time: 2026-11-17 07:06:35 UTC
+    Pk algo: ML-DSA-65+Ed25519
+    Fingerprint: CDB400EA83727C3BA3F4675018A8075B5A075B9F8C9D7AAAB9CA48BD4CCC609C
+    KeyID: CDB400EA83727C3B
+  
+Signature Packet, new CTB, 3475 bytes
+    Version: 6
+    Type: DirectKey
+    Pk algo: ML-DSA-65+Ed25519
+    Hash algo: SHA512
+    Hashed area:
+      Signature creation time: 2026-11-17 07:06:35 UTC (critical)
+      Symmetric algo preferences: AES256, AES128
+      Hash preferences: SHA512, SHA256
+      Key flags: C (critical)
+      Features: SEIPDv1, SEIPDv2
+      Issuer Fingerprint: CDB400EA83727C3BA3F4675018A8075B5A075B9F8C9D7AAAB9CA48BD4CCC609C
+    Digest prefix: DADB
+    Salt: 2BD07FBFE0816B52E5C011E47727F53E861758449A3CBF99E359AE2711C99C85
+    Level: 0 (signature over data)
+  
+User ID Packet, new CTB, 32 bytes
+    Value: Fixture Sequoia <sq@example.org>
+  
+Signature Packet, new CTB, 3478 bytes
+    Version: 6
+    Type: PositiveCertification
+    Pk algo: ML-DSA-65+Ed25519
+    Hash algo: SHA512
+    Hashed area:
+      Signature creation time: 2026-11-17 07:06:35 UTC (critical)
+      Symmetric algo preferences: AES256, AES128
+      Hash preferences: SHA512, SHA256
+      Primary User ID: true (critical)
+      Key flags: C (critical)
+      Features: SEIPDv1, SEIPDv2
+      Issuer Fingerprint: CDB400EA83727C3BA3F4675018A8075B5A075B9F8C9D7AAAB9CA48BD4CCC609C
+    Digest prefix: 8F16
+    Salt: 15C02E22C3580FC5AC329F6AD244425651440FAC2C1FCE7826DAE801194D09F8
+    Level: 0 (signature over data)
+  
+Public-Subkey Packet, new CTB, 1994 bytes
+    Version: 6
+    Creation time: 2026-11-17 07:06:35 UTC
+    Pk algo: ML-DSA-65+Ed25519
+    Fingerprint: 7E5E7146D0ED4487470593617313570A1CDCA55EFE23B85B510E79442959D986
+    KeyID: 7E5E7146D0ED4487
+  
+Signature Packet, new CTB, 6928 bytes
+    Version: 6
+    Type: SubkeyBinding
+    Pk algo: ML-DSA-65+Ed25519
+    Hash algo: SHA512
+    Hashed area:
+      Signature creation time: 2026-11-17 07:06:35 UTC (critical)
+      Key flags: S (critical)
+      Embedded signature:  (critical)
+                  Version: 6
+          Type: PrimaryKeyBinding
+          Pk algo: ML-DSA-65+Ed25519
+          Hash algo: SHA512
+          Hashed area:
+            Signature creation time: 2026-11-17 07:06:35 UTC (critical)
+            Issuer Fingerprint: 7E5E7146D0ED4487470593617313570A1CDCA55EFE23B85B510E79442959D986
+          Digest prefix: FC4A
+          Salt: 48090615D82A45B052D13FC92FF0A8B426AF1D85B321CC12D4E6D95636ED01E3
+          Level: 0 (signature over data)
+      Issuer Fingerprint: CDB400EA83727C3BA3F4675018A8075B5A075B9F8C9D7AAAB9CA48BD4CCC609C
+    Digest prefix: 2AB1
+    Salt: B3EA8D7ED89D5B3170E689C74C64C0CBC3D2CBBF4CDE3960D12BC1BDB82D5ED4
+    Level: 0 (signature over data)
+  
+Public-Subkey Packet, new CTB, 1226 bytes
+    Version: 6
+    Creation time: 2026-11-17 07:06:35 UTC
+    Pk algo: ML-KEM-768+X25519
+    Fingerprint: 4ADBB2A9430DDA62F6DDF70871C7ADD4D3C04C5138C4FC2296703B33F2EF6BA1
+    KeyID: 4ADBB2A9430DDA62
+  
+Signature Packet, new CTB, 3464 bytes
+    Version: 6
+    Type: SubkeyBinding
+    Pk algo: ML-DSA-65+Ed25519
+    Hash algo: SHA512
+    Hashed area:
+      Signature creation time: 2026-11-17 07:06:35 UTC (critical)
+      Key flags: EtEr (critical)
+      Issuer Fingerprint: CDB400EA83727C3BA3F4675018A8075B5A075B9F8C9D7AAAB9CA48BD4CCC609C
+    Digest prefix: 95D0
+    Salt: E7AC1B8F60C6E4F111D63ECD196294916E2ACB75E86FCA73CA90954466540165
+    Level: 0 (signature over data)
+  

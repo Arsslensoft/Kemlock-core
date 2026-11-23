@@ -1,0 +1,92 @@
+{
+  "version": 2,
+  "app": "BackMyCodes",
+  "exportedAt": "2026-11-15T12:00:00.000Z",
+  "scheme": "plaintext",
+  "accounts": [
+    {
+      "id": "a1",
+      "type": "totp",
+      "issuer": "GitHub",
+      "label": "octocat",
+      "secret": "JBSWY3DPEHPK3PXP",
+      "algorithm": "SHA1",
+      "digits": 6,
+      "period": 30,
+      "addedAt": 1763200000000
+    }
+  ],
+  "backupServices": [
+    {
+      "id": "s1",
+      "serviceName": "GitHub",
+      "codes": [
+        {
+          "code": "aaaa-1111",
+          "used": false
+        }
+      ],
+      "addedAt": 1763200000000
+    }
+  ],
+  "keys": [
+    {
+      "id": "k1",
+      "name": "laptop",
+      "kind": "ssh",
+      "algorithm": "ed25519",
+      "private": "MC4CAQAwBQYDK2VwBCIEIODYANGhkUN4PqrTbKLKKLra+ElRWJEi5yvkzFgcjXS8",
+      "public": "MCowBQYDK2VwAyEAGFpCGs9p6samlflgByMlkn08De66RkiCJwGX5JhQLTQ=",
+      "origin": "generated",
+      "note": "Made by OpenSSL 3.6",
+      "tags": [
+        "work"
+      ],
+      "addedAt": 1763200001000
+    }
+  ],
+  "notes": [
+    {
+      "id": "n1",
+      "title": "Passport",
+      "text": "In the drawer, left side",
+      "tags": [
+        "travel"
+      ],
+      "pinned": true,
+      "addedAt": 1763200002000,
+      "attachments": [
+        {
+          "id": "AAECAwQFBgcICQoLDA0ODw",
+          "name": "passport-scan.pdf",
+          "size": 31,
+          "type": "application/pdf",
+          "key": "EBESExQVFhcYGRobHB0eHyAhIiMkJSYnKCkqKywtLi8=",
+          "addedAt": 1763200002000
+        },
+        {
+          "id": "EBESExQVFhcYGRobHB0eHw",
+          "name": "photo.jpg",
+          "size": 65546,
+          "type": "image/jpeg",
+          "key": "QEFCQ0RFRkdISUpLTE1OT1BRUlNUVVZXWFlaW1xdXl8=",
+          "addedAt": 1763200003000
+        }
+      ]
+    }
+  ],
+  "passkeys": [
+    {
+      "id": "p1",
+      "credentialId": "T41cDpsqTH6NHyo7TF1ufw",
+      "rpId": "github.com",
+      "rpName": "GitHub",
+      "userHandle": "dXNlci1vY3RvY2F0LTEyMw",
+      "userName": "octocat@example.com",
+      "userDisplayName": "Octo Cat",
+      "privateKey": "MIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgNc6FSUrJQrKQ/0EiE9JmsC4GFeHUF2jB/UB5ZStgsvChRANCAAQDgR8zNBagqmr48ZCUjodw7n5wlXUXSLlRGosIF8jPJYr2zKgS3UPz2tllpYfH1fo6rBijPiPSGqdv9DKyWP6k",
+      "algorithm": -7,
+      "addedAt": 1763200004000
+    }
+  ]
+}

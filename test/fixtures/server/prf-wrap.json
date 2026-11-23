@@ -1,0 +1,31 @@
+{
+  "cases": [
+    {
+      "aad": "6b656d6c6f636b2f76312f726f6f742d777261702f70726673a277eeb6a876056035c641e8adce2e00000001000000106d2f8d1d0a245f001b59a247758ad008",
+      "account_id": "73a277eeb6a876056035c641e8adce2e",
+      "credential_id": "6d2f8d1d0a245f001b59a247758ad008",
+      "key_version": 1,
+      "name": "short-credential-id",
+      "prf_output": "899e10c05dfb05faac6c2e16cd35a479299b6117ae6a8c6a47b323349a9bfb48",
+      "prf_salt": "22f3a59b4a8c0212d1d1ecd26e0a4ad3676e5e862543c138bee7668602589417",
+      "root_key": "80982bf0a5d44dbc2517ea0ef7257711afa7b40aa2216906bf83c027101fdbe652e09e431bf8a2cc9907b642147d5379a8637e27626c130f09fc1143f4e6a91f",
+      "wrap_key": "2698bac6608701b33229524e0f179a8dab8dc25e67bb5a7a12c6232065eccf86",
+      "wrapped": "83a6b3b221107cdf84e495da27199c915bead867bac257d3a67a61517148364a3964dff3a93b2b2345762ee83d0ba4fbb47623a4429b5b9856fe7c8c37a87a3376e5797151c49e3e3a037eb29e404358222bba6fb6a5cefca8402c5e"
+    },
+    {
+      "aad": "6b656d6c6f636b2f76312f726f6f742d777261702f70726623dffd9e363ce13d97f6753774fbb527000000020000004dfaa9c2a7e2488ee8f0fb6d2160653520377d3632e0a3c7a53dd8184c12fe04dc0d5d72b24710cb3fb871e2d7197847a4f7c0032870452149f0aea12f9c01ad7dfaa19cabf59f532139546340f0",
+      "account_id": "23dffd9e363ce13d97f6753774fbb527",
+      "credential_id": "faa9c2a7e2488ee8f0fb6d2160653520377d3632e0a3c7a53dd8184c12fe04dc0d5d72b24710cb3fb871e2d7197847a4f7c0032870452149f0aea12f9c01ad7dfaa19cabf59f532139546340f0",
+      "key_version": 2,
+      "name": "long-credential-id",
+      "prf_output": "f2db55a173b44bced9a7b2bc786927176ea35bed883cb71e50fa90c7baa07dab",
+      "prf_salt": "22f3a59b4a8c0212d1d1ecd26e0a4ad3676e5e862543c138bee7668602589417",
+      "root_key": "318d25b93b41e439bdde57431a69afbb2ecebb5b6056fdf4bc06905e7b1e03a24ad13de878cbb142b49446449db02941c7fb6a8e34c5dc5c22d212dfbfc7f9c6",
+      "wrap_key": "c94aff7e75b19c59fa947c4c4833aefe6b94d89d520845f41611eeeaf62f0938",
+      "wrapped": "2deeed9815771b3cbdd326e759abb13e822dc36ae26c2d2d13a8c55535f6bfa869a19fed457bf85ca039e7fb511d8c1e1fa0c9cda1b5f6c5fb3c069981465a072ac6970174f46db2d65da1c7a5f1303235cdb7ef553e236e158fdac4"
+    }
+  ],
+  "description": "The passkey PRF wrap of the root key (docs/crypto.md). prf_salt is SHA-256(\"kemlock/v1/prf-salt\"), the `first` input of the PRF extension. wrap_key = HKDF-SHA256(ikm = prf_output, salt = absent, info = \"kemlock/v1/prf-wrap\" || lp(credential_id), L = 32); aad = \"kemlock/v1/root-wrap/prf\" || account_id || u32be(key_version) || lp(credential_id); wrapped = nonce(12) || AES-256-GCM(wrap_key, nonce, root_key, aad) with the 16-byte tag at the end.",
+  "format": "prf-wrap",
+  "version": 1
+}

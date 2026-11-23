@@ -1,0 +1,36 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 6 (0x6)
+        Signature Algorithm: ecdsa-with-SHA256
+        Issuer: CN=Zoé Müller,OU=Équipe sécurité,O=Exemple SARL,C=FR
+        Validity
+            Not Before: Nov  1 00:00:00 2026 GMT
+            Not After : Nov  1 00:00:00 2028 GMT
+        Subject: CN=Zoé Müller,OU=Équipe sécurité,O=Exemple SARL,C=FR
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:f1:79:45:9c:de:b5:b2:d1:03:0d:bc:82:1c:78:
+                    5f:e9:2c:c8:86:f3:cd:e6:34:c9:38:ba:bc:7b:7a:
+                    96:c7:1a:63:25:c0:6e:d2:12:e8:c9:83:4e:da:e9:
+                    3f:c3:b5:67:6b:51:96:be:ed:6f:26:a8:36:19:82:
+                    37:f7:af:ca:a3
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+        X509v3 extensions:
+            X509v3 Subject Key Identifier: 
+                54:89:5B:D8:A7:5B:C4:23:C9:32:F2:3D:37:E8:F9:E5:51:C4:DC:58
+    Signature Algorithm: ecdsa-with-SHA256
+    Signature Value:
+        30:45:02:20:19:0a:90:49:49:ef:fd:c6:b7:cf:9a:9b:00:69:
+        ec:91:05:8d:d0:da:08:33:e8:a4:f1:c1:5a:59:00:41:30:f7:
+        02:21:00:a9:76:87:27:30:ee:bf:25:3d:cf:0a:d1:fb:99:f0:
+        b7:ac:43:c4:f5:b6:97:2b:70:eb:eb:3b:7f:b6:77:17:37
+serial=06
+subject=CN=Zoé Müller,OU=Équipe sécurité,O=Exemple SARL,C=FR
+issuer=CN=Zoé Müller,OU=Équipe sécurité,O=Exemple SARL,C=FR
+notBefore=2026-11-01 00:00:00Z
+notAfter=2028-11-01 00:00:00Z
+sha256 Fingerprint=1A:83:8E:7E:06:48:26:51:E9:EB:8D:CD:4E:9E:CE:F8:DB:16:BB:E1:54:57:60:16:E1:E2:81:E8:1A:0E:C0:61

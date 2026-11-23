@@ -1,0 +1,6 @@
+pub   ed25519 2026-11-15 [SC] [expires: 2031-11-14]
+      1BB5EC3961E61EE44F919AB63FCD57EBA0308CA9
+uid           [ultimate] Fixture Ed25519 Protected <ed25519p@example.org>
+sub   cv25519 2026-11-15 [E]
+      528798657C87EF17FE445512E12DD2D2A5D8334C
+

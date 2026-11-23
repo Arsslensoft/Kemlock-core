@@ -1,0 +1,13 @@
+tree 04df07b08ca746b3167d0f1d1514e2f39a52c16c
+author Fixture Author <author@example.org> 1794830400 +0000
+committer Fixture Committer <committer@example.org> 1794830400 +0000
+gpgsig -----BEGIN SSH SIGNATURE-----
+ U1NIU0lHAAAAAQAAADMAAAALc3NoLWVkMjU1MTkAAAAgOk1BYWbr08thSTwtQ3Te/3xcdr
+ 1cA5Y5hqg9JBpdoXYAAAADZ2l0AAAAAAAAAAZzaGE1MTIAAABTAAAAC3NzaC1lZDI1NTE5
+ AAAAQNVViZw0y2uepA7OJfVjsKwBJrFvfGFGiLPVpkOetjvEkP9QaG8gkLLkbQGZxdibn0
+ m19ekbWEuakAWPuCOM7Qw=
+ -----END SSH SIGNATURE-----
+
+Add a greeting
+
+The body of the fixture commit.

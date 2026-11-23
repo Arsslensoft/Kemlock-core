@@ -1,0 +1,9 @@
+Authenticated signature made by CDB400EA83727C3BA3F4675018A8075B5A075B9F8C9D7AAAB9CA48BD4CCC609C (Fixture Sequoia <sq@example.org>)
+
+1 authenticated signature.
+Authenticated signature made by CDB400EA83727C3BA3F4675018A8075B5A075B9F8C9D7AAAB9CA48BD4CCC609C (Fixture Sequoia <sq@example.org>)
+
+1 authenticated signature.
+Authenticated signature made by CDB400EA83727C3BA3F4675018A8075B5A075B9F8C9D7AAAB9CA48BD4CCC609C (Fixture Sequoia <sq@example.org>)
+
+1 authenticated signature.

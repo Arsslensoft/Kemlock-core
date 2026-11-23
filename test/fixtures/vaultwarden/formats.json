@@ -1,0 +1,88 @@
+{
+  "about": "Formats Vaultwarden sync writes, made by test/features/sync/vaultwarden/formats_test.dart on 2026-11-07. Never regenerate.",
+  "sealKey": "NxfHkPIguA8B7y3c1j7Rcp7uzTPNAEEPut229B9s/1g=",
+  "homeSealed": "{\"app\":\"Kemlock\",\"kind\":\"home\",\"version\":1,\"id\":\"wJ2kX9c4Qm1zR7tB\",\"name\":\"Kemlock\",\"mode\":\"sealed\",\"seal\":{\"app\":\"BackMyCodes\",\"kind\":\"sync\",\"version\":1,\"kdf\":{\"salt\":\"q4+7q5r/P504L8Adb+MFVYct/PJ1XRtO7FVHF02UKJE=\",\"N\":131072,\"r\":8,\"p\":1},\"nonce\":\"70pUdKR8S3o6fmMB\",\"ct\":\"7v6BWdoCTPFvIHKrTzAz8nDmaZgrrgyukJXXqHF4/xYG4o9esTPQXiZS7lTWMlRHhVVs4ZcND5uSw1FjHlf5KQ==\"}}",
+  "homePlain": "{\"app\":\"Kemlock\",\"kind\":\"home\",\"version\":1,\"id\":\"wJ2kX9c4Qm1zR7tB\",\"name\":\"Kemlock\",\"mode\":\"plain\"}",
+  "sealedAccount": "kemlock-sealed:1:wJ2kX9c4Qm1zR7tB:6f9e2c64-3c1d-4b7a-9a52-0d1f0c4e8b11:+Og5vb5gP05yewm6:NHmp/ydU8u1FYyafXgs7QE406jeVbHM9wqsZXcoYEO8j4kDwGTe88+4+lr5DWivdmS4JnnOFIt3PXLKs3ipFd/+1RVqabgNR2iBjNKpWApCijd/HYN2mIq9xI/yfiOBx3QXYg5o3p6zkmL7De/nrz/PF9CmY8kjSJtJQQD7FGF6UqtaT9RzlBx27q3gX0OWRCRkR/qoLNe6B4A/z3oVxal0WP/c7S6iswL2WpcaXFHx8I36m3JChvCNXrzvMpJQfY5NCPAKGzsVyAOagu1nCcHNhOezFMqdrFabe9Pv4zge1YXeiAV6z3EMng18DD7cIlFqNq0O8lHIx9IXOl9By88DeT5lvuv4gJGDu2MYGTeV96PLe4nbwAkJIB44FhayBKoPlLQwvvxgkeqWIqiQYqei2nEWFWFLB00qTydtRzmngkvYsTlhyoUm4afBJGZoF+kXH0T/aFRYdN/0RfEaLLGbGSHk=",
+  "sealedBackupService": "kemlock-sealed:1:wJ2kX9c4Qm1zR7tB:9d8c7b6a-5e4f-4a3b-8c2d-1e0f9a8b7c6d:DOFjN74nxYg/SJ/r:bJmfL9gBH3jg0oNXjMixXkCnrGtzCBIFI5vhStC6tTERQ0zOjWk6zSVUDGCJrfuvxzmRbwhJV19oe1KOnI7X2D/FB4/tgRfX2njSjDgqqhEMbastEDGFx6Cs19cjHuanYzHOoH5fo2S0jkGhZa8JU/SV9vJ2NdBuMSwGoS5kRYoyr6C8ijJ6xmwvjTHxTR9VLhAUhdpoB4JrqJcWAZL2d44bY87s2xyEn9hyinyASvdXqBgtydhtIxLWYUQA/A3Cp0bXjzbVxBoZ7XeBsnHdpvJWnERgX2ZYrBKo5jkCjWJcsugboCXhNgUZCF1Iqm2Dvn06pSmWM1+cFxmO/a1lRVyEKZcpfABc",
+  "plainOwn": "{\"v\":1,\"home\":\"wJ2kX9c4Qm1zR7tB\",\"id\":\"6f9e2c64-3c1d-4b7a-9a52-0d1f0c4e8b11\",\"own\":true,\"kind\":\"account\",\"sum\":\"38VuzucYvApWyNui5IBjrQ==\",\"entry\":{\"id\":\"6f9e2c64-3c1d-4b7a-9a52-0d1f0c4e8b11\",\"type\":\"totp\",\"issuer\":\"GitHub\",\"label\":\"me@example.com\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"algorithm\":\"SHA256\",\"digits\":8,\"period\":30,\"pinned\":true,\"tags\":[\"Work\"],\"order\":2,\"note\":\"Main account\",\"addedAt\":1794038400000,\"updatedAt\":1794042000000,\"aFutureKey\":{\"kept\":true}}}",
+  "plainLinked": "{\"v\":1,\"home\":\"wJ2kX9c4Qm1zR7tB\",\"id\":\"6f9e2c64-3c1d-4b7a-9a52-0d1f0c4e8b11\",\"own\":false,\"kind\":\"account\",\"sum\":\"ilbMtM7DPDtbR9Fp0f4qAg==\",\"entry\":{\"id\":\"6f9e2c64-3c1d-4b7a-9a52-0d1f0c4e8b11\",\"type\":\"totp\",\"issuer\":\"GitHub\",\"label\":\"me@example.com\",\"secret\":\"JBSWY3DPEHPK3PXP\",\"algorithm\":\"SHA256\",\"digits\":8,\"period\":30,\"pinned\":true,\"tags\":[\"Work\"],\"order\":2,\"note\":\"Main account\",\"addedAt\":1794038400000,\"updatedAt\":1794042000000,\"aFutureKey\":{\"kept\":true}}}",
+  "plainBackupService": "{\"v\":1,\"home\":\"wJ2kX9c4Qm1zR7tB\",\"id\":\"9d8c7b6a-5e4f-4a3b-8c2d-1e0f9a8b7c6d\",\"own\":true,\"kind\":\"backupService\",\"sum\":\"p0cfKI4f4YjE4VixeiApFg==\",\"entry\":{\"id\":\"9d8c7b6a-5e4f-4a3b-8c2d-1e0f9a8b7c6d\",\"serviceName\":\"GitHub\",\"codes\":[{\"code\":\"aaaa-1111\",\"used\":false},{\"code\":\"bbbb-2222\",\"used\":true,\"usedAt\":1794040000000}],\"note\":\"In the drawer\",\"addedAt\":1794038400000}}",
+  "codesText": "aaaa-1111\n✓ bbbb-2222\n\n---\nIn the drawer",
+  "totpAccount": "otpauth://totp/GitHub:me%40example.com?issuer=GitHub&secret=JBSWY3DPEHPK3PXP&algorithm=SHA256&digits=8&period=30",
+  "totpSteam": "steam://GEZDGNBVGY3TQOJQ",
+  "values": {
+    "own": {
+      "values": {
+        "name": "GitHub",
+        "username": "me@example.com",
+        "totp": "otpauth://totp/GitHub:me%40example.com?issuer=GitHub&secret=JBSWY3DPEHPK3PXP&algorithm=SHA256&digits=8&period=30",
+        "notes": "Main account",
+        "favorite": true
+      },
+      "sum": "38VuzucYvApWyNui5IBjrQ=="
+    },
+    "linked": {
+      "values": {
+        "totp": "otpauth://totp/GitHub:me%40example.com?issuer=GitHub&secret=JBSWY3DPEHPK3PXP&algorithm=SHA256&digits=8&period=30"
+      },
+      "sum": "ilbMtM7DPDtbR9Fp0f4qAg=="
+    },
+    "steam": {
+      "values": {
+        "name": "Steam",
+        "username": "gamer",
+        "totp": "steam://GEZDGNBVGY3TQOJQ",
+        "notes": null,
+        "favorite": false
+      },
+      "sum": "Ja11xQ/IWsH0sJdYAGlTZg=="
+    },
+    "hotp": {
+      "values": {
+        "name": "Bank",
+        "username": null,
+        "totp": null,
+        "notes": null,
+        "favorite": false
+      },
+      "sum": "82IBuh2DAkW8nbOo0B9j/g=="
+    },
+    "backupService": {
+      "values": {
+        "name": "GitHub backup codes",
+        "notes": "aaaa-1111\n✓ bbbb-2222\n\n---\nIn the drawer"
+      },
+      "sum": "p0cfKI4f4YjE4VixeiApFg=="
+    }
+  },
+  "settings": {
+    "personal": null,
+    "spaces": [],
+    "vaultwarden": {
+      "server": "https://vault.example.com",
+      "email": "me@example.com",
+      "home": "wJ2kX9c4Qm1zR7tB",
+      "mode": "sealed",
+      "folderId": "00000000-0000-4000-8000-000000000002",
+      "seal": {
+        "key": "NxfHkPIguA8B7y3c1j7Rcp7uzTPNAEEPut229B9s/1g=",
+        "kdf": {
+          "salt": "q4+7q5r/P504L8Adb+MFVYct/PJ1XRtO7FVHF02UKJE=",
+          "N": 131072,
+          "r": 8,
+          "p": 1
+        }
+      },
+      "pickUp": false
+    }
+  },
+  "session": {
+    "deviceId": "00000000-0000-4000-8000-000000000003",
+    "userId": "00000000-0000-4000-8000-000000000001",
+    "userKey": "AAAA",
+    "accessToken": "a.b.c",
+    "refreshToken": "r",
+    "expiresAt": 1794045600000
+  }
+}

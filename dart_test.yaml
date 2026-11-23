@@ -1,0 +1,14 @@
+# The tests' tags and the browser the dart2wasm run (dart test -p chrome -c dart2wasm -t wasm) uses.
+# Only the tests tagged wasm run there: the rest read their fixtures with dart:io. Windows runs them
+# in Edge, Linux and macOS in Chrome.
+tags:
+  wasm:
+override_platforms:
+  chrome:
+    settings:
+      headless: false
+      executable:
+        windows: C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
+        linux: google-chrome
+        mac_os: /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+      arguments: --headless=new --disable-gpu --no-first-run --no-default-browser-check --no-sandbox --disable-features=msEdgeStartupBoost --disable-background-mode

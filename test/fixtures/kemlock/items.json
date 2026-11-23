@@ -1,0 +1,93 @@
+{
+  "description": "The plaintext JSON of one entry of each kind crypto.md lists that the app has a model for, as an item holds it (the entry's own toJson). Written once; never regenerated. Kinds crypto.md does not list yet (key, key-otp, contact) and kinds with no model here (certificate, card, identity) get their own files once confirmed.",
+  "owner": "user:00000000-0000-4000-8000-000000000001",
+  "items": [
+    {
+      "kind": "login",
+      "entry": {
+        "id": "b0d7a4c4-1f0e-4c0a-9a56-3a8c1f0f2a11",
+        "name": "Example",
+        "username": "me@example.com",
+        "password": "correct horse battery staple",
+        "websites": ["https://example.com"],
+        "addedAt": 1763200000000,
+        "updatedAt": 1763200001000
+      }
+    },
+    {
+      "kind": "otp",
+      "entry": {
+        "id": "5d0f9c3e-2c34-4c63-8c8e-0d7d6a9b5a01",
+        "type": "totp",
+        "issuer": "ACME",
+        "label": "me@example.com",
+        "secret": "JBSWY3DPEHPK3PXP",
+        "algorithm": "SHA1",
+        "digits": 6,
+        "period": 30,
+        "addedAt": 1763200000000,
+        "updatedAt": 1763200001000
+      }
+    },
+    {
+      "kind": "note",
+      "entry": {
+        "id": "7c2e5a18-9d34-4b61-a0f2-3e8b6c1d4f05",
+        "title": "Passeport café",
+        "text": "Dans le tiroir, à gauche.",
+        "addedAt": 1763200000000
+      }
+    },
+    {
+      "kind": "backup-codes",
+      "entry": {
+        "id": "6a1b2c3d-4e5f-4a6b-8c7d-9e0f1a2b3c02",
+        "serviceName": "GitHub",
+        "codes": [
+          { "code": "abcd-1234", "used": false },
+          { "code": "efgh-5678", "used": true }
+        ],
+        "addedAt": 1763200000000
+      }
+    },
+    {
+      "kind": "passkey",
+      "entry": {
+        "id": "8e3f6b29-0a45-4c72-b1a3-4f9c7d2e5a06",
+        "credentialId": "AAECAwQFBgcICQoLDA0ODw",
+        "rpId": "github.com",
+        "userHandle": "dXNlcg",
+        "userName": "octocat",
+        "privateKey": "MIGHAgEAMBMGByqGSM49AgEG",
+        "algorithm": -7,
+        "addedAt": 1763200000000
+      }
+    },
+    {
+      "kind": "pgp-key",
+      "entry": {
+        "id": "9f4a7c3a-1b56-4d83-82b4-5a0d8e3f6b07",
+        "name": "Work PGP",
+        "kind": "pgp",
+        "algorithm": "pgp",
+        "private": "AAAAAAAAAAAA",
+        "public": "BBBBBBBBBBBB",
+        "origin": "imported",
+        "addedAt": 1763200000000
+      }
+    },
+    {
+      "kind": "ssh-key",
+      "entry": {
+        "id": "a05b8d4b-2c67-4e94-93c5-6b1e9f4a7c08",
+        "name": "laptop",
+        "kind": "ssh",
+        "algorithm": "ed25519",
+        "private": "MC4CAQAwBQYDK2VwBCIEIA==",
+        "public": "MCowBQYDK2VwAyEA",
+        "origin": "generated",
+        "addedAt": 1763200000000
+      }
+    }
+  ]
+}
