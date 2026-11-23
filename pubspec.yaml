@@ -1,5 +1,5 @@
 name: kemlock_core
-description: "The pure-Dart core of Kemlock, a post-quantum encrypted authenticator and password manager. Its crypto, vault, sync, OTP and site matching move in from the app."
+description: "The pure-Dart core of Kemlock, a post-quantum encrypted authenticator and password manager: its crypto, vault, sync engines, OTP and site matching, shared by the app and the browser extension."
 version: 0.1.0
 publish_to: none
 repository: https://github.com/Arsslensoft/Kemlock-core

@@ -3,8 +3,8 @@
 Thanks for helping out!
 
 This repository is Kemlock-core, the pure-Dart code that the Kemlock app and the Kemlock browser
-extension will share: the crypto, the vault, the sync engines, OTP, the password generator and site
-matching. The code is moving in from the app; until it has, the package is an empty placeholder. Open an issue or a pull request on
+extension share: the crypto, the vault, the sync engines, OTP, the password generator and site
+matching. Open an issue or a pull request on
 [Arsslensoft/Kemlock-core](https://github.com/Arsslensoft/Kemlock-core). By taking part you agree
 to the [Code of Conduct](CODE_OF_CONDUCT.md). A security problem is not an issue: see
 [SECURITY.md](SECURITY.md).
@@ -17,11 +17,13 @@ uses ships it).
 - **Byte formats stay what they are.** The vault, exports, sync files, `kem1`, manifests, OPAQUE
   messages and account crypto are read by other versions of Kemlock and by vaults already on
   people's devices. A change that alters one needs a version label for the new format and a fixture
-  that proves data written by the old one still opens. The test vectors and fixtures (they will be in
-  `test/fixtures/` once the code moves in) are never regenerated or edited; a new one may be added.
+  that proves data written by the old one still opens. The test vectors and fixtures in `test/fixtures/` are never
+  regenerated or edited; a new one may be added.
 - **Pure Dart.** No Flutter, no `dart:ui`. The browser extension compiles this package to
   WebAssembly with dart2wasm, so code it reaches does not import `dart:io` without a conditional
-  import.
+  import. A test tagged `wasm` (`@Tags(['wasm'])`) runs there too, with `dart test -p chrome -c
+  dart2wasm -t wasm`; every other test reads its fixtures with `dart:io` and is marked
+  `@TestOn('vm')`.
 
 ## Pull requests
 

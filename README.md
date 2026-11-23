@@ -26,7 +26,7 @@
 </p>
 
 <p align="center">
-  <a href="#what-it-will-hold">What it will hold</a> ·
+  <a href="#what-it-holds">What it holds</a> ·
   <a href="#using-it">Using it</a> ·
   <a href="#checks">Checks</a> ·
   <a href="#releases">Releases</a> ·
@@ -42,12 +42,11 @@ Kemlock is a post-quantum encrypted authenticator and password manager. Kemlock-
 it that has no screen: the code that keeps a vault safe and in sync, written once in Dart with no
 Flutter in it.
 
-> **In development.** The code is moving in from the Kemlock app. Until it has, this package is
-> an empty placeholder: one library with nothing in it, and its test.
+> **In development.** The code moved in from the Kemlock app on 23 November 2026, at the paths it
+> had under the app's `lib/`, so `package:kemlock_core/crypto/ml_kem.dart` is the app's old
+> `lib/crypto/ml_kem.dart`. Each of those app files now exports its file from here.
 
-## What it will hold
-
-Once the code has moved in from the app:
+## What it holds
 
 - 🔐 **Crypto**: ML-KEM-1024 and ML-DSA, scrypt, AES-GCM, OPAQUE and the account crypto.
 - 🗄️ **The vault**: its models and its store.
@@ -57,7 +56,7 @@ Once the code has moved in from the app:
 
 ## Who uses it
 
-Once the code has moved in, two programs depend on it:
+Two programs depend on it:
 
 - The [Kemlock app](https://github.com/Arsslensoft/Kemlock) for iOS and Android, a Flutter app that
   runs the package on the Dart VM. Its repository is private for now.
@@ -119,8 +118,7 @@ SHA to pin.
 
 The formats that other versions of Kemlock read (the vault, exports, sync files, `kem1`, manifests,
 OPAQUE messages, the account crypto) stay byte for byte what they were, or vaults and backups
-already on people's devices stop opening. The test vectors and fixtures, which will be in
-`test/fixtures/` once the code moves in, are what older versions wrote: they are never regenerated
+already on people's devices stop opening. The test vectors and fixtures in `test/fixtures/` are what older versions wrote: they are never regenerated
 or edited, and a change to a format comes
 with a version label and a fixture that proves the old data still opens. CodeRabbit and the review
 hold every pull request to this.

@@ -17,11 +17,10 @@ Say as much as you can of:
 
 ## Scope
 
-This repository will hold the crypto and the vault code that the Kemlock app and the browser
-extension share, so reports about it will matter most. The code is still moving in from the app, and
-until it has, this repository holds a placeholder: a problem in the code that is in the app belongs
-to the app, and a report here is passed on. Once the code has moved in, a report belongs here when
-the problem is in something it makes or does:
+This repository holds the crypto and the vault code that the Kemlock app and the browser
+extension share, so reports about it matter most. A report belongs here when the problem is in
+something it makes or does; a problem in the app's screens or its platform code belongs to the app,
+and a report here is passed on:
 
 - the cryptography: how the keys are made, derived, wrapped and used (ML-KEM-1024, ML-DSA, scrypt,
   AES-GCM, the account crypto), the OPAQUE login, nonces and randomness, comparisons that are not in

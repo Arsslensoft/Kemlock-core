@@ -1,33 +1,35 @@
 # Kemlock-core
 
-The pure-Dart core of Kemlock, a post-quantum encrypted authenticator and password manager. Once
-the code has moved in from the app it will hold the crypto (ML-KEM-1024, ML-DSA, scrypt, AES-GCM,
-OPAQUE, account crypto), the vault models and store, the sync engines (WebDAV, Vaultwarden, Kemlock
-Server), OTP, the password generator and site matching. **Today it is an empty placeholder**: one
-library and its test. Public, GPL-3.0-or-later, `git@github.com:Arsslensoft/Kemlock-core.git`.
+The pure-Dart core of Kemlock, a post-quantum encrypted authenticator and password manager. It holds
+the crypto (ML-KEM-1024, ML-DSA, scrypt, AES-GCM, OPAQUE, account crypto), the vault models and
+store, the sync engines (WebDAV, Vaultwarden, Kemlock Server), OTP, the password generator and site
+matching. Public, GPL-3.0-or-later, `git@github.com:Arsslensoft/Kemlock-core.git`.
 
 Two consumers depend on it as a git dependency pinned to a commit (it is not on pub.dev): the
 Flutter app (`git@github.com:Arsslensoft/Kemlock.git`, private, checked out next to this one as
 `../kemlock`, in `mobile/`) and the browser extension
 ([Kemlock-browser](https://github.com/Arsslensoft/Kemlock-browser), `../kemlock-browser`), which
-compiles it to WebAssembly with dart2wasm. The code moves in from the app's `mobile/lib`; until it
-has, `lib/kemlock_core.dart` and `test/kemlock_core_test.dart` are placeholders that the move
-replaces.
+compiles it to WebAssembly with dart2wasm. The code moved in from the app's `mobile/lib` on 23
+November 2026 at the same paths, and each of the app's old files now only exports its file from
+here: `lib/crypto/ml_kem.dart` there is `package:kemlock_core/crypto/ml_kem.dart`.
 
 ## Layout
 
-- `lib/`: the package. `lib/kemlock_core.dart` is its entry point; once the code has moved in it
-  will be in `lib/src/`.
-- `test/`: `package:test` tests, mirroring `lib/`. `test/fixtures/` will hold what older versions
-  wrote, once it moves in with the tests.
+- `lib/`: the package, at the app's old paths (`crypto/`, `models/`, `vault/`, `core/`,
+  `features/sync/`, …). Libraries are imported by path; `lib/kemlock_core.dart` only describes
+  them. A file with an `_io` half (`x.dart` exporting `x_stub.dart if (dart.library.io) x_io.dart`)
+  keeps `dart:io` and isolates there.
+- `test/`: `package:test` tests, mirroring `lib/`. `test/fixtures/` holds what older versions wrote;
+  the app keeps its own copies for its remaining tests.
 - `docs/` (when there are notes that are part of the repo; none yet). `/plans/` holds local notes and
   stays out of git.
 
 ## Rules of the code
 
 - **Pure Dart.** No Flutter, no `dart:ui`. Code the browser extension reaches compiles with
-  dart2wasm, so it imports no `dart:io` without a conditional import. A test that needs `dart:io`
-  is marked `@TestOn('vm')`.
+  dart2wasm, so it imports no `dart:io` without a conditional import. A test that runs there is
+  tagged `@Tags(['wasm'])`; every other test is marked `@TestOn('vm')`, so the browser run never
+  compiles it.
 - **Formats stay byte for byte.** What other versions or people read (the vault, exports, sync
   files, `kem1`, manifests, OPAQUE messages, the account crypto) must stay what the app wrote, or
   vaults and backups already on people's devices stop opening. A change to a format needs a
@@ -44,7 +46,7 @@ replaces.
 ## Checks
 
 `dart format --output=none --set-exit-if-changed .`, `dart analyze --fatal-infos`, `dart test` and
-`dart test -p chrome -c dart2wasm`, from the repository root, and
+`dart test -p chrome -c dart2wasm -t wasm`, from the repository root, and
 `node .github/scripts/check-licences.mjs` after `dart pub get`. On GitHub, `.github/workflows/checks.yml`
 runs them as the jobs Lint, Test and Test (wasm), with Dependencies, DCO, Licences and Security
 beside them. The pull request's title is checked by `title.yml`. `release.yml` calls `checks.yml`
