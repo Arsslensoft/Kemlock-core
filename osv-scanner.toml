@@ -1,0 +1,9 @@
+# osv-scanner's config, read by the Security job (.github/workflows/checks.yml). It sets aside an
+# advisory that has no fix yet, with a reason and an end date, so that it is looked at again when
+# the date passes. Add one block per advisory; an empty file ignores nothing. See
+# CONTRIBUTING.md, Security.
+#
+# [[IgnoredVulns]]
+# id = "GHSA-xxxx-xxxx-xxxx"            # the advisory's id, as osv-scanner prints it
+# ignoreUntil = 2027-03-01              # when to look at it again (a date, at most a few months out)
+# reason = "No fixed release of <package> yet; the affected function is not used by this package."

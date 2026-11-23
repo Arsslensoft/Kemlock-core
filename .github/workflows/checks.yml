@@ -1,0 +1,315 @@
+name: Checks
+
+# The checks a change has to pass before it merges and before it is released: formatting, the
+# analyzer, actionlint and ShellCheck, the tests on the Dart VM and compiled to WebAssembly (the
+# browser extension runs this package as dart2wasm), the dependencies it brings in, every commit
+# signed off (DCO), the licences of the packages it builds with, and what the change adds to the
+# workflows' and the secrets' risk. (The pull request's title is checked by title.yml.) A pull
+# request and a merge group run them; a push to main runs them through release.yml, which calls
+# this workflow and releases only when they pass (a push is not a trigger here: it would run them
+# twice). They hold no secret, and write nothing, so a fork's pull request runs them as any other
+# does. The main ruleset requires the jobs by name: keep them.
+
+on:
+  pull_request:
+  merge_group:
+  workflow_call:
+
+permissions: {}
+
+# A called workflow shares its caller's name, and a group that carried it would wait for the
+# caller's own: this one is its own
+concurrency:
+  group: checks-${{ github.event.pull_request.number || github.event.merge_group.head_ref || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # What the change touches: from where it left main. A push, which release.yml checks, has the
+      # commit before it; a run started by hand has none, and checks every file
+      - name: Find where the change starts
+        id: range
+        env:
+          PULL_REQUEST: ${{ github.event.pull_request.base.sha }}
+          MERGE_GROUP: ${{ github.event.merge_group.base_sha }}
+          PUSH: ${{ github.event.before }}
+        run: |
+          base="${PULL_REQUEST:-${MERGE_GROUP:-${PUSH}}}"
+          merge=""
+          if [ -n "${base//0/}" ] && git cat-file -e "${base}^{commit}" 2>/dev/null; then
+            merge="$(git merge-base "${base}" HEAD || true)"
+          fi
+          echo "base=${merge}" >> "$GITHUB_OUTPUT"
+
+      - uses: dart-lang/setup-dart@2286a0c042b44434fe26d292bbce8d34f7ec662b # v1.8.2
+        with:
+          sdk: 3.13.5
+
+      - name: Install the packages
+        run: dart pub get --enforce-lockfile
+
+      # The page width is analysis_options.yaml's (140)
+      - name: Format
+        run: dart format --output=none --set-exit-if-changed .
+
+      - name: Analyze
+        run: dart analyze --fatal-infos
+
+      # Every finding is an annotation on its line, and only an error fails the check. Only the shell
+      # files the change touches are read; with no earlier commit to compare with, every one
+      - name: ShellCheck
+        env:
+          BASE: ${{ steps.range.outputs.base }}
+        run: |
+          failed=0
+          if [ -n "${BASE}" ]; then
+            files="$(git diff --name-only --diff-filter=d "${BASE}" HEAD)"
+          else
+            files="$(git ls-files)"
+          fi
+          while read -r file; do
+            [ -f "${file}" ] || continue
+            [[ "${file}" == *.sh ]] || head -n1 "${file}" | grep -qE '^#!.*\b(ba)?sh\b' || continue
+            out="$(shellcheck -f gcc "${file}" 2>&1)" && continue
+            sed -E 's/^([^:]+):([0-9]+):([0-9]+): (error|warning|note): (.*)$/::\4 file=\1,line=\2,col=\3::\5/; s/^::note /::notice /' <<<"${out}"
+            grep -q ': error: ' <<<"${out}" && failed=1
+          done <<<"${files}"
+          exit "${failed}"
+
+      # The run blocks' shell is left to ShellCheck above for the files, and to review for the rest
+      - name: actionlint
+        env:
+          ACTIONLINT_VERSION: 1.7.12
+          ACTIONLINT_SHA256: 8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8
+        run: |
+          archive="${RUNNER_TEMP}/actionlint.tar.gz"
+          curl --fail --retry 3 -sSL -o "${archive}" \
+            "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz"
+          echo "${ACTIONLINT_SHA256}  ${archive}" | sha256sum -c -
+          tar -xzf "${archive}" -C "${RUNNER_TEMP}" actionlint
+          "${RUNNER_TEMP}/actionlint" -shellcheck= \
+            -format '{{range $err := .}}::error file={{$err.Filepath}},line={{$err.Line}},col={{$err.Column}}::{{$err.Message}}\n{{end}}'
+
+  # The tests on the Dart VM, which the Flutter app runs the code on
+  test:
+    name: Test
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: dart-lang/setup-dart@2286a0c042b44434fe26d292bbce8d34f7ec662b # v1.8.2
+        with:
+          sdk: 3.13.5
+
+      - name: Install the packages
+        run: dart pub get --enforce-lockfile
+
+      - name: Tests
+        run: dart test
+
+  # The same tests compiled to WebAssembly and run in Chrome, which is how the browser extension
+  # runs the code. A test that needs dart:io says so with @TestOn('vm') and is left out here
+  test-wasm:
+    name: Test (wasm)
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: dart-lang/setup-dart@2286a0c042b44434fe26d292bbce8d34f7ec662b # v1.8.2
+        with:
+          sdk: 3.13.5
+
+      - name: Install the packages
+        run: dart pub get --enforce-lockfile
+
+      # Chrome is the runner image's, not pinned: the image updates it weekly
+      - name: Tests in Chrome with dart2wasm
+        run: dart test -p chrome -c dart2wasm
+
+  # Known vulnerabilities of high severity or more in what the change adds, and the licences that
+  # GPL-3.0-or-later cannot take in (the Licences job holds the whole tree to a list of its own).
+  # Needs the dependency graph, which a private repository has with GitHub Advanced Security
+  dependencies:
+    name: Dependencies
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - if: github.event_name == 'pull_request'
+        uses: actions/dependency-review-action@a1d282b36b6f3519aa1f3fc636f609c47dddb294 # v5.0.0
+        with:
+          fail-on-severity: high
+          deny-licenses: >-
+            GPL-2.0-only, GPL-2.0, SSPL-1.0, BUSL-1.1, Elastic-2.0, CC-BY-NC-4.0, CC-BY-NC-SA-4.0,
+            CC-BY-ND-4.0, BSD-4-Clause, Apache-1.1
+
+  # Each of the pull request's commits signed off by its author, the Developer Certificate of Origin
+  # (CONTRIBUTING.md). A merge group's commits were its pull requests'
+  dco:
+    name: DCO
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - if: github.event_name == 'pull_request'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - if: github.event_name == 'pull_request'
+        name: Signed-off-by on every commit
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: bash .github/scripts/check-dco.sh "$(git merge-base "${BASE}" "${HEAD}")" "${HEAD}"
+
+  # The licence of every package pub resolves, the development tools as well as what the apps build
+  # with, against the list of GPL-3.0-or-later compatible ones. No account and no secret: the script
+  # reads the licence files of the downloaded packages
+  licences:
+    name: Licences
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: dart-lang/setup-dart@2286a0c042b44434fe26d292bbce8d34f7ec662b # v1.8.2
+        with:
+          sdk: 3.13.5
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26.13.0
+
+      - name: Install the packages
+        run: dart pub get --enforce-lockfile
+
+      - name: The packages' licences
+        run: node .github/scripts/check-licences.mjs
+
+  # What the change adds: a workflow finding zizmor does not make on the commit it starts from, a
+  # secret in one of its commits, and a package with a known advisory. What main has already is a
+  # change of its own, and only said here
+  security:
+    name: Security
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26.13.0
+
+      - name: Find where the change starts
+        id: range
+        env:
+          PULL_REQUEST: ${{ github.event.pull_request.base.sha }}
+          MERGE_GROUP: ${{ github.event.merge_group.base_sha }}
+          PUSH: ${{ github.event.before }}
+        run: |
+          base="${PULL_REQUEST:-${MERGE_GROUP:-${PUSH}}}"
+          merge=""
+          if [ -n "${base//0/}" ] && git cat-file -e "${base}^{commit}" 2>/dev/null; then
+            merge="$(git merge-base "${base}" HEAD || true)"
+          fi
+          echo "base=${merge}" >> "$GITHUB_OUTPUT"
+
+      # With no earlier commit, or none that had workflows, every finding is the change's. zizmor
+      # exits 3 when there is nothing for it to read, which is an empty result here. The release
+      # binary is checked against its SHA-256, as the other tools are
+      - name: The workflows (zizmor)
+        env:
+          BASE: ${{ steps.range.outputs.base }}
+          ZIZMOR_VERSION: 1.32.0
+          ZIZMOR_SHA256: bb110cc765eca9cd7efb2e284a956be5974c60027b0970f16397d86208a9957b
+        run: |
+          archive="${RUNNER_TEMP}/zizmor.tar.gz"
+          curl --fail --retry 3 -sSL -o "${archive}" \
+            "https://github.com/zizmorcore/zizmor/releases/download/v${ZIZMOR_VERSION}/zizmor-x86_64-unknown-linux-gnu.tar.gz"
+          echo "${ZIZMOR_SHA256}  ${archive}" | sha256sum -c -
+          tar -xzf "${archive}" -C "${RUNNER_TEMP}" zizmor
+
+          # zizmor over the workflows in a folder, as JSON in a file
+          scan() {
+            local status=0
+            (cd "$1" && "${RUNNER_TEMP}/zizmor" --offline --no-exit-codes --format json .github) > "$2" || status=$?
+            if [ "${status}" -eq 3 ]; then
+              echo '[]' > "$2"
+            elif [ "${status}" -ne 0 ]; then
+              exit "${status}"
+            fi
+          }
+
+          echo '[]' > "${RUNNER_TEMP}/zizmor-base.json"
+          if [ -n "${BASE}" ] && git cat-file -e "${BASE}:.github/workflows" 2>/dev/null; then
+            mkdir "${RUNNER_TEMP}/base"
+            git archive "${BASE}" .github | tar -x -C "${RUNNER_TEMP}/base"
+            scan "${RUNNER_TEMP}/base" "${RUNNER_TEMP}/zizmor-base.json"
+          fi
+          scan . "${RUNNER_TEMP}/zizmor.json"
+          node .github/scripts/zizmor-new.mjs "${RUNNER_TEMP}/zizmor-base.json" "${RUNNER_TEMP}/zizmor.json"
+
+      - name: Secrets in the change's commits (gitleaks)
+        env:
+          BASE: ${{ steps.range.outputs.base }}
+          GITLEAKS_VERSION: 8.30.1
+          GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
+        run: |
+          archive="${RUNNER_TEMP}/gitleaks.tar.gz"
+          curl --fail --retry 3 -sSL -o "${archive}" \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          echo "${GITLEAKS_SHA256}  ${archive}" | sha256sum -c -
+          tar -xzf "${archive}" -C "${RUNNER_TEMP}" gitleaks
+          "${RUNNER_TEMP}/gitleaks" git --log-opts="${BASE:+${BASE}..}HEAD" --redact --no-banner --exit-code 1 .
+
+      # Blocking only for a change to pubspec.lock: an advisory against a package main already has is
+      # fixed on its own. An advisory with no fix is set aside in osv-scanner.toml, with a reason and an
+      # end date (CONTRIBUTING.md). The tool is a single binary, checked against its SHA-256
+      - name: The packages against OSV's advisories (osv-scanner)
+        env:
+          BASE: ${{ steps.range.outputs.base }}
+          OSV_SCANNER_VERSION: 2.7.1
+          OSV_SCANNER_SHA256: fb7dab19a8bd9bbe5c3189f09d4b7ee1820c9553a23bac202648a56efd2f6ee8
+        run: |
+          binary="${RUNNER_TEMP}/osv-scanner"
+          curl --fail --retry 3 -sSL -o "${binary}" \
+            "https://github.com/google/osv-scanner/releases/download/v${OSV_SCANNER_VERSION}/osv-scanner_linux_amd64"
+          echo "${OSV_SCANNER_SHA256}  ${binary}" | sha256sum -c -
+          chmod +x "${binary}"
+          # Exit 1 is "a vulnerability found"; any other failure (no network, a bad lockfile) stops here
+          status=0
+          "${binary}" scan source --config osv-scanner.toml --lockfile pubspec.lock || status=$?
+          [ "${status}" -eq 0 ] && exit 0
+          [ "${status}" -eq 1 ] || exit "${status}"
+          if [ -n "${BASE}" ] && ! git diff --quiet "${BASE}" HEAD -- pubspec.lock; then
+            exit 1
+          fi
+          echo "::warning title=osv-scanner::A package main already has is named in an advisory (above): not this change's doing"
+          exit 0
