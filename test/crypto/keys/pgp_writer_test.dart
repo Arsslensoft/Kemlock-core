@@ -366,8 +366,30 @@ void main() {
       // The same S2K fields, and the same tokens in gpg-agent's form
       final at = ourSub.publicBody.length;
       expect(ourSub.packet.body.sublist(at, at + 9), theirSub.packet.body.sublist(at, at + 9));
-      List<String> tokens(Uint8List agent) =>
-          RegExp(r'\d+:([a-z][a-z0-9-]*)').allMatches(String.fromCharCodes(agent.where((b) => b < 128))).map((m) => m[1]!).toList();
+      // The canonical S-expression's atoms that are names, each read by its length so the key's own
+      // bytes are skipped whole: a random byte run such as `1:a` is no name.
+      List<String> tokens(Uint8List agent) {
+        final names = <String>[];
+        var i = 0;
+        while (i < agent.length) {
+          var j = i;
+          var length = 0;
+          while (j < agent.length && agent[j] >= 0x30 && agent[j] <= 0x39) {
+            length = length * 10 + agent[j] - 0x30;
+            j++;
+          }
+          if (j == i || j >= agent.length || agent[j] != 0x3a) {
+            i++;
+            continue;
+          }
+          final start = j + 1;
+          final end = start + length > agent.length ? agent.length : start + length;
+          final atom = String.fromCharCodes(agent.sublist(start, end));
+          if (RegExp(r'^[a-z][a-z0-9-]*$').hasMatch(atom)) names.add(atom);
+          i = end;
+        }
+        return names;
+      }
 
       expect(tokens(ourSub.agentKey!).take(12).toList(), tokens(theirSub.agentKey!).take(12).toList());
       expect(await verifyPgpSelfSignatures(_armored(keyFixtureText('kemlock/pgp-pq-gnupg.public.asc'))), isTrue);
