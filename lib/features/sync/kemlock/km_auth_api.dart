@@ -19,7 +19,7 @@ import 'km_session.dart';
 /// a member it doesn't list (`deny_unknown_fields`). The push token is not one: it goes to
 /// [KmAuthApi.registerPushToken] once the device is signed in.
 class KmDeviceInfo {
-  const KmDeviceInfo({required this.name, required this.kind, this.id, this.bitwardenDeviceId});
+  const KmDeviceInfo({required this.name, required this.kind, this.id, this.bitwardenDeviceId, this.deviceType});
 
   /// The device id this phone kept from an earlier sign-in, null on the first.
   final String? id;
@@ -36,7 +36,17 @@ class KmDeviceInfo {
   /// phone out of Vaultwarden sync). Sent only when there is one.
   final String? bitwardenDeviceId;
 
-  Map<String, Object?> toJson() => {'id': ?id, 'name': name, 'kind': kind, 'bitwardenDeviceIdentifier': ?bitwardenDeviceId};
+  /// With kind `kemlock-browser`: the browser, numbered as Bitwarden numbers its device types (2 Chrome, 3 Firefox, 5
+  /// Edge). The server refuses it with any other kind, so only the browser extension sets it.
+  final int? deviceType;
+
+  Map<String, Object?> toJson() => {
+    'id': ?id,
+    'name': name,
+    'kind': kind,
+    'deviceType': ?deviceType,
+    'bitwardenDeviceIdentifier': ?bitwardenDeviceId,
+  };
 }
 
 /// The push relay's token for this phone, and the service that gave it: `apns`, on iOS (the server also takes
@@ -672,8 +682,16 @@ class KmAuthApi {
   /// Starts SSO: the PKCE [challenge] (the base64url SHA-256 of a verifier the phone keeps) and its own
   /// [state], 16 to 256 URL-safe characters, with a proof of the device key, which the server binds the
   /// flow to. Returns the provider's address to open in the system browser.
-  Future<({String url, String providerName})> ssoStart(Uri server, String challenge, String state) async {
-    final json = (await api.call('POST', server, '/auth/sso/start', body: {'challenge': challenge, 'state': state}))!;
+  ///
+  /// The browser extension also gives its own [redirect] (`https://<id>.chromiumapp.org/`, where the browser's identity API
+  /// ends the trip) and its device [kind], `kemlock-browser`, which the server needs to allow that address.
+  Future<({String url, String providerName})> ssoStart(Uri server, String challenge, String state, {String? redirect, String? kind}) async {
+    final json = (await api.call(
+      'POST',
+      server,
+      '/auth/sso/start',
+      body: {'challenge': challenge, 'state': state, 'redirect': ?redirect, 'kind': ?kind},
+    ))!;
     final url = json['authorizationUrl'];
     if (url is! String) throw const KmError(KmProblem.server, message: 'an SSO start answer');
     return (url: url, providerName: asString(json['providerName']));
