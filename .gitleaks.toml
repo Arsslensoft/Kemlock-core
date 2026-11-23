@@ -1,0 +1,12 @@
+# The rules of the Security job's gitleaks step (.github/workflows/checks.yml): gitleaks' default
+# rules, with the files that hold keys and tokens on purpose set aside.
+title = "Kemlock-core gitleaks rules"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Test keys, certificates, vectors and sample secrets, made for the tests and never regenerated (CLAUDE.md)"
+paths = [
+  '''^test/''',
+]
