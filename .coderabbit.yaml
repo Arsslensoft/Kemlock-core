@@ -1,0 +1,92 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# CodeRabbit's review of every pull request. It takes CLAUDE.md as the project's guidelines. It
+# requests changes while a blocking finding or a pre-merge check below is open and approves once
+# they are settled; the main ruleset has every review thread resolved before a merge
+# (CONTRIBUTING.md).
+language: en-US
+reviews:
+  profile: chill
+  auto_approvals:
+    enabled: true
+    # Its approval is its own: a pull request's author cannot have it approve or resolve by a command
+    allow_author_approval: false
+  high_level_summary: true
+  poem: false
+  collapse_walkthrough: true
+  # A review that stops on an error fails its CodeRabbit check rather than passing it
+  fail_commit_status: true
+  auto_review:
+    enabled: true
+    drafts: false
+    # Every push, however many came before
+    auto_incremental_review: true
+    auto_pause_after_reviewed_commits: 0
+    base_branches: ['main']
+  # What is a fixture, a test vector or a lockfile is not reviewed by hand
+  path_filters:
+    - '!test/fixtures/**'
+    - '!pubspec.lock'
+    - '!**/*.png'
+  pre_merge_checks:
+    # The author cannot set a failing check aside
+    override_requested_reviewers_only: true
+    title:
+      mode: warning
+      requirements: >-
+        A Conventional Commits title (the Title check holds its form), lowercase after the colon,
+        no trailing period. A feat or fix title is a line of the release's notes: plain words for
+        people who use Kemlock, naming no file or function.
+    description:
+      mode: warning
+    custom_checks:
+      - name: Licences and credits
+        mode: error
+        instructions: >-
+          Fail if the pull request adds a file, picture, string, data set, test vector or code
+          taken from another project and does not both say where it comes from and ship its
+          licence beside it, or adds a package under a licence that
+          .github/scripts/check-licences.mjs does not allow without adding it to
+          .github/licence-exceptions.json with the reason. Fail if it removes or rewrites a
+          copyright line, a licence text or a comment that credits an author. Fail if it adds
+          another maker's logo or trademark. Pass otherwise, and when nothing comes from another
+          project.
+      - name: Tests with the change
+        mode: error
+        instructions: >-
+          Pass when the pull request changes only documentation, comments, CI configuration or
+          pinned dependency versions. Otherwise pass only when each new or changed behaviour (a
+          feature, a default, a fixed bug, a rule of the sync engines, the generator, OTP or site
+          matching) comes with a package:test test that would fail without it, in test/ and
+          mirroring the path of the code in lib/. A test for a fix comes with the fix. A test that
+          has to run on dart2wasm too (the browser extension runs this package compiled to
+          WebAssembly) does not import dart:io; one that needs it is marked @TestOn('vm'). Fail
+          when it deletes, skips or weakens an existing test, or makes one pass by changing what
+          it expects, without saying why in the description.
+      - name: Crypto and format safety
+        mode: error
+        instructions: >-
+          This package holds the cryptography and every format other versions read. Fail if a
+          change alters a byte format (the vault, an export, a sync file, kem1, a manifest,
+          OPAQUE messages, account crypto, or any test vector or fixture) without a version label
+          for the new format and a fixture proving that data written by the old format still
+          opens. Fail if a test vector or a fixture is regenerated or edited (a new one may be
+          added, never changed). Fail if it replaces a vetted primitive with one written here,
+          weakens a parameter (a key size, a work factor, an iteration count, a nonce length),
+          reuses a nonce or an IV, compares a secret, a MAC or a tag with == instead of in
+          constant time, logs or prints a key, a password, a code or a plaintext, keeps a secret
+          in a String that could be a zeroable byte list when the code already zeroes its secrets,
+          or reads randomness from anything but a cryptographically secure source. Fail if it adds
+          a dependency on Flutter or dart:ui (the package is pure Dart so that it compiles with
+          dart2wasm), or an import of dart:io in code that the browser extension reaches without
+          a conditional import. Fail if it sends anything off the device other than to the server
+          the person set up (analytics, a crash report), or gives a workflow job a secret, a write
+          permission or an environment it does not need, or interpolates ${{ }} into a run block,
+          or downloads anything in a workflow without pinning its SHA-256. Pass otherwise.
+      - name: Documentation kept accurate
+        mode: warning
+        instructions: >-
+          Fail if the pull request changes a command, script, check, default, path or release
+          step that README.md, CLAUDE.md, CONTRIBUTING.md, SECURITY.md or docs/ describe, and does
+          not change them to match. Pass otherwise.
+chat:
+  auto_reply: true
