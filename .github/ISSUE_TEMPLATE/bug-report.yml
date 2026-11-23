@@ -1,0 +1,80 @@
+name: Bug report
+description: Something in Kemlock-core does not work as it should
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report this. Do not paste a vault, a password, a key, a code
+        or a sync address. A security problem goes to a private report instead (SECURITY.md).
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Crypto (ML-KEM, ML-DSA, scrypt, AES-GCM, OPAQUE, account crypto)
+        - Vault models and store
+        - Sync (WebDAV, Vaultwarden, Kemlock Server)
+        - OTP
+        - Password generator
+        - Site matching
+        - Something else
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Kemlock-core version or commit
+      description: The tag, or the commit your pubspec.yaml pins.
+      placeholder: '0.1.0'
+    validations:
+      required: true
+
+  - type: dropdown
+    id: runtime
+    attributes:
+      label: Where it runs
+      options:
+        - Dart VM (the Kemlock app)
+        - dart2wasm in a browser (the browser extension)
+        - Tests of this repository
+        - Another program
+    validations:
+      required: true
+
+  - type: input
+    id: dart
+    attributes:
+      label: Dart version
+      description: The output of `dart --version`.
+      placeholder: 'Dart SDK version: 3.13.5 (stable)'
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: What you did, one step a line, with the smallest code that shows it.
+      placeholder: |
+        1. Call ...
+        2. Then ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead
+      description: Any error, and its stack trace.
+    validations:
+      required: true

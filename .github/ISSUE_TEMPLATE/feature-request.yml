@@ -1,0 +1,43 @@
+name: Feature request
+description: Something Kemlock-core could do that it does not
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for the idea. Kemlock-core is what the Kemlock app and the browser extension share:
+        a feature one of them needs from it is the easiest to take on.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What you are trying to do
+      description: The situation, not the solution.
+    validations:
+      required: true
+
+  - type: textarea
+    id: idea
+    attributes:
+      label: What you would like it to do
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you do instead today, or other ways to solve it
+    validations:
+      required: false
+
+  - type: dropdown
+    id: consumer
+    attributes:
+      label: Who needs it
+      multiple: true
+      options:
+        - The Kemlock app
+        - The browser extension
+        - Another program
+    validations:
+      required: false
