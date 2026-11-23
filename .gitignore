@@ -1,0 +1,36 @@
+# Dart
+.dart_tool/
+build/
+doc/api/
+pubspec_overrides.yaml
+coverage/
+*.exe
+*.dill
+*.js.deps
+*.js.map
+
+# Builds and archives
+*.zip
+
+# Signing keys and credentials: never commit them
+*.pem
+*.key
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Local planning notes, not part of the repo
+/plans/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+*.log
+
+# Claude Code local state
+.claude/settings.local.json
+.claude/worktrees/

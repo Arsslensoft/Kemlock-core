@@ -1,0 +1,16 @@
+# LF everywhere, as dart format writes it and as the checks expect it.
+* text eol=lf
+# ...but images and builds as they are: a PNG's signature holds a CRLF that the
+# rule above would rewrite.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.wasm binary
+*.zip binary
+
+# The fixtures are byte for byte what an older version wrote and other versions
+# read (vault, export, sync file, kem1, manifest, OPAQUE, test vectors): never
+# convert their line endings, and never regenerate them.
+test/fixtures/** -text
