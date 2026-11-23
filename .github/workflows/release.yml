@@ -1,0 +1,155 @@
+name: Release
+
+# Every push to main that passes the checks and holds a feat, a fix, a perf or a revert commit
+# (Conventional Commits) since the last v* tag is a release. next-version.mjs works out the version
+# from the commits: the last tag bumped by the biggest change, or pubspec.yaml's `version:` when
+# that is higher (the first release is that version, and a hand bump to 1.0.0 releases 1.0.0). The
+# commit is then tagged v<version> (an annotated tag) and released on GitHub with the changes
+# grouped by type. There are no files to attach: the Flutter app and the browser extension depend
+# on this package as a git dependency pinned to a commit, and the release's notes give the commit to
+# pin. No commit is made, so that main can require pull requests: the version is the tag's. A push
+# of docs, chore, test, ci, style, refactor or build commits alone releases nothing. If a job
+# fails, re-run its failed jobs: a run started over takes a tag that is there already as it is.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+# One release at a time, the next one waiting for it: it starts from the tag this one makes
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  # Everything a pull request passes, again on what main is now
+  checks:
+    name: Checks
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/checks.yml
+    permissions:
+      contents: read
+
+  # What the commits since the last tag make of the next version, if anything
+  version:
+    name: Version
+    needs: checks
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    outputs:
+      release: ${{ steps.next.outputs.release }}
+      version: ${{ steps.next.outputs.version }}
+      tag: ${{ steps.next.outputs.tag }}
+      existing: ${{ steps.next.outputs.existing }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26.13.0
+
+      # Prints release, version, tag and existing (the commit has its tag already) to the outputs
+      - name: Work out the version
+        id: next
+        run: node .github/scripts/next-version.mjs
+
+  # The annotated tag on the commit that was checked. The tag is pushed alone: nothing is committed
+  # to main. A commit that has its tag already (a run started over) is left as it is
+  tag:
+    name: Tag
+    needs: version
+    if: needs.version.outputs.release == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      # The token is given to git for this command alone, not left in the checkout's config
+      - name: Tag the commit
+        if: needs.version.outputs.existing != 'true'
+        env:
+          TOKEN: ${{ github.token }}
+          TAG: ${{ needs.version.outputs.tag }}
+          VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          header="$(printf 'x-access-token:%s' "${TOKEN}" | base64 -w0)"
+          echo "::add-mask::${header}"
+          export GIT_CONFIG_COUNT=1
+          export GIT_CONFIG_KEY_0="http.https://github.com/.extraheader"
+          export GIT_CONFIG_VALUE_0="AUTHORIZATION: basic ${header}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git tag -a "${TAG}" -m "Kemlock-core ${VERSION}"
+          git push origin "refs/tags/${TAG}"
+
+  # The GitHub release: the changes since the last release, and the commit to pin
+  release:
+    name: GitHub release
+    needs: [version, tag]
+    if: needs.version.outputs.release == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: refs/tags/${{ needs.version.outputs.tag }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 26.13.0
+
+      # The changes since the last release, grouped by type. The script's outputs (the release before
+      # this one among them) are this step's
+      - name: Write the notes
+        id: notes
+        run: node .github/scripts/next-version.mjs --notes "${RUNNER_TEMP}/notes.md"
+
+      - name: Link to all the changes
+        if: steps.notes.outputs.previous != ''
+        env:
+          REPO: ${{ github.repository }}
+          TAG: ${{ needs.version.outputs.tag }}
+          PREVIOUS: ${{ steps.notes.outputs.previous }}
+        run: |
+          link="https://github.com/${REPO}/compare/${PREVIOUS}...${TAG}"
+          printf '\n**Full changelog**: %s\n' "${link}" >> "${RUNNER_TEMP}/notes.md"
+
+      # No files come with a release: a consumer pins the commit. The commit is the one the tag is on
+      - name: Say which commit to pin
+        env:
+          REPO: ${{ github.repository }}
+        run: |
+          sha="$(git rev-parse HEAD)"
+          {
+            printf '\n---\n\n'
+            printf 'This release has no files to download: Kemlock-core is used as a git dependency pinned to a commit.\n'
+            printf 'To use it, pin this commit in `pubspec.yaml`:\n\n'
+            printf '```yaml\nkemlock_core:\n  git:\n    url: https://github.com/%s.git\n    ref: %s\n```\n' "${REPO}" "${sha}"
+          } >> "${RUNNER_TEMP}/notes.md"
+
+      # A release that is there already (a run started over) is left as it is
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TAG: ${{ needs.version.outputs.tag }}
+          VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          if gh release view "${TAG}" --repo "${REPO}" >/dev/null 2>&1; then
+            echo "::notice title=Release::${TAG} is released already"
+            exit 0
+          fi
+          gh release create "${TAG}" --repo "${REPO}" --verify-tag --latest \
+            --title "Kemlock-core ${VERSION}" --notes-file "${RUNNER_TEMP}/notes.md"
