@@ -74,10 +74,24 @@ String _readRedirect(Uri redirect, String state) {
 /// Signs [signIn] in through SSO and goes on from the server's answer: tokens, or a second step. The account
 /// isn't open after it ([KmSignedIn.account] is null). A cancel throws [KmSignInIssue.cancelled]; nothing was kept.
 /// [random] is for tests.
-Future<KmSignInStep> kmSsoSignIn(KmSignIn signIn, KmBrowserAuth browser, {Uint8List Function(int length) random = randomBytes}) async {
+///
+/// A browser has no `kemlock://` scheme: the extension gives its own [returnTo] (where the browser's identity API ends the trip), which
+/// the server allows for a `kemlock-browser` device, and its [KmBrowserAuth] returns that address's query as a `kemlock://sso` one.
+Future<KmSignInStep> kmSsoSignIn(
+  KmSignIn signIn,
+  KmBrowserAuth browser, {
+  Uint8List Function(int length) random = randomBytes,
+  Uri? returnTo,
+}) async {
   final verifier = b64urlEncode(random(32));
   final state = b64urlEncode(random(24));
-  final started = await signIn.auth.ssoStart(signIn.server, ssoChallenge(verifier), state);
+  final started = await signIn.auth.ssoStart(
+    signIn.server,
+    ssoChallenge(verifier),
+    state,
+    redirect: returnTo?.toString(),
+    kind: returnTo == null ? null : signIn.device.kind,
+  );
   final url = Uri.tryParse(started.url);
   // The provider is another host, but never plain http: the sheet would send the person's credentials in the clear
   if (url == null || url.scheme != 'https' || url.host.isEmpty) {

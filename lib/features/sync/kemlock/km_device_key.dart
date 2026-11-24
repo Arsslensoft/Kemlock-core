@@ -22,6 +22,9 @@ abstract final class DeviceKeyProtection {
   static const secureEnclave = 'secure-enclave';
   static const keystore = 'keystore';
   static const software = 'software';
+
+  /// A non-extractable WebCrypto key in the browser extension's IndexedDB.
+  static const browser = 'browser';
 }
 
 /// A P-256 key that signs DPoP proofs.

@@ -15,6 +15,8 @@ coverage/
 # Signing keys and credentials: never commit them
 *.pem
 *.key
+# ...except the test keys, made for the tests on purpose
+!test/fixtures/**
 
 # Environment files
 .env
