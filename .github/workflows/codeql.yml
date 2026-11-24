@@ -12,6 +12,12 @@ on:
   schedule:
     - cron: '17 4 * * 3'
 
+# A newer run for the same pull request, or a newer push to main, cancels the one still going.
+# The weekly run has a group of its own, so a push never cancels it.
+concurrency:
+  group: codeql-${{ github.event.pull_request.number || github.ref }}-${{ github.event_name }}
+  cancel-in-progress: ${{ github.event_name != 'schedule' }}
+
 permissions: {}
 
 jobs:
