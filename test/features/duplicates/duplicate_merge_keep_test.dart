@@ -124,7 +124,11 @@ void main() {
         [kept, code('b', at: 2000)],
         keptId: 'a',
         at: 5000,
-        relinked: [login('l1', accountId: 'b'), login('l2', accountId: 'b'), login('l3', accountId: 'b')],
+        relinked: [
+          login('l1', accountId: 'b'),
+          login('l2', accountId: 'b'),
+          login('l3', accountId: 'b'),
+        ],
       );
       final held = {
         // Relinked by the merge, and edited since: its password stays what it is now

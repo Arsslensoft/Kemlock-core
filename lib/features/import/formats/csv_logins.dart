@@ -248,12 +248,5 @@ ForeignImport readLoginCsv(String text, {String Function()? newId, int? now}) {
       ),
     );
   }
-  return ForeignImport(
-    source: ImportSource.csv,
-    accounts: accounts,
-    skipped: skipped,
-    logins: logins,
-    notes: notes,
-    skips: skips,
-  );
+  return ForeignImport(source: ImportSource.csv, accounts: accounts, skipped: skipped, logins: logins, notes: notes, skips: skips);
 }

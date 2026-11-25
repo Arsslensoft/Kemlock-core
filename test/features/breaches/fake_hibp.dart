@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:test/test.dart';
 
 /// Stands in for Have I Been Pwned's breach API: answers with [breaches], the last of
 /// them as the latest, and keeps what it was asked.

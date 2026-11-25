@@ -159,7 +159,14 @@ void main() {
 
   group('QR codes', () {
     final accounts = [_account('a', 'Example')];
-    final services = [BackupService(id: 's', serviceName: 'Example', codes: [BackupCode(code: 'abcd-1234')], addedAt: 1)];
+    final services = [
+      BackupService(
+        id: 's',
+        serviceName: 'Example',
+        codes: [BackupCode(code: 'abcd-1234')],
+        addedAt: 1,
+      ),
+    ];
 
     test("links and Google transfer codes are another app's accounts", () async {
       expect(detectQr(['otpauth://totp/Example:me?secret=JBSWY3DPEHPK3PXP']), QrKind.links);

@@ -14,18 +14,34 @@ import 'package:test/test.dart';
 OtpAccount _code(String id, {String? spaceId, OtpType type = OtpType.totp}) =>
     OtpAccount(id: id, type: type, issuer: 'Issuer $id', label: 'me', secret: 'JBSWY3DPEHPK3PXP', spaceId: spaceId, addedAt: 1);
 
-Login _login(String id, {String? spaceId}) => Login(id: id, name: 'Login $id', username: 'me', password: 'pw', spaceId: spaceId, addedAt: 1);
+Login _login(String id, {String? spaceId}) =>
+    Login(id: id, name: 'Login $id', username: 'me', password: 'pw', spaceId: spaceId, addedAt: 1);
 
 SecureNote _note(String id, {String? spaceId}) => SecureNote(id: id, title: 'Note $id', spaceId: spaceId, addedAt: 1);
 
-BackupService _service(String id, {String? spaceId}) => BackupService(id: id, serviceName: 'Service $id', codes: const [], spaceId: spaceId, addedAt: 1);
+BackupService _service(String id, {String? spaceId}) =>
+    BackupService(id: id, serviceName: 'Service $id', codes: const [], spaceId: spaceId, addedAt: 1);
 
 void main() {
   final vault = Lists(
-    accounts: [_code('a'), _code('b', spaceId: 'family'), _code('s', type: OtpType.steam)],
-    backupServices: [_service('x'), _service('y', spaceId: 'family')],
-    notes: [_note('n'), _note('m', spaceId: 'family')],
-    logins: [_login('l'), _login('k', spaceId: 'family'), _login('j', spaceId: '')],
+    accounts: [
+      _code('a'),
+      _code('b', spaceId: 'family'),
+      _code('s', type: OtpType.steam),
+    ],
+    backupServices: [
+      _service('x'),
+      _service('y', spaceId: 'family'),
+    ],
+    notes: [
+      _note('n'),
+      _note('m', spaceId: 'family'),
+    ],
+    logins: [
+      _login('l'),
+      _login('k', spaceId: 'family'),
+      _login('j', spaceId: ''),
+    ],
   );
 
   group('exportScope', () {

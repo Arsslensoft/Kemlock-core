@@ -19,6 +19,7 @@ import 'package:kemlock_core/models/secure_note.dart';
 import 'package:kemlock_core/models/vault_key.dart';
 import 'package:kemlock_core/vault/sealed_value.dart';
 import 'package:kemlock_core/vault/vault_export.dart';
+import 'package:kemlock_core/vault/vault_store.dart';
 import 'package:test/test.dart';
 
 import '../compat/before_logins/export_payload.dart';

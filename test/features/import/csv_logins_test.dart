@@ -3,6 +3,7 @@ library;
 
 import 'package:kemlock_core/features/export/csv_export.dart';
 import 'package:kemlock_core/features/import/formats/csv_logins.dart';
+import 'package:kemlock_core/features/import/formats/import_extras.dart';
 import 'package:kemlock_core/features/import/importers.dart';
 import 'package:kemlock_core/models/login.dart';
 import 'package:kemlock_core/models/otp_account.dart';
@@ -101,7 +102,9 @@ void main() {
     });
 
     test("reads LastPass's, whose secure notes are rows at http://sn", () {
-      final result = _read('url,username,password,totp,extra,name,grouping,fav\nhttp://sn,,,,"secret text",Passport,Home,0\nhttps://a.com,u,p,,,A,,1\n');
+      final result = _read(
+        'url,username,password,totp,extra,name,grouping,fav\nhttp://sn,,,,"secret text",Passport,Home,0\nhttps://a.com,u,p,,,A,,1\n',
+      );
 
       expect(result.notes.single.title, 'Passport');
       expect(result.notes.single.text, 'secret text');
@@ -172,7 +175,11 @@ void main() {
     });
 
     test('reads back as what it was made from', () {
-      final text = exportLoginsCsv([login], [account], notes: [SecureNote(id: 'n1', title: 'Wifi', text: 'pw', addedAt: 1)]);
+      final text = exportLoginsCsv(
+        [login],
+        [account],
+        notes: [SecureNote(id: 'n1', title: 'Wifi', text: 'pw', addedAt: 1)],
+      );
 
       final back = _read(text);
 

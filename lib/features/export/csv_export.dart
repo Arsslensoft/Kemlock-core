@@ -25,9 +25,8 @@ String _field(String? value, {bool exact = false}) {
 }
 
 /// Column [exact] of [fields] is written as it is (the password); the others are guarded against formulas.
-String _row(List<String?> fields, {int exact = -1}) => [
-  for (final (i, field) in fields.indexed) _field(field, exact: i == exact),
-].join(',');
+String _row(List<String?> fields, {int exact = -1}) =>
+    [for (final (i, field) in fields.indexed) _field(field, exact: i == exact)].join(',');
 
 /// [logins] and [notes] as CSV. Every cell but the password is guarded against being run as a spreadsheet formula: a leading `'` goes
 /// before `=`, `+`, `-`, `@`, a tab or a carriage return, and the reader takes it off again. The password is written exactly as it is,

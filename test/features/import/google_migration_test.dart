@@ -68,9 +68,7 @@ void main() {
     final made = buildGoogleMigration(codes, batchId: 7);
 
     expect(made.uris, hasLength(3));
-    final issuers = [
-      for (final uri in made.uris) ...parseGoogleMigration(uri)!.accounts.map((account) => account.issuer),
-    ];
+    final issuers = [for (final uri in made.uris) ...parseGoogleMigration(uri)!.accounts.map((account) => account.issuer)];
     expect(issuers, [for (var i = 0; i < 25; i++) 'Service $i']);
   });
 
