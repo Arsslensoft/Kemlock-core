@@ -50,8 +50,9 @@ class KmDeviceInfo {
   };
 }
 
-/// The push relay's token for this phone, and the service that gave it: `apns`, on iOS (the server also takes
-/// `fcm`, which no build sends). Only the relay's token: the nudges it brings carry a type and nothing else.
+/// How the server reaches this phone, and the service that gave it: `apns` on iOS (the token is the APNs device token),
+/// or `unifiedpush` on Android (the token is the URL of the UnifiedPush endpoint the person's distributor gave: `https`
+/// on port 443 or 8443, 512 characters at most). The nudges carry a type and nothing else, or nothing at all.
 typedef KmPushToken = ({String kind, String token});
 
 /// The ways in an email has, from `POST /auth/methods`: `password`, and `sso` when the account's space has a provider.
@@ -846,7 +847,7 @@ class KmAuthApi {
   }
 
   /// Gives the server this device's push token, `POST /devices/push-token` (the server's `PushTokenRequest`: `kind`
-  /// `fcm` or `apns`, and a token of 1 to 512 characters with no whitespace). Answers 204.
+  /// `apns` or `unifiedpush`, and a token of 1 to 512 characters with no whitespace). Answers 204.
   Future<void> registerPushToken(Uri server, String accessToken, KmPushToken push) async {
     await api.call('POST', server, '/devices/push-token', token: accessToken, body: {'kind': push.kind, 'token': push.token});
   }
