@@ -29,7 +29,13 @@ const keyBreachCheck = 'backmycodes_breach_check';
 /// Asks Have I Been Pwned through [client], which tests replace with a `MockClient`,
 /// and keeps what it learns in [store].
 class BreachRefresh {
-  BreachRefresh({required this.client, this.userAgent, required this.store, required this.now, this.timeout = const Duration(seconds: 30)});
+  BreachRefresh({
+    required this.client,
+    this.userAgent,
+    required this.store,
+    required this.now,
+    this.timeout = const Duration(seconds: 30),
+  });
 
   final http.Client client;
 
