@@ -255,7 +255,11 @@ void main() {
         utf8.decode(unb64url(inner['clientDataJSON']! as String)),
         '{"type":"webauthn.create","challenge":"$challenge","origin":"https://webauthn.io","crossOrigin":true,"topOrigin":"https://embedder.example"}',
       );
-      final same = make(topOrigin: origin).response['response']! as Map<String, Object?>;
+      // A frame of this site inside another site's inside this one is cross-origin too, though the top is this site
+      final nested = make(topOrigin: origin).response['response']! as Map<String, Object?>;
+      expect(utf8.decode(unb64url(nested['clientDataJSON']! as String)), contains('"crossOrigin":true,"topOrigin":"$origin"'));
+      // No top origin given: a frame with no cross-origin ancestor
+      final same = make().response['response']! as Map<String, Object?>;
       final text = utf8.decode(unb64url(same['clientDataJSON']! as String));
       expect(text, contains('"crossOrigin":false'));
       expect(text, isNot(contains('topOrigin')));

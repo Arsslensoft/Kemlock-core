@@ -256,9 +256,11 @@ Uint8List p256Spki(Uint8List point) {
 }
 
 /// The client data of a WebAuthn operation: what the browser would write, in the order the phone's providers write it.
-/// A request from a frame of another origin than the page's carries `crossOrigin: true` and the page's [topOrigin].
+/// A request from a frame that is not same-origin with all its ancestors carries `crossOrigin: true` and the top page's
+/// [topOrigin], which may equal [origin] (a frame of this site inside another site's inside this one). The caller says so by
+/// giving [topOrigin] only then.
 String passkeyClientData(String type, Uint8List challenge, String origin, {String? topOrigin}) {
-  final cross = topOrigin != null && topOrigin != origin;
+  final cross = topOrigin != null;
   return jsonEncode(<String, Object?>{
     'type': type,
     'challenge': b64url(challenge),
