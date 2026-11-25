@@ -7,6 +7,7 @@
 /// Pure Dart, no Flutter.
 library;
 
+import 'dart:convert';
 import 'dart:typed_data';
 
 import '../../../crypto/account/argon2id.dart';
@@ -547,10 +548,56 @@ class KmAuthApi {
     return _answer(json);
   }
 
-  /// The answer to a second step, with the code. [method] is `totp` today; `email` and `webauthn` are the plan's.
+  /// The answer to a second step, with the code. Each method has its route: `totp` answers at `/auth/two-factor`, an
+  /// emailed code at `/auth/two-factor/email`, and the account's recovery code at `/auth/two-factor/recovery`, which
+  /// turns every method of the account off and is spent.
   Future<KmGrant> twoFactor(Uri server, String challenge, String method, String code) async {
-    final json = (await api.call('POST', server, '/auth/two-factor', body: {'challenge': challenge, 'method': method, 'code': code}))!;
+    if (method == 'webauthn') {
+      // A security key's answer is a credential, not a code: [code] is its JSON
+      final Object? credential;
+      try {
+        credential = jsonDecode(code);
+      } on FormatException {
+        throw const KmError(KmProblem.auth, message: 'a security key answer that is not JSON');
+      }
+      if (credential is! Map<String, Object?>) throw const KmError(KmProblem.auth, message: 'a security key answer that is no object');
+      return securityKeyStep(server, challenge, credential);
+    }
+    final route = switch (method) {
+      'email' => '/auth/two-factor/email',
+      'recovery' => '/auth/two-factor/recovery',
+      _ => null,
+    };
+    final json = (await api.call(
+      'POST',
+      server,
+      route ?? '/auth/two-factor',
+      body: {'challenge': challenge, if (route == null) 'method': method, 'code': code},
+    ))!;
     return _grant(json);
+  }
+
+  /// The request options for the account's security keys (`POST /auth/two-factor/webauthn/options`), for a sign-in that owes
+  /// its second step. The sealed [challenge] is the one the password step gave, sent back with the key's answer.
+  Future<KmPasskeyOptions> securityKeyOptions(Uri server, String challenge) async {
+    final json = (await api.call('POST', server, '/auth/two-factor/webauthn/options', body: {'challenge': challenge}))!;
+    try {
+      return KmPasskeyOptions.fromJson({'challenge': challenge, 'options': json['options']});
+    } on FormatException catch (e) {
+      throw KmError(KmProblem.server, message: e.message);
+    }
+  }
+
+  /// The security key's answer, `PublicKeyCredential.toJSON()` as the server wants it (`POST /auth/two-factor/webauthn`).
+  Future<KmGrant> securityKeyStep(Uri server, String challenge, Map<String, Object?> credential) async {
+    final json = (await api.call('POST', server, '/auth/two-factor/webauthn', body: {'challenge': challenge, 'credential': credential}))!;
+    return _grant(json);
+  }
+
+  /// Mails the code of the email second step to the address the account set up (`POST /auth/two-factor/email/send`),
+  /// for the sign-in that owes it. Answers 204.
+  Future<void> sendEmailCode(Uri server, String challenge) async {
+    await api.call('POST', server, '/auth/two-factor/email/send', body: {'challenge': challenge});
   }
 
   // ─── A Compatible account's first sign-in (the server's app contract; not built on the server yet) ────

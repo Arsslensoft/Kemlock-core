@@ -193,8 +193,9 @@ void checkArgon2Bounds(Argon2idSettings settings, Uint8List salt) {
   if (!ok) throw KmSignInError(KmSignInIssue.kdfBounds, detail: '$settings, salt ${salt.length} bytes');
 }
 
-/// The second-step methods the phone answers.
-const kmAnswerableSecondSteps = {'totp', 'email', 'webauthn'};
+/// The second-step methods the phone answers. `recovery` is the account's recovery code, which the server takes whatever
+/// methods the account has, so it is never in the list the server gives.
+const kmAnswerableSecondSteps = {'totp', 'email', 'webauthn', 'recovery'};
 
 /// A step of the sign-in.
 sealed class KmSignInStep {
@@ -507,8 +508,36 @@ class KmSignIn {
 
   // ─── A second step ─────────────────────────────────────────────────────
 
-  /// Answers the second step with [code]: an authenticator code, an email code, or a security key's
-  /// assertion as the sheet encodes it.
+  /// Whether a Compatible account's enrolment waits for its second step: only an authenticator code answers it, as the
+  /// server's `bitwardenFinish` takes one `twoFactorCode`.
+  bool get enrolling => _enrolment != null;
+
+  /// The options of the account's security keys, for the sign-in that owes its second step. The key is asked with them, and
+  /// [securityKeyStep] sends its answer.
+  Future<KmPasskeyOptions> securityKeyOptions() async {
+    final challenge = _challenge;
+    if (challenge == null || _enrolment != null) throw StateError('no second step is owed');
+    return auth.securityKeyOptions(server, challenge);
+  }
+
+  /// Answers the second step with the security key's credential (`PublicKeyCredential.toJSON()`).
+  Future<KmSignInStep> securityKeyStep(Map<String, Object?> credential) async {
+    final challenge = _challenge;
+    if (challenge == null || _enrolment != null) throw StateError('no second step is owed');
+    final grant = await auth.securityKeyStep(server, challenge, credential);
+    _challenge = null;
+    return _afterGrant(grant);
+  }
+
+  /// Mails the code of the email second step, for the sign-in that owes one. A second request mails a new code.
+  Future<void> sendEmailCode() async {
+    final challenge = _challenge;
+    if (challenge == null) throw StateError('no second step is owed');
+    await auth.sendEmailCode(server, challenge);
+  }
+
+  /// Answers the second step with [code]: an authenticator code, an email code, the account's recovery code, or a
+  /// security key's assertion as the sheet encodes it.
   Future<KmSignInStep> secondStep(String method, String code) async {
     if (!kmAnswerableSecondSteps.contains(method)) throw KmSignInError(KmSignInIssue.webVaultOnly, detail: method);
     // An enrolment waiting for its code finishes with it
