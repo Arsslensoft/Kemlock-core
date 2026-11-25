@@ -184,6 +184,36 @@ void main() {
       expect(back.notes.single.title, 'Wifi');
     });
 
+    test('guards every cell but the password against being run as a formula, and the reader takes the guard off', () {
+      final risky = Login(
+        id: 'l9',
+        name: '=HYPERLINK("http://evil.example")',
+        username: '+cmd',
+        password: '-2+3@x',
+        note: '@SUM(A1)',
+        websites: const ['example.com'],
+        tags: const ['\tfolder'],
+        addedAt: 1,
+      );
+
+      final text = exportLoginsCsv([risky], const []);
+
+      final row = parseCsv(text)[1];
+      expect(row[3], '\'=HYPERLINK("http://evil.example")');
+      expect(row[4], "'@SUM(A1)");
+      expect(row[8], "'+cmd");
+      // The password is written exactly as it is
+      expect(row[9], '-2+3@x');
+      final back = _read(text).logins.single;
+      expect((back.name, back.username, back.password, back.note), (risky.name, risky.username, risky.password, risky.note));
+    });
+
+    test('leaves a leading quote alone when no formula character follows it', () {
+      final back = _read("name,url,username,password\n'quoted,https://a.com,'me,'pw\n").logins.single;
+
+      expect((back.name, back.username, back.password), ("'quoted", "'me", "'pw"));
+    });
+
     test('a login with no code has an empty field, and an HOTP code is not written', () {
       final hotp = OtpAccount(id: 'h', type: OtpType.hotp, issuer: 'Bank', label: 'me', secret: 'JBSWY3DPEHPK3PXP', counter: 3, addedAt: 1);
       final plain = Login(id: 'l2', name: 'Bank', username: 'me', accountId: 'h', addedAt: 1);

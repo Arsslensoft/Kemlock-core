@@ -140,10 +140,16 @@ bool looksLikeLoginCsv(String text) {
       (_column(header, _urlColumns) != null || _column(header, _nameColumns) != null || _column(header, _userColumns) != null);
 }
 
-/// The cell at [at], without the space around it, unless [exact]: a password and a note are kept as they were written.
-String _cell(List<String> row, int? at, {bool exact = false}) {
+final _guarded = RegExp(r"^'[=+\-@\t\r]");
+
+/// The cell at [at], without the space around it, unless [exact]: a note is kept as it was written. A leading `'` before a formula
+/// character is the guard `csv_export.dart` (and spreadsheets' own exports) put there, so it goes. A [password] is the cell exactly
+/// as it is.
+String _cell(List<String> row, int? at, {bool exact = false, bool password = false}) {
   if (at == null || at >= row.length) return '';
-  return exact ? row[at] : row[at].trim();
+  if (password) return row[at];
+  final text = exact ? row[at] : row[at].trim();
+  return _guarded.hasMatch(text) ? text.substring(1) : text;
 }
 
 final _hostOfUrl = RegExp(r'^(?:[A-Za-z][A-Za-z0-9+.-]*://)?([^/?#:]+)');
@@ -191,7 +197,7 @@ ForeignImport readLoginCsv(String text, {String Function()? newId, int? now}) {
     final address = _cell(row, url);
     final title = _cell(row, name);
     final username = _cell(row, user);
-    final secret = _cell(row, password, exact: true);
+    final secret = _cell(row, password, password: true);
     final body = _cell(row, note, exact: true);
     final tags = _tags(_cell(row, folder));
     // LastPass keeps a secure note as a row whose address is http://sn; Bitwarden and NordPass say so in a type column

@@ -13,15 +13,27 @@ const loginCsvHeader = 'folder,favorite,type,name,notes,fields,reprompt,login_ur
 
 final _needsQuotes = RegExp('[",\r\n]');
 
-String _field(String? value) {
-  final text = value ?? '';
+/// What a spreadsheet takes for a formula when a cell starts with it: `=`, `+`, `-`, `@`, a tab or a carriage return.
+final _formula = RegExp(r'^[=+\-@\t\r]');
+
+/// [text] as a cell: a leading formula character gets a `'` before it (the reader, `csv_logins.dart`, takes it off again), unless the
+/// cell is a password, which is written exactly as it is.
+String _field(String? value, {bool exact = false}) {
+  var text = value ?? '';
+  if (!exact && _formula.hasMatch(text)) text = "'$text";
   return _needsQuotes.hasMatch(text) ? '"${text.replaceAll('"', '""')}"' : text;
 }
 
-String _row(List<String?> fields) => fields.map(_field).join(',');
+/// Column [exact] of [fields] is written as it is (the password); the others are guarded against formulas.
+String _row(List<String?> fields, {int exact = -1}) => [
+  for (final (i, field) in fields.indexed) _field(field, exact: i == exact),
+].join(',');
 
-/// [logins] and [notes] as CSV, each login with its linked code in `login_totp` (an otpauth:// link; Steam as `steam://`, and none
-/// for an HOTP code, which Bitwarden's fields can't carry). A tag becomes the folder, the first of them, nested as `A/B`.
+/// [logins] and [notes] as CSV. Every cell but the password is guarded against being run as a spreadsheet formula: a leading `'` goes
+/// before `=`, `+`, `-`, `@`, a tab or a carriage return, and the reader takes it off again. The password is written exactly as it is,
+/// so one that starts with such a character is as it was (the caller's warning says so). Each login has its linked code in `login_totp`
+/// (an otpauth:// link; Steam as `steam://`, and none for an HOTP code, which Bitwarden's fields can't carry). A tag becomes the
+/// folder, the first of them, nested as `A/B`.
 String exportLoginsCsv(List<Login> logins, List<OtpAccount> accounts, {List<SecureNote> notes = const []}) {
   final byId = {for (final account in accounts) account.id: account};
   String? folder(List<String>? tags) => tags == null || tags.isEmpty ? null : tags.first.replaceAll(' / ', '/');
@@ -49,7 +61,7 @@ String exportLoginsCsv(List<Login> logins, List<OtpAccount> accounts, {List<Secu
         login.username,
         login.password,
         totp,
-      ]),
+      ], exact: 9),
     );
   }
   for (final note in notes) {
