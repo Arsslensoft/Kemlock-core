@@ -508,6 +508,27 @@ class KmSignIn {
 
   // ─── A second step ─────────────────────────────────────────────────────
 
+  /// Whether a Compatible account's enrolment waits for its second step: only an authenticator code answers it, as the
+  /// server's `bitwardenFinish` takes one `twoFactorCode`.
+  bool get enrolling => _enrolment != null;
+
+  /// The options of the account's security keys, for the sign-in that owes its second step. The key is asked with them, and
+  /// [securityKeyStep] sends its answer.
+  Future<KmPasskeyOptions> securityKeyOptions() async {
+    final challenge = _challenge;
+    if (challenge == null || _enrolment != null) throw StateError('no second step is owed');
+    return auth.securityKeyOptions(server, challenge);
+  }
+
+  /// Answers the second step with the security key's credential (`PublicKeyCredential.toJSON()`).
+  Future<KmSignInStep> securityKeyStep(Map<String, Object?> credential) async {
+    final challenge = _challenge;
+    if (challenge == null || _enrolment != null) throw StateError('no second step is owed');
+    final grant = await auth.securityKeyStep(server, challenge, credential);
+    _challenge = null;
+    return _afterGrant(grant);
+  }
+
   /// Mails the code of the email second step, for the sign-in that owes one. A second request mails a new code.
   Future<void> sendEmailCode() async {
     final challenge = _challenge;
