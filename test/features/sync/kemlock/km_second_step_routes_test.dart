@@ -34,6 +34,24 @@ void main() {
         MockClient((request) async {
           seen.add(request);
           if (request.url.path.endsWith('/email/send')) return http.Response('', 204);
+          if (request.url.path.endsWith('/webauthn/options')) {
+            return http.Response(
+              jsonEncode({
+                'options': {
+                  'publicKey': {
+                    'challenge': 'AQID',
+                    'rpId': 'km.example',
+                    'userVerification': 'discouraged',
+                    'allowCredentials': [
+                      {'type': 'public-key', 'id': 'BAUG'},
+                    ],
+                  },
+                },
+              }),
+              200,
+              headers: {'content-type': 'application/json'},
+            );
+          }
           return http.Response(jsonEncode(_tokens), 200, headers: {'content-type': 'application/json'});
         }),
       ),
@@ -65,5 +83,29 @@ void main() {
     await auth.sendEmailCode(_server, 'challenge');
     expect(seen.single.url.path, '/kem/v1/auth/two-factor/email/send');
     expect(body(seen.single), {'challenge': 'challenge'});
+  });
+
+  test('a security key is asked with the options of its own route and answers at its own route', () async {
+    final options = await auth.securityKeyOptions(_server, 'sealed');
+    expect(seen.single.url.path, '/kem/v1/auth/two-factor/webauthn/options');
+    expect(body(seen.single), {'challenge': 'sealed'});
+    expect(options.rpId, 'km.example');
+    expect(options.userVerification, 'discouraged');
+    expect(options.credentialIds, hasLength(1));
+    seen.clear();
+    final grant = await auth.securityKeyStep(_server, 'sealed', {'id': 'BAUG', 'type': 'public-key'});
+    expect(grant.deviceId, _tokens['deviceId']);
+    expect(seen.single.url.path, '/kem/v1/auth/two-factor/webauthn');
+    expect(body(seen.single), {
+      'challenge': 'sealed',
+      'credential': {'id': 'BAUG', 'type': 'public-key'},
+    });
+  });
+
+  test('a security key answer given as a code is its JSON credential', () async {
+    await auth.twoFactor(_server, 'sealed', 'webauthn', '{"id":"x"}');
+    expect(seen.single.url.path, '/kem/v1/auth/two-factor/webauthn');
+    expect(body(seen.single)['credential'], {'id': 'x'});
+    await expectLater(auth.twoFactor(_server, 'sealed', 'webauthn', 'not json'), throwsA(isA<KmError>()));
   });
 }
