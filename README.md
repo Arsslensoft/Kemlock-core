@@ -18,7 +18,8 @@
   <br>
   <a href="https://github.com/Arsslensoft/Kemlock-core/actions/workflows/checks.yml"><img alt="Checks" src="https://github.com/Arsslensoft/Kemlock-core/actions/workflows/checks.yml/badge.svg"></a>
   <a href="https://github.com/Arsslensoft/Kemlock-core/actions/workflows/codeql.yml"><img alt="CodeQL" src="https://github.com/Arsslensoft/Kemlock-core/actions/workflows/codeql.yml/badge.svg"></a>
-  <a href="https://scorecard.dev/viewer/?uri=github.com/Arsslensoft/Kemlock-core"><img alt="OpenSSF Scorecard" src="https://api.securityscorecards.dev/projects/github.com/Arsslensoft/Kemlock-core/badge"></a>
+  <a href="https://scorecard.dev/viewer/?uri=github.com/Arsslensoft/Kemlock-core"><img alt="OpenSSF Scorecard" src="https://api.scorecard.dev/projects/github.com/Arsslensoft/Kemlock-core/badge"></a>
+  <a href="https://www.bestpractices.dev/projects/17111"><img alt="OpenSSF Best Practices" src="https://www.bestpractices.dev/projects/17111/badge"></a>
   <br>
   <img alt="Dart 3.13" src="https://img.shields.io/badge/Dart-3.13-0175C2?logo=dart&logoColor=white">
   <img alt="dart2wasm" src="https://img.shields.io/badge/dart2wasm-supported-654FF0?logo=webassembly&logoColor=white">
