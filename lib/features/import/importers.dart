@@ -27,6 +27,7 @@ import '../../models/vault_key.dart';
 import '../../vault/vault_export.dart' show formatAppName;
 import '../accounts/otp.dart';
 import '../accounts/otpauth.dart';
+import 'formats/csv_logins.dart';
 import 'formats/cxf.dart';
 import 'formats/cxf_map.dart';
 import 'formats/import_extras.dart';
@@ -43,6 +44,10 @@ enum ImportSource {
 
   /// A Credential Exchange payload; the sheet names it after its exporter.
   cxf,
+
+  /// A CSV file of logins, as other password managers export them (`formats/csv_logins.dart`). Added in Kemlock-core: the app's own
+  /// copy of this file has no such source yet.
+  csv,
 }
 
 /// What another app's export held.
@@ -223,7 +228,7 @@ DetectedFormat? detectFormat(String text) {
   if (!identical(json, _notJson)) return json is _Json ? _detectJson(json) : null;
 
   final lines = _uriLines(clean);
-  if (!lines.any(_uriLine.hasMatch)) return null;
+  if (!lines.any(_uriLine.hasMatch)) return looksLikeLoginCsv(clean) ? (source: ImportSource.csv, encrypted: false) : null;
   final source = lines.every(_migrationLine.hasMatch) ? ImportSource.google : ImportSource.uris;
   return (source: source, encrypted: false);
 }
@@ -282,6 +287,7 @@ Future<ForeignImport> parseForeignExport(String text, {String? password, String 
 Future<ForeignImport> _parseFormat(ImportSource source, String text, String password, String Function() newId, int now) async {
   if (source == ImportSource.google || source == ImportSource.uris) return _parseUriList(text, source);
   if (source == ImportSource.cxf) return mapCxf(parseCxf(text), newId: newId, now: now);
+  if (source == ImportSource.csv) return readLoginCsv(text, newId: newId, now: now);
   // Only a second byte order mark gets here without an object, where the TypeScript fails reading it
   final json = _parseJson(text);
   if (json is! _Json) throw const ImportError(ImportErrorCode.unsupported);
