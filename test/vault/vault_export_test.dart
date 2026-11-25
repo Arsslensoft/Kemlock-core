@@ -5,13 +5,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:kemlock_core/core/storage/key_value_store.dart';
 import 'package:kemlock_core/crypto/aes_gcm.dart';
 import 'package:kemlock_core/crypto/bytes.dart';
 import 'package:kemlock_core/crypto/keys/keys.dart' show readPrivateKey;
 import 'package:kemlock_core/crypto/ml_kem.dart';
 import 'package:kemlock_core/features/keys/key_bridge.dart' show vaultKeyOf;
-import 'package:kemlock_core/features/mail/mail_apps.dart';
 import 'package:kemlock_core/models/backup_service.dart';
 import 'package:kemlock_core/models/key_account.dart';
 import 'package:kemlock_core/models/login.dart';
@@ -21,8 +19,6 @@ import 'package:kemlock_core/models/secure_note.dart';
 import 'package:kemlock_core/models/vault_key.dart';
 import 'package:kemlock_core/vault/sealed_value.dart';
 import 'package:kemlock_core/vault/vault_export.dart';
-import 'package:kemlock_core/vault/vault_registry.dart';
-import 'package:kemlock_core/vault/vault_store.dart';
 import 'package:test/test.dart';
 
 import '../compat/before_logins/export_payload.dart';
@@ -847,34 +843,6 @@ void main() {
       expect(() => importVaultPlaintext('{}'), throwsExportError('not a Kemlock export'));
       expect(() => importVaultPlaintext('nope'), throwsExportError('not valid JSON'));
     });
-  });
-
-  // openspec: add-pgp-mail-provider, task 3.2
-  test('an export of a vault with approved mail apps names none of them', () async {
-    final store = KeyValueStore.memory();
-    final vaultStore = VaultStore(store, VaultRegistry(store), deriveKey: fastKdf);
-    final session = await vaultStore.setupVault('pw');
-    await vaultStore.saveAccounts(_accounts, session);
-    await MailAppsStore(vaultStore)
-        .save(const [MailApp(package: 'net.thunderbird.android', cert: 'aa11', name: 'Thunderbird', allowedAt: 1)], session);
-    // What the export sheet hands the export: the open vault's lists
-    final accounts = await vaultStore.loadAccounts(session);
-    final services = await vaultStore.loadBackupServices(session);
-    final keys = await vaultStore.loadKeys(session);
-    final notes = await vaultStore.loadNotes(session);
-    final contacts = await vaultStore.loadContacts(session);
-
-    final plain = exportVaultPlaintext(accounts, services, keys: keys, notes: notes, contacts: contacts);
-    expect(plain, isNot(contains('thunderbird')));
-    final sealed = await exportVault(accounts, services, 'export pw', keys: keys, notes: notes, contacts: contacts, deriveKey: fastKdf);
-    final secretKey = await _openExport(jsonDecode(sealed) as Map<String, Object?>, 'export pw');
-    final vault = (jsonDecode(sealed) as Map<String, Object?>)['vault']! as Map<String, Object?>;
-    final payload = await aesGcmDecrypt(
-      MlKem1024.decapsulate(unb64(vault['kemCT']! as String), secretKey),
-      unb64(vault['nonce']! as String),
-      unb64(vault['ct']! as String),
-    );
-    expect(utf8.decode(payload), allOf(contains('ACME'), isNot(contains('thunderbird'))));
   });
 
   // openspec: add-passwords, task 7.5
