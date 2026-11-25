@@ -193,8 +193,9 @@ void checkArgon2Bounds(Argon2idSettings settings, Uint8List salt) {
   if (!ok) throw KmSignInError(KmSignInIssue.kdfBounds, detail: '$settings, salt ${salt.length} bytes');
 }
 
-/// The second-step methods the phone answers.
-const kmAnswerableSecondSteps = {'totp', 'email', 'webauthn'};
+/// The second-step methods the phone answers. `recovery` is the account's recovery code, which the server takes whatever
+/// methods the account has, so it is never in the list the server gives.
+const kmAnswerableSecondSteps = {'totp', 'email', 'webauthn', 'recovery'};
 
 /// A step of the sign-in.
 sealed class KmSignInStep {
@@ -507,8 +508,15 @@ class KmSignIn {
 
   // ─── A second step ─────────────────────────────────────────────────────
 
-  /// Answers the second step with [code]: an authenticator code, an email code, or a security key's
-  /// assertion as the sheet encodes it.
+  /// Mails the code of the email second step, for the sign-in that owes one. A second request mails a new code.
+  Future<void> sendEmailCode() async {
+    final challenge = _challenge;
+    if (challenge == null) throw StateError('no second step is owed');
+    await auth.sendEmailCode(server, challenge);
+  }
+
+  /// Answers the second step with [code]: an authenticator code, an email code, the account's recovery code, or a
+  /// security key's assertion as the sheet encodes it.
   Future<KmSignInStep> secondStep(String method, String code) async {
     if (!kmAnswerableSecondSteps.contains(method)) throw KmSignInError(KmSignInIssue.webVaultOnly, detail: method);
     // An enrolment waiting for its code finishes with it

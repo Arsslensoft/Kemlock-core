@@ -547,10 +547,28 @@ class KmAuthApi {
     return _answer(json);
   }
 
-  /// The answer to a second step, with the code. [method] is `totp` today; `email` and `webauthn` are the plan's.
+  /// The answer to a second step, with the code. Each method has its route: `totp` answers at `/auth/two-factor`, an
+  /// emailed code at `/auth/two-factor/email`, and the account's recovery code at `/auth/two-factor/recovery`, which
+  /// turns every method of the account off and is spent.
   Future<KmGrant> twoFactor(Uri server, String challenge, String method, String code) async {
-    final json = (await api.call('POST', server, '/auth/two-factor', body: {'challenge': challenge, 'method': method, 'code': code}))!;
+    final route = switch (method) {
+      'email' => '/auth/two-factor/email',
+      'recovery' => '/auth/two-factor/recovery',
+      _ => null,
+    };
+    final json = (await api.call(
+      'POST',
+      server,
+      route ?? '/auth/two-factor',
+      body: {'challenge': challenge, if (route == null) 'method': method, 'code': code},
+    ))!;
     return _grant(json);
+  }
+
+  /// Mails the code of the email second step to the address the account set up (`POST /auth/two-factor/email/send`),
+  /// for the sign-in that owes it. Answers 204.
+  Future<void> sendEmailCode(Uri server, String challenge) async {
+    await api.call('POST', server, '/auth/two-factor/email/send', body: {'challenge': challenge});
   }
 
   // ─── A Compatible account's first sign-in (the server's app contract; not built on the server yet) ────
