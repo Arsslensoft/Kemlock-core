@@ -24,6 +24,7 @@ import '../../models/otp_account.dart';
 import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
+import '../../models/vault_entry.dart';
 import '../../models/vault_key.dart';
 import '../../models/website_rule.dart';
 import 'dedup_cache.dart';
@@ -153,10 +154,11 @@ final class MergeChoices {
     final others = [for (final item in items) item.item];
     return switch (keptItem) {
       final Login login => _mergedLogin(login, text, [for (final item in items) item.item as Login], now, hiddenPasswords),
-      final OtpAccount code => code.copyWith(
+      final OtpAccount code => _mergedCode(
+        code,
         issuer: value('issuer', code.issuer) ?? '',
         label: value('label', code.label) ?? '',
-        counter: _highestCounter(others.whereType<OtpAccount>()) ?? keep,
+        all: others.whereType<OtpAccount>().toList(),
       ),
       final SecureNote note => note.copyWith(title: value('title', note.title) ?? '', text: value('text', note.text) ?? ''),
       final BackupService service => service.copyWith(serviceName: value('name', service.serviceName) ?? ''),
@@ -206,6 +208,26 @@ int? _highestCounter(Iterable<OtpAccount> codes) {
   return held.isEmpty ? null : held.reduce((a, b) => a > b ? a : b);
 }
 
+/// The code that results: the kept one with the picked name, the highest counter of a held HOTP code, and what the removed copies add,
+/// as a login's merge keeps it: the tags, and the websites with the narrower rule where one address has two.
+OtpAccount _mergedCode(OtpAccount kept, {required String issuer, required String label, required List<OtpAccount> all}) {
+  final others = [
+    for (final code in all)
+      if (code.id != kept.id) code,
+  ]..sort((a, b) => b.changedAt.compareTo(a.changedAt));
+  final rules = mergeRules([kept.rules, for (final code in others) code.rules]);
+  final sites = websitesOf(rules);
+  final tags = <String>{...?kept.tags, for (final code in others) ...?code.tags}.toList();
+  return kept.copyWith(
+    issuer: issuer,
+    label: label,
+    counter: _highestCounter(all) ?? keep,
+    tags: tags.isEmpty ? unset : tags,
+    websites: sites.websites ?? unset,
+    uris: sites.uris ?? unset,
+  );
+}
+
 Login _mergedLogin(Login kept, Map<String, String?> text, List<Login> all, int now, Set<String> hiddenPasswords) {
   final others = [
     for (final login in all)
@@ -230,6 +252,15 @@ Login _mergedLogin(Login kept, Map<String, String?> text, List<Login> all, int n
   out = out.copyWith(websites: sites.websites ?? unset, uris: sites.uris ?? unset);
   final tags = <String>{...?kept.tags, for (final login in others) ...?login.tags}.toList();
   out = out.copyWith(tags: tags.isEmpty ? unset : tags, pinned: all.any((login) => login.isPinned) ? true : keep);
+  // A login the kept one doesn't link to a code keeps the link of the copy that goes (the newest first): the link is not lost
+  if (kept.accountId == null) {
+    for (final login in others) {
+      if (login.accountId != null) {
+        out = out.copyWith(accountId: login.accountId);
+        break;
+      }
+    }
+  }
   // No password is lost: the ones not kept become previous passwords, the newest change first
   final lost = <String>{
     if (kept.password != null) kept.password!,
@@ -450,4 +481,58 @@ final class MergeRecord {
   bool undoable(int now) => now - at < const Duration(days: mergeUndoDays).inMilliseconds;
 
   Map<String, Object?> toJson() => {'id': id, 'at': at, 'kind': kind, 'kept': kept, 'removed': removed, 'relinked': relinked, ...extra};
+}
+
+/// What Undo merge puts back (design 7), worked out from the record and the items the vault holds now, so that nothing the person
+/// did since the merge is overwritten without their say:
+///
+/// - the items that went come back as they were, unless the vault holds one with that id again;
+/// - a login the merge relinked to the code that stayed gets only its `accountId` back, and only while it still points at that code:
+///   a login edited since, or linked elsewhere, keeps what it holds;
+/// - the item that stayed goes back to what it was before the merge, which loses any change made to it since. [keptEdited] says it was
+///   changed after the merge (its change time is later than [MergeRecord.at], which the merge stamped it with), and the caller asks first.
+class MergeUndo {
+  const MergeUndo({required this.kept, required this.keptEdited, required this.keptGone, required this.removed, required this.relinks});
+
+  /// The item that stayed, as it was before the merge.
+  final Object kept;
+
+  /// The item that stayed was changed after the merge.
+  final bool keptEdited;
+
+  /// The item that stayed is no longer in the vault.
+  final bool keptGone;
+
+  /// The items that went, as they were, which the vault doesn't hold now.
+  final List<Object> removed;
+
+  /// Login id to the `accountId` it had before the merge, for the logins that still point at the code that stayed.
+  final Map<String, String> relinks;
+}
+
+/// The plan to undo [record], or null when the record's items can't be read. [find] gives the item the vault holds with an id, or null.
+MergeUndo? planUndo(MergeRecord record, {required Object? Function(String id) find}) {
+  final kept = mergeItemOf(record.kind, record.kept);
+  if (kept is! VaultEntry<Object?>) return null;
+  final removed = <Object>[
+    for (final json in record.removed)
+      if (mergeItemOf(record.kind, json) case final VaultEntry<Object?> item when find(item.id) == null) item,
+  ];
+  final now = find(kept.id);
+  final relinks = <String, String>{};
+  for (final json in record.relinked) {
+    final before = Login.fromJson(json);
+    final held = find(before.id);
+    final link = before.accountId;
+    if (held is Login && link != null && held.accountId == kept.id) {
+      relinks[before.id] = link;
+    }
+  }
+  return MergeUndo(
+    kept: kept,
+    keptEdited: now is VaultEntry<Object?> && now.changedAt > record.at,
+    keptGone: now == null,
+    removed: removed,
+    relinks: relinks,
+  );
 }
