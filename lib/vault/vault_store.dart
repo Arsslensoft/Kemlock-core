@@ -636,6 +636,18 @@ class VaultStore {
     return UnlockOpened(session);
   }
 
+  /// Whether [password] is the password of [vault], checked and nothing more: no hidden vault is
+  /// tried, nothing is opened or written, and the active vault stays as it is. A vault that needs a
+  /// security key as well counts when the password is its own. For a caller that already holds the
+  /// open vault and wants to be sure it is the person at it (an export asks it again).
+  Future<bool> passwordOpens(String password, String vault) async {
+    final found = await _openFirst(password, [vault]);
+    if (found == null) return false;
+    found.session?.secretKey.fillRange(0, found.session!.secretKey.length, 0);
+    _wipe(found.passwordKey);
+    return true;
+  }
+
   /// Unlocks the vault chosen on the lock screen, or a hidden vault whose
   /// password this is, and makes it the active vault. Throws
   /// [SecurityKeyNeededError], with the pending step, for the password of a
