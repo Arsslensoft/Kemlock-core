@@ -95,6 +95,17 @@ void main() {
     expect(parseGoogleMigration(made.uris.single)!.accounts.single.issuer, 'Fine');
   });
 
+  test('leaves out a code too long for a QR code, and still writes the rest', () {
+    final made = buildGoogleMigration([_code('Fine', 'me'), _code('Huge', 'x' * 2600), _code('Also fine', 'me')]);
+
+    expect(made.leftOut.map((one) => (one.title, one.reason)), [('Huge', MigrationLeftOutReason.tooLong)]);
+    expect(made.exported, 2);
+    for (final uri in made.uris) {
+      expect(uri.length, lessThanOrEqualTo(migrationMaxUri));
+    }
+    expect(made.uris.expand((uri) => parseGoogleMigration(uri)!.accounts).map((a) => a.issuer), ['Fine', 'Also fine']);
+  });
+
   test('makes no code for nothing', () {
     final made = buildGoogleMigration(const []);
 

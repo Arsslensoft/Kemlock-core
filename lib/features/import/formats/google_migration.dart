@@ -31,6 +31,9 @@ enum MigrationLeftOutReason {
 
   /// A secret that isn't Base32.
   secret,
+
+  /// A code whose name and issuer are so long that it does not fit a QR code even alone.
+  tooLong,
 }
 
 /// One code the QR codes leave out.
@@ -56,6 +59,9 @@ const migrationBatchSize = 10;
 /// The most bytes of payload one QR code holds: with its base64 and the URI around it, a code the reader still finds (a QR code
 /// holds 2,953 bytes at most, and a phone's camera reads a dense one badly).
 const migrationBatchBytes = 1100;
+
+/// The most characters of one transfer URI: what a QR code of the standard's largest version holds (2,953 bytes), with room to spare.
+const migrationMaxUri = 2400;
 
 const _algorithms = {'SHA1': 1, 'SHA256': 2, 'SHA512': 3};
 
@@ -123,39 +129,67 @@ Uint8List _payload(List<Uint8List> parameters, {required int size, required int 
   return out.toBytes();
 }
 
+typedef _Entry = ({OtpAccount account, Uint8List parameters});
+
+String _uri(List<Uint8List> batch, {required int size, required int index, required int batchId}) {
+  final data = base64.encode(_payload(batch, size: size, index: index, batchId: batchId));
+  return 'otpauth-migration://offline?data=${Uri.encodeQueryComponent(data)}';
+}
+
+/// [batch] as the batches that each fit one QR code: itself when its URI is short enough, else its two halves, down to one code. A
+/// single code that is still too long comes back alone, for the caller to leave out.
+List<List<_Entry>> _fitting(List<_Entry> batch) {
+  // The URI's length is the same whatever the batch's place, within a few characters the limit leaves room for
+  final length = _uri([for (final entry in batch) entry.parameters], size: 99, index: 99, batchId: 0x7fffffff).length;
+  if (length <= migrationMaxUri || batch.length == 1) return [batch];
+  final middle = batch.length ~/ 2;
+  return [..._fitting(batch.sublist(0, middle)), ..._fitting(batch.sublist(middle))];
+}
+
 /// [accounts] as Google Authenticator's transfer QR codes, in batches of at most [migrationBatchSize] codes and
-/// [migrationBatchBytes] bytes. [batchId] ties the batches of one export together, as the apps that read several do.
+/// [migrationBatchBytes] bytes, each split further when its URI is more than [migrationMaxUri] characters, so that every URI fits one
+/// QR code. A code too long to fit alone is left out and listed. [batchId] ties the batches of one export together, as the apps that
+/// read several do.
 GoogleMigration buildGoogleMigration(List<OtpAccount> accounts, {int batchId = 0}) {
   final leftOut = <MigrationLeftOut>[];
-  final batches = <List<Uint8List>>[];
-  var current = <Uint8List>[];
+  final batches = <List<_Entry>>[];
+  var current = <_Entry>[];
   var bytes = 0;
-  var exported = 0;
   for (final account in accounts) {
     final problem = _problem(account);
     if (problem != null) {
       leftOut.add(MigrationLeftOut(account.issuer.isNotEmpty ? account.issuer : account.label, problem));
       continue;
     }
-    final one = _parameters(account);
-    if (current.isNotEmpty && (current.length >= migrationBatchSize || bytes + one.length > migrationBatchBytes)) {
+    final entry = (account: account, parameters: _parameters(account));
+    final size = entry.parameters.length;
+    if (current.isNotEmpty && (current.length >= migrationBatchSize || bytes + size > migrationBatchBytes)) {
       batches.add(current);
       current = [];
       bytes = 0;
     }
-    current.add(one);
-    bytes += one.length;
-    exported++;
+    current.add(entry);
+    bytes += size;
   }
   if (current.isNotEmpty) batches.add(current);
-  String uri(int index, List<Uint8List> batch) {
-    final data = base64.encode(_payload(batch, size: batches.length, index: index, batchId: batchId));
-    return 'otpauth-migration://offline?data=${Uri.encodeQueryComponent(data)}';
-  }
 
+  final fitted = <List<_Entry>>[];
+  for (final batch in batches) {
+    for (final part in _fitting(batch)) {
+      if (part.length == 1 && _uri([part.single.parameters], size: 99, index: 99, batchId: 0x7fffffff).length > migrationMaxUri) {
+        final account = part.single.account;
+        leftOut.add(MigrationLeftOut(account.issuer.isNotEmpty ? account.issuer : account.label, MigrationLeftOutReason.tooLong));
+      } else {
+        fitted.add(part);
+      }
+    }
+  }
   return GoogleMigration(
-    uris: [for (final (index, batch) in batches.indexed) uri(index, batch)],
-    exported: exported,
+    uris: [
+      for (final (index, batch) in fitted.indexed)
+        _uri([for (final entry in batch) entry.parameters], size: fitted.length, index: index, batchId: batchId),
+    ],
+    exported: fitted.fold(0, (sum, batch) => sum + batch.length),
     leftOut: leftOut,
   );
 }
