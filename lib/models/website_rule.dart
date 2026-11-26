@@ -140,6 +140,15 @@ Websites? websitesOfUrls(Object? urls) {
   return hosts.isEmpty ? null : (websites: hosts.toList(), uris: null);
 }
 
+/// Whether writing [read], the websites read from [json], gives back exactly the `websites` and `uris` members [json] holds, and none
+/// where it holds none. When it doesn't (a web vault body that spells every address as a `uris` entry, a `websites` that isn't a list
+/// of texts, a `uris` with no `websites` beside it), a model that must write the body back as it was keeps the two members as they
+/// were among its unknown keys, and writes none of its own until the websites are edited.
+bool writesBackWebsites(Map<String, Object?> json, Websites read) {
+  final written = writeWebsites(read.websites, read.uris);
+  return const ['websites', 'uris'].every((key) => json.containsKey(key) == written.containsKey(key) && jsonEquals(json[key], written[key]));
+}
+
 /// Whether [json] is a body that holds only `urls` and no `uris` or `websites`, whose websites [readWebsites] reads with `urls: true`
 /// are none of its own. Such a body is written back without them until its websites are edited.
 bool websitesFromUrls(Map<String, Object?> json) =>

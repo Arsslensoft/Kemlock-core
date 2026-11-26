@@ -368,6 +368,73 @@ void main() {
     });
   });
 
+  group('backup codes written by the web vault', () {
+    Map<String, Object?> body(Map<String, Object?> more) => {
+      'id': 'b1',
+      'serviceName': 'GitHub',
+      'codes': [
+        {'code': '1111', 'used': false},
+      ],
+      'addedAt': 1,
+      ...more,
+    };
+
+    test('are written back as they were, whatever shape their websites and name have', () {
+      for (final more in <Map<String, Object?>>[
+        {
+          'websites': ['github.com'],
+          'uris': [
+            {'uri': 'github.com'},
+          ],
+          'urls': ['github.com'],
+        },
+        {
+          'uris': [
+            {'uri': 'https://github.com/login', 'match': 3},
+          ],
+          'urls': ['https://github.com/login'],
+        },
+        {'websites': <Object?>[], 'urls': <Object?>[]},
+        {'websites': 'github.com'},
+        {'name': 5},
+        {'name': null},
+      ]) {
+        final json = body(more);
+        final service = BackupService.fromJson(json);
+
+        expect(service.toJson(), json, reason: '$more');
+        expect(service.stamped(9).toJson()..remove('updatedAt'), json, reason: '$more');
+        expect(service.copyWith(serviceName: 'GitHub').toJson(), json, reason: '$more');
+      }
+    });
+
+    test('still read their websites, which an edit then writes in place of what the body held', () {
+      final service = BackupService.fromJson(
+        body({
+          'websites': ['github.com'],
+          'uris': [
+            {'uri': 'github.com'},
+          ],
+          'urls': ['github.com'],
+        }),
+      );
+
+      expect(service.websites, ['github.com']);
+      final edited = service.copyWith(websites: ['gitlab.com']);
+      expect(edited.toJson()['websites'], ['gitlab.com']);
+      expect(edited.toJson().containsKey('uris'), isFalse);
+      expect(edited.toJson()['urls'], ['gitlab.com']);
+    });
+
+    test('a name that is not a text is replaced by one the person types', () {
+      final service = BackupService.fromJson(body({'name': 5}));
+
+      expect(service.name, isNull);
+      expect(service.copyWith(name: 'Work').toJson()['name'], 'Work');
+      expect(service.copyWith(name: unset).toJson().containsKey('name'), isFalse);
+    });
+  });
+
   group('a contact', () {
     test('may have no key: public is empty, left out, and the source is manual', () {
       const contact = Contact(

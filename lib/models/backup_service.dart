@@ -55,39 +55,46 @@ class BackupService implements VaultEntry<BackupService> {
     this.breachesDismissed,
     this.websites,
     this.uris,
+    this.sitesAsRead = false,
     this.links = const [],
     this.fields = const [],
     this.extra = const {},
   });
 
-  factory BackupService.fromJson(Map<String, Object?> json) => BackupService(
-    id: asString(json['id']),
-    name: asOptionalString(json['name']),
-    serviceName: asString(json['serviceName']),
-    codes: [for (final code in (json['codes'] as List<Object?>?) ?? const []) BackupCode.fromJson(code! as Map<String, Object?>)],
-    note: asOptionalString(json['note']),
-    spaceId: asOptionalString(json['spaceId']),
-    addedAt: asInt(json['addedAt']) ?? 0,
-    updatedAt: asInt(json['updatedAt']),
-    breachesDismissed: asStrings(json['breachesDismissed']),
-    websites: readWebsites(json).websites,
-    uris: readWebsites(json).uris,
-    links: readLinks(json['links']),
-    fields: readFields(json['fields']),
-    extra: extraKeysOfBody(json, const {
-      'id',
-      'name',
-      'serviceName',
-      'codes',
-      'note',
-      'spaceId',
-      'addedAt',
-      'updatedAt',
-      'breachesDismissed',
-      'websites',
-      'uris',
-    }),
-  );
+  factory BackupService.fromJson(Map<String, Object?> json) {
+    final sites = readWebsites(json);
+    // A body whose websites don't write back exactly (see [writesBackWebsites]) keeps them as it held them, and so does one whose
+    // `name` isn't a text: whatever the person didn't edit is written back as it was
+    final exact = writesBackWebsites(json, sites);
+    return BackupService(
+      id: asString(json['id']),
+      name: asOptionalString(json['name']),
+      serviceName: asString(json['serviceName']),
+      codes: [for (final code in (json['codes'] as List<Object?>?) ?? const []) BackupCode.fromJson(code! as Map<String, Object?>)],
+      note: asOptionalString(json['note']),
+      spaceId: asOptionalString(json['spaceId']),
+      addedAt: asInt(json['addedAt']) ?? 0,
+      updatedAt: asInt(json['updatedAt']),
+      breachesDismissed: asStrings(json['breachesDismissed']),
+      websites: sites.websites,
+      uris: sites.uris,
+      sitesAsRead: !exact,
+      links: readLinks(json['links']),
+      fields: readFields(json['fields']),
+      extra: extraKeysOfBody(json, {
+        'id',
+        if (json['name'] is String) 'name',
+        'serviceName',
+        'codes',
+        'note',
+        'spaceId',
+        'addedAt',
+        'updatedAt',
+        'breachesDismissed',
+        if (exact) ...const ['websites', 'uris'],
+      }),
+    );
+  }
 
   @override
   final String id;
@@ -120,6 +127,10 @@ class BackupService implements VaultEntry<BackupService> {
   /// holds hosts alone. Written only when it says more than `websites` does.
   final List<WebsiteRule>? uris;
 
+  /// Whether the body's `websites` and `uris` could not be written back exactly from [websites] and [uris]: it holds them among
+  /// [extra] as it had them, and writes none of its own until the websites are edited.
+  final bool sitesAsRead;
+
   /// The websites with their rules: `uris`, else each host on the default rule.
   List<WebsiteRule> get rules => uris ?? [for (final host in websites ?? const <String>[]) WebsiteRule(host)];
 
@@ -147,7 +158,7 @@ class BackupService implements VaultEntry<BackupService> {
     'addedAt': addedAt,
     'updatedAt': ?updatedAt,
     if (breachesDismissed?.isNotEmpty ?? false) 'breachesDismissed': breachesDismissed,
-    ...writeWebsites(websites, uris),
+    if (!sitesAsRead) ...writeWebsites(websites, uris),
     'links': ?writeLinks(links),
     'fields': ?writeFields(fields),
     ...extra,
@@ -168,7 +179,14 @@ class BackupService implements VaultEntry<BackupService> {
     Object? uris = keep,
     List<ItemLink>? links,
     List<CustomField>? fields,
-  }) => BackupService(
+  }) {
+    // An edit of the websites replaces the members the body held; one of the name replaces a name that wasn't a text
+    final sitesEdited = !identical(websites, keep) || !identical(uris, keep);
+    final held = {
+      for (final MapEntry(:key, :value) in extra.entries)
+        if (!(sitesEdited && sitesAsRead && (key == 'websites' || key == 'uris')) && !(!identical(name, keep) && key == 'name')) key: value,
+    };
+    return BackupService(
     id: id ?? this.id,
     name: pick(name, this.name),
     serviceName: serviceName ?? this.serviceName,
@@ -180,14 +198,16 @@ class BackupService implements VaultEntry<BackupService> {
     breachesDismissed: pick(breachesDismissed, this.breachesDismissed),
     websites: _changed(websites, uris).websites,
     uris: _changed(websites, uris).uris,
+    sitesAsRead: sitesAsRead && !sitesEdited,
     links: links ?? this.links,
     fields: fields ?? this.fields,
     extra: extraSetting(
-      extraWithUrls(extra, (websites: this.websites, uris: this.uris), _changed(websites, uris)),
+      extraWithUrls(held, (websites: this.websites, uris: this.uris), _changed(websites, uris)),
       links: links != null,
       fields: fields != null,
     ),
-  );
+    );
+  }
 
   @override
   bool operator ==(Object other) => other is BackupService && jsonEquals(toJson(), other.toJson());
