@@ -11,14 +11,17 @@
 /// Pure Dart, no Flutter.
 library;
 
-import '../../../crypto/account/encoding.dart' show Owner;
+import 'package:crypto/crypto.dart' as sha;
+
+import '../../../crypto/account/encoding.dart' show Owner, b64urlEncode;
+import 'km_api.dart' show KmWireItem;
 import 'km_files.dart';
 import 'km_kinds.dart';
 import 'km_move_server.dart';
 
 /// What [kmPushItemWithFiles] left on the server.
 class KmPushResult {
-  const KmPushResult({required this.entry, required this.revision, required this.unsent});
+  const KmPushResult({required this.entry, required this.revision, required this.unsent, this.ciphertextHash = ''});
 
   /// The entry as the server holds it now: its files named when they went up.
   final KmEntry entry;
@@ -29,6 +32,10 @@ class KmPushResult {
   /// The attachment ids of the files the item names that have no server file: too large for the server, or not in the store. They
   /// are uploaded by a later run, or by another call, when the bytes are there.
   final List<String> unsent;
+
+  /// The base64url SHA-256 of the ciphertext the server stored for the last write, as a manifest lists the item and the cache
+  /// holds it as `hash`; empty when nothing says.
+  final String ciphertextHash;
 
   @override
   String toString() => 'KmPushResult(revision $revision, ${unsent.length} unsent)';
@@ -60,20 +67,20 @@ Future<KmPushResult> kmPushItemWithFiles({
   final entryId = kmEntryId(trusted);
   final itemId = kmItemId(entryId, owner);
 
-  Future<int> write(KmEntry next, int? expected) async {
+  Future<KmWireItem> write(KmEntry next, int? expected) async {
     final stored = await server.send([
       KmMoveWrite(itemId: itemId, entryId: entryId, kind: next.kind, revision: (expected ?? 0) + 1, expected: expected, json: next.json),
     ]);
-    return stored.single.revision;
+    return stored.single;
   }
 
-  var held = await write(trusted, revision);
+  var last = await write(trusted, revision);
   var current = trusted;
   final named = await files.uploadEntryFiles(trusted, itemId: itemId, now: now);
   if (named != null) {
     current = named;
     try {
-      held = await write(named, held);
+      last = await write(named, last.revision);
     } catch (_) {
       // The item does not name what just went up (another device wrote it, or the write failed): remove those files, and
       // only those; the ones the item already names stay, so a retry loses nothing
@@ -86,7 +93,8 @@ Future<KmPushResult> kmPushItemWithFiles({
   }
   return KmPushResult(
     entry: current,
-    revision: held,
+    revision: last.revision,
+    ciphertextHash: last.ciphertext == null ? '' : b64urlEncode(sha.sha256.convert(last.ciphertext!).bytes),
     unsent: [
       for (final file in kmAttachmentsOf(current))
         if (kmServerFileId(file) == null) file.id,

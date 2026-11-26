@@ -37,8 +37,10 @@ import 'km_dedup.dart';
 import 'km_dedup_api.dart' show KmHints;
 import 'km_failover.dart';
 import 'km_files.dart';
+import 'km_kinds.dart';
 import 'km_live.dart';
 import 'km_models.dart';
+import 'km_push.dart';
 import 'km_session.dart';
 import 'km_signin.dart';
 import 'km_sync.dart';
@@ -277,6 +279,77 @@ class KmHost implements KemlockBackend {
     ScopeState state,
     int now,
     RemovalChoice? choice,
+  ) => _onScope(
+    failover,
+    server,
+    stored,
+    proofs,
+    accountSession,
+    target,
+    (scope) => scope.sync(target, local, state, now: now, choice: choice),
+  );
+
+  /// Writes the one entry [entry] to the server now, with the files it names that this phone holds ([fileStore]) and the server
+  /// lacks, without a full sync: what a client calls to upload a note or File item at once.
+  ///
+  /// ```dart
+  /// Future<KmPushResult> pushEntry(KemlockTarget target, KmEntry entry, {int? now, int? lastSyncAt})
+  /// ```
+  ///
+  /// It runs as [sync] does on the server in use (the home, or a replica when the phone is on one, with the same sign-in, session
+  /// renewal and failover) and uses the host's own cache, so the item is written over the revision the server holds, with the dedup
+  /// tags of the vault when matching is on, and the account's signed manifest lists it. It first reads what changed on the server
+  /// since the last run (`KmScopeSync.pushEntry`), merges [entry] with the server's copy of the item when another device wrote it,
+  /// and stores the cache with the item at its new revision, so the next [sync] has nothing to do for it. No other entry is written
+  /// and no deletion is decided: the vault itself is the caller's to keep.
+  ///
+  /// [now] (epoch ms) defaults to the host's clock; [lastSyncAt] is when this phone last finished a run, for dating a deletion the
+  /// read first sees. Returns the [KmPushResult] of `kmPushItemWithFiles`: the entry as the server holds it now (the files named
+  /// once they went up: the caller keeps that entry in its vault), its revision, and the attachment ids that could not be sent.
+  /// Throws what [sync] throws: a [KmError] (a `stale` one when the item changed during the call: call it again), a [KmSyncError]
+  /// when the server's state is older than this phone saw.
+  Future<KmPushResult> pushEntry(KemlockTarget target, KmEntry entry, {int? now, int? lastSyncAt}) async {
+    final stored = await _load();
+    final ended = stored.session.extra[endedKey];
+    if (ended is String) throw KmError(KmProblem.sessionEnded, reason: ended);
+    final proofs = await proofsFor(stored.session);
+    if (proofs == null) throw const KmError(KmProblem.sessionEnded, reason: 'device-key-lost');
+    final failover = _failoverFor(target);
+    final accountSession = stored.account.openSession();
+    final at = now ?? clock().millisecondsSinceEpoch;
+    try {
+      if (!failover.onHome) await failover.checkHome((home) => _probe(target, home, proofs));
+      return await failover.send<KmPushResult>(
+        (server) => _onScope(
+          failover,
+          server,
+          stored,
+          proofs,
+          accountSession,
+          target,
+          (scope) => scope.pushEntry(entry, now: at, lastSyncAt: lastSyncAt),
+        ),
+        signInTo: (server) => _signInTo(failover, server, stored.session, proofs),
+        perRequest: true,
+      );
+    } on KmFailoverExhausted {
+      throw const KmError(KmProblem.network);
+    } finally {
+      _report(failover);
+      accountSession.dispose();
+      stored.account.wipeSecrets();
+    }
+  }
+
+  /// [action] with the scope engine for [server]: with the stored session on the home, with the replica's own anywhere else.
+  Future<T> _onScope<T>(
+    KmFailover failover,
+    KemlockServer server,
+    ({KmSession session, KmAccount account}) stored,
+    KmProofs proofs,
+    AccountSession accountSession,
+    KemlockTarget target,
+    Future<T> Function(KmScopeSync scope) action,
   ) async {
     final onHome = server.url == failover.home.url;
     if (!onHome && _replicas[server.url] == null) await _signInTo(failover, server, stored.session, proofs);
@@ -309,7 +382,7 @@ class KmHost implements KemlockBackend {
         clock: clock,
       );
       try {
-        return await scope.sync(target, local, state, now: now, choice: choice);
+        return await action(scope);
       } on KmError catch (e) {
         if (e.problem == KmProblem.sessionEnded) {
           // The home's session is over for good; a replica's is only made again
