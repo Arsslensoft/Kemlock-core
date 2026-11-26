@@ -356,6 +356,63 @@ void main() {
       expect(unchanged.revision, 5);
     });
 
+    test('a server file the caller names without the previous entry naming it is not trusted: the file goes up from the store', () async {
+      final w = _world();
+      final made = await _sealed(1000);
+      final phone = KmPhone(w.server, clock: w.clock);
+      final files = KmFiles(store: FakeFileStore()..files[made.entry.id] = made.sealed, connection: phone.connection, server: FakeKemlockServer.url);
+      final server = KmMoveServer(connection: phone.connection, server: FakeKemlockServer.url, crypto: phone.crypto);
+
+      final pushed = await kmPushItemWithFiles(
+        server: server,
+        files: files,
+        entry: _entry(_one, kmNamedFile(made.entry, 'not-a-file-of-this-item')),
+        now: 5,
+      );
+
+      expect(w.server.events, ['batch', 'file', 'batch'], reason: 'the body named a file, but none was this items');
+      final named = kmServerFileId(kmAttachmentsOf(pushed.entry).single);
+      expect(named, isNot('not-a-file-of-this-item'));
+      expect(w.server.files.keys, [named]);
+    });
+
+    test('an attachment takes the server file and hash the previous entry names for its id and key, whatever the caller names', () async {
+      final w = _world();
+      final made = await _sealed(1000);
+      final phone = KmPhone(w.server, clock: w.clock);
+      final files = KmFiles(store: FakeFileStore()..files[made.entry.id] = made.sealed, connection: phone.connection, server: FakeKemlockServer.url);
+      final server = KmMoveServer(connection: phone.connection, server: FakeKemlockServer.url, crypto: phone.crypto);
+      final first = await kmPushItemWithFiles(server: server, files: files, entry: _entry(_one, made.entry), now: 5);
+      final held = kmAttachmentsOf(first.entry).single;
+      w.server.events.clear();
+
+      final again = await kmPushItemWithFiles(
+        server: server,
+        files: files,
+        entry: _entry(_one, kmNamedFile(_withoutHash(made.entry), 'another-items-file')),
+        revision: first.revision,
+        previous: first.entry,
+        now: 6,
+      );
+
+      expect(w.server.events, ['batch'], reason: 'the previous entry file is the one named, so nothing is sent');
+      final named = kmAttachmentsOf(again.entry).single;
+      expect(kmServerFileId(named), kmServerFileId(held));
+      expect(named.sha256, held.sha256);
+      expect(w.server.files, hasLength(1));
+    });
+
+    test('kmTrustedFiles leaves an entry that names exactly the previous files as it was, and strips every name without one', () async {
+      final made = await _sealed(100);
+      final named = kmNamedFile(made.entry, 'f1', sha256: made.entry.sha256);
+      final previous = _entry(_one, named);
+
+      expect(identical(kmTrustedFiles(previous, previous), previous), isTrue);
+      expect(kmAttachmentsOf(kmTrustedFiles(previous, null)).single.extra, isNot(contains(kmFileKey)));
+      final otherKey = NoteAttachment(id: named.id, name: named.name, size: named.size, key: b64(randomBytes(32)), addedAt: 1);
+      expect(kmServerFileId(kmAttachmentsOf(kmTrustedFiles(_entry(_one, kmNamedFile(otherKey, 'f9')), previous)).single), isNull);
+    });
+
     test('a file the store lacks is left unsent and listed, the item written without it', () async {
       final w = _world();
       final made = await _sealed(1000);

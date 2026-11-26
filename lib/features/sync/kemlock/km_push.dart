@@ -44,6 +44,9 @@ class KmPushResult {
 /// Throws a [KmError] (a `stale` one when another device wrote the item since [revision]: nothing was stored by that write, and the
 /// caller reads the item again) and leaves the server consistent whenever it stops: after the first write the item exists, and
 /// a retry from the returned or the stored entry sends no file the body already names.
+///
+/// The caller's `kemlockFile` members are not trusted: the item is written naming only the server files [previous] names for an
+/// attachment of the same id and key (with its `sha256`), and none for any other, whose file this call uploads from the store.
 Future<KmPushResult> kmPushItemWithFiles({
   required KmMoveServer server,
   required KmFiles files,
@@ -52,8 +55,9 @@ Future<KmPushResult> kmPushItemWithFiles({
   KmEntry? previous,
   required int now,
 }) async {
+  final trusted = kmTrustedFiles(entry, previous);
   final Owner owner = server.crypto.owner;
-  final entryId = kmEntryId(entry);
+  final entryId = kmEntryId(trusted);
   final itemId = kmItemId(entryId, owner);
 
   Future<int> write(KmEntry next, int? expected) async {
@@ -63,9 +67,9 @@ Future<KmPushResult> kmPushItemWithFiles({
     return stored.single.revision;
   }
 
-  var held = await write(entry, revision);
-  var current = entry;
-  final named = await files.uploadEntryFiles(entry, itemId: itemId, now: now);
+  var held = await write(trusted, revision);
+  var current = trusted;
+  final named = await files.uploadEntryFiles(trusted, itemId: itemId, now: now);
   if (named != null) {
     current = named;
     held = await write(named, held);

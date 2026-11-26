@@ -126,6 +126,29 @@ KmEntry kmWithoutServerFiles(KmEntry entry) {
   return kmWithAttachments(entry, [for (final file in files) kmUnnamedFile(file)]);
 }
 
+/// [entry] naming only the server files [previous] names, which is all a write from a caller is trusted to say: each attachment of
+/// [entry] loses the server file it names, then takes the one [previous] names for the attachment with the same `id` and `key`, with
+/// that file's `sha256` when it holds one. With no [previous] (a new item) none is named, so the files are uploaded again. An entry
+/// whose attachments already say exactly that comes back as it was.
+KmEntry kmTrustedFiles(KmEntry entry, KmEntry? previous) {
+  final files = kmAttachmentsOf(entry);
+  if (files.isEmpty) {
+    return entry;
+  }
+  final held = {for (final file in previous == null ? const <NoteAttachment>[] : kmAttachmentsOf(previous)) file.id: file};
+  var changed = false;
+  final out = <NoteAttachment>[];
+  for (final file in files) {
+    final unnamed = kmUnnamedFile(file);
+    final old = held[file.id];
+    final oldId = old == null || old.key != file.key ? null : kmServerFileId(old);
+    final next = old == null || oldId == null ? unnamed : kmNamedFile(unnamed, oldId, sha256: old.sha256);
+    changed = changed || next != file;
+    out.add(next);
+  }
+  return changed ? kmWithAttachments(entry, out) : entry;
+}
+
 /// Why a file couldn't be fetched on demand.
 enum KmFileProblem {
   /// The entry names no file on the server (never uploaded, or from a phone that hasn't sent it yet).
