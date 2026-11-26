@@ -176,6 +176,7 @@ class SecureNote implements VaultEntry<SecureNote> {
     required this.addedAt,
     this.updatedAt,
     this.attachments,
+    this.unreadAttachments = const [],
     this.piv,
     this.links = const [],
     this.fields = const [],
@@ -184,6 +185,7 @@ class SecureNote implements VaultEntry<SecureNote> {
 
   factory SecureNote.fromJson(Map<String, Object?> json) {
     final piv = NotePivKey.tryParse(json['piv']);
+    final held = json['attachments'];
     return SecureNote(
       id: asString(json['id']),
       title: asString(json['title']),
@@ -193,9 +195,15 @@ class SecureNote implements VaultEntry<SecureNote> {
       spaceId: asOptionalString(json['spaceId']),
       addedAt: asInt(json['addedAt']) ?? 0,
       updatedAt: asInt(json['updatedAt']),
-      attachments: json['attachments'] is List
-          ? [for (final file in (json['attachments']! as List<Object?>).whereType<Map<String, Object?>>()) NoteAttachment.fromJson(file)]
+      attachments: held is List
+          ? [for (final file in held.whereType<Map<String, Object?>>()) NoteAttachment.fromJson(file)]
           : null,
+      unreadAttachments: held is List
+          ? [
+              for (var at = 0; at < held.length; at++)
+                if (held[at] is! Map<String, Object?>) (at: at, raw: held[at]),
+            ]
+          : const [],
       piv: piv,
       links: readLinks(json['links']),
       fields: readFields(json['fields']),
@@ -234,6 +242,11 @@ class SecureNote implements VaultEntry<SecureNote> {
   /// Absent on a note that never had a file.
   final List<NoteAttachment>? attachments;
 
+  /// The entries of `attachments` that aren't objects, which this version can't read: each with its place in the list as the body
+  /// held it, and as it was. They are kept and written back in place (a place past the end goes last), whatever else is changed, so
+  /// an entry a later version wrote is never lost; [files] doesn't hold them.
+  final List<({int at, Object? raw})> unreadAttachments;
+
   /// Present only on a note Kemlock made to keep a security key's
   /// management key.
   final NotePivKey? piv;
@@ -263,12 +276,21 @@ class SecureNote implements VaultEntry<SecureNote> {
     'spaceId': ?spaceId,
     'addedAt': addedAt,
     'updatedAt': ?updatedAt,
-    if (attachments case final files?) 'attachments': [for (final file in files) file.toJson()],
+    if (attachments != null || unreadAttachments.isNotEmpty) 'attachments': _writtenAttachments(),
     if (piv case final piv?) 'piv': piv.toJson(),
     'links': ?writeLinks(links),
     'fields': ?writeFields(fields),
     ...extra,
   };
+
+  /// The `attachments` member: the files, with the entries this version can't read put back where they were.
+  List<Object?> _writtenAttachments() {
+    final out = <Object?>[for (final file in attachments ?? const <NoteAttachment>[]) file.toJson()];
+    for (final (:at, :raw) in unreadAttachments) {
+      out.insert(at < out.length ? at : out.length, raw);
+    }
+    return out;
+  }
 
   /// A copy with the given fields changed. Pass [unset] to remove an optional field.
   SecureNote copyWith({
@@ -294,6 +316,7 @@ class SecureNote implements VaultEntry<SecureNote> {
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
     attachments: pick(attachments, this.attachments),
+    unreadAttachments: unreadAttachments,
     piv: pick(piv, this.piv),
     links: links ?? this.links,
     fields: fields ?? this.fields,

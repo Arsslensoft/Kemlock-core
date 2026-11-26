@@ -355,6 +355,39 @@ void main() {
     });
   });
 
+  group('the attachments of a note', () {
+    Map<String, Object?> file(String id) => {'id': id, 'name': '$id.pdf', 'size': 1, 'key': 'k', 'addedAt': 1, 'kemlockFile': 'srv-$id'};
+
+    test('keeps an entry that is not an object where it was, whatever is done to the files', () {
+      final body = {
+        'id': 'n1',
+        'title': 'Papers',
+        'text': '',
+        'addedAt': 1,
+        'attachments': [file('a'), 'an entry of a later version', file('b'), 5, null],
+      };
+      final note = SecureNote.fromJson(body);
+
+      expect(note.files.map((attachment) => attachment.id), ['a', 'b'], reason: 'only the readable ones are files');
+      expect(note.unreadAttachments, hasLength(3));
+      expect(note.toJson(), body);
+
+      final fewer = note.copyWith(attachments: [note.files.last]);
+      expect(fewer.toJson()['attachments'], [file('b'), 'an entry of a later version', 5, null]);
+      final more = note.copyWith(attachments: [...note.files, NoteAttachment.fromJson(file('c'))]);
+      expect(more.toJson()['attachments'], [file('a'), 'an entry of a later version', file('b'), 5, file('c'), null]);
+      expect(note.copyWith(title: 'Other').toJson()['attachments'], body['attachments']);
+    });
+
+    test('of a body that holds only entries this version cannot read are written back', () {
+      final body = {'id': 'n1', 'title': 'T', 'text': '', 'addedAt': 1, 'attachments': ['x']};
+      final note = SecureNote.fromJson(body);
+
+      expect(note.files, isEmpty);
+      expect(note.toJson(), body);
+    });
+  });
+
   group('a File item', () {
     final body = {
       'id': _a,
