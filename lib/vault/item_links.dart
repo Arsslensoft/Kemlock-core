@@ -209,19 +209,19 @@ class _Found {
   bool legacy = false;
 }
 
-/// A copy of [entry] linked to [links], by its kind's own `withLinks`.
-VaultEntry<Object?> _withLinks(VaultEntry<Object?> entry, List<ItemLink> links) => switch (entry) {
-  final OtpAccount entry => entry.withLinks(links),
-  final BackupService entry => entry.withLinks(links),
-  final VaultKey entry => entry.withLinks(links),
-  final SecureNote entry => entry.withLinks(links),
-  final Passkey entry => entry.withLinks(links),
-  final KeyAccount entry => entry.withLinks(links),
-  final Contact entry => entry.withLinks(links),
-  final Login entry => entry.withLinks(links),
-  final PaymentCard entry => entry.withLinks(links),
-  final Identity entry => entry.withLinks(links),
-  final VaultFile entry => entry.withLinks(links),
+/// A copy of [entry] linked to [links], by its kind's own `withLinks`, never to itself: [ownIds] are the ids that name it.
+VaultEntry<Object?> _withLinks(VaultEntry<Object?> entry, List<ItemLink> links, Iterable<String> ownIds) => switch (entry) {
+  final OtpAccount entry => entry.withLinks(links, ownIds: ownIds),
+  final BackupService entry => entry.withLinks(links, ownIds: ownIds),
+  final VaultKey entry => entry.withLinks(links, ownIds: ownIds),
+  final SecureNote entry => entry.withLinks(links, ownIds: ownIds),
+  final Passkey entry => entry.withLinks(links, ownIds: ownIds),
+  final KeyAccount entry => entry.withLinks(links, ownIds: ownIds),
+  final Contact entry => entry.withLinks(links, ownIds: ownIds),
+  final Login entry => entry.withLinks(links, ownIds: ownIds),
+  final PaymentCard entry => entry.withLinks(links, ownIds: ownIds),
+  final Identity entry => entry.withLinks(links, ownIds: ownIds),
+  final VaultFile entry => entry.withLinks(links, ownIds: ownIds),
   _ => throw ArgumentError.value(entry, 'entry', 'not an entry of a kind this version knows'),
 };
 
@@ -241,9 +241,9 @@ VaultEntry<Object?> _stamped(VaultEntry<Object?> entry, int at) => switch (entry
   _ => throw ArgumentError.value(entry, 'entry', 'not an entry of a kind this version knows'),
 };
 
-/// [entry] naming [id] in its links, or as it is when it does already.
-VaultEntry<Object?> _naming(VaultEntry<Object?> entry, String id, int now) =>
-    entry.links.names(id) ? entry : _stamped(_withLinks(entry, [...entry.links, ItemLink(id.toLowerCase())]), now);
+/// [entry] naming [id] in its links, or as it is when it does already. [own] are the ids that name [entry] itself: it never names one.
+VaultEntry<Object?> _naming(VaultEntry<Object?> entry, String id, int now, Iterable<String> own) =>
+    entry.links.names(id) ? entry : _stamped(_withLinks(entry, [...entry.links, ItemLink(id.toLowerCase())], own), now);
 
 /// [entry] with every name of the other entry out of its links, and its own `linkedLoginId` or `accountId` cleared when
 /// that is what ties it to [other].
@@ -254,7 +254,7 @@ VaultEntry<Object?> _dropping(VaultEntry<Object?> entry, VaultEntry<Object?> oth
     next = _withLinks(entry, [
       for (final link in entry.links)
         if (!link.isReadable || !others.contains(link.key)) link,
-    ]);
+    ], index.names(entry));
   }
   switch (next) {
     case final OtpAccount code when code.linkedLoginId != null && others.contains(code.linkedLoginId!.toLowerCase()):
@@ -284,7 +284,7 @@ VaultEntry<Object?> _dropping(VaultEntry<Object?> entry, VaultEntry<Object?> oth
   if (!isLinkId(idA) || !isLinkId(idB) || idA == idB || _legacyLinked(a, b, index)) {
     return (a: a, b: b);
   }
-  return (a: _naming(a, idB, now), b: _naming(b, idA, now));
+  return (a: _naming(a, idB, now, index.names(a)), b: _naming(b, idA, now, index.names(b)));
 }
 
 /// [a] and [b] no longer linked: each loses the other from its links, and a code's `linkedLoginId` or a login's `accountId`
@@ -317,7 +317,7 @@ List<VaultEntry<Object?>> mendedLinks(Lists lists, {required int now, Owner? acc
       if (!isLinkId(idFrom) || _names(current(to), from, index)) {
         continue;
       }
-      changed[to] = _naming(current(to), idFrom, now);
+      changed[to] = _naming(current(to), idFrom, now, index.names(to));
     }
   }
   return changed.values.toList();

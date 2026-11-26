@@ -331,10 +331,11 @@ class SecureNote implements VaultEntry<SecureNote> {
   @override
   int get changedAt => updatedAt ?? addedAt;
 
-  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself.
-  /// It is not stamped.
+  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself: not by its id, nor
+  /// by any of [ownIds], the other ids that name it (its item id, which an entry with a legacy id doesn't share). It is not stamped.
   @override
-  SecureNote withLinks(List<ItemLink> links) => copyWith(links: normaliseLinks(links, ownIds: [id]));
+  SecureNote withLinks(List<ItemLink> links, {Iterable<String> ownIds = const []}) =>
+      copyWith(links: normaliseLinks(links, ownIds: [id, ...ownIds]));
 
   @override
   SecureNote stamped(int at) => copyWith(updatedAt: at);

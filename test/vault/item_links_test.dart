@@ -86,6 +86,20 @@ void main() {
       expect(linked.b.links.single.id, itemUuid('acc-1', _owner));
     });
 
+    test('never writes an entry\'s own item id as a link, for a legacy id too', () {
+      const legacy = Login(id: 'acc-1', name: 'Old', addedAt: 1);
+      final own = itemUuid('acc-1', _owner);
+      // a body that already names itself by its item id (another device wrote it), which linking mends
+      final selfLinked = legacy.withLinks([ItemLink(own)]);
+      expect(selfLinked.links.map((link) => link.id), [own], reason: 'withLinks knows only the entry id');
+      expect(legacy.withLinks([ItemLink(own)], ownIds: [own]).links, isEmpty);
+
+      final linked = linkEntries(selfLinked, _n, now: 5, account: _owner);
+
+      expect(linked.a.links.map((link) => link.id), [_note], reason: 'the item id it was named by is not a link');
+      expect(linked.b.links.map((link) => link.id), [own]);
+    });
+
     test('leaves a code and its login that are tied by linkedLoginId or accountId', () {
       const code = OtpAccount(id: _code, issuer: 'X', label: 'me', secret: 'S', linkedLoginId: _login, addedAt: 1);
       expect(identical(linkEntries(_l, code, now: 5).b, code), isTrue);
