@@ -13,6 +13,7 @@ import '../../models/otp_account.dart';
 import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
+import '../../models/vault_file.dart';
 import '../../models/vault_key.dart';
 import '../../vault/vault_export.dart' show VaultExportPayload;
 import '../contacts/contact_key_info.dart' show contactKeyInfo;
@@ -55,6 +56,7 @@ class ImportPreview {
     this.logins = const [],
     this.cards = const [],
     this.identities = const [],
+    this.files = const [],
     this.skips = const [],
     this.notices = const [],
     this.units = const [],
@@ -95,6 +97,7 @@ class ImportPreview {
         logins: payload.logins,
         cards: payload.cards,
         identities: payload.identities,
+        files: payload.files,
       );
 
   /// The accounts kept on a security key, by name: "on your key, not in
@@ -120,6 +123,9 @@ class ImportPreview {
   /// Cards and identities, which an import only ever adds too.
   final List<PaymentCard> cards;
   final List<Identity> identities;
+
+  /// File items, which an import only ever adds too. The attached files come beside them, as they do for notes.
+  final List<VaultFile> files;
 
   /// Each credential and item a Credential Exchange payload held that
   /// Kemlock doesn't keep, with the reason; entries kept with a caveat; the
@@ -295,6 +301,15 @@ List<Identity> newIdentities(ImportPreview preview, List<Identity> current) {
   return [
     for (final identity in preview.identities)
       if (held.add(identity.id)) identity,
+  ];
+}
+
+/// The File items of [preview] that [current] doesn't hold, by id, each once.
+List<VaultFile> newFiles(ImportPreview preview, List<VaultFile> current) {
+  final held = {for (final file in current) file.id};
+  return [
+    for (final file in preview.files)
+      if (held.add(file.id)) file,
   ];
 }
 

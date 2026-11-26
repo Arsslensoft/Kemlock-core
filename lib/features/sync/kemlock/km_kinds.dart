@@ -19,6 +19,7 @@
 /// | `logins` | `login` |
 /// | `cards` | `card` |
 /// | `identities` | `identity` |
+/// | `files` | `file` |
 ///
 /// The kind sits in the item's additional data, so the server can't relabel
 /// an item. `key`, `key-otp` and `contact` are not in `crypto.md` yet; the
@@ -52,6 +53,7 @@ abstract final class KmKind {
   static const certificate = 'certificate';
   static const card = 'card';
   static const identity = 'identity';
+  static const file = 'file';
 
   // Not in `crypto.md` yet
   static const key = 'key';
@@ -99,10 +101,23 @@ const _listOfKind = {
   KmKind.login: 'logins',
   KmKind.card: 'cards',
   KmKind.identity: 'identities',
+  KmKind.file: 'files',
 };
 
 /// The lists of a sync document, in the order its JSON writes them.
-const _lists = ['accounts', 'backupServices', 'keys', 'notes', 'passkeys', 'keyAccounts', 'contacts', 'logins', 'cards', 'identities'];
+const _lists = [
+  'accounts',
+  'backupServices',
+  'keys',
+  'notes',
+  'passkeys',
+  'keyAccounts',
+  'contacts',
+  'logins',
+  'cards',
+  'identities',
+  'files',
+];
 
 /// Whether this version reads items of [kind].
 bool kmKnowsKind(String kind) => _listOfKind.containsKey(kind);
@@ -137,6 +152,7 @@ List<KmEntry> kmEntriesOf(Lists lists) => [
   for (final login in lists.logins) (kind: KmKind.login, json: login.toJson()),
   for (final card in lists.cards) (kind: KmKind.card, json: card.toJson()),
   for (final identity in lists.identities) (kind: KmKind.identity, json: identity.toJson()),
+  for (final file in lists.files) (kind: KmKind.file, json: file.toJson()),
 ];
 
 KmEntry _keyEntry(VaultKey key) {

@@ -31,6 +31,7 @@ import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
 import '../../models/vault_entry.dart';
+import '../../models/vault_file.dart';
 import '../../models/vault_key.dart';
 import '../keys/key_bridge.dart' show grownPgpKey, keyIdentity;
 import '../spaces/space_head_store.dart' show SpaceAnchors;
@@ -68,8 +69,8 @@ class Tombstone {
 
 /// A vault's entries, or one scope's: accounts, backup services, keys,
 /// notes and passkeys, the accounts kept on a security key, contacts, and
-/// logins, cards and identities. Passkeys, on-key accounts and contacts are only ever in the
-/// vault's own scope; logins, cards and identities follow accounts into spaces.
+/// logins, cards, identities and files. Passkeys, on-key accounts and contacts are only ever in the
+/// vault's own scope; logins, cards, identities and files follow accounts into spaces.
 class Lists {
   const Lists({
     this.accounts = const [],
@@ -82,6 +83,7 @@ class Lists {
     this.logins = const [],
     this.cards = const [],
     this.identities = const [],
+    this.files = const [],
   });
 
   final List<OtpAccount> accounts;
@@ -106,6 +108,9 @@ class Lists {
   /// The vault's identities.
   final List<Identity> identities;
 
+  /// The vault's File items, each holding one attached file (the `files` list, left out of a file while empty).
+  final List<VaultFile> files;
+
   /// The ids of every entry, of every kind.
   Iterable<String> get ids => [
     for (final account in accounts) account.id,
@@ -118,6 +123,7 @@ class Lists {
     for (final login in logins) login.id,
     for (final card in cards) card.id,
     for (final identity in identities) identity.id,
+    for (final file in files) file.id,
   ];
 
   /// The two lists every version writes, then the later ones when they hold
@@ -133,6 +139,7 @@ class Lists {
     if (logins.isNotEmpty) 'logins': [for (final login in logins) login.toJson()],
     if (cards.isNotEmpty) 'cards': [for (final card in cards) card.toJson()],
     if (identities.isNotEmpty) 'identities': [for (final identity in identities) identity.toJson()],
+    if (files.isNotEmpty) 'files': [for (final file in files) file.toJson()],
   };
 
   /// Whether [other] holds the same data in the same order.
@@ -151,6 +158,7 @@ class Lists {
     logins.length,
     cards.length,
     identities.length,
+    files.length,
   );
 
   @override
@@ -172,6 +180,7 @@ class SyncDoc extends Lists {
     super.logins,
     super.cards,
     super.identities,
+    super.files,
     this.deleted = const [],
     this.seq,
     this.extra = const {},
@@ -191,6 +200,7 @@ class SyncDoc extends Lists {
     logins: [for (final login in _objects(json['logins'])) Login.fromJson(login)],
     cards: [for (final card in _objects(json['cards'])) PaymentCard.fromJson(card)],
     identities: [for (final identity in _objects(json['identities'])) Identity.fromJson(identity)],
+    files: [for (final file in _objects(json['files'])) VaultFile.fromJson(file)],
     deleted: [for (final tombstone in _objects(json['deleted'])) Tombstone.fromJson(tombstone)],
     seq: syncSeq(json['seq']),
     extra: extraKeys(json, const {
@@ -204,6 +214,7 @@ class SyncDoc extends Lists {
       'logins',
       'cards',
       'identities',
+      'files',
       'deleted',
       'seq',
     }),
@@ -287,6 +298,7 @@ Lists scopeLists(Lists lists, String? scope) => Lists(
   logins: inScope(lists.logins, scope),
   cards: inScope(lists.cards, scope),
   identities: inScope(lists.identities, scope),
+  files: inScope(lists.files, scope),
 );
 
 /// [local] with each PGP key that [remote] holds another copy of combined
@@ -338,6 +350,7 @@ Future<Lists> combineKeyCopies(Lists local, SyncDoc? remote) async {
     logins: local.logins,
     cards: local.cards,
     identities: local.identities,
+    files: local.files,
   );
 }
 
@@ -420,6 +433,7 @@ Future<VaultKey> _combineKey(VaultKey winner, VaultKey other) async {
   final logins = _mergeEntries(local.logins, remote?.logins ?? const <Login>[], tombs, combine: _keepLosingPassword);
   final cards = _mergeEntries(local.cards, remote?.cards ?? const <PaymentCard>[], tombs);
   final identities = _mergeEntries(local.identities, remote?.identities ?? const <Identity>[], tombs);
+  final files = _mergeEntries(local.files, remote?.files ?? const <VaultFile>[], tombs);
 
   // A deletion the server already had keeps the keys this version doesn't know.
   final had = {for (final tomb in remoteTombs) tomb.id: tomb};
@@ -440,6 +454,7 @@ Future<VaultKey> _combineKey(VaultKey winner, VaultKey other) async {
     logins: logins,
     cards: cards,
     identities: identities,
+    files: files,
     deleted: deleted,
     extra: _withAnchors(remote?.extra ?? const {}, anchors),
   );
@@ -501,6 +516,7 @@ bool sameDoc(SyncDoc a, SyncDoc b) {
       'identities': [
         for (final identity in _sortById([...doc.identities])) identity.toJson(),
       ],
+      if (doc.files.isNotEmpty) 'files': [for (final file in _sortById([...doc.files])) file.toJson()],
       'deleted': [for (final tomb in deleted) tomb.toJson()],
     });
   }
@@ -529,6 +545,7 @@ Lists applyScope(Lists all, String? scope, Lists doc) => Lists(
   logins: _placeScope(all.logins, scope, doc.logins),
   cards: _placeScope(all.cards, scope, doc.cards),
   identities: _placeScope(all.identities, scope, doc.identities),
+  files: _placeScope(all.files, scope, doc.files),
 );
 
 /// The ids of [doc]'s entries that [applyScope] keeps out of [scope] though
@@ -545,9 +562,10 @@ Set<String> heldElsewhere(Lists all, String? scope, Lists doc) => {
   ..._keptOut(all.notes, scope, doc.notes),
   // Logins follow accounts into spaces, so every scope places them
   ..._keptOut(all.logins, scope, doc.logins),
-  // So do cards and identities
+  // So do cards, identities and files
   ..._keptOut(all.cards, scope, doc.cards),
   ..._keptOut(all.identities, scope, doc.identities),
+  ..._keptOut(all.files, scope, doc.files),
   if (scope == null) ...[
     ..._keptOut(all.passkeys, scope, doc.passkeys),
     ..._keptOut(all.keyAccounts, scope, doc.keyAccounts),

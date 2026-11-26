@@ -5,7 +5,7 @@ import '../import/formats/cxf_writer.dart';
 import '../sync/sync_merge.dart' show Lists;
 import 'export_scope.dart';
 
-/// The kinds of item the person picks among. Backup codes, contacts and security-key accounts have no Credential Exchange type and
+/// The kinds of item the person picks among. Backup codes, contacts, File items and security-key accounts have no Credential Exchange type and
 /// are never offered (they are listed as not carried).
 enum ExportKind {
   logins('basic-auth'),
@@ -23,7 +23,7 @@ enum ExportKind {
 }
 
 /// What the vault holds that has no Credential Exchange type, by how it is told to the person.
-enum ExportNotCarried { backupServices, contacts, onKey }
+enum ExportNotCarried { backupServices, contacts, onKey, files }
 
 /// What an export of the open vault could hold, and what it could not.
 class CredentialExportPlan {
@@ -58,6 +58,7 @@ class CredentialExportPlan {
         ExportNotCarried.backupServices: lists.backupServices.length,
         ExportNotCarried.contacts: lists.contacts.length,
         ExportNotCarried.onKey: lists.keyAccounts.length,
+        ExportNotCarried.files: lists.files.length,
       },
     );
   }

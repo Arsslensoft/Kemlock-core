@@ -43,6 +43,7 @@ ExportScope exportScope(Lists vault, {bool codesOnly = false}) {
     logins: codesOnly ? const [] : keep(vault.logins, (item) => item.spaceId),
     cards: codesOnly ? const [] : keep(vault.cards, (item) => item.spaceId),
     identities: codesOnly ? const [] : keep(vault.identities, (item) => item.spaceId),
+    files: codesOnly ? const [] : keep(vault.files, (item) => item.spaceId),
     keyAccounts: codesOnly ? const [] : vault.keyAccounts,
     contacts: codesOnly ? const [] : vault.contacts,
   );
