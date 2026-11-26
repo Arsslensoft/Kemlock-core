@@ -239,10 +239,20 @@ void main() {
     });
 
     test('keeps what the old link carried, names the new id once, and leaves the entries that do not name the old one', () {
-      final both = _n.withLinks([ItemLink(oldId, extra: const {'note': 'x'}), ItemLink(newId)]);
-      final only = _c.withLinks([ItemLink(oldId, extra: const {'note': 'y'})]);
+      final both = _n.withLinks([
+        ItemLink(oldId, extra: const {'note': 'x'}),
+        ItemLink(newId),
+      ]);
+      final only = _c.withLinks([
+        ItemLink(oldId, extra: const {'note': 'y'}),
+      ]);
 
-      final saved = relinkedAfterMove(Lists(notes: [both], cards: [only], logins: const [_l]), oldLinkId: oldId, newLinkId: newId, now: 5);
+      final saved = relinkedAfterMove(
+        Lists(notes: [both], cards: [only], logins: const [_l]),
+        oldLinkId: oldId,
+        newLinkId: newId,
+        now: 5,
+      );
 
       expect(saved, hasLength(2));
       expect(saved.firstWhere((entry) => entry.id == _note).links.map((link) => link.id), [newId]);
@@ -252,8 +262,24 @@ void main() {
     test('has nothing to do for an entry whose item id does not change, or one nothing names', () {
       final note = _n.withLinks([const ItemLink(_login)]);
 
-      expect(relinkedAfterMove(Lists(notes: [note]), oldLinkId: _login, newLinkId: _login, now: 5), isEmpty);
-      expect(relinkedAfterMove(Lists(notes: [note], cards: const [_c]), oldLinkId: oldId, newLinkId: newId, now: 5), isEmpty);
+      expect(
+        relinkedAfterMove(
+          Lists(notes: [note]),
+          oldLinkId: _login,
+          newLinkId: _login,
+          now: 5,
+        ),
+        isEmpty,
+      );
+      expect(
+        relinkedAfterMove(
+          Lists(notes: [note], cards: const [_c]),
+          oldLinkId: oldId,
+          newLinkId: newId,
+          now: 5,
+        ),
+        isEmpty,
+      );
     });
   });
 

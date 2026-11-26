@@ -103,7 +103,7 @@ void main() {
       expect(secretBase32('jbswy3dpee'), 'JBSWY3DPEE');
     });
 
-    test('is nothing for a secret that is not base32, as the server's vector has it, and for an empty one', () {
+    test("is nothing for a secret that is not base32, as the server's vector has it, and for an empty one", () {
       expect(secretBase32('not base32!'), isNull);
       expect(secretBase32('a1'), isNull);
       expect(secretBase32('A 1'), isNull);

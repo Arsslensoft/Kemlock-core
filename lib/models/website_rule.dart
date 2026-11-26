@@ -146,7 +146,10 @@ Websites? websitesOfUrls(Object? urls) {
 /// were among its unknown keys, and writes none of its own until the websites are edited.
 bool writesBackWebsites(Map<String, Object?> json, Websites read) {
   final written = writeWebsites(read.websites, read.uris);
-  return const ['websites', 'uris'].every((key) => json.containsKey(key) == written.containsKey(key) && jsonEquals(json[key], written[key]));
+  return const [
+    'websites',
+    'uris',
+  ].every((key) => json.containsKey(key) == written.containsKey(key) && jsonEquals(json[key], written[key]));
 }
 
 /// Whether [json] is a body that holds only `urls` and no `uris` or `websites`, whose websites [readWebsites] reads with `urls: true`
@@ -213,7 +216,10 @@ Map<String, Object?> extraWithUrls(Map<String, Object?> extra, Websites before, 
   if (_sameWebsites(before, changed)) {
     return extra;
   }
-  final out = {for (final MapEntry(:key, :value) in extra.entries) if (key != 'websites' && key != 'uris') key: value};
+  final out = {
+    for (final MapEntry(:key, :value) in extra.entries)
+      if (key != 'websites' && key != 'uris') key: value,
+  };
   final held = extra['urls'];
   if (held is! List) {
     return out;

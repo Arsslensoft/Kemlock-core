@@ -69,7 +69,8 @@ void main() {
     final server = FakeKemlockAccountServer(userId: hostAccount.userId);
     final one = await hostPhone(server);
     final two = await hostPhone(server);
-    KmEntry note(String title, int at) => (kind: KmKind.note, json: SecureNote(id: _note, title: title, addedAt: 1, updatedAt: at).toJson());
+    KmEntry note(String title, int at) =>
+        (kind: KmKind.note, json: SecureNote(id: _note, title: title, addedAt: 1, updatedAt: at).toJson());
 
     await one.host.pushEntry(kmTarget, note('From one', 5), now: _now);
     final pushed = await two.host.pushEntry(kmTarget, note('From two', 9), now: _now + 1);

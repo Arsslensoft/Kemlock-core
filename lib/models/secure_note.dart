@@ -195,9 +195,7 @@ class SecureNote implements VaultEntry<SecureNote> {
       spaceId: asOptionalString(json['spaceId']),
       addedAt: asInt(json['addedAt']) ?? 0,
       updatedAt: asInt(json['updatedAt']),
-      attachments: held is List
-          ? [for (final file in held.whereType<Map<String, Object?>>()) NoteAttachment.fromJson(file)]
-          : null,
+      attachments: held is List ? [for (final file in held.whereType<Map<String, Object?>>()) NoteAttachment.fromJson(file)] : null,
       unreadAttachments: held is List
           ? [
               for (var at = 0; at < held.length; at++)

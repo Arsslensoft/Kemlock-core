@@ -215,7 +215,8 @@ class KmCache {
   /// didn't know their kind: the server won't send them again, so a run reads the whole vault once to open them.
   Set<String> unreadKnown(bool Function(String kind) knows) => {
     for (final MapEntry(:key, :value) in items.entries)
-      if (!value.deleted && value.opaque && value.entry == null && knows(value.kind) && !(knew ?? const <String>[]).contains(value.kind)) key,
+      if (!value.deleted && value.opaque && value.entry == null && knows(value.kind) && !(knew ?? const <String>[]).contains(value.kind))
+        key,
   };
 
   Map<String, Object?> toJson() => {

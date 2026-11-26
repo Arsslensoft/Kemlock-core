@@ -304,7 +304,10 @@ void main() {
       });
 
       test('a body with websites or uris of its own reads them, not its urls', () {
-        final login = Login.fromJson({...alone, 'websites': ['z.example']});
+        final login = Login.fromJson({
+          ...alone,
+          'websites': ['z.example'],
+        });
 
         expect(login.websites, ['z.example']);
         expect(login.sitesFromUrls, isFalse);
@@ -480,7 +483,7 @@ void main() {
     });
 
     test('keeps a sha256 that is not 64 hex digits as it was', () {
-      for (final bad in <Object?>['E3B0C442', 5, 'sha256:' + digest]) {
+      for (final bad in <Object?>['E3B0C442', 5, 'sha256:$digest']) {
         final attachment = NoteAttachment.fromJson({...json, 'sha256': bad});
         expect(attachment.sha256, isNull);
         expect(attachment.toJson()['sha256'], bad);
@@ -488,8 +491,7 @@ void main() {
     });
 
     test('reads a sha256 in upper case or with spaces around it, and writes it back as it was', () {
-      for (final written in [digest.toUpperCase(), ' $digest ', ' ' + digest.toUpperCase() + '
-']) {
+      for (final written in [digest.toUpperCase(), ' $digest ', ' ${digest.toUpperCase()}\n']) {
         final body = {...json, 'sha256': written};
         final item = VaultFile.fromJson({'id': 'f1', 'name': 'a.pdf', 'file': body, 'addedAt': 1});
 
@@ -546,7 +548,13 @@ void main() {
     });
 
     test('of a body that holds only entries this version cannot read are written back', () {
-      final body = {'id': 'n1', 'title': 'T', 'text': '', 'addedAt': 1, 'attachments': ['x']};
+      final body = {
+        'id': 'n1',
+        'title': 'T',
+        'text': '',
+        'addedAt': 1,
+        'attachments': ['x'],
+      };
       final note = SecureNote.fromJson(body);
 
       expect(note.files, isEmpty);

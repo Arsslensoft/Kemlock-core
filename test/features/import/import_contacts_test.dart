@@ -16,7 +16,10 @@ void main() {
     test('are the ones whose key the vault lacks, each key once', () {
       final held = [contactOf(grace1, id: 'c1')];
 
-      final added = newContacts(_preview([contactOf(grace1, id: 'x1'), contactOf(alan, id: 'a1', name: 'Alan'), contactOf(alan, id: 'a2')]), held);
+      final added = newContacts(
+        _preview([contactOf(grace1, id: 'x1'), contactOf(alan, id: 'a1', name: 'Alan'), contactOf(alan, id: 'a2')]),
+        held,
+      );
 
       expect(added.map((contact) => contact.id), ['a1']);
     });

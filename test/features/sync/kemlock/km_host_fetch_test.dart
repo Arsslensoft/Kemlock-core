@@ -25,7 +25,12 @@ void main() {
     final one = await hostPhone(server);
     final made = await sealAttachment(randomBytes(2000), name: 'Lease.pdf', now: 1);
     one.store.files[made.entry.id] = made.sealed;
-    await one.sync(_now, Lists(files: [VaultFile(id: _item, name: 'Lease.pdf', file: made.entry, addedAt: 1)]));
+    await one.sync(
+      _now,
+      Lists(
+        files: [VaultFile(id: _item, name: 'Lease.pdf', file: made.entry, addedAt: 1)],
+      ),
+    );
     expect(server.files, hasLength(1), reason: 'the first phone sent the file');
     final fetching = await hostPhone(server);
     final lazy = await hostPhone(server, fetchMissing: false);

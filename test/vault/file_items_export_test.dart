@@ -49,7 +49,14 @@ void main() {
     });
 
     test('drops the server file an exported File item or note names: it is under another item', () {
-      const named = NoteAttachment(id: 'att-1', name: 'Lease.pdf', size: 10, key: 'AAAA', addedAt: 1, extra: {'kemlockFile': 'file-1', 'x': 1});
+      const named = NoteAttachment(
+        id: 'att-1',
+        name: 'Lease.pdf',
+        size: 10,
+        key: 'AAAA',
+        addedAt: 1,
+        extra: {'kemlockFile': 'file-1', 'x': 1},
+      );
       final preview = ImportPreview.of(
         VaultExportPayload(
           accounts: const [],

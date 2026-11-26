@@ -61,7 +61,12 @@ void main() {
       final kept = _kept.withLinks([const ItemLink(_l2)]);
       final both = _gone.withLinks([const ItemLink(_l1)]);
 
-      final made = relinkForMerge(Lists(logins: [kept, both]), kept: kept, removed: [both], now: 5);
+      final made = relinkForMerge(
+        Lists(logins: [kept, both]),
+        kept: kept,
+        removed: [both],
+        now: 5,
+      );
 
       expect(made.kept.links, isEmpty);
       expect(made.others, isEmpty);
@@ -70,14 +75,24 @@ void main() {
     test('links the kept item back from an entry it is linked to that did not name it', () {
       final kept = _kept.withLinks([const ItemLink(_note)]);
 
-      final made = relinkForMerge(Lists(logins: [kept, _gone], notes: const [_n]), kept: kept, removed: [_gone], now: 5);
+      final made = relinkForMerge(
+        Lists(logins: [kept, _gone], notes: const [_n]),
+        kept: kept,
+        removed: [_gone],
+        now: 5,
+      );
 
       expect(identical(made.kept, kept), isTrue, reason: 'nothing to add to it');
       expect(_ids(_byId(made.others, _note)), [_l1]);
     });
 
     test('changes nothing for an entry the merge does not touch, and for a merge with nothing to relink', () {
-      final made = relinkForMerge(Lists(logins: const [_kept, _gone], notes: const [_n], cards: const [_c]), kept: _kept, removed: [_gone], now: 5);
+      final made = relinkForMerge(
+        Lists(logins: const [_kept, _gone], notes: const [_n], cards: const [_c]),
+        kept: _kept,
+        removed: [_gone],
+        now: 5,
+      );
 
       expect(identical(made.kept, _kept), isTrue);
       expect(made.others, isEmpty);
@@ -101,7 +116,12 @@ void main() {
       final kept = _kept.copyWith(fields: [a, keptAdmin]);
       final removed = _gone.copyWith(fields: [a, b, other, goneAdmin]);
 
-      final made = relinkForMerge(Lists(logins: [kept, removed]), kept: kept, removed: [removed], now: 7);
+      final made = relinkForMerge(
+        Lists(logins: [kept, removed]),
+        kept: kept,
+        removed: [removed],
+        now: 7,
+      );
 
       final fields = (made.kept as Login).fields;
       expect(fields.map((field) => '${field.name}=${field.value}'), ['Employee ID=E-1', 'Region=EU', 'Badge=B-2', 'Employee ID=E-9']);
@@ -113,7 +133,12 @@ void main() {
       const removed = OtpAccount(id: _c2, issuer: 'Mail', label: 'me', secret: 'JBSWY3DPEHPK3PXP', addedAt: 1);
       const holder = Login(id: _l1, name: 'Mail', accountId: _c2, addedAt: 1);
 
-      final made = relinkForMerge(Lists(logins: const [holder], accounts: const [kept, removed]), kept: kept, removed: [removed], now: 9);
+      final made = relinkForMerge(
+        Lists(logins: const [holder], accounts: const [kept, removed]),
+        kept: kept,
+        removed: [removed],
+        now: 9,
+      );
 
       expect((made.others.single as Login).accountId, _c1);
       expect(made.undo.single.before, {'accountId': _c2});
@@ -127,7 +152,12 @@ void main() {
     const code = OtpAccount(id: _code, issuer: 'Mail', label: 'me', secret: 'JBSWY3DPEHPK3PXP', linkedLoginId: _l2, addedAt: 1);
 
     test('puts back what the merge changed, and only where the entry still holds what the merge wrote', () {
-      final made = relinkForMerge(Lists(logins: [_kept, gone], notes: [note], accounts: const [code]), kept: _kept, removed: [gone], now: 50);
+      final made = relinkForMerge(
+        Lists(logins: [_kept, gone], notes: [note], accounts: const [code]),
+        kept: _kept,
+        removed: [gone],
+        now: 50,
+      );
       final after = Lists(logins: [made.kept as Login], notes: [made.others.firstWhere((e) => e.id == _note) as SecureNote]);
       final edited = (made.others.firstWhere((e) => e.id == _code) as OtpAccount).copyWith(linkedLoginId: _card);
 
@@ -140,21 +170,30 @@ void main() {
 
     test('takes back a member the entry did not hold before, and skips a step for an entry the vault lost', () {
       final kept = _kept.withLinks([const ItemLink(_note)]);
-      final made = relinkForMerge(Lists(logins: [kept, _gone], notes: const [_n]), kept: kept, removed: [_gone], now: 9);
+      final made = relinkForMerge(
+        Lists(logins: [kept, _gone], notes: const [_n]),
+        kept: kept,
+        removed: [_gone],
+        now: 9,
+      );
       expect(made.undo.single.before, {'links': null});
 
-      final undone = undoRelink(
-        Lists(logins: [kept], notes: made.others.whereType<SecureNote>().toList()),
-        [...made.undo, const RelinkUndo(id: 'gone', before: {'links': null}, after: {'links': null})],
-        now: 10,
-      );
+      final undone = undoRelink(Lists(logins: [kept], notes: made.others.whereType<SecureNote>().toList()), [
+        ...made.undo,
+        const RelinkUndo(id: 'gone', before: {'links': null}, after: {'links': null}),
+      ], now: 10);
 
       expect(undone.single.id, _note);
       expect(undone.single.toJson().containsKey('links'), isFalse);
     });
 
     test('a step is plain JSON and reads back as it was written', () {
-      final made = relinkForMerge(Lists(logins: [_kept, gone], notes: [note]), kept: _kept, removed: [gone], now: 50);
+      final made = relinkForMerge(
+        Lists(logins: [_kept, gone], notes: [note]),
+        kept: _kept,
+        removed: [gone],
+        now: 50,
+      );
       final written = jsonDecode(jsonEncode([for (final step in made.undo) step.toJson()])) as List<Object?>;
 
       final read = [for (final step in written) RelinkUndo.fromJson(step)];

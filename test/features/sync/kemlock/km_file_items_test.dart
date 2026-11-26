@@ -104,7 +104,12 @@ void main() {
       final other = await _sealed(1000);
       final broken = NoteAttachment(id: other.entry.id, name: 'x', size: 1000, key: made.entry.key, addedAt: 1);
       final store = _CountingStore()..files[broken.id] = other.sealed;
-      final one = KmPhone(w.server, clock: w.clock, fileStore: store, lists: Lists(files: [_item(_one, broken)]));
+      final one = KmPhone(
+        w.server,
+        clock: w.clock,
+        fileStore: store,
+        lists: Lists(files: [_item(_one, broken)]),
+      );
 
       await one.run();
       expect(store.reads, [broken.id]);
@@ -122,7 +127,12 @@ void main() {
       w.server.maxFileSize = 100;
       final made = await _sealed(1000);
       final store = _CountingStore()..files[made.entry.id] = made.sealed;
-      final one = KmPhone(w.server, clock: w.clock, fileStore: store, lists: Lists(files: [_item(_one, _withoutHash(made.entry))]));
+      final one = KmPhone(
+        w.server,
+        clock: w.clock,
+        fileStore: store,
+        lists: Lists(files: [_item(_one, _withoutHash(made.entry))]),
+      );
 
       await one.run();
       await one.run();
@@ -134,13 +144,25 @@ void main() {
     test('a File item an older app cached as an opaque one is read once by the next run, which then goes back to deltas', () async {
       final w = _world();
       final made = await _sealed(300);
-      final one = KmPhone(w.server, clock: w.clock, lists: Lists(files: [_item(_one, made.entry)]));
+      final one = KmPhone(
+        w.server,
+        clock: w.clock,
+        lists: Lists(files: [_item(_one, made.entry)]),
+      );
       await one.run();
-      int fullReads() => w.server.requests.where((r) => r.method == 'GET' && r.url.path.endsWith('/sync') && r.url.queryParameters['since'] == null).length;
+      int fullReads() => w.server.requests
+          .where((r) => r.method == 'GET' && r.url.path.endsWith('/sync') && r.url.queryParameters['since'] == null)
+          .length;
       // What the older app stored: the item as an opaque one of a kind it didn't know, and no list of known kinds
       final cache = one.cache;
       final item = cache.items[_one]!;
-      cache.items[_one] = KmCachedItem(revision: item.revision, kind: item.kind, keyVersion: item.keyVersion, hash: item.hash, opaque: true);
+      cache.items[_one] = KmCachedItem(
+        revision: item.revision,
+        kind: item.kind,
+        keyVersion: item.keyVersion,
+        hash: item.hash,
+        opaque: true,
+      );
       cache.knew = null;
       one.stored = jsonDecode(jsonEncode(cache.toJson()));
       one.lists = const Lists();
@@ -170,7 +192,9 @@ void main() {
           ..files[attached.entry.id] = attached.sealed,
         lists: Lists(
           files: [_item(_one, kmNamedFile(made.entry, 'a-file-of-the-old-item'))],
-          notes: [SecureNote(id: _two, title: 'Moved', addedAt: 1, attachments: [kmNamedFile(attached.entry, 'another-old-file')])],
+          notes: [
+            SecureNote(id: _two, title: 'Moved', addedAt: 1, attachments: [kmNamedFile(attached.entry, 'another-old-file')]),
+          ],
         ),
       );
 
@@ -190,7 +214,9 @@ void main() {
       final named = kmNamedFile(made.entry, 'f1');
       final doc = SyncDoc(
         files: [_item(_one, named), _item(_two, named)],
-        notes: [SecureNote(id: 'n', title: 'N', addedAt: 1, attachments: [named])],
+        notes: [
+          SecureNote(id: 'n', title: 'N', addedAt: 1, attachments: [named]),
+        ],
       );
 
       final out = kmWithoutForeignFiles(doc, isNew: (id) => id == _one || id == 'n');
@@ -495,7 +521,11 @@ void main() {
       final w = _world();
       final made = await _sealed(1000);
       final phone = KmPhone(w.server, clock: w.clock);
-      final files = KmFiles(store: FakeFileStore()..files[made.entry.id] = made.sealed, connection: phone.connection, server: FakeKemlockServer.url);
+      final files = KmFiles(
+        store: FakeFileStore()..files[made.entry.id] = made.sealed,
+        connection: phone.connection,
+        server: FakeKemlockServer.url,
+      );
       final server = KmMoveServer(connection: phone.connection, server: FakeKemlockServer.url, crypto: phone.crypto);
 
       final pushed = await kmPushItemWithFiles(
@@ -515,7 +545,11 @@ void main() {
       final w = _world();
       final made = await _sealed(1000);
       final phone = KmPhone(w.server, clock: w.clock);
-      final files = KmFiles(store: FakeFileStore()..files[made.entry.id] = made.sealed, connection: phone.connection, server: FakeKemlockServer.url);
+      final files = KmFiles(
+        store: FakeFileStore()..files[made.entry.id] = made.sealed,
+        connection: phone.connection,
+        server: FakeKemlockServer.url,
+      );
       final server = KmMoveServer(connection: phone.connection, server: FakeKemlockServer.url, crypto: phone.crypto);
       final first = await kmPushItemWithFiles(server: server, files: files, entry: _entry(_one, made.entry), now: 5);
       final held = kmAttachmentsOf(first.entry).single;
