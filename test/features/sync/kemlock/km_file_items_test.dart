@@ -158,6 +158,49 @@ void main() {
       expect(fullReads(), before + 1, reason: 'one full read is enough');
     });
 
+    test('an item new here that names the files of another owner\'s item sends its own: File items and notes', () async {
+      final w = _world();
+      final made = await _sealed(800);
+      final attached = await _sealed(600, name: 'Scan.png');
+      final one = KmPhone(
+        w.server,
+        clock: w.clock,
+        fileStore: FakeFileStore()
+          ..files[made.entry.id] = made.sealed
+          ..files[attached.entry.id] = attached.sealed,
+        lists: Lists(
+          files: [_item(_one, kmNamedFile(made.entry, 'a-file-of-the-old-item'))],
+          notes: [SecureNote(id: _two, title: 'Moved', addedAt: 1, attachments: [kmNamedFile(attached.entry, 'another-old-file')])],
+        ),
+      );
+
+      await one.run();
+
+      expect(w.server.files, hasLength(2), reason: 'both files went up under the new items');
+      final file = one.lists.files.single.file;
+      final note = one.lists.notes.single.files.single;
+      expect(w.server.files[kmServerFileId(file)]!.itemId, _one);
+      expect(w.server.files[kmServerFileId(note)]!.itemId, _two);
+      expect(w.server.files[kmServerFileId(file)]!.bytes, made.sealed);
+      expect(file.sha256, made.entry.sha256);
+    });
+
+    test('kmWithoutForeignFiles strips the server files of the new items alone', () async {
+      final made = await _sealed(100);
+      final named = kmNamedFile(made.entry, 'f1');
+      final doc = SyncDoc(
+        files: [_item(_one, named), _item(_two, named)],
+        notes: [SecureNote(id: 'n', title: 'N', addedAt: 1, attachments: [named])],
+      );
+
+      final out = kmWithoutForeignFiles(doc, isNew: (id) => id == _one || id == 'n');
+
+      expect(kmServerFileId(out.files.firstWhere((item) => item.id == _one).file), isNull);
+      expect(kmServerFileId(out.files.firstWhere((item) => item.id == _two).file), 'f1');
+      expect(kmServerFileId(out.notes.single.files.single), isNull);
+      expect(identical(kmWithoutForeignFiles(doc, isNew: (_) => false), doc), isTrue);
+    });
+
     test('a file the body already names is never sent again, and a file the phone lacks is left to another phone', () async {
       final w = _world();
       final made = await _sealed(1000);

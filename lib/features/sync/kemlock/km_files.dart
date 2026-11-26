@@ -39,6 +39,7 @@ import '../../../models/vault_file.dart';
 import '../../../vault/attachment_seal.dart' show sha256Hex;
 import '../sync_merge.dart';
 import 'km_api.dart';
+import 'km_cache.dart';
 import 'km_kinds.dart';
 
 /// The key of an attachment's JSON that holds the server's file id.
@@ -249,6 +250,62 @@ Map<String, Object?> kmWithRefusedFiles(Map<String, Object?> extra, Set<String> 
   return {...extra, kmRefusedFilesKey: ids.length > _refusedLimit ? ids.sublist(ids.length - _refusedLimit) : ids};
 }
 
+/// [doc] with [notes] and [files] in place of its own.
+SyncDoc _withItems(SyncDoc doc, List<SecureNote> notes, List<VaultFile> files) => SyncDoc(
+  accounts: doc.accounts,
+  backupServices: doc.backupServices,
+  keys: doc.keys,
+  notes: notes,
+  passkeys: doc.passkeys,
+  keyAccounts: doc.keyAccounts,
+  contacts: doc.contacts,
+  logins: doc.logins,
+  cards: doc.cards,
+  identities: doc.identities,
+  files: files,
+  deleted: doc.deleted,
+  seq: doc.seq,
+  extra: doc.extra,
+);
+
+/// [doc] with each note and File item that [isNew] says the owner holds no item for yet (its entry id) naming none of the server
+/// files it names. A server file belongs to one item: an entry that comes to a new owner (a move to a space, from a space, between
+/// spaces) still names the files of its old item, which the new item doesn't have. Written as it is, the new item would name files
+/// the server lacks, and nothing would send them; stripped, the run uploads them from the phone's store like any new file. The
+/// entries aren't stamped here: the upload stamps those it names again.
+SyncDoc kmWithoutForeignFiles(SyncDoc doc, {required bool Function(String entryId) isNew}) {
+  var changed = false;
+  List<NoteAttachment> unnamed(List<NoteAttachment> files) {
+    final out = [for (final file in files) kmUnnamedFile(file)];
+    changed = true;
+    return out;
+  }
+
+  bool names(List<NoteAttachment> files) => files.any((file) => file.extra.containsKey(kmFileKey));
+  final notes = [
+    for (final note in doc.notes)
+      if (isNew(note.id) && names(note.files)) note.copyWith(attachments: unnamed(note.files)) else note,
+  ];
+  final items = [
+    for (final item in doc.files)
+      if (isNew(item.id) && names([item.file])) item.copyWith(file: unnamed([item.file]).single) else item,
+  ];
+  return changed ? _withItems(doc, notes, items) : doc;
+}
+
+/// The server's file ids each applied note or File item of [cache] names, by its item id.
+Map<String, Set<String>> kmCachedFileIds(KmCache cache) => {
+  for (final MapEntry(:key, :value) in cache.items.entries)
+    if ((value.kind == KmKind.note || value.kind == KmKind.file) && value.applied)
+      key: {
+        if (value.entry!['attachments'] case final List<Object?> files)
+          for (final file in files.whereType<Map<String, Object?>>())
+            if (file[kmFileKey] case final String id when id.isNotEmpty) id,
+        if (value.entry!['file'] case final Map<String, Object?> file)
+          if (file[kmFileKey] case final String id when id.isNotEmpty) id,
+      },
+};
+
 /// The server's file ids each note and File item of [doc] names, by the item id [itemIdOf] gives its id.
 Map<String, Set<String>> kmFileIdsOf(SyncDoc doc, {required String Function(String entryId) itemIdOf}) => {
   for (final note in doc.notes)
@@ -317,22 +374,7 @@ class KmFiles {
     if (!any) {
       return null;
     }
-    return SyncDoc(
-      accounts: doc.accounts,
-      backupServices: doc.backupServices,
-      keys: doc.keys,
-      notes: notes,
-      passkeys: doc.passkeys,
-      keyAccounts: doc.keyAccounts,
-      contacts: doc.contacts,
-      logins: doc.logins,
-      cards: doc.cards,
-      identities: doc.identities,
-      files: items,
-      deleted: doc.deleted,
-      seq: doc.seq,
-      extra: doc.extra,
-    );
+    return _withItems(doc, notes, items);
   }
 
   /// [files] with each one that has no server file uploaded and named; null when none went up. Each file that went up is added to

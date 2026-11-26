@@ -221,8 +221,10 @@ class KmScopeSync {
             ],
     );
     final merged = mergeScope(await combineKeyCopies(local, remote), keepAll ? const [] : state.known, remote, now: now);
+    // An item new here names no file of another owner's item
+    final mergedDoc = kmWithoutForeignFiles(merged.doc, isNew: (id) => _isNew(work, kmItemId(id, owner)));
 
-    final plan = _plan(work, local, merged.doc, forced: joined.ids);
+    final plan = _plan(work, local, mergedDoc, forced: joined.ids);
     final guard = checkRemovals(
       removals: plan.removals,
       removedHere: plan.removedHere,
@@ -238,7 +240,7 @@ class KmScopeSync {
     if (guard.stop) throw KmSyncError(KmSyncIssue.removals, count: plan.removals);
     work.lost = guard.lostNow;
 
-    var doc = merged.doc;
+    var doc = mergedDoc;
     var wrote = await _send(work, plan.writes, now);
     await _resolve(joined.ids, plan.writes);
     final files = this.files;
@@ -265,7 +267,7 @@ class KmScopeSync {
           rethrow;
         }
       }
-      await files.deleteRemoved(_fileIds(stored), _fileIds(work));
+      await files.deleteRemoved(kmCachedFileIds(stored), kmCachedFileIds(work));
     }
     wrote = await _syncAnchors(work, now) || wrote;
     // A deletion is kept as long as the server keeps tombstones
@@ -639,6 +641,12 @@ class KmScopeSync {
     work.manifestSignature = signed.signature;
   }
 
+  /// Whether the cache holds no live item with the id [itemId]: what is written under it now is a new item.
+  bool _isNew(KmCache work, String itemId) {
+    final cached = work.items[itemId];
+    return cached == null || cached.deleted;
+  }
+
   // ─── Step 4: the diff ──────────────────────────────────────────────────
 
   ({List<_Write> writes, int removals, int removedHere, int scope}) _plan(
@@ -692,19 +700,6 @@ class KmScopeSync {
       scope: max(localIds.length, remoteIds.length),
     );
   }
-
-  /// The server's file ids each applied note or File item of [cache] names, by its item id.
-  Map<String, Set<String>> _fileIds(KmCache cache) => {
-    for (final MapEntry(:key, :value) in cache.items.entries)
-      if ((value.kind == KmKind.note || value.kind == KmKind.file) && value.applied)
-        key: {
-          if (value.entry!['attachments'] case final List<Object?> files)
-            for (final file in files.whereType<Map<String, Object?>>())
-              if (file[kmFileKey] case final String id when id.isNotEmpty) id,
-          if (value.entry!['file'] case final Map<String, Object?> file)
-            if (file[kmFileKey] case final String id when id.isNotEmpty) id,
-        },
-  };
 
   // ─── Server matching ───────────────────────────────────────────────────
 
