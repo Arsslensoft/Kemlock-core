@@ -321,7 +321,11 @@ class SecureNote implements VaultEntry<SecureNote> {
     links: links ?? this.links,
     fields: fields ?? this.fields,
     // A piv given here takes the place of one this version could not read.
-    extra: identical(piv, keep) || !extra.containsKey('piv') ? extra : ({...extra}..remove('piv')),
+    extra: extraSetting(
+      identical(piv, keep) || !extra.containsKey('piv') ? extra : ({...extra}..remove('piv')),
+      links: links != null,
+      fields: fields != null,
+    ),
   );
 
   @override

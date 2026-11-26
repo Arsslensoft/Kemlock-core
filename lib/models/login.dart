@@ -246,7 +246,11 @@ class Login implements VaultEntry<Login> {
     updatedAt: pick(updatedAt, this.updatedAt),
     links: links ?? this.links,
     fields: fields ?? this.fields,
-    extra: extraWithUrls(extra, (websites: this.websites, uris: this.uris), _changed(websites, uris)),
+    extra: extraSetting(
+      extraWithUrls(extra, (websites: this.websites, uris: this.uris), _changed(websites, uris)),
+      links: links != null,
+      fields: fields != null,
+    ),
   );
 
   /// A copy that keeps [old] among the previous passwords as replaced [until],

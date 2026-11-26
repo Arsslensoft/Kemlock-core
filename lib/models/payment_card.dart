@@ -256,7 +256,7 @@ class PaymentCard implements VaultEntry<PaymentCard> {
     updatedAt: pick(updatedAt, this.updatedAt),
     links: links ?? this.links,
     fields: fields ?? this.fields,
-    extra: extra,
+    extra: extraSetting(extra, links: links != null, fields: fields != null),
   );
 
   @override

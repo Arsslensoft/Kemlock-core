@@ -9,6 +9,7 @@ import 'package:kemlock_core/features/duplicates/duplicate_rules.dart' show file
 import 'package:kemlock_core/features/sync/kemlock/km_files.dart' show kmNamedFile;
 import 'package:kemlock_core/models/backup_service.dart';
 import 'package:kemlock_core/models/contact.dart';
+import 'package:kemlock_core/models/custom_field.dart';
 import 'package:kemlock_core/models/identity.dart';
 import 'package:kemlock_core/models/item_link.dart';
 import 'package:kemlock_core/models/json.dart';
@@ -184,6 +185,67 @@ void main() {
       expect(note.files.single, attachment);
       expect(note.links, hasLength(2));
       expect(note.fields, hasLength(3));
+    });
+  });
+
+  group('a body whose links or fields are not lists', () {
+    final links = [ItemLink(_a)];
+    const fields = [CustomField(name: 'Ref', value: '1', kind: 'text')];
+    final kinds = <String, Map<String, Object?> Function(Map<String, Object?>)>{
+      'login': (json) => Login.fromJson(json).withLinks(links).copyWith(fields: fields).toJson(),
+      'otp': (json) => OtpAccount.fromJson(json).withLinks(links).copyWith(fields: fields).toJson(),
+      'backup-codes': (json) => BackupService.fromJson(json).withLinks(links).copyWith(fields: fields).toJson(),
+      'note': (json) => SecureNote.fromJson(json).withLinks(links).copyWith(fields: fields).toJson(),
+      'card': (json) => PaymentCard.fromJson(json).withLinks(links).copyWith(fields: fields).toJson(),
+      'identity': (json) => Identity.fromJson(json).withLinks(links).copyWith(fields: fields).toJson(),
+      'contact': (json) => Contact.fromJson(json).withLinks(links).copyWith(fields: fields).toJson(),
+      'key': (json) => VaultKey.fromJson(json).withLinks(links).copyWith(fields: fields).toJson(),
+      'key-otp': (json) => KeyAccount.fromJson(json).withLinks(links).copyWith(fields: fields).toJson(),
+    };
+
+    for (final MapEntry(:key, :value) in _bodies.entries) {
+      test('$key is written back as it was, and the lists a copy sets replace the odd members', () {
+        final body = {...value.json, 'links': 'one', 'fields': 5, 'later': 1};
+
+        expect(jsonEncode(value.read(body)), jsonEncode(body), reason: 'nobody edited it');
+        final edited = kinds[key]!(body);
+        expect(edited['links'], [
+          {'id': _a},
+        ]);
+        expect(edited['fields'], [
+          {'name': 'Ref', 'value': '1', 'kind': 'text'},
+        ]);
+        expect(edited['later'], 1);
+      });
+    }
+
+    test('a passkey and a File item take the links the same way', () {
+      final passkey = Passkey.fromJson({
+        'id': 'k',
+        'credentialId': 'c',
+        'rpId': 'x.example',
+        'userHandle': 'u',
+        'userName': 'ada',
+        'privateKey': 'p',
+        'addedAt': 1,
+        'links': {'id': _b},
+      });
+      final item = VaultFile.fromJson({
+        'id': 'f1',
+        'name': 'a.pdf',
+        'file': {'id': 'f', 'name': 'a.pdf', 'size': 1, 'key': 'k', 'addedAt': 1},
+        'addedAt': 1,
+        'links': 'x',
+      });
+
+      expect(passkey.toJson()['links'], {'id': _b});
+      expect(item.toJson()['links'], 'x');
+      expect(passkey.withLinks(links).toJson()['links'], [
+        {'id': _a},
+      ]);
+      expect(item.withLinks(links).toJson()['links'], [
+        {'id': _a},
+      ]);
     });
   });
 

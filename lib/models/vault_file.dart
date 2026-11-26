@@ -121,7 +121,7 @@ class VaultFile implements VaultEntry<VaultFile> {
     links: links ?? this.links,
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
-    extra: extra,
+    extra: extraSetting(extra, links: links != null),
   );
 
   /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself.

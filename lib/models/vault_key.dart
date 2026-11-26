@@ -225,7 +225,7 @@ class VaultKey implements VaultEntry<VaultKey> {
     card: pick(card, this.card),
     links: links ?? this.links,
     fields: fields ?? this.fields,
-    extra: extra,
+    extra: extraSetting(extra, links: links != null, fields: fields != null),
   );
 
   /// This key once its private half moved to an OpenPGP card (design

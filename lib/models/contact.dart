@@ -218,7 +218,7 @@ class Contact implements VaultEntry<Contact> {
     updatedAt: pick(updatedAt, this.updatedAt),
     links: links ?? this.links,
     fields: fields ?? this.fields,
-    extra: extra,
+    extra: extraSetting(extra, links: links != null, fields: fields != null),
   );
 
   /// A copy marked as compared [at] (epoch ms) for the key whose

@@ -173,7 +173,7 @@ class Passkey implements VaultEntry<Passkey> {
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
     links: links ?? this.links,
-    extra: extra,
+    extra: extraSetting(extra, links: links != null),
   );
 
   @override
