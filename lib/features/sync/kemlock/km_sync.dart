@@ -283,6 +283,7 @@ class KmScopeSync {
         )
         .pruned(at);
     await _tagStored(work, now);
+    work.knew = kmKnownKinds();
     await saveCache(work);
     // Outside what the run must get right: a file that can't be fetched now is tried again at the next run
     await files?.download(doc, itemIdOf: (id) => kmItemId(id, owner));
@@ -358,6 +359,13 @@ class KmScopeSync {
     var since = work.cursor;
     var full = false;
     var siblings = const <KmSiblingSet>[];
+    // Items an older version kept opaque, of a kind this one reads, are opened by one full read: the server wouldn't send them again
+    final reopen = work.unreadKnown(kmKnowsKind);
+    if (reopen.isNotEmpty) {
+      since = null;
+      work.cursor = null;
+      full = true;
+    }
     while (true) {
       final KmSyncPage? page;
       try {
@@ -377,7 +385,7 @@ class KmScopeSync {
         return siblings;
       }
       for (final item in page.items) {
-        await _apply(work, item, seenAt);
+        await _apply(work, item, seenAt, reopen);
       }
       work.cursor = page.cursor;
       siblings = page.siblings;
@@ -388,7 +396,7 @@ class KmScopeSync {
     }
   }
 
-  Future<void> _apply(KmCache work, KmWireItem wire, int seenAt) async {
+  Future<void> _apply(KmCache work, KmWireItem wire, int seenAt, Set<String> reopen) async {
     final existing = work.items[wire.id];
     final sum = wire.deleted ? '' : b64urlEncode(hash.sha256.convert(wire.ciphertext!).bytes);
     if (existing != null) {
@@ -397,7 +405,7 @@ class KmScopeSync {
         throw KmSyncError(KmSyncIssue.older, detail: 'item ${wire.id} at ${wire.revision}, held at ${existing.revision}');
       }
       // The same item again, as this run's own writes come back in the next delta
-      if (wire.revision == existing.revision && sum == existing.hash) return;
+      if (wire.revision == existing.revision && sum == existing.hash && !reopen.contains(wire.id)) return;
     }
     if (wire.deleted) {
       work.items[wire.id] = KmCachedItem(

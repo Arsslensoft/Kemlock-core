@@ -498,6 +498,7 @@ class KmSpaceSync {
             now: at,
           )
           .pruned(at);
+      work.knew = kmKnownKinds();
       await saveCache(work);
 
       // The collection of each entry, with the chain this run verified, tells which logins hide their password
@@ -1129,6 +1130,13 @@ class KmSpaceSync {
   Future<void> _pull(KmCache work, SpaceItemCrypto crypto, SpaceState chain, int seenAt) async {
     var since = work.cursor;
     var full = false;
+    // Items an older version kept opaque, of a kind this one reads, are opened by one full read: the server wouldn't send them again
+    final reopen = work.unreadKnown(kmKnowsKind);
+    if (reopen.isNotEmpty) {
+      since = null;
+      work.cursor = null;
+      full = true;
+    }
     while (true) {
       final KmSyncPage? page;
       try {
@@ -1149,7 +1157,7 @@ class KmSpaceSync {
       for (final item in page.items) {
         // The vault's own items and the other spaces' come in the same answer
         if (item.owner == owner.toWire()) {
-          await _apply(work, crypto, chain, item, seenAt);
+          await _apply(work, crypto, chain, item, seenAt, reopen);
         }
       }
       work.cursor = page.cursor;
@@ -1160,7 +1168,7 @@ class KmSpaceSync {
     }
   }
 
-  Future<void> _apply(KmCache work, SpaceItemCrypto crypto, SpaceState chain, KmWireItem wire, int seenAt) async {
+  Future<void> _apply(KmCache work, SpaceItemCrypto crypto, SpaceState chain, KmWireItem wire, int seenAt, Set<String> reopen) async {
     final existing = work.items[wire.id];
     final sum = wire.deleted ? '' : b64urlEncode(hash.sha256.convert(wire.ciphertext!).bytes);
     if (existing != null) {
@@ -1168,7 +1176,10 @@ class KmSpaceSync {
         throw SpaceSyncError(SpaceSyncIssue.older, detail: 'item ${wire.id} at ${wire.revision}, held at ${existing.revision}');
       }
       // The same revision again needs nothing, unless the server now marks it held, or no longer does
-      if (wire.revision == existing.revision && sum == existing.hash && wire.held == (existing.extra[_heldKey] == true)) {
+      if (wire.revision == existing.revision &&
+          sum == existing.hash &&
+          wire.held == (existing.extra[_heldKey] == true) &&
+          !reopen.contains(wire.id)) {
         return;
       }
     }

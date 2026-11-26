@@ -133,6 +133,9 @@ const _lists = [
 /// Whether this version reads items of [kind].
 bool kmKnowsKind(String kind) => _listOfKind.containsKey(kind);
 
+/// Every kind this version reads, sorted: what a cache records as the kinds it knew when it was stored.
+List<String> kmKnownKinds() => _listOfKind.keys.toList()..sort();
+
 /// The kind a key whose JSON is [json] is stored as.
 String _kindOfKey(Map<String, Object?> json) => switch (json['kind']) {
   KeyKind.pgp => KmKind.pgpKey,

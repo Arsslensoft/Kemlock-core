@@ -3,15 +3,18 @@ library;
 
 // A File item's file over Kemlock Server: uploaded once its item is there, named with its server id and hash, fetched on
 // demand and by sync, sent again under a copy, and pushed at once with its item.
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:kemlock_core/crypto/attachment_format.dart';
 import 'package:kemlock_core/crypto/bytes.dart';
 import 'package:kemlock_core/features/sync/kemlock/km_api.dart';
+import 'package:kemlock_core/features/sync/kemlock/km_cache.dart';
 import 'package:kemlock_core/features/sync/kemlock/km_files.dart';
 import 'package:kemlock_core/features/sync/kemlock/km_kinds.dart';
 import 'package:kemlock_core/features/sync/kemlock/km_move_server.dart';
 import 'package:kemlock_core/features/sync/kemlock/km_push.dart';
+import 'package:kemlock_core/features/sync/sync.dart' show ScopeState;
 import 'package:kemlock_core/features/sync/sync_merge.dart';
 import 'package:kemlock_core/models/secure_note.dart';
 import 'package:kemlock_core/models/vault_file.dart';
@@ -126,6 +129,33 @@ void main() {
 
       expect(store.reads, [made.entry.id]);
       expect(w.server.files, isEmpty);
+    });
+
+    test('a File item an older app cached as an opaque one is read once by the next run, which then goes back to deltas', () async {
+      final w = _world();
+      final made = await _sealed(300);
+      final one = KmPhone(w.server, clock: w.clock, lists: Lists(files: [_item(_one, made.entry)]));
+      await one.run();
+      int fullReads() => w.server.requests.where((r) => r.method == 'GET' && r.url.path.endsWith('/sync') && r.url.queryParameters['since'] == null).length;
+      // What the older app stored: the item as an opaque one of a kind it didn't know, and no list of known kinds
+      final cache = one.cache;
+      final item = cache.items[_one]!;
+      cache.items[_one] = KmCachedItem(revision: item.revision, kind: item.kind, keyVersion: item.keyVersion, hash: item.hash, opaque: true);
+      cache.knew = null;
+      one.stored = jsonDecode(jsonEncode(cache.toJson()));
+      one.lists = const Lists();
+      one.state = const ScopeState(known: []);
+      final before = fullReads();
+
+      await one.run();
+
+      expect(one.lists.files.map((item) => item.id), [_one], reason: 'the item is opened, though the server sent nothing new');
+      expect(fullReads(), before + 1);
+      expect(one.cache.items[_one]!.applied, isTrue);
+      expect(one.cache.knew, kmKnownKinds());
+
+      await one.run();
+      expect(fullReads(), before + 1, reason: 'one full read is enough');
     });
 
     test('a file the body already names is never sent again, and a file the phone lacks is left to another phone', () async {
