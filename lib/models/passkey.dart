@@ -1,3 +1,4 @@
+import 'item_link.dart';
 import 'json.dart';
 import 'vault_entry.dart';
 
@@ -28,6 +29,7 @@ class Passkey implements VaultEntry<Passkey> {
     this.tags,
     required this.addedAt,
     this.updatedAt,
+    this.links = const [],
     this.extra = const {},
   });
 
@@ -46,7 +48,8 @@ class Passkey implements VaultEntry<Passkey> {
     tags: json['tags'] is List ? (json['tags']! as List<Object?>).whereType<String>().toList() : null,
     addedAt: asInt(json['addedAt']) ?? 0,
     updatedAt: asInt(json['updatedAt']),
-    extra: extraKeys(json, _keys),
+    links: readLinks(json['links']),
+    extra: extraKeysOfBody(json, _keys, fields: false),
   );
 
   static const _keys = {
@@ -102,6 +105,10 @@ class Passkey implements VaultEntry<Passkey> {
   /// Epoch ms of the last change; addedAt if never changed.
   final int? updatedAt;
 
+  /// The items linked to this one, as a body holds them (see [ItemLink]); none when it holds no `links`.
+  @override
+  final List<ItemLink> links;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
@@ -133,6 +140,7 @@ class Passkey implements VaultEntry<Passkey> {
     'tags': ?tags,
     'addedAt': addedAt,
     'updatedAt': ?updatedAt,
+    'links': ?writeLinks(links),
     ...extra,
   };
 
@@ -148,6 +156,7 @@ class Passkey implements VaultEntry<Passkey> {
     Object? tags = keep,
     int? addedAt,
     Object? updatedAt = keep,
+    List<ItemLink>? links,
   }) => Passkey(
     id: id ?? this.id,
     credentialId: credentialId,
@@ -163,11 +172,18 @@ class Passkey implements VaultEntry<Passkey> {
     tags: pick(tags, this.tags),
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
-    extra: extra,
+    links: links ?? this.links,
+    extra: extraSetting(extra, links: links != null),
   );
 
   @override
   int get changedAt => updatedAt ?? addedAt;
+
+  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself: not by its id, nor
+  /// by any of [ownIds], the other ids that name it (its item id, which an entry with a legacy id doesn't share). It is not stamped.
+  @override
+  Passkey withLinks(List<ItemLink> links, {Iterable<String> ownIds = const []}) =>
+      copyWith(links: normaliseLinks(links, ownIds: [id, ...ownIds]));
 
   @override
   Passkey stamped(int at) => copyWith(updatedAt: at);

@@ -14,6 +14,7 @@ import '../models/otp_account.dart';
 import '../models/passkey.dart';
 import '../models/payment_card.dart';
 import '../models/secure_note.dart';
+import '../models/vault_file.dart';
 import '../models/vault_key.dart';
 import 'sealed_value.dart';
 import 'vault_store.dart';
@@ -30,7 +31,7 @@ const exportSealKey = 'export';
 /// file that said anything else wouldn't open in the versions people have.
 const formatAppName = 'BackMyCodes';
 
-/// What an export holds. Keys, notes, passkeys, contacts, logins, cards and identities sit
+/// What an export holds. Keys, notes, passkeys, contacts, logins, cards, identities and File items sit
 /// beside the codes in the same version 2 payload, so older versions still
 /// read the codes and pass the rest over.
 class VaultExportPayload {
@@ -45,6 +46,7 @@ class VaultExportPayload {
     this.logins = const [],
     this.cards = const [],
     this.identities = const [],
+    this.files = const [],
   });
 
   final List<OtpAccount> accounts;
@@ -69,8 +71,11 @@ class VaultExportPayload {
   /// The vault's identities, document numbers and all.
   final List<Identity> identities;
 
-  /// How many attached files its notes name.
-  int get fileCount => notes.fold(0, (count, note) => count + note.files.length);
+  /// The vault's File items, each naming one attached file (the `files` list, written only when there are some).
+  final List<VaultFile> files;
+
+  /// How many attached files its notes and its File items name.
+  int get fileCount => notes.fold(files.length, (count, note) => count + note.files.length);
 }
 
 /// The vault items of an export, written only when there are some, so a
@@ -84,6 +89,7 @@ Map<String, Object?> _items(
   List<Login> logins,
   List<PaymentCard> cards,
   List<Identity> identities,
+  List<VaultFile> files,
 ) => {
   if (keys.isNotEmpty) 'keys': [for (final key in keys) key.toJson()],
   if (notes.isNotEmpty) 'notes': [for (final note in notes) note.toJson()],
@@ -93,6 +99,7 @@ Map<String, Object?> _items(
   if (logins.isNotEmpty) 'logins': [for (final login in logins) login.toJson()],
   if (cards.isNotEmpty) 'cards': [for (final card in cards) card.toJson()],
   if (identities.isNotEmpty) 'identities': [for (final identity in identities) identity.toJson()],
+  if (files.isNotEmpty) 'files': [for (final file in files) file.toJson()],
 };
 
 List<T> _read<T>(Object? list, T Function(Map<String, Object?> json) from) => [
@@ -112,6 +119,7 @@ VaultExportPayload _payload(Map<String, Object?> json) => VaultExportPayload(
   logins: _read(json['logins'], Login.fromJson),
   cards: _read(json['cards'], PaymentCard.fromJson),
   identities: _read(json['identities'], Identity.fromJson),
+  files: _read(json['files'], VaultFile.fromJson),
 );
 
 /// The file isn't an export this app can read. [message] is the text the
@@ -168,7 +176,7 @@ List<BackupService> _services(Object? list) => [
 ];
 
 /// A self-contained encrypted export of the given accounts and services,
-/// and the vault's [keys], [notes], [passkeys], [contacts], [logins], [cards] and [identities], and
+/// and the vault's [keys], [notes], [passkeys], [contacts], [logins], [cards], [identities] and [files], and
 /// the names of its [keyAccounts], whose secrets stay on their key.
 ///
 /// Each export gets its own ML-KEM-1024 key pair, whose private key is
@@ -196,6 +204,7 @@ Future<String> exportVault(
   List<Login> logins = const [],
   List<PaymentCard> cards = const [],
   List<Identity> identities = const [],
+  List<VaultFile> files = const [],
   RecoveryKey? recoveryKey,
   DeriveKey deriveKey = deriveVaultKey,
   DateTime? now,
@@ -208,7 +217,7 @@ Future<String> exportVault(
     final payload = {
       'accounts': [for (final a in accounts) a.toJson()],
       'backupServices': [for (final s in backupServices) s.toJson()],
-      ..._items(keys, notes, passkeys, keyAccounts, contacts, logins, cards, identities),
+      ..._items(keys, notes, passkeys, keyAccounts, contacts, logins, cards, identities, files),
     };
     final sealed = await sealValue(
       utf8.encode(jsonEncode(payload)),
@@ -315,6 +324,7 @@ String exportVaultPlaintext(
   List<Login> logins = const [],
   List<PaymentCard> cards = const [],
   List<Identity> identities = const [],
+  List<VaultFile> files = const [],
   DateTime? now,
 }) => _indent.convert({
   'version': exportVersion,
@@ -323,7 +333,7 @@ String exportVaultPlaintext(
   'scheme': 'plaintext',
   'accounts': [for (final a in accounts) a.toJson()],
   'backupServices': [for (final s in backupServices) s.toJson()],
-  ..._items(keys, notes, passkeys, keyAccounts, contacts, logins, cards, identities),
+  ..._items(keys, notes, passkeys, keyAccounts, contacts, logins, cards, identities, files),
 });
 
 /// True for an encrypted export, false for a plain one; throws [ExportFileError] for anything else.

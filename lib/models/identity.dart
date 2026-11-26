@@ -1,3 +1,5 @@
+import 'custom_field.dart';
+import 'item_link.dart';
 import 'json.dart';
 import 'vault_entry.dart';
 
@@ -188,6 +190,8 @@ class Identity implements VaultEntry<Identity> {
     this.source,
     required this.addedAt,
     this.updatedAt,
+    this.links = const [],
+    this.fields = const [],
     this.extra = const {},
   });
 
@@ -221,7 +225,9 @@ class Identity implements VaultEntry<Identity> {
     source: asOptionalString(json['source']),
     addedAt: asInt(json['addedAt']) ?? 0,
     updatedAt: asInt(json['updatedAt']),
-    extra: extraKeys(json, _keys),
+    links: readLinks(json['links']),
+    fields: readFields(json['fields']),
+    extra: extraKeysOfBody(json, _keys),
   );
 
   static const _keys = {
@@ -284,6 +290,13 @@ class Identity implements VaultEntry<Identity> {
   /// Epoch ms of the last change, so sync can tell which copy is newer.
   final int? updatedAt;
 
+  /// The items linked to this one, as a body holds them (see [ItemLink]); none when it holds no `links`.
+  @override
+  final List<ItemLink> links;
+
+  /// The custom fields (see [CustomField]); none when it holds no `fields`.
+  final List<CustomField> fields;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
@@ -328,6 +341,8 @@ class Identity implements VaultEntry<Identity> {
     'source': ?source,
     'addedAt': addedAt,
     'updatedAt': ?updatedAt,
+    'links': ?writeLinks(links),
+    'fields': ?writeFields(fields),
     ...extra,
   };
 
@@ -353,6 +368,8 @@ class Identity implements VaultEntry<Identity> {
     Object? source = keep,
     int? addedAt,
     Object? updatedAt = keep,
+    List<ItemLink>? links,
+    List<CustomField>? fields,
   }) => Identity(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -374,7 +391,9 @@ class Identity implements VaultEntry<Identity> {
     source: pick(source, this.source),
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
-    extra: extra,
+    links: links ?? this.links,
+    fields: fields ?? this.fields,
+    extra: extraSetting(extra, links: links != null, fields: fields != null),
   );
 
   @override
@@ -385,6 +404,12 @@ class Identity implements VaultEntry<Identity> {
 
   @override
   int get changedAt => updatedAt ?? addedAt;
+
+  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself: not by its id, nor
+  /// by any of [ownIds], the other ids that name it (its item id, which an entry with a legacy id doesn't share). It is not stamped.
+  @override
+  Identity withLinks(List<ItemLink> links, {Iterable<String> ownIds = const []}) =>
+      copyWith(links: normaliseLinks(links, ownIds: [id, ...ownIds]));
 
   @override
   Identity stamped(int at) => copyWith(updatedAt: at);

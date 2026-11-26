@@ -9,12 +9,14 @@
 import 'dart:convert';
 
 import '../../models/backup_service.dart';
+import '../../models/contact.dart';
 import '../../models/identity.dart';
 import '../../models/login.dart';
 import '../../models/otp_account.dart';
 import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
+import '../../models/vault_file.dart';
 import 'duplicate_normalise.dart';
 
 /// The kinds of tag, in the order of how strongly each says two items are
@@ -41,6 +43,15 @@ enum TagKind {
 
   /// An identity's full name and email.
   identity,
+
+  /// A contact's email and phone.
+  contact,
+
+  /// One identity document's number.
+  document,
+
+  /// A File item's content hash (the SHA-256 of the file's plain bytes).
+  file,
 }
 
 /// Why a group of items is shown (design 5).
@@ -54,6 +65,9 @@ enum DuplicateReason {
   sameKey(TagKind.key),
   sameCodes(TagKind.codes),
   sameIdentity(TagKind.identity),
+  sameContact(TagKind.contact),
+  sameDocument(TagKind.document),
+  sameFile(TagKind.file),
 
   /// One item held in the vault and in a space, or in two spaces.
   inTwoPlaces(null);
@@ -289,14 +303,51 @@ TagInput? identityTagInput(Identity identity) {
   return values.every((value) => value.isEmpty) ? null : TagInput(TagKind.identity, values);
 }
 
+/// The tag inputs of an identity's documents: one `document` input for each document number, each number once, in
+/// order. A document whose number has too few letters and digits makes none.
+List<TagInput> documentTagInputs(Identity identity) {
+  final numbers = <String>{
+    for (final document in identity.documents ?? const <IdentityDocument>[]) ?normaliseDocumentNumber(document.number),
+  };
+  return [
+    for (final number in numbers) TagInput(TagKind.document, [number]),
+  ];
+}
+
+/// The tag input of a contact: its email, trimmed, in NFC and in lower case as a username is, and its phone as its digits
+/// only; the one is the empty string when the other is all there is. Null for a contact with neither. The address a key
+/// was looked up by (`sourceEmail`) is not read.
+TagInput? contactTagInput(Contact contact) {
+  final email = normaliseUsername(contact.email ?? '');
+  final phone = normalisePhone(contact.phone ?? '');
+  return email.isEmpty && phone.isEmpty ? null : TagInput(TagKind.contact, [email, phone]);
+}
+
+/// The tag input of a File item: the SHA-256 of its file's plain bytes as 64 lower-case hex digits, which the entry's `sha256`
+/// holds (any case is read); null for a file with none, or one that isn't 64 hex digits, which makes no tag.
+TagInput? fileTagInput(VaultFile item) {
+  final hash = normalSha256(item.file.sha256);
+  return hash == null ? null : TagInput(TagKind.file, [hash]);
+}
+
+/// Whether [a] and [b] are one File item: the same id, or the same file hash. A file with no hash is its own.
+bool sameFile(VaultFile a, VaultFile b) {
+  if (a.id == b.id) {
+    return true;
+  }
+  final hash = fileTagInput(a);
+  return hash != null && hash == fileTagInput(b);
+}
+
 /// Whether [a] and [b] are one credential, by the rules import and the cleaner share. [a] and
 /// [b] are the same kind of item, one of the kinds whose rule is here: a login, a code, a passkey,
-/// a backup-code list or a note. Two items of other kinds, or of two kinds, are not.
+/// a backup-code list, a note or a File item. Two items of other kinds, or of two kinds, are not.
 bool sameCredential(Object a, Object b, {SiteResolver sites = const SiteResolver()}) => switch ((a, b)) {
   (final Login a, final Login b) => sameLogin(a, b, sites: sites),
   (final OtpAccount a, final OtpAccount b) => sameCode(a, b),
   (final Passkey a, final Passkey b) => samePasskey(a, b),
   (final BackupService a, final BackupService b) => sameBackupCodes(a, b),
   (final SecureNote a, final SecureNote b) => sameNote(a, b),
+  (final VaultFile a, final VaultFile b) => sameFile(a, b),
   _ => false,
 };

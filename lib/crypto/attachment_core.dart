@@ -21,11 +21,15 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:crypto/crypto.dart' as hash;
 import 'package:cryptography/cryptography.dart';
 import 'package:cryptography/dart.dart';
 
 import 'background.dart';
 import 'bytes.dart';
+
+/// The SHA-256 of an attachment's [plain] bytes, before they are encrypted, as its `sha256` holds it: 64 lower-case hex digits.
+String attachmentSha256(List<int> plain) => hash.sha256.convert(plain).toString();
 
 /// The bytes every `KMA1` file starts with.
 final kma1Magic = Uint8List.fromList('KMA1'.codeUnits);

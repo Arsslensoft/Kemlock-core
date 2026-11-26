@@ -545,9 +545,6 @@ class KmApi {
   /// What a page of the delta or a manifest may hold.
   static const maxPageBytes = 8 * 1024 * 1024;
 
-  /// What a problem answer may hold.
-  static const _maxProblemBytes = 64 * 1024;
-
   /// The most items one batch carries, the server's limit.
   static const batchSize = 500;
 
@@ -920,28 +917,10 @@ class KmApi {
     );
   }
 
-  /// Sends the file's [bytes] to where [start] says. The server's own address gets the token and a
-  /// proof. A bucket address must be https and gets neither; the upload is then finished with a
-  /// request to the server. An address on another host that isn't pre-signed is refused.
+  /// Sends the file's [bytes] to the server's own route, `PUT /kem/v1/items/{id}/files/{fileId}`, with the token and a proof
+  /// (`crypto.md`, "Attachments"). That is so even where the server also offers a pre-signed address ([start]'s `uploadUrl`
+  /// and `presigned`): the address is never used, so no byte goes to another host and no request is made without a proof.
   Future<void> uploadFile(Uri server, String token, String itemId, KmFileStart start, Uint8List bytes) async {
-    if (start.presigned) {
-      final target = Uri.tryParse(start.uploadUrl);
-      if (target == null || target.scheme != 'https' || target.host.isEmpty) throw const KmError(KmProblem.insecure);
-      final res = await _send(
-        'PUT',
-        target,
-        bytes: bytes,
-        contentType: 'application/octet-stream',
-        timeout: fileTimeout,
-        proof: false,
-        maxBytes: _maxProblemBytes,
-      );
-      if (res.statusCode < 200 || res.statusCode >= 300) throw _failure(res, _jsonOrNull(res));
-      final done = await _send('POST', _api(server, '/items/$itemId/files/${start.fileId}/finish'), token: token);
-      _expect(done);
-      return;
-    }
-    if (!kmSameServer(server, start.uploadUrl)) throw const KmError(KmProblem.server, message: 'the upload address is another host');
     final res = await _send(
       'PUT',
       _api(server, '/items/$itemId/files/${start.fileId}'),

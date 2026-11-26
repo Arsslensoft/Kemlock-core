@@ -116,13 +116,46 @@ typedef Websites = ({List<String>? websites, List<WebsiteRule>? uris});
 /// Reads `websites` and `uris` from a stored item. Without `uris` it is the
 /// hosts alone, as before. With it, [reconcileRules] brings in what a build
 /// that knows no rules did to `websites`, and `websites` is what is derived.
-Websites readWebsites(Map<String, Object?> json) {
+///
+/// With [urls] (a login), a body that holds neither `uris` nor `websites` but the web vault's own `urls` has its addresses read
+/// as websites on the default rule ([websitesOfUrls]).
+Websites readWebsites(Map<String, Object?> json, {bool urls = false}) {
   final hosts = asStrings(json['websites']);
   final rules = rulesFromJson(json['uris']);
-  if (rules == null) return (websites: hosts, uris: null);
+  if (rules == null) {
+    return (urls && hosts == null ? websitesOfUrls(json['urls']) : null) ?? (websites: hosts, uris: null);
+  }
   final reconciled = reconcileRules(rules, hosts ?? const []);
   return (websites: fillHosts(reconciled), uris: reconciled);
 }
+
+/// The websites of a body that holds only `urls` (`crypto.md`, "Login websites": a login written before `uris` has `urls` alone, and
+/// every address in it is on the default rule): the host of each address that has one, each once, in order. Null when there is none.
+Websites? websitesOfUrls(Object? urls) {
+  if (urls is! List) return null;
+  final hosts = <String>{
+    for (final url in urls)
+      if (url is String) ?normaliseWebsite(url),
+  };
+  return hosts.isEmpty ? null : (websites: hosts.toList(), uris: null);
+}
+
+/// Whether writing [read], the websites read from [json], gives back exactly the `websites` and `uris` members [json] holds, and none
+/// where it holds none. When it doesn't (a web vault body that spells every address as a `uris` entry, a `websites` that isn't a list
+/// of texts, a `uris` with no `websites` beside it), a model that must write the body back as it was keeps the two members as they
+/// were among its unknown keys, and writes none of its own until the websites are edited.
+bool writesBackWebsites(Map<String, Object?> json, Websites read) {
+  final written = writeWebsites(read.websites, read.uris);
+  return const [
+    'websites',
+    'uris',
+  ].every((key) => json.containsKey(key) == written.containsKey(key) && jsonEquals(json[key], written[key]));
+}
+
+/// Whether [json] is a body that holds only `urls` and no `uris` or `websites`, whose websites [readWebsites] reads with `urls: true`
+/// are none of its own. Such a body is written back without them until its websites are edited.
+bool websitesFromUrls(Map<String, Object?> json) =>
+    rulesFromJson(json['uris']) == null && asStrings(json['websites']) == null && websitesOfUrls(json['urls']) != null;
 
 /// The `websites` and `uris` entries of a stored item: hosts derived from the
 /// rules when there are any, and `uris` only when it says more than the hosts.
@@ -162,3 +195,61 @@ Websites websitesOf(List<WebsiteRule> rules) {
   if (rules.isEmpty) return (websites: null, uris: null);
   return (websites: fillHosts(rules), uris: needsUris(rules) ? rules : null);
 }
+
+/// The websites as a login's `urls` member holds them (`crypto.md`, "Login websites"): the addresses of [rules] in order,
+/// without the regular expressions.
+List<String> urlsOf(List<WebsiteRule> rules) => [
+  for (final rule in rules)
+    if (rule.match != WebsiteMatch.regularExpression) rule.uri,
+];
+
+/// [extra] with its `urls` in step with the websites [changed] to, for an item whose websites were edited: the web vault's
+/// own key, written beside `websites` and `uris`, would otherwise go stale. It is done only when the body already held
+/// `urls` as a list, and only when [changed] differs from [before]; an item nobody edited, or one that never had `urls`,
+/// is written exactly as it was.
+///
+/// With rules ([Websites.uris]) the addresses are those of the rules. With hosts alone they are the ones `urls` held whose host is
+/// still listed, as they were (a full address is not collapsed to its host), then each host no address covers, which is new.
+/// An edit also drops the `websites` and `uris` members a model kept among its unknown keys because it could not write them back
+/// exactly: the typed ones replace them.
+Map<String, Object?> extraWithUrls(Map<String, Object?> extra, Websites before, Websites changed) {
+  if (_sameWebsites(before, changed)) {
+    return extra;
+  }
+  final out = {
+    for (final MapEntry(:key, :value) in extra.entries)
+      if (key != 'websites' && key != 'uris') key: value,
+  };
+  final held = extra['urls'];
+  if (held is! List) {
+    return out;
+  }
+  final rules = changed.uris;
+  return {...out, 'urls': rules != null ? urlsOf(rules) : _urlsKept(held, changed.websites ?? const [])};
+}
+
+/// The addresses of [held] whose host is in [hosts] (or that have none, which are not ours to drop), then each host of [hosts] that
+/// no address covers.
+List<Object?> _urlsKept(List<Object?> held, List<String> hosts) {
+  final listed = hosts.toSet();
+  final covered = <String>{};
+  final out = <Object?>[];
+  for (final url in held) {
+    final host = url is String ? normaliseWebsite(url) : null;
+    if (host == null) {
+      out.add(url);
+    } else if (listed.contains(host)) {
+      out.add(url);
+      covered.add(host);
+    }
+  }
+  return [
+    ...out,
+    for (final host in hosts)
+      if (!covered.contains(host)) host,
+  ];
+}
+
+bool _sameWebsites(Websites a, Websites b) =>
+    jsonEquals(a.websites, b.websites) &&
+    jsonEquals(a.uris?.map((rule) => rule.toJson()).toList(), b.uris?.map((rule) => rule.toJson()).toList());

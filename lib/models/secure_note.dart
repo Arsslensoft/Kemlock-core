@@ -1,3 +1,5 @@
+import 'custom_field.dart';
+import 'item_link.dart';
 import 'json.dart';
 import 'vault_entry.dart';
 
@@ -12,6 +14,18 @@ const attachmentSizeLimit = 50 * 1024 * 1024;
 /// The most files one note may hold.
 const attachmentsPerNote = 100;
 
+final _sha256Hex = RegExp(r'^[0-9a-f]{64}$');
+
+/// Whether [text] is a SHA-256 as an attachment holds it: 64 lower-case hex digits.
+bool isSha256Hex(String text) => _sha256Hex.hasMatch(text);
+
+/// The SHA-256 [text] holds as 64 lower-case hex digits: any case is read, and spaces around it are ignored. Null for anything
+/// else. It is how the duplicate finder and a download compare a file's hash.
+String? normalSha256(String? text) {
+  final digest = text?.trim().toLowerCase();
+  return digest != null && isSha256Hex(digest) ? digest : null;
+}
+
 /// A file attached to a note. The file itself is stored encrypted, apart
 /// from the vault (`KMA1`, see `attachment_format.dart`), under its [id];
 /// this record is all that says what it is, and the [key] that opens it.
@@ -23,18 +37,27 @@ class NoteAttachment {
     this.type,
     required this.key,
     required this.addedAt,
+    this.sha256,
     this.extra = const {},
   });
 
-  factory NoteAttachment.fromJson(Map<String, Object?> json) => NoteAttachment(
-    id: asString(json['id']),
-    name: asString(json['name']),
-    size: asInt(json['size']) ?? 0,
-    type: asOptionalString(json['type']),
-    key: asString(json['key']),
-    addedAt: asInt(json['addedAt']) ?? 0,
-    extra: extraKeys(json, const {'id', 'name', 'size', 'type', 'key', 'addedAt'}),
-  );
+  factory NoteAttachment.fromJson(Map<String, Object?> json) {
+    final raw = asOptionalString(json['sha256']);
+    final digest = normalSha256(raw);
+    // A hash written in upper case or padded is read as the lower-case one, and the member stays among the keys this version
+    // doesn't know, as it was written: the entry is written back exactly, and a new hash replaces it (`withSha256`)
+    final plain = digest != null && digest == raw;
+    return NoteAttachment(
+      id: asString(json['id']),
+      name: asString(json['name']),
+      size: asInt(json['size']) ?? 0,
+      type: asOptionalString(json['type']),
+      key: asString(json['key']),
+      addedAt: asInt(json['addedAt']) ?? 0,
+      sha256: digest,
+      extra: extraKeys(json, {'id', 'name', 'size', 'type', 'key', 'addedAt', if (plain) 'sha256'}),
+    );
+  }
 
   /// 16 random bytes in base64url; also the stored file's name.
   final String id;
@@ -54,10 +77,37 @@ class NoteAttachment {
   /// Epoch ms the file was attached.
   final int addedAt;
 
+  /// The SHA-256 of the file's bytes before encryption, as 64 lower-case hex digits, when the entry holds one (the duplicate
+  /// finder reads it). A body that wrote it in upper case, or with spaces around it, is read the same; the member as written stays
+  /// among [extra] and is written back as it was. Anything that isn't a SHA-256 is left in [extra] too.
+  final String? sha256;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
-  Map<String, Object?> toJson() => {'id': id, 'name': name, 'size': size, 'type': ?type, 'key': key, 'addedAt': addedAt, ...extra};
+  Map<String, Object?> toJson() => {
+    'id': id,
+    'name': name,
+    'size': size,
+    'type': ?type,
+    'key': key,
+    'addedAt': addedAt,
+    'sha256': ?sha256,
+    ...extra,
+  };
+
+  /// This attachment with its digest set to [sha256], 64 lower-case hex digits. A member the body held under `sha256` in another
+  /// form is replaced by it.
+  NoteAttachment withSha256(String sha256) => NoteAttachment(
+    id: id,
+    name: name,
+    size: size,
+    type: type,
+    key: key,
+    addedAt: addedAt,
+    sha256: sha256,
+    extra: extra.containsKey('sha256') ? ({...extra}..remove('sha256')) : extra,
+  );
 
   @override
   bool operator ==(Object other) => other is NoteAttachment && jsonEquals(toJson(), other.toJson());
@@ -126,12 +176,16 @@ class SecureNote implements VaultEntry<SecureNote> {
     required this.addedAt,
     this.updatedAt,
     this.attachments,
+    this.unreadAttachments = const [],
     this.piv,
+    this.links = const [],
+    this.fields = const [],
     this.extra = const {},
   });
 
   factory SecureNote.fromJson(Map<String, Object?> json) {
     final piv = NotePivKey.tryParse(json['piv']);
+    final held = json['attachments'];
     return SecureNote(
       id: asString(json['id']),
       title: asString(json['title']),
@@ -141,12 +195,18 @@ class SecureNote implements VaultEntry<SecureNote> {
       spaceId: asOptionalString(json['spaceId']),
       addedAt: asInt(json['addedAt']) ?? 0,
       updatedAt: asInt(json['updatedAt']),
-      attachments: json['attachments'] is List
-          ? [for (final file in (json['attachments']! as List<Object?>).whereType<Map<String, Object?>>()) NoteAttachment.fromJson(file)]
-          : null,
+      attachments: held is List ? [for (final file in held.whereType<Map<String, Object?>>()) NoteAttachment.fromJson(file)] : null,
+      unreadAttachments: held is List
+          ? [
+              for (var at = 0; at < held.length; at++)
+                if (held[at] is! Map<String, Object?>) (at: at, raw: held[at]),
+            ]
+          : const [],
       piv: piv,
+      links: readLinks(json['links']),
+      fields: readFields(json['fields']),
       // A piv this version can't read stays among the keys it doesn't know.
-      extra: extraKeys(json, {
+      extra: extraKeysOfBody(json, {
         'id',
         'title',
         'text',
@@ -180,9 +240,21 @@ class SecureNote implements VaultEntry<SecureNote> {
   /// Absent on a note that never had a file.
   final List<NoteAttachment>? attachments;
 
+  /// The entries of `attachments` that aren't objects, which this version can't read: each with its place in the list as the body
+  /// held it, and as it was. They are kept and written back in place (a place past the end goes last), whatever else is changed, so
+  /// an entry a later version wrote is never lost; [files] doesn't hold them.
+  final List<({int at, Object? raw})> unreadAttachments;
+
   /// Present only on a note Kemlock made to keep a security key's
   /// management key.
   final NotePivKey? piv;
+
+  /// The items linked to this one, as a body holds them (see [ItemLink]); none when it holds no `links`.
+  @override
+  final List<ItemLink> links;
+
+  /// The custom fields (see [CustomField]); none when it holds no `fields`.
+  final List<CustomField> fields;
 
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
@@ -202,10 +274,21 @@ class SecureNote implements VaultEntry<SecureNote> {
     'spaceId': ?spaceId,
     'addedAt': addedAt,
     'updatedAt': ?updatedAt,
-    if (attachments case final files?) 'attachments': [for (final file in files) file.toJson()],
+    if (attachments != null || unreadAttachments.isNotEmpty) 'attachments': _writtenAttachments(),
     if (piv case final piv?) 'piv': piv.toJson(),
+    'links': ?writeLinks(links),
+    'fields': ?writeFields(fields),
     ...extra,
   };
+
+  /// The `attachments` member: the files, with the entries this version can't read put back where they were.
+  List<Object?> _writtenAttachments() {
+    final out = <Object?>[for (final file in attachments ?? const <NoteAttachment>[]) file.toJson()];
+    for (final (:at, :raw) in unreadAttachments) {
+      out.insert(at < out.length ? at : out.length, raw);
+    }
+    return out;
+  }
 
   /// A copy with the given fields changed. Pass [unset] to remove an optional field.
   SecureNote copyWith({
@@ -219,6 +302,8 @@ class SecureNote implements VaultEntry<SecureNote> {
     Object? updatedAt = keep,
     Object? attachments = keep,
     Object? piv = keep,
+    List<ItemLink>? links,
+    List<CustomField>? fields,
   }) => SecureNote(
     id: id ?? this.id,
     title: title ?? this.title,
@@ -229,13 +314,26 @@ class SecureNote implements VaultEntry<SecureNote> {
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
     attachments: pick(attachments, this.attachments),
+    unreadAttachments: unreadAttachments,
     piv: pick(piv, this.piv),
+    links: links ?? this.links,
+    fields: fields ?? this.fields,
     // A piv given here takes the place of one this version could not read.
-    extra: identical(piv, keep) || !extra.containsKey('piv') ? extra : ({...extra}..remove('piv')),
+    extra: extraSetting(
+      identical(piv, keep) || !extra.containsKey('piv') ? extra : ({...extra}..remove('piv')),
+      links: links != null,
+      fields: fields != null,
+    ),
   );
 
   @override
   int get changedAt => updatedAt ?? addedAt;
+
+  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself: not by its id, nor
+  /// by any of [ownIds], the other ids that name it (its item id, which an entry with a legacy id doesn't share). It is not stamped.
+  @override
+  SecureNote withLinks(List<ItemLink> links, {Iterable<String> ownIds = const []}) =>
+      copyWith(links: normaliseLinks(links, ownIds: [id, ...ownIds]));
 
   @override
   SecureNote stamped(int at) => copyWith(updatedAt: at);

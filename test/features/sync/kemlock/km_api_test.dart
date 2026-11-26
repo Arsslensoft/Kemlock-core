@@ -397,9 +397,9 @@ void main() {
   group('files', () {
     const itemId = '3f2c9a71-e4b0-4856-8a00-000000000001';
 
-    test('a pre-signed address gets no Authorization and no DPoP, and the upload is finished with the server', () async {
+    test("a pre-signed address is never used: the bytes go to the server's own route, with the token", () async {
       final seen = <http.Request>[];
-      final api = _api((request) async => request.url.host == 'bucket.example.net' ? http.Response('', 200) : _json({}), seen: seen);
+      final api = _api((_) async => _json({}), seen: seen);
       final start = const KmFileStart(
         fileId: 'f1',
         size: 4,
@@ -410,32 +410,22 @@ void main() {
 
       await api.uploadFile(_server, 'token', itemId, start, Uint8List.fromList([75, 77, 65, 49]));
 
-      final bucket = seen.firstWhere((r) => r.url.host == 'bucket.example.net');
-      expect(bucket.headers.keys.map((k) => k.toLowerCase()), isNot(contains('authorization')));
-      expect(bucket.headers.keys.map((k) => k.toLowerCase()), isNot(contains('dpop')));
-      expect(seen.last.url.path, endsWith('/files/f1/finish'));
-      expect(seen.last.headers['Authorization'], 'DPoP token');
+      expect(seen, hasLength(1), reason: 'one request, and no finish call');
+      expect(seen.single.method, 'PUT');
+      expect(seen.single.url.host, _server.host);
+      expect(seen.single.url.path, endsWith('/items/$itemId/files/f1'));
+      expect(seen.single.headers['Authorization'], 'DPoP token');
+      expect(seen.single.bodyBytes, [75, 77, 65, 49]);
     });
 
-    test('a pre-signed address must be https', () async {
-      final seen = <http.Request>[];
-      final api = _api((_) async => _json({}), seen: seen);
-      final start = const KmFileStart(fileId: 'f1', size: 4, maxSize: 100, uploadUrl: 'http://bucket.example.net/put', presigned: true);
-
-      await expectLater(
-        api.uploadFile(_server, 't', itemId, start, Uint8List(4)),
-        throwsA(isA<KmError>().having((e) => e.problem, 'problem', KmProblem.insecure)),
-      );
-      expect(seen, isEmpty);
-    });
-
-    test('an upload address on another host that is not pre-signed is refused, with nothing sent', () async {
+    test('an upload address on another host is ignored too: nothing is sent there', () async {
       final seen = <http.Request>[];
       final api = _api((_) async => _json({}), seen: seen);
       final start = const KmFileStart(fileId: 'f1', size: 4, maxSize: 100, uploadUrl: 'https://evil.example.com/steal', presigned: false);
 
-      await expectLater(api.uploadFile(_server, 't', itemId, start, Uint8List(4)), throwsA(isA<KmError>()));
-      expect(seen, isEmpty);
+      await api.uploadFile(_server, 't', itemId, start, Uint8List(4));
+
+      expect(seen.map((r) => r.url.host).toSet(), {_server.host});
     });
   });
 

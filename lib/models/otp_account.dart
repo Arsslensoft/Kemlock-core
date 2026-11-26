@@ -1,3 +1,5 @@
+import 'custom_field.dart';
+import 'item_link.dart';
 import 'json.dart';
 import 'vault_entry.dart';
 import 'website_rule.dart';
@@ -23,6 +25,7 @@ class OtpAccount implements VaultEntry<OtpAccount> {
   const OtpAccount({
     required this.id,
     this.type,
+    this.name,
     required this.issuer,
     required this.label,
     required this.secret,
@@ -41,12 +44,16 @@ class OtpAccount implements VaultEntry<OtpAccount> {
     this.breachesDismissed,
     this.websites,
     this.uris,
+    this.linkedLoginId,
+    this.links = const [],
+    this.fields = const [],
     this.extra = const {},
   });
 
   factory OtpAccount.fromJson(Map<String, Object?> json) => OtpAccount(
     id: asString(json['id']),
     type: OtpType.parse(json['type']),
+    name: asOptionalString(json['name']),
     issuer: asString(json['issuer']),
     label: asString(json['label']),
     secret: asString(json['secret']),
@@ -65,12 +72,16 @@ class OtpAccount implements VaultEntry<OtpAccount> {
     breachesDismissed: asStrings(json['breachesDismissed']),
     websites: readWebsites(json).websites,
     uris: readWebsites(json).uris,
-    extra: extraKeys(json, _keys),
+    linkedLoginId: asOptionalString(json['linkedLoginId']),
+    links: readLinks(json['links']),
+    fields: readFields(json['fields']),
+    extra: extraKeysOfBody(json, {..._keys, if (json['linkedLoginId'] is String) 'linkedLoginId'}),
   );
 
   static const _keys = {
     'id',
     'type',
+    'name',
     'issuer',
     'label',
     'secret',
@@ -96,6 +107,9 @@ class OtpAccount implements VaultEntry<OtpAccount> {
 
   /// Absent on accounts saved before HOTP and Steam support, which are all TOTP.
   final OtpType? type;
+
+  /// What the item is called, when the person named it; without it the item is named by its issuer and label.
+  final String? name;
   final String issuer;
   final String label;
   final String secret;
@@ -155,6 +169,17 @@ class OtpAccount implements VaultEntry<OtpAccount> {
   Websites _changed(Object? websites, Object? uris) =>
       changeWebsites((websites: this.websites, uris: this.uris), websites: websites, uris: uris);
 
+  /// The items linked to this one, as a body holds them (see [ItemLink]); none when it holds no `links`.
+  @override
+  final List<ItemLink> links;
+
+  /// The custom fields (see [CustomField]); none when it holds no `fields`.
+  final List<CustomField> fields;
+
+  /// The id of the login this code was made from, which the importer writes: the login shows the code, and the code is linked
+  /// to it. Read as a link on both items and never copied into [links]; unlinking them removes it.
+  final String? linkedLoginId;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
@@ -165,6 +190,7 @@ class OtpAccount implements VaultEntry<OtpAccount> {
   Map<String, Object?> toJson() => {
     'id': id,
     'type': ?type?.name,
+    'name': ?name,
     'issuer': issuer,
     'label': label,
     'secret': secret,
@@ -182,6 +208,9 @@ class OtpAccount implements VaultEntry<OtpAccount> {
     'updatedAt': ?updatedAt,
     if (breachesDismissed?.isNotEmpty ?? false) 'breachesDismissed': breachesDismissed,
     ...writeWebsites(websites, uris),
+    'linkedLoginId': ?linkedLoginId,
+    'links': ?writeLinks(links),
+    'fields': ?writeFields(fields),
     ...extra,
   };
 
@@ -189,6 +218,7 @@ class OtpAccount implements VaultEntry<OtpAccount> {
   OtpAccount copyWith({
     String? id,
     Object? type = keep,
+    Object? name = keep,
     String? issuer,
     String? label,
     String? secret,
@@ -207,9 +237,13 @@ class OtpAccount implements VaultEntry<OtpAccount> {
     Object? breachesDismissed = keep,
     Object? websites = keep,
     Object? uris = keep,
+    Object? linkedLoginId = keep,
+    List<ItemLink>? links,
+    List<CustomField>? fields,
   }) => OtpAccount(
     id: id ?? this.id,
     type: pick(type, this.type),
+    name: pick(name, this.name),
     issuer: issuer ?? this.issuer,
     label: label ?? this.label,
     secret: secret ?? this.secret,
@@ -228,7 +262,14 @@ class OtpAccount implements VaultEntry<OtpAccount> {
     breachesDismissed: pick(breachesDismissed, this.breachesDismissed),
     websites: _changed(websites, uris).websites,
     uris: _changed(websites, uris).uris,
-    extra: extra,
+    linkedLoginId: pick(linkedLoginId, this.linkedLoginId),
+    links: links ?? this.links,
+    fields: fields ?? this.fields,
+    extra: extraSetting(
+      extraWithUrls(extra, (websites: this.websites, uris: this.uris), _changed(websites, uris)),
+      links: links != null,
+      fields: fields != null,
+    ),
   );
 
   @override
@@ -239,6 +280,12 @@ class OtpAccount implements VaultEntry<OtpAccount> {
 
   @override
   int get changedAt => updatedAt ?? addedAt;
+
+  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself: not by its id, nor
+  /// by any of [ownIds], the other ids that name it (its item id, which an entry with a legacy id doesn't share). It is not stamped.
+  @override
+  OtpAccount withLinks(List<ItemLink> links, {Iterable<String> ownIds = const []}) =>
+      copyWith(links: normaliseLinks(links, ownIds: [id, ...ownIds]));
 
   @override
   OtpAccount stamped(int at) => copyWith(updatedAt: at);

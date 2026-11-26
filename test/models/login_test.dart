@@ -46,13 +46,14 @@ void main() {
       'previousPasswords': [
         {'password': 'zero', 'until': 2, 'by': 'phone'},
       ],
+      'later': {'x': 1},
     };
     final read = Login.fromJson(json);
+    // `fields` is read now: a custom field, which writes back as it was
     expect(read.extra, {
-      'fields': [
-        {'name': 'PIN', 'value': '1234'},
-      ],
+      'later': {'x': 1},
     });
+    expect(read.fields.single.name, 'PIN');
     expect(read.previousPasswords!.single.extra, {'by': 'phone'});
     expect(read.copyWith(name: 'Larkspur').toJson()['fields'], json['fields']);
     expect(read.toJson(), json);

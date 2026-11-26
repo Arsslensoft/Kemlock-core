@@ -144,6 +144,7 @@ class KmCache {
     this.manifestSignature,
     DeletedItems? deleted,
     List<LostRun>? lost,
+    this.knew,
     this.extra = const {},
   }) : items = items ?? {},
        deleted = deleted ?? DeletedItems(),
@@ -167,7 +168,8 @@ class KmCache {
         manifestSignature: manifest is Map<String, Object?> ? b64urlDecode(asString(manifest['signature'])) : null,
         deleted: json['deleted'] == null ? null : DeletedItems.fromJson(json['deleted']),
         lost: _lost(json['lost']),
-        extra: extraKeys(json, const {'cursor', 'items', 'manifest', 'deleted', 'lost'}),
+        knew: json['knew'] is List ? asStrings(json['knew']) : null,
+        extra: extraKeys(json, const {'cursor', 'items', 'manifest', 'deleted', 'lost', 'knew'}),
       );
     } on MalformedException {
       return KmCache();
@@ -190,6 +192,10 @@ class KmCache {
   /// The runs that took entries off this phone, for the removal guard.
   List<LostRun> lost;
 
+  /// The kinds of item the version that last stored the cache knew. An item of a kind it didn't know was kept opaque and is read
+  /// again once a version that knows the kind runs (see [unreadKnown]). Null for a cache a version that kept no such list stored.
+  List<String>? knew;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
@@ -201,8 +207,17 @@ class KmCache {
     manifestSignature: manifestSignature,
     deleted: DeletedItems.fromJson(deleted.toJson()),
     lost: [...lost],
+    knew: knew,
     extra: extra,
   );
+
+  /// The ids of the live items this version reads ([knows]) that the cache holds as opaque because the version that stored it
+  /// didn't know their kind: the server won't send them again, so a run reads the whole vault once to open them.
+  Set<String> unreadKnown(bool Function(String kind) knows) => {
+    for (final MapEntry(:key, :value) in items.entries)
+      if (!value.deleted && value.opaque && value.entry == null && knows(value.kind) && !(knew ?? const <String>[]).contains(value.kind))
+        key,
+  };
 
   Map<String, Object?> toJson() => {
     'cursor': ?cursor,
@@ -214,6 +229,7 @@ class KmCache {
       'lost': [
         for (final run in lost) [run.at, run.count],
       ],
+    'knew': ?knew,
     ...extra,
   };
 }

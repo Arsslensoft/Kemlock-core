@@ -249,4 +249,5 @@ SyncDoc listsAsDoc(Lists lists) => SyncDoc(
   logins: lists.logins,
   cards: lists.cards,
   identities: lists.identities,
+  files: lists.files,
 );

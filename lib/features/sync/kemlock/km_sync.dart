@@ -62,6 +62,9 @@ import 'km_dedup.dart';
 import 'km_files.dart';
 import 'km_kinds.dart';
 import 'km_models.dart';
+import 'km_move_copy.dart' show kmMergeEntry;
+import 'km_move_server.dart';
+import 'km_push.dart';
 
 /// Why a Kemlock Server sync stopped before changing anything. The names are the ends of the
 /// `sync.problem.*` message ids where a sheet says them.
@@ -97,6 +100,21 @@ const _attempts = 3;
 /// How long an item no signed manifest lists may be held before it is a problem: another device signs
 /// a manifest at the end of the run that wrote it, so a held item is normally listed by the next sync.
 const _heldLimit = Duration(hours: 24);
+
+/// The files a [KmScopeSync.pushEntry] of an engine with no store of its own can send: none. An entry that names files this phone
+/// can't read is written without them and says so in the result.
+class _NoFiles implements KmFileStore {
+  const _NoFiles();
+
+  @override
+  Future<bool> exists(String id) async => false;
+
+  @override
+  Future<Uint8List?> readSealed(String id) async => null;
+
+  @override
+  Future<void> writeSealed(String id, Uint8List sealed) async {}
+}
 
 /// A write a run sends: [json] null makes a tombstone.
 class _Write {
@@ -179,6 +197,88 @@ class KmScopeSync {
     }
   }
 
+  /// Writes [entry] to the server now, with its files, without a full run: the item itself and any file it names that this phone
+  /// holds and the server lacks, in the order [kmPushItemWithFiles] keeps, then the account's signed manifest, and the cache with the
+  /// new revision, so the next run finds nothing to do for it. It is what a client calls to upload one note or File item at once.
+  ///
+  /// It first reads what changed on the server since the cache's cursor and checks the manifest, as a run does, so it writes over the
+  /// revision the server holds and never a stale one. When the server's copy of the item differs from [entry] (another device
+  /// wrote it), the two are merged as a sync merges them ([kmMergeEntry]) and the merge is written. The entries of the vault other than
+  /// [entry] are not touched and no deletion is decided. [lastSyncAt] (epoch ms) is when this phone last finished a run, for dating a
+  /// deletion first seen here as a run does; without it such a deletion counts as made now.
+  ///
+  /// Returns what [kmPushItemWithFiles] returns: the entry as the server holds it now (files named once they went up), its revision
+  /// and the files that could not be sent. Throws a [KmSyncError] when the server's answer is older than this phone saw or the item is
+  /// one this phone does not read, and a [KmError] when the server can't be reached, refuses or the item changed meanwhile (`stale`: read
+  /// again and call it again).
+  Future<KmPushResult> pushEntry(KmEntry entry, {required int now, int? lastSyncAt}) async {
+    final dedup = this.dedup;
+    _matching = dedup == null ? null : await KmMatching.open(connection, server, dedup, crypto.owner.toWire());
+    try {
+      return await _pushEntry(entry, now: now, lastSyncAt: lastSyncAt);
+    } finally {
+      _matching?.dispose();
+      _matching = null;
+    }
+  }
+
+  Future<KmPushResult> _pushEntry(KmEntry entry, {required int now, int? lastSyncAt}) async {
+    if (!kmKnowsKind(entry.kind) || entry.json['id'] is! String || kmEntryId(entry).isEmpty) {
+      throw ArgumentError.value(entry.kind, 'entry', 'not an entry of a kind this version knows, or with no id');
+    }
+    final stored = await loadCache();
+    final work = stored.copy();
+    await _pull(work, min(now, lastSyncAt ?? now));
+    await _checkManifest(work, stored, now);
+
+    final itemId = kmItemId(kmEntryId(entry), crypto.owner);
+    final cached = work.items[itemId];
+    if (cached != null && !cached.deleted && (!cached.applied || cached.kind != entry.kind)) {
+      // Another owner's, a kind or format this version doesn't read, or no signed manifest lists it yet: not to be written over
+      throw KmSyncError(KmSyncIssue.older, detail: 'item $itemId is not one this phone writes');
+    }
+    final previous = cached != null && cached.applied ? (kind: cached.kind, json: cached.entry!) : null;
+    var next = entry;
+    if (previous != null && canonical(previous.json) != canonical(entry.json)) {
+      next = (kind: entry.kind, json: await kmMergeEntry(entry, previous, now));
+    }
+    final files = this.files ?? KmFiles(store: const _NoFiles(), connection: connection, server: server, fetchMissing: false);
+    final result = await kmPushItemWithFiles(
+      server: KmMoveServer(connection: connection, server: server, crypto: crypto, tags: _matching?.tags),
+      files: files,
+      entry: next,
+      revision: cached?.revision,
+      previous: previous,
+      now: now,
+    );
+    if (result.ciphertextHash.isEmpty) {
+      return result;
+    }
+    work.items[itemId] = KmCachedItem(
+      revision: result.revision,
+      kind: entry.kind,
+      keyVersion: crypto.keyVersion,
+      hash: result.ciphertextHash,
+      entry: result.entry.json,
+      entryId: kmEntryId(entry),
+    );
+    await _signManifest(work);
+    work.items.removeWhere((_, item) => item.deleted && (item.deletedAt ?? now) < now - tombstoneTtlMs);
+    final at = DateTime.fromMillisecondsSinceEpoch(now);
+    work.deleted = work.deleted
+        .recordingAll(
+          answer: [
+            for (final MapEntry(:key, :value) in work.items.entries)
+              if (value.deleted) ServerItemState.tombstone(itemId: uuidBytes(key), revision: value.revision),
+          ],
+          now: at,
+        )
+        .pruned(at);
+    work.knew = kmKnownKinds();
+    await saveCache(work);
+    return result;
+  }
+
   Future<KmSyncResult> _run(Lists local, ScopeState state, {required int now, RemovalChoice? choice}) async {
     final dedup = this.dedup;
     _matching = dedup == null ? null : await KmMatching.open(connection, server, dedup, crypto.owner.toWire());
@@ -221,8 +321,10 @@ class KmScopeSync {
             ],
     );
     final merged = mergeScope(await combineKeyCopies(local, remote), keepAll ? const [] : state.known, remote, now: now);
+    // An item new here names no file of another owner's item
+    final mergedDoc = kmWithoutForeignFiles(merged.doc, isNew: (id) => _isNew(work, kmItemId(id, owner)));
 
-    final plan = _plan(work, local, merged.doc, forced: joined.ids);
+    final plan = _plan(work, local, mergedDoc, forced: joined.ids);
     final guard = checkRemovals(
       removals: plan.removals,
       removedHere: plan.removedHere,
@@ -238,12 +340,15 @@ class KmScopeSync {
     if (guard.stop) throw KmSyncError(KmSyncIssue.removals, count: plan.removals);
     work.lost = guard.lostNow;
 
-    var doc = merged.doc;
+    var doc = mergedDoc;
     var wrote = await _send(work, plan.writes, now);
     await _resolve(joined.ids, plan.writes);
     final files = this.files;
     if (files != null) {
-      // A file goes up once its note's item is on the server, and the note is written again naming it
+      files.refused
+        ..clear()
+        ..addAll(kmRefusedFilesOf(state.extra));
+      // A file goes up once its note's or File item's item is on the server, and the item is written again naming it
       final stamped = await files.upload(
         doc,
         now: now,
@@ -251,10 +356,18 @@ class KmScopeSync {
         onServer: (itemId) => work.items[itemId]?.applied ?? false,
       );
       if (stamped != null) {
+        final before = kmFileIdsOf(doc, itemIdOf: (id) => kmItemId(id, owner));
         doc = stamped;
-        wrote = await _send(work, _plan(work, local, doc).writes, now) || wrote;
+        try {
+          wrote = await _send(work, _plan(work, local, doc).writes, now) || wrote;
+        } catch (_) {
+          // The items don't name the files just uploaded (another device wrote one: the run is made again, and uploads them
+          // again): remove them, and never a file an item already named
+          await files.discard(kmNewFileIds(before, kmFileIdsOf(stamped, itemIdOf: (id) => kmItemId(id, owner))));
+          rethrow;
+        }
       }
-      await files.deleteRemoved(_fileIds(stored), _fileIds(work));
+      await files.deleteRemoved(kmCachedFileIds(stored), kmCachedFileIds(work));
     }
     wrote = await _syncAnchors(work, now) || wrote;
     // A deletion is kept as long as the server keeps tombstones
@@ -272,6 +385,7 @@ class KmScopeSync {
         )
         .pruned(at);
     await _tagStored(work, now);
+    work.knew = kmKnownKinds();
     await saveCache(work);
     // Outside what the run must get right: a file that can't be fetched now is tried again at the next run
     await files?.download(doc, itemIdOf: (id) => kmItemId(id, owner));
@@ -279,7 +393,7 @@ class KmScopeSync {
     return (
       doc: doc,
       known: merged.known,
-      state: state.extra,
+      state: files == null ? state.extra : kmWithRefusedFiles(state.extra, files.refused),
       skipped: work.items.values.where((item) => item.kind != KmKind.spaceAnchors && (item.opaque || item.heldSince != null)).length,
     );
   }
@@ -347,6 +461,13 @@ class KmScopeSync {
     var since = work.cursor;
     var full = false;
     var siblings = const <KmSiblingSet>[];
+    // Items an older version kept opaque, of a kind this one reads, are opened by one full read: the server wouldn't send them again
+    final reopen = work.unreadKnown(kmKnowsKind);
+    if (reopen.isNotEmpty) {
+      since = null;
+      work.cursor = null;
+      full = true;
+    }
     while (true) {
       final KmSyncPage? page;
       try {
@@ -366,7 +487,7 @@ class KmScopeSync {
         return siblings;
       }
       for (final item in page.items) {
-        await _apply(work, item, seenAt);
+        await _apply(work, item, seenAt, reopen);
       }
       work.cursor = page.cursor;
       siblings = page.siblings;
@@ -377,7 +498,7 @@ class KmScopeSync {
     }
   }
 
-  Future<void> _apply(KmCache work, KmWireItem wire, int seenAt) async {
+  Future<void> _apply(KmCache work, KmWireItem wire, int seenAt, Set<String> reopen) async {
     final existing = work.items[wire.id];
     final sum = wire.deleted ? '' : b64urlEncode(hash.sha256.convert(wire.ciphertext!).bytes);
     if (existing != null) {
@@ -386,7 +507,7 @@ class KmScopeSync {
         throw KmSyncError(KmSyncIssue.older, detail: 'item ${wire.id} at ${wire.revision}, held at ${existing.revision}');
       }
       // The same item again, as this run's own writes come back in the next delta
-      if (wire.revision == existing.revision && sum == existing.hash) return;
+      if (wire.revision == existing.revision && sum == existing.hash && !reopen.contains(wire.id)) return;
     }
     if (wire.deleted) {
       work.items[wire.id] = KmCachedItem(
@@ -620,6 +741,12 @@ class KmScopeSync {
     work.manifestSignature = signed.signature;
   }
 
+  /// Whether the cache holds no live item with the id [itemId]: what is written under it now is a new item.
+  bool _isNew(KmCache work, String itemId) {
+    final cached = work.items[itemId];
+    return cached == null || cached.deleted;
+  }
+
   // ─── Step 4: the diff ──────────────────────────────────────────────────
 
   ({List<_Write> writes, int removals, int removedHere, int scope}) _plan(
@@ -673,17 +800,6 @@ class KmScopeSync {
       scope: max(localIds.length, remoteIds.length),
     );
   }
-
-  /// The server's file ids each applied note of [cache] names, by its item id.
-  Map<String, Set<String>> _fileIds(KmCache cache) => {
-    for (final MapEntry(:key, :value) in cache.items.entries)
-      if (value.kind == KmKind.note && value.applied)
-        key: {
-          if (value.entry!['attachments'] case final List<Object?> files)
-            for (final file in files.whereType<Map<String, Object?>>())
-              if (file[kmFileKey] case final String id when id.isNotEmpty) id,
-        },
-  };
 
   // ─── Server matching ───────────────────────────────────────────────────
 

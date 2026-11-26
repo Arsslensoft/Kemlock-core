@@ -47,3 +47,22 @@ bool? asBool(Object? value) => value is bool ? value : null;
 List<String>? asStrings(Object? value) => value is List ? value.whereType<String>().toList() : null;
 
 String? asOptionalString(Object? value) => value is String ? value : null;
+
+/// [extra] without its `links` or `fields` member when a copy sets that one ([links], [fields]). A model holds a member of that name among
+/// the keys it doesn't know only when it isn't a list; written after the model's own, as the unknown keys are, it would overwrite
+/// the list the copy sets. When nothing is set, or there is no such member, [extra] comes back as it is.
+Map<String, Object?> extraSetting(Map<String, Object?> extra, {bool links = false, bool fields = false}) {
+  if (!(links && extra.containsKey('links')) && !(fields && extra.containsKey('fields'))) {
+    return extra;
+  }
+  return {
+    for (final MapEntry(:key, :value) in extra.entries)
+      if (!(links && key == 'links') && !(fields && key == 'fields')) key: value,
+  };
+}
+
+/// The keys of [json] outside [known], and outside `links` and `fields` when a model reads them: those that
+/// are lists. A member of another shape stays among the keys the model doesn't know, written back as it was.
+/// [fields] is false for a kind that has no custom fields.
+Map<String, Object?> extraKeysOfBody(Map<String, Object?> json, Set<String> known, {bool fields = true}) =>
+    extraKeys(json, {...known, if (json['links'] is List) 'links', if (fields && json['fields'] is List) 'fields'});

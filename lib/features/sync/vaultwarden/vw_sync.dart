@@ -315,6 +315,7 @@ class VaultwardenScopeSync {
           logins: local.logins,
           cards: local.cards,
           identities: local.identities,
+          files: local.files,
         ),
         known: state.known,
         state: state.extra,
@@ -798,8 +799,9 @@ Map<String, Object?> _json(Object entry) => (entry as VaultEntry).toJson();
 
 String _idOf(Object entry) => (entry as VaultEntry).id;
 
-/// [result] with this phone's accounts on a security key, its logins, cards and identities in
-/// its document, as they were. Vaultwarden holds none of them, plain or
+/// [result] with this phone's accounts on a security key, its logins, cards, identities and File items in
+/// its document, as they were. Vaultwarden holds none of them (it has no File type: a File item stays
+/// on this phone and in the other syncs, and a run never uploads, deletes or drops one), plain or
 /// sealed (an item with no secret has no place there; logins don't travel
 /// there yet), and the vault takes the document in place of its lists
 /// (openspec: add-security-key-codes, decision 10; add-passwords).
@@ -815,6 +817,7 @@ VwSyncResult _keepOnKey(VwSyncResult result, Lists local) => (
     logins: local.logins,
     cards: local.cards,
     identities: local.identities,
+    files: local.files,
     deleted: result.doc.deleted,
     extra: result.doc.extra,
   ),

@@ -65,6 +65,7 @@ import '../../crypto/bytes.dart' show constantTimeEquals;
 import '../sync/kemlock/km_account.dart';
 import '../sync/kemlock/km_api.dart';
 import '../sync/kemlock/km_cache.dart';
+import '../sync/kemlock/km_files.dart';
 import '../sync/kemlock/km_kinds.dart';
 import '../sync/kemlock/km_move_plan.dart' show kmEntryHash;
 import '../sync/removal_guard.dart';
@@ -240,6 +241,7 @@ class KmSpaceSync {
     required this.loadAnchor,
     required this.loadCompared,
     required this.saveAnchor,
+    this.files,
     this.chainCrypto = const RealChainCrypto(),
     this.manifestCrypto = const RealSpaceManifestCrypto(),
     this.signRecord = signChainEntry,
@@ -276,6 +278,11 @@ class KmSpaceSync {
   final Future<ChainAnchor?> Function(String space) loadAnchor;
   final Future<bool> Function(String space) loadCompared;
   final Future<void> Function(String space, ChainAnchor anchor, {bool afterFence, bool compared}) saveAnchor;
+
+  /// The phone's attached files, synced beside the space's notes and File items as the vault's own are (`KmFiles`, over this
+  /// engine's connection and server): uploaded once the item is in the space, named in it, fetched on the other phones. Without
+  /// it the space's notes sync without their files, and an item's files are neither sent nor fetched.
+  final KmFiles? files;
   final ChainCrypto chainCrypto;
   final SpaceManifestCrypto manifestCrypto;
 
@@ -462,9 +469,17 @@ class KmSpaceSync {
               ],
       );
       final merged = mergeScope(await combineKeyCopies(local, remote), keepAll ? const [] : state.known, remote, now: now);
+      // An item new in this space names no file of the item it was made from: a server file belongs to one item
+      final mergedDoc = kmWithoutForeignFiles(
+        merged.doc,
+        isNew: (id) {
+          final cached = work.items[kmItemId(id, owner)];
+          return cached == null || cached.deleted;
+        },
+      );
 
       final collections = spaceCollectionsOf(state.extra);
-      final plan = _plan(work, local, merged.doc, chain, keyring, me.id, collections);
+      final plan = _plan(work, local, mergedDoc, chain, keyring, me.id, collections);
       final guard = checkRemovals(
         removals: plan.removals,
         removedHere: plan.removedHere,
@@ -482,7 +497,34 @@ class KmSpaceSync {
       }
       work.lost = guard.lostNow;
 
-      final wrote = await _send(work, plan.writes, crypto, keyring, now);
+      var doc = mergedDoc;
+      var wrote = await _send(work, plan.writes, crypto, keyring, now);
+      final files = this.files;
+      if (files != null) {
+        files.refused
+          ..clear()
+          ..addAll(kmRefusedFilesOf(state.extra));
+        // A file goes up once its item is in the space, and the item is written again naming it
+        final stamped = await files.upload(
+          doc,
+          now: now,
+          itemIdOf: (id) => kmItemId(id, owner),
+          onServer: (itemId) => work.items[itemId]?.applied ?? false,
+        );
+        if (stamped != null) {
+          final before = kmFileIdsOf(doc, itemIdOf: (id) => kmItemId(id, owner));
+          doc = stamped;
+          try {
+            final again = _plan(work, local, doc, chain, keyring, me.id, {...collections, ...plan.collections});
+            wrote = await _send(work, again.writes, crypto, keyring, now) || wrote;
+          } catch (_) {
+            // The items don't name the files just uploaded (another device wrote one: the run is made again): remove them
+            await files.discard(kmNewFileIds(before, kmFileIdsOf(stamped, itemIdOf: (id) => kmItemId(id, owner))));
+            rethrow;
+          }
+        }
+        await files.deleteRemoved(kmCachedFileIds(stored), kmCachedFileIds(work));
+      }
       work.items.removeWhere((_, item) => item.deleted && (item.deletedAt ?? now) < now - tombstoneTtlMs);
       if (wrote && mayWriteItems(chain, me.id)) {
         await _signManifest(work);
@@ -498,14 +540,18 @@ class KmSpaceSync {
             now: at,
           )
           .pruned(at);
+      work.knew = kmKnownKinds();
       await saveCache(work);
+      // Outside what the run must get right: a file that can't be fetched now is tried again at the next run
+      await files?.download(doc, itemIdOf: (id) => kmItemId(id, owner));
 
       // The collection of each entry, with the chain this run verified, tells which logins hide their password
       onChain?.call(space, account.accountId, chain, collections: {...collections, ...plan.collections});
+      final next = withBridgeSignal(withSpaceCollections(base, {...collections, ...plan.collections}), bridge?.signal, bridge?.reason);
       return (
-        doc: merged.doc,
+        doc: doc,
         known: merged.known,
-        state: withBridgeSignal(withSpaceCollections(base, {...collections, ...plan.collections}), bridge?.signal, bridge?.reason),
+        state: files == null ? next : kmWithRefusedFiles(next, files.refused),
         skipped: _skipped(work),
         chain: chain,
         confirmed: true,
@@ -1129,6 +1175,13 @@ class KmSpaceSync {
   Future<void> _pull(KmCache work, SpaceItemCrypto crypto, SpaceState chain, int seenAt) async {
     var since = work.cursor;
     var full = false;
+    // Items an older version kept opaque, of a kind this one reads, are opened by one full read: the server wouldn't send them again
+    final reopen = work.unreadKnown(kmKnowsKind);
+    if (reopen.isNotEmpty) {
+      since = null;
+      work.cursor = null;
+      full = true;
+    }
     while (true) {
       final KmSyncPage? page;
       try {
@@ -1149,7 +1202,7 @@ class KmSpaceSync {
       for (final item in page.items) {
         // The vault's own items and the other spaces' come in the same answer
         if (item.owner == owner.toWire()) {
-          await _apply(work, crypto, chain, item, seenAt);
+          await _apply(work, crypto, chain, item, seenAt, reopen);
         }
       }
       work.cursor = page.cursor;
@@ -1160,7 +1213,7 @@ class KmSpaceSync {
     }
   }
 
-  Future<void> _apply(KmCache work, SpaceItemCrypto crypto, SpaceState chain, KmWireItem wire, int seenAt) async {
+  Future<void> _apply(KmCache work, SpaceItemCrypto crypto, SpaceState chain, KmWireItem wire, int seenAt, Set<String> reopen) async {
     final existing = work.items[wire.id];
     final sum = wire.deleted ? '' : b64urlEncode(hash.sha256.convert(wire.ciphertext!).bytes);
     if (existing != null) {
@@ -1168,7 +1221,10 @@ class KmSpaceSync {
         throw SpaceSyncError(SpaceSyncIssue.older, detail: 'item ${wire.id} at ${wire.revision}, held at ${existing.revision}');
       }
       // The same revision again needs nothing, unless the server now marks it held, or no longer does
-      if (wire.revision == existing.revision && sum == existing.hash && wire.held == (existing.extra[_heldKey] == true)) {
+      if (wire.revision == existing.revision &&
+          sum == existing.hash &&
+          wire.held == (existing.extra[_heldKey] == true) &&
+          !reopen.contains(wire.id)) {
         return;
       }
     }

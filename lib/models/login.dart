@@ -1,3 +1,5 @@
+import 'custom_field.dart';
+import 'item_link.dart';
 import 'json.dart';
 import 'vault_entry.dart';
 import 'website_rule.dart';
@@ -45,6 +47,7 @@ class Login implements VaultEntry<Login> {
     this.password,
     this.websites,
     this.uris,
+    this.sitesFromUrls = false,
     this.note,
     this.tags,
     this.pinned,
@@ -56,6 +59,8 @@ class Login implements VaultEntry<Login> {
     this.source,
     required this.addedAt,
     this.updatedAt,
+    this.links = const [],
+    this.fields = const [],
     this.extra = const {},
   });
 
@@ -64,8 +69,9 @@ class Login implements VaultEntry<Login> {
     name: asString(json['name']),
     username: asOptionalString(json['username']),
     password: asOptionalString(json['password']),
-    websites: readWebsites(json).websites,
-    uris: readWebsites(json).uris,
+    websites: readWebsites(json, urls: true).websites,
+    uris: readWebsites(json, urls: true).uris,
+    sitesFromUrls: websitesFromUrls(json),
     note: asOptionalString(json['note']),
     tags: asStrings(json['tags']),
     pinned: asBool(json['pinned']),
@@ -83,7 +89,9 @@ class Login implements VaultEntry<Login> {
     source: asOptionalString(json['source']),
     addedAt: asInt(json['addedAt']) ?? 0,
     updatedAt: asInt(json['updatedAt']),
-    extra: extraKeys(json, _keys),
+    links: readLinks(json['links']),
+    fields: readFields(json['fields']),
+    extra: extraKeysOfBody(json, _keys),
   );
 
   static const _keys = {
@@ -120,6 +128,10 @@ class Login implements VaultEntry<Login> {
   /// The hosts it is filled on (`normaliseWebsite`), and their subdomains under the domain each is under.
   final List<String>? websites;
 
+  /// Whether [websites] are those of the `urls` a web body holds alone (no `websites`, no `uris`): the body is written back without
+  /// them, as it was, until its websites are edited.
+  final bool sitesFromUrls;
+
   /// Each website with the rule that says where it fills, always the full list when it
   /// is set; null when the login holds hosts alone. Written only when it says more than
   /// `websites` does, and builds that know no rules keep it in `extra`.
@@ -155,6 +167,13 @@ class Login implements VaultEntry<Login> {
   /// Epoch ms of the last change, so sync can tell which copy is newer.
   final int? updatedAt;
 
+  /// The items linked to this one, as a body holds them (see [ItemLink]); none when it holds no `links`.
+  @override
+  final List<ItemLink> links;
+
+  /// The custom fields (see [CustomField]); none when it holds no `fields`.
+  final List<CustomField> fields;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
@@ -175,7 +194,7 @@ class Login implements VaultEntry<Login> {
     'name': name,
     'username': ?username,
     'password': ?password,
-    ...writeWebsites(websites, uris),
+    if (!sitesFromUrls) ...writeWebsites(websites, uris),
     'note': ?note,
     'tags': ?tags,
     'pinned': ?pinned,
@@ -187,6 +206,8 @@ class Login implements VaultEntry<Login> {
     'source': ?source,
     'addedAt': addedAt,
     'updatedAt': ?updatedAt,
+    'links': ?writeLinks(links),
+    'fields': ?writeFields(fields),
     ...extra,
   };
 
@@ -209,6 +230,8 @@ class Login implements VaultEntry<Login> {
     Object? source = keep,
     int? addedAt,
     Object? updatedAt = keep,
+    List<ItemLink>? links,
+    List<CustomField>? fields,
   }) => Login(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -216,6 +239,7 @@ class Login implements VaultEntry<Login> {
     password: pick(password, this.password),
     websites: _changed(websites, uris).websites,
     uris: _changed(websites, uris).uris,
+    sitesFromUrls: sitesFromUrls && identical(websites, keep) && identical(uris, keep),
     note: pick(note, this.note),
     tags: pick(tags, this.tags),
     pinned: pick(pinned, this.pinned),
@@ -227,7 +251,13 @@ class Login implements VaultEntry<Login> {
     source: pick(source, this.source),
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
-    extra: extra,
+    links: links ?? this.links,
+    fields: fields ?? this.fields,
+    extra: extraSetting(
+      extraWithUrls(extra, (websites: this.websites, uris: this.uris), _changed(websites, uris)),
+      links: links != null,
+      fields: fields != null,
+    ),
   );
 
   /// A copy that keeps [old] among the previous passwords as replaced [until],
@@ -259,6 +289,12 @@ class Login implements VaultEntry<Login> {
 
   @override
   int get changedAt => updatedAt ?? addedAt;
+
+  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself: not by its id, nor
+  /// by any of [ownIds], the other ids that name it (its item id, which an entry with a legacy id doesn't share). It is not stamped.
+  @override
+  Login withLinks(List<ItemLink> links, {Iterable<String> ownIds = const []}) =>
+      copyWith(links: normaliseLinks(links, ownIds: [id, ...ownIds]));
 
   @override
   Login stamped(int at) => copyWith(updatedAt: at);

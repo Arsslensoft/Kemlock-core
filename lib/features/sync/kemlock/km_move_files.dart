@@ -1,4 +1,4 @@
-/// The files step of a move (move-off-vaultwarden-sync, design 2, task 3.3): every moved note's file
+/// The files step of a move (move-off-vaultwarden-sync, design 2, task 3.3): every moved note's, and File item's, file
 /// goes up as the `KMA1` bytes the phone holds, byte for byte, and the note is written again naming the
 /// server's file id in its attachment, so another phone can fetch it (`km_files.dart`).
 ///
@@ -27,9 +27,8 @@ library;
 import 'package:crypto/crypto.dart' as hash;
 
 import '../../../crypto/account/encoding.dart';
-import '../../../models/secure_note.dart';
+import '../sync_merge.dart' show SyncDoc;
 import 'km_api.dart';
-import 'km_cache.dart';
 import 'km_files.dart';
 import 'km_kinds.dart';
 import 'km_move_plan.dart';
@@ -74,7 +73,7 @@ class KmMoveFilesStep {
       for (var attempt = 1; ; attempt++) {
         final read = view ??= await server.read();
         final cached = read.items[itemId];
-        if (cached == null || (!cached.deleted && (!cached.applied || cached.kind != KmKind.note))) {
+        if (cached == null || (!cached.deleted && (!cached.applied || (cached.kind != KmKind.note && cached.kind != KmKind.file)))) {
           throw KmMoveError(KmMoveIssue.unreadable, detail: itemId);
         }
         if (cached.deleted) {
@@ -82,9 +81,10 @@ class KmMoveFilesStep {
           break;
         }
         final again = current.redoFiles.toSet();
-        final note = _stripped(_noteOf(cached), again);
+        final entry = _stripped((kind: cached.kind, json: cached.entry!), again);
+        final attached = kmAttachmentsOf(entry);
         final unstamped = [
-          for (final file in note.files)
+          for (final file in attached)
             if (kmServerFileId(file) == null) file,
         ];
         for (final file in unstamped) {
@@ -94,24 +94,19 @@ class KmMoveFilesStep {
         }
         var sent = current.sent;
         if (unstamped.isNotEmpty) {
-          final stamped = await _files.upload(
-            kmDocOf([(kind: KmKind.note, json: note.toJson())]),
-            now: now,
-            itemIdOf: (_) => itemId,
-            onServer: (_) => true,
-          );
-          final next = stamped?.notes.singleOrNull;
+          final stamped = await _files.upload(kmDocOf([entry]), now: now, itemIdOf: (_) => itemId, onServer: (_) => true);
+          final next = stamped == null ? null : _single(stamped, cached.kind);
           final unnamed = next == null
               ? unstamped
               : [
-                  for (final file in next.files)
+                  for (final file in kmAttachmentsOf(next))
                     if (kmServerFileId(file) == null) file,
                 ];
           if (next == null || unnamed.isNotEmpty) {
             // Too large for the server, or sized differently than the note says
             throw KmMoveError(KmMoveIssue.fileMissing, detail: '$noteId/${(unnamed.isEmpty ? unstamped : unnamed).first.id}');
           }
-          final json = next.toJson();
+          final json = next.json;
           try {
             await server.send([
               KmMoveWrite(
@@ -140,7 +135,7 @@ class KmMoveFilesStep {
         }
         // What the phone holds of each file, for the check to compare the download with
         final files = {...current.files};
-        for (final file in note.files) {
+        for (final file in attached) {
           final bytes = await store.readSealed(file.id);
           if (bytes != null) {
             files[file.id] = b64urlEncode(hash.sha256.convert(bytes).bytes);
@@ -151,7 +146,7 @@ class KmMoveFilesStep {
           files: files,
           redoFiles: [
             for (final id in current.redoFiles)
-              if (!note.files.any((file) => file.id == id)) id,
+              if (!attached.any((file) => file.id == id)) id,
           ],
         );
         await save(current);
@@ -163,30 +158,19 @@ class KmMoveFilesStep {
     return (record: current, skipped: skipped);
   }
 
-  /// The note [cached] holds.
-  SecureNote _noteOf(KmCachedItem cached) => kmDocOf([(kind: cached.kind, json: cached.entry!)]).notes.single;
+  /// The one entry of [doc], a note or a File item of [kind], as an entry.
+  KmEntry _single(SyncDoc doc, String kind) =>
+      kind == KmKind.file ? (kind: kind, json: doc.files.single.toJson()) : (kind: kind, json: doc.notes.single.toJson());
 
-  /// [note] without the server's file id on the attachments of [ids]: their files go up again.
-  SecureNote _stripped(SecureNote note, Set<String> ids) {
-    if (ids.isEmpty || !note.files.any((file) => ids.contains(file.id))) {
-      return note;
+  /// [entry] without the server's file id on the attachments of [ids]: their files go up again.
+  KmEntry _stripped(KmEntry entry, Set<String> ids) {
+    final files = kmAttachmentsOf(entry);
+    if (ids.isEmpty || !files.any((file) => ids.contains(file.id))) {
+      return entry;
     }
-    return note.copyWith(
-      attachments: [
-        for (final file in note.files)
-          if (ids.contains(file.id))
-            NoteAttachment(
-              id: file.id,
-              name: file.name,
-              size: file.size,
-              type: file.type,
-              key: file.key,
-              addedAt: file.addedAt,
-              extra: {...file.extra}..remove(kmFileKey),
-            )
-          else
-            file,
-      ],
-    );
+    return kmWithAttachments(entry, [
+      for (final file in files)
+        if (ids.contains(file.id)) kmUnnamedFile(file) else file,
+    ]);
   }
 }

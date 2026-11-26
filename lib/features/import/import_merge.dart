@@ -13,6 +13,7 @@ import '../../models/otp_account.dart';
 import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
+import '../../models/vault_file.dart';
 import '../../models/vault_key.dart';
 import '../../vault/vault_export.dart' show VaultExportPayload;
 import '../contacts/contact_key_info.dart' show contactKeyInfo;
@@ -20,6 +21,7 @@ import '../duplicates/duplicate_normalise.dart';
 import '../duplicates/duplicate_rules.dart';
 import '../duplicates/duplicate_sites.dart';
 import '../keys/key_bridge.dart' show keyIdentity;
+import '../sync/kemlock/km_files.dart' show kmUnnamedFile;
 import 'formats/cxf.dart' show CxfCuts;
 import 'formats/import_extras.dart';
 import 'importers.dart' show ForeignImport;
@@ -55,6 +57,7 @@ class ImportPreview {
     this.logins = const [],
     this.cards = const [],
     this.identities = const [],
+    this.files = const [],
     this.skips = const [],
     this.notices = const [],
     this.units = const [],
@@ -95,6 +98,7 @@ class ImportPreview {
         logins: payload.logins,
         cards: payload.cards,
         identities: payload.identities,
+        files: payload.files,
       );
 
   /// The accounts kept on a security key, by name: "on your key, not in
@@ -120,6 +124,9 @@ class ImportPreview {
   /// Cards and identities, which an import only ever adds too.
   final List<PaymentCard> cards;
   final List<Identity> identities;
+
+  /// File items, which an import only ever adds too. The attached files come beside them, as they do for notes.
+  final List<VaultFile> files;
 
   /// Each credential and item a Credential Exchange payload held that
   /// Kemlock doesn't keep, with the reason; entries kept with a caveat; the
@@ -236,13 +243,22 @@ List<KeyAccount> newKeyAccounts(ImportPreview preview, List<KeyAccount> current)
   ];
 }
 
-/// The notes of [preview] that [current] doesn't hold, by id.
+/// The notes of [preview] that [current] doesn't hold, by id. An attachment no longer names the server file of the export's
+/// vault (`kemlockFile`): that file is under another item, so the new note's file is sent again from the phone.
 List<SecureNote> newNotes(ImportPreview preview, List<SecureNote> current) {
   final held = {for (final note in current) note.id};
   return [
     for (final note in preview.notes)
-      if (held.add(note.id)) note,
+      if (held.add(note.id)) _withoutServerFiles(note),
   ];
+}
+
+SecureNote _withoutServerFiles(SecureNote note) {
+  final files = note.attachments;
+  if (files == null || files.every((file) => kmUnnamedFile(file) == file)) {
+    return note;
+  }
+  return note.copyWith(attachments: [for (final file in files) kmUnnamedFile(file)]);
 }
 
 /// The logins of [preview] that [current] doesn't hold, each once: those whose
@@ -298,15 +314,37 @@ List<Identity> newIdentities(ImportPreview preview, List<Identity> current) {
   ];
 }
 
+/// The File items of [preview] that [current] doesn't hold, by id, each once. The file no longer names the server file of the
+/// export's vault (`kemlockFile`), which is under another item: it is sent again from the phone.
+List<VaultFile> newFiles(ImportPreview preview, List<VaultFile> current) {
+  final held = {for (final file in current) file.id};
+  return [
+    for (final file in preview.files)
+      if (held.add(file.id)) file.copyWith(file: kmUnnamedFile(file.file)),
+  ];
+}
+
 /// The contacts of [preview] whose key [current] doesn't hold, by
 /// fingerprint, each key once. A contact the vault already has is left as
-/// it is, check and all; one whose key can't be read is left out.
+/// it is, check and all; one whose key can't be read is left out. A contact with no key has no fingerprint to
+/// hold it by: it is new when no contact of the vault has its id. Whatever its key, a contact is never added under an id the
+/// vault holds (or an earlier contact of the import has taken): two contacts would share it.
 List<Contact> newContacts(ImportPreview preview, List<Contact> current) {
   String? fingerprint(Contact contact) => contactKeyInfo(contact)?.primary.fingerprintHex;
   final held = {for (final contact in current) ?fingerprint(contact)};
+  final ids = {for (final contact in current) contact.id};
+  bool isNew(Contact contact) {
+    if (ids.contains(contact.id)) return false;
+    if (contact.hasKey) {
+      final print = fingerprint(contact);
+      if (print == null || !held.add(print)) return false;
+    }
+    return ids.add(contact.id);
+  }
+
   return [
     for (final contact in preview.contacts)
-      if (fingerprint(contact) case final print? when held.add(print)) contact,
+      if (isNew(contact)) contact,
   ];
 }
 

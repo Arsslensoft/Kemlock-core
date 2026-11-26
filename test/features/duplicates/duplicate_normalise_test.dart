@@ -103,11 +103,31 @@ void main() {
       expect(secretBase32('jbswy3dpee'), 'JBSWY3DPEE');
     });
 
-    test('tells a secret that is not base32 by its normalised text, and an empty one by nothing', () {
-      expect(secretBase32('a1'), 'IEYQ');
-      expect(secretBase32('A 1'), 'IEYQ');
+    test("is nothing for a secret that is not base32, as the server's vector has it, and for an empty one", () {
+      expect(secretBase32('not base32!'), isNull);
+      expect(secretBase32('a1'), isNull);
+      expect(secretBase32('A 1'), isNull);
       expect(secretBase32(''), isNull);
       expect(secretBase32('  '), isNull);
+    });
+  });
+
+  group('normaliseDocumentNumber', () {
+    test('keeps the letters and digits, in NFC and lower case, as the server vectors have it', () {
+      expect(normaliseDocumentNumber('X 1234-567'), 'x1234567');
+      expect(normaliseDocumentNumber('Café 9'), 'café9');
+      expect(normaliseDocumentNumber('1-2-3'), isNull);
+    });
+
+    test('drops a combining mark that no precomposed letter takes: it is not alphabetic', () {
+      // x has no precomposed form with an acute accent, so NFC leaves the mark, and the server drops it
+      expect(normaliseDocumentNumber('X́ 1234'), 'x1234');
+      expect(normaliseDocumentNumber('B́-12 34'), 'b1234');
+    });
+
+    test('keeps a mark that is part of a letter', () {
+      // U+093E, a Devanagari vowel sign, is alphabetic
+      expect(normaliseDocumentNumber('का 1234'), 'का1234');
     });
   });
 

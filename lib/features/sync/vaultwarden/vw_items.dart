@@ -240,7 +240,7 @@ Future<({String privateKey, String publicKey, String fingerprint})?> sshKeyValue
 String contactNoteText(Contact contact) {
   String? armored;
   try {
-    armored = keys.writeArmor(keys.pgpPublicKeyBlock, unb64(contact.publicKey)).trimRight();
+    armored = contact.hasKey ? keys.writeArmor(keys.pgpPublicKeyBlock, unb64(contact.publicKey)).trimRight() : null;
   } on FormatException {
     armored = null;
   }

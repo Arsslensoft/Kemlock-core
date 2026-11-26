@@ -177,10 +177,10 @@ class KmMoveCheck {
     for (final entryId in record.sent.keys) {
       final id = kmItemId(entryId, server.crypto.owner);
       final item = back.items[id];
-      if (failed.contains(entryId) || item == null || !item.applied || item.kind != KmKind.note) {
+      if (failed.contains(entryId) || item == null || !item.applied || !_holdsFiles(item.kind)) {
         continue;
       }
-      for (final file in SecureNote.fromJson(item.entry!).files) {
+      for (final file in kmAttachmentsOf((kind: item.kind, json: item.entry!))) {
         if (!await _fileMatches(record, id, file)) {
           bad.add(file.id);
         }
@@ -226,11 +226,14 @@ class KmMoveCheck {
     }
   }
 
-  /// The entry ids of the notes that name [files].
+  /// Whether items of [kind] hold files: notes and File items.
+  bool _holdsFiles(String kind) => kind == KmKind.note || kind == KmKind.file;
+
+  /// The entry ids of the notes and File items that name [files].
   Future<Set<String>> _notesOf(Set<String> files, KmCache back, KmMoveRecord record) async => {
     for (final entryId in record.sent.keys)
-      if (back.items[kmItemId(entryId, server.crypto.owner)] case final item? when item.applied && item.kind == KmKind.note)
-        if (SecureNote.fromJson(item.entry!).files.any((file) => files.contains(file.id))) entryId,
+      if (back.items[kmItemId(entryId, server.crypto.owner)] case final item? when item.applied && _holdsFiles(item.kind))
+        if (kmAttachmentsOf((kind: item.kind, json: item.entry!)).any((file) => files.contains(file.id))) entryId,
   };
 
   /// The cache of the read-back: the items, the cursor, the manifest the server returned, and the
