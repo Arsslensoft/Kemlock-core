@@ -337,9 +337,11 @@ void main() {
       );
       _staleAfterNextFile(w.server);
 
-      await expectLater(one.run(), throwsA(isA<KmError>().having((e) => e.problem, 'problem', KmProblem.stale)));
+      // The run takes the stale answer as any stale write: it ends without naming the file, and the next run sends it.
+      await one.run();
 
-      expect(w.server.files, isEmpty);
+      expect(w.server.files, isEmpty, reason: 'the file it uploaded is deleted, so none stays that no item names');
+      expect(kmServerFileId(one.lists.files.single.file), isNull);
     });
 
     test('a run that fetches nothing asks the store for nothing', () async {

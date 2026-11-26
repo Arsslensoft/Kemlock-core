@@ -543,7 +543,7 @@ void main() {
       final fewer = note.copyWith(attachments: [note.files.last]);
       expect(fewer.toJson()['attachments'], [file('b'), 'an entry of a later version', 5, null]);
       final more = note.copyWith(attachments: [...note.files, NoteAttachment.fromJson(file('c'))]);
-      expect(more.toJson()['attachments'], [file('a'), 'an entry of a later version', file('b'), 5, file('c'), null]);
+      expect(more.toJson()['attachments'], [file('a'), 'an entry of a later version', file('b'), 5, null, file('c')]);
       expect(note.copyWith(title: 'Other').toJson()['attachments'], body['attachments']);
     });
 
