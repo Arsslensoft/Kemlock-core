@@ -79,7 +79,12 @@ NoteAttachment kmNamedFile(NoteAttachment file, String fileId, {String? sha256})
   key: file.key,
   addedAt: file.addedAt,
   sha256: sha256 ?? file.sha256,
-  extra: {...file.extra, kmFileKey: fileId},
+  // A new hash wins over the member the body held under that name in another form (upper case, or not a hash at all)
+  extra: {
+    for (final MapEntry(:key, :value) in file.extra.entries)
+      if (key != 'sha256' || sha256 == null || sha256 == file.sha256) key: value,
+    kmFileKey: fileId,
+  },
 );
 
 /// [file] naming no server file: what a new item made from an old one starts with, until its bytes are sent again.
@@ -220,8 +225,8 @@ Future<Uint8List> kmFetchFile({
   if (plain.length != entry.size) {
     throw const KmFileError(KmFileProblem.damaged);
   }
-  final hash = entry.sha256;
-  if (hash != null && hash.toLowerCase() != sha256Hex(plain)) {
+  final hash = normalSha256(entry.sha256);
+  if (hash != null && hash != sha256Hex(plain)) {
     throw const KmFileError(KmFileProblem.hashMismatch);
   }
   return plain;

@@ -326,11 +326,9 @@ TagInput? contactTagInput(Contact contact) {
 /// The tag input of a File item: the SHA-256 of its file's plain bytes as 64 lower-case hex digits, which the entry's `sha256`
 /// holds (any case is read); null for a file with none, or one that isn't 64 hex digits, which makes no tag.
 TagInput? fileTagInput(VaultFile item) {
-  final hash = item.file.sha256?.trim().toLowerCase();
-  return hash == null || !_sha256Hex.hasMatch(hash) ? null : TagInput(TagKind.file, [hash]);
+  final hash = normalSha256(item.file.sha256);
+  return hash == null ? null : TagInput(TagKind.file, [hash]);
 }
-
-final _sha256Hex = RegExp(r'^[0-9a-f]{64}$');
 
 /// Whether [a] and [b] are one File item: the same id, or the same file hash. A file with no hash is its own.
 bool sameFile(VaultFile a, VaultFile b) {

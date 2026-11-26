@@ -5,6 +5,8 @@ library;
 // and a body nobody edited written back as it was read.
 import 'dart:convert';
 
+import 'package:kemlock_core/features/duplicates/duplicate_rules.dart' show fileTagInput;
+import 'package:kemlock_core/features/sync/kemlock/km_files.dart' show kmNamedFile;
 import 'package:kemlock_core/models/backup_service.dart';
 import 'package:kemlock_core/models/contact.dart';
 import 'package:kemlock_core/models/identity.dart';
@@ -311,12 +313,38 @@ void main() {
       expect(attachment.toJson(), json);
     });
 
-    test('keeps a sha256 that is not 64 lower-case hex digits as it was', () {
-      for (final bad in <Object?>['E3B0C442', 5, digest.toUpperCase()]) {
+    test('keeps a sha256 that is not 64 hex digits as it was', () {
+      for (final bad in <Object?>['E3B0C442', 5, 'sha256:' + digest]) {
         final attachment = NoteAttachment.fromJson({...json, 'sha256': bad});
         expect(attachment.sha256, isNull);
         expect(attachment.toJson()['sha256'], bad);
       }
+    });
+
+    test('reads a sha256 in upper case or with spaces around it, and writes it back as it was', () {
+      for (final written in [digest.toUpperCase(), ' $digest ', ' ' + digest.toUpperCase() + '
+']) {
+        final body = {...json, 'sha256': written};
+        final item = VaultFile.fromJson({'id': 'f1', 'name': 'a.pdf', 'file': body, 'addedAt': 1});
+
+        expect(item.file.sha256, digest);
+        expect(item.file.toJson()['sha256'], written);
+        expect(item.toJson()['file'], body, reason: 'an item nobody edited stays as it was');
+        expect(fileTagInput(item)!.values, [digest]);
+      }
+    });
+
+    test('a new hash replaces the member the body held under that name', () {
+      for (final held in <Object?>[digest.toUpperCase(), 'junk', 7]) {
+        final other = 'a' * 64;
+        final attachment = NoteAttachment.fromJson({...json, 'sha256': held});
+
+        expect(attachment.withSha256(other).toJson()['sha256'], other);
+        expect(kmNamedFile(attachment, 'srv-2', sha256: other).toJson()['sha256'], other);
+      }
+      // Naming a file with the hash it holds leaves the member as written
+      final upper = NoteAttachment.fromJson({...json, 'sha256': digest.toUpperCase()});
+      expect(kmNamedFile(upper, 'srv-2', sha256: digest).toJson()['sha256'], digest.toUpperCase());
     });
 
     test('an attachment without one writes none', () {

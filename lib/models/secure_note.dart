@@ -19,6 +19,13 @@ final _sha256Hex = RegExp(r'^[0-9a-f]{64}$');
 /// Whether [text] is a SHA-256 as an attachment holds it: 64 lower-case hex digits.
 bool isSha256Hex(String text) => _sha256Hex.hasMatch(text);
 
+/// The SHA-256 [text] holds as 64 lower-case hex digits: any case is read, and spaces around it are ignored. Null for anything
+/// else. It is how the duplicate finder and a download compare a file's hash.
+String? normalSha256(String? text) {
+  final digest = text?.trim().toLowerCase();
+  return digest != null && isSha256Hex(digest) ? digest : null;
+}
+
 /// A file attached to a note. The file itself is stored encrypted, apart
 /// from the vault (`KMA1`, see `attachment_format.dart`), under its [id];
 /// this record is all that says what it is, and the [key] that opens it.
@@ -35,8 +42,11 @@ class NoteAttachment {
   });
 
   factory NoteAttachment.fromJson(Map<String, Object?> json) {
-    final digest = asOptionalString(json['sha256']);
-    final valid = digest != null && isSha256Hex(digest);
+    final raw = asOptionalString(json['sha256']);
+    final digest = normalSha256(raw);
+    // A hash written in upper case or padded is read as the lower-case one, and the member stays among the keys this version
+    // doesn't know, as it was written: the entry is written back exactly, and a new hash replaces it (`withSha256`)
+    final plain = digest != null && digest == raw;
     return NoteAttachment(
       id: asString(json['id']),
       name: asString(json['name']),
@@ -44,8 +54,8 @@ class NoteAttachment {
       type: asOptionalString(json['type']),
       key: asString(json['key']),
       addedAt: asInt(json['addedAt']) ?? 0,
-      sha256: valid ? digest : null,
-      extra: extraKeys(json, {'id', 'name', 'size', 'type', 'key', 'addedAt', if (valid) 'sha256'}),
+      sha256: digest,
+      extra: extraKeys(json, {'id', 'name', 'size', 'type', 'key', 'addedAt', if (plain) 'sha256'}),
     );
   }
 
@@ -67,8 +77,9 @@ class NoteAttachment {
   /// Epoch ms the file was attached.
   final int addedAt;
 
-  /// The SHA-256 of the file's bytes before encryption, 64 lower-case hex digits, when the entry holds one (the duplicate
-  /// finder reads it). Anything else in the member stays among [extra].
+  /// The SHA-256 of the file's bytes before encryption, as 64 lower-case hex digits, when the entry holds one (the duplicate
+  /// finder reads it). A body that wrote it in upper case, or with spaces around it, is read the same; the member as written stays
+  /// among [extra] and is written back as it was. Anything that isn't a SHA-256 is left in [extra] too.
   final String? sha256;
 
   /// Keys this version doesn't know, kept as they were.
@@ -85,9 +96,18 @@ class NoteAttachment {
     ...extra,
   };
 
-  /// This attachment with its digest set to [sha256], 64 lower-case hex digits.
-  NoteAttachment withSha256(String sha256) =>
-      NoteAttachment(id: id, name: name, size: size, type: type, key: key, addedAt: addedAt, sha256: sha256, extra: extra);
+  /// This attachment with its digest set to [sha256], 64 lower-case hex digits. A member the body held under `sha256` in another
+  /// form is replaced by it.
+  NoteAttachment withSha256(String sha256) => NoteAttachment(
+    id: id,
+    name: name,
+    size: size,
+    type: type,
+    key: key,
+    addedAt: addedAt,
+    sha256: sha256,
+    extra: extra.containsKey('sha256') ? ({...extra}..remove('sha256')) : extra,
+  );
 
   @override
   bool operator ==(Object other) => other is NoteAttachment && jsonEquals(toJson(), other.toJson());
