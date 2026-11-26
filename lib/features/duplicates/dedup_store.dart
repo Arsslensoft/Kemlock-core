@@ -56,6 +56,9 @@ String _keyFingerprint(VaultKey key) {
 }
 
 String? _contactFingerprint(Contact contact) {
+  if (!contact.hasKey) {
+    return null;
+  }
   try {
     return crypto.readPgpKeyInfo(unb64(contact.publicKey)).primary.fingerprintHex;
   } on crypto.KeyFormatException {

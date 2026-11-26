@@ -300,13 +300,21 @@ List<Identity> newIdentities(ImportPreview preview, List<Identity> current) {
 
 /// The contacts of [preview] whose key [current] doesn't hold, by
 /// fingerprint, each key once. A contact the vault already has is left as
-/// it is, check and all; one whose key can't be read is left out.
+/// it is, check and all; one whose key can't be read is left out. A contact with no key has no fingerprint to
+/// hold it by: it is new when no contact of the vault has its id.
 List<Contact> newContacts(ImportPreview preview, List<Contact> current) {
   String? fingerprint(Contact contact) => contactKeyInfo(contact)?.primary.fingerprintHex;
   final held = {for (final contact in current) ?fingerprint(contact)};
+  final keyless = {for (final contact in current) if (!contact.hasKey) contact.id};
+  bool isNew(Contact contact) {
+    if (!contact.hasKey) return keyless.add(contact.id);
+    final print = fingerprint(contact);
+    return print != null && held.add(print);
+  }
+
   return [
     for (final contact in preview.contacts)
-      if (fingerprint(contact) case final print? when held.add(print)) contact,
+      if (isNew(contact)) contact,
   ];
 }
 

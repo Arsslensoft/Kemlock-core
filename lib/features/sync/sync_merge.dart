@@ -611,6 +611,7 @@ List<T> _mergeEntries<T extends VaultEntry<T>>(
 /// The fingerprint of the key [contact] holds, upper-case hexadecimal; null
 /// when it can't be read.
 String? _fingerprintOf(Contact contact) {
+  if (!contact.hasKey) return null;
   try {
     return crypto.readPgpKeyInfo(unb64(contact.publicKey)).primary.fingerprintHex;
   } on crypto.KeyFormatException {
@@ -624,7 +625,7 @@ String? _fingerprintOf(Contact contact) {
 /// copies of the same key; [winner] as it is otherwise. A revocation or a
 /// later expiry one phone learned of is never lost to an edit on another.
 Contact _withBothKeys(Contact winner, Contact other) {
-  if (winner.publicKey == other.publicKey) return winner;
+  if (winner.publicKey == other.publicKey || !winner.hasKey || !other.hasKey) return winner;
   try {
     final union = b64(crypto.unionPublicKeys(unb64(winner.publicKey), unb64(other.publicKey)));
     return union == winner.publicKey ? winner : winner.copyWith(publicKey: union);
