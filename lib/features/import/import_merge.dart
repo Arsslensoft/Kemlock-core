@@ -21,6 +21,7 @@ import '../duplicates/duplicate_normalise.dart';
 import '../duplicates/duplicate_rules.dart';
 import '../duplicates/duplicate_sites.dart';
 import '../keys/key_bridge.dart' show keyIdentity;
+import '../sync/kemlock/km_files.dart' show kmUnnamedFile;
 import 'formats/cxf.dart' show CxfCuts;
 import 'formats/import_extras.dart';
 import 'importers.dart' show ForeignImport;
@@ -242,13 +243,22 @@ List<KeyAccount> newKeyAccounts(ImportPreview preview, List<KeyAccount> current)
   ];
 }
 
-/// The notes of [preview] that [current] doesn't hold, by id.
+/// The notes of [preview] that [current] doesn't hold, by id. An attachment no longer names the server file of the export's
+/// vault (`kemlockFile`): that file is under another item, so the new note's file is sent again from the phone.
 List<SecureNote> newNotes(ImportPreview preview, List<SecureNote> current) {
   final held = {for (final note in current) note.id};
   return [
     for (final note in preview.notes)
-      if (held.add(note.id)) note,
+      if (held.add(note.id)) _withoutServerFiles(note),
   ];
+}
+
+SecureNote _withoutServerFiles(SecureNote note) {
+  final files = note.attachments;
+  if (files == null || files.every((file) => kmUnnamedFile(file) == file)) {
+    return note;
+  }
+  return note.copyWith(attachments: [for (final file in files) kmUnnamedFile(file)]);
 }
 
 /// The logins of [preview] that [current] doesn't hold, each once: those whose
@@ -304,12 +314,13 @@ List<Identity> newIdentities(ImportPreview preview, List<Identity> current) {
   ];
 }
 
-/// The File items of [preview] that [current] doesn't hold, by id, each once.
+/// The File items of [preview] that [current] doesn't hold, by id, each once. The file no longer names the server file of the
+/// export's vault (`kemlockFile`), which is under another item: it is sent again from the phone.
 List<VaultFile> newFiles(ImportPreview preview, List<VaultFile> current) {
   final held = {for (final file in current) file.id};
   return [
     for (final file in preview.files)
-      if (held.add(file.id)) file,
+      if (held.add(file.id)) file.copyWith(file: kmUnnamedFile(file.file)),
   ];
 }
 

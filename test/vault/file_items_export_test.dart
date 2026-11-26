@@ -47,6 +47,27 @@ void main() {
       expect(newFiles(preview, const []), [_lease]);
       expect(newFiles(preview, const [_lease]), isEmpty);
     });
+
+    test('drops the server file an exported File item or note names: it is under another item', () {
+      const named = NoteAttachment(id: 'att-1', name: 'Lease.pdf', size: 10, key: 'AAAA', addedAt: 1, extra: {'kemlockFile': 'file-1', 'x': 1});
+      final preview = ImportPreview.of(
+        VaultExportPayload(
+          accounts: const [],
+          backupServices: const [],
+          files: [_lease.copyWith(file: named)],
+          notes: const [
+            SecureNote(id: 'n1', title: 'Papers', addedAt: 1, attachments: [named]),
+          ],
+        ),
+      );
+
+      final file = newFiles(preview, const []).single.file;
+      final note = newNotes(preview, const []).single.files.single;
+
+      expect(file.extra, {'x': 1});
+      expect(note.extra, {'x': 1});
+      expect(note.id, 'att-1');
+    });
   });
 
   group('sealAttachment', () {
