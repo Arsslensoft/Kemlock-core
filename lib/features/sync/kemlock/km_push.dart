@@ -72,7 +72,14 @@ Future<KmPushResult> kmPushItemWithFiles({
   final named = await files.uploadEntryFiles(trusted, itemId: itemId, now: now);
   if (named != null) {
     current = named;
-    held = await write(named, held);
+    try {
+      held = await write(named, held);
+    } catch (_) {
+      // The item does not name what just went up (another device wrote it, or the write failed): remove those files, and
+      // only those; the ones the item already names stay, so a retry loses nothing
+      await files.discard(kmNewFileIds({itemId: _fileIds(trusted)}, {itemId: _fileIds(named)}));
+      rethrow;
+    }
   }
   if (previous != null) {
     await files.deleteRemoved({itemId: _fileIds(previous)}, {itemId: _fileIds(current)});

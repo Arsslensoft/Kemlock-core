@@ -226,6 +226,22 @@ Future<Uint8List> kmFetchFile({
   return plain;
 }
 
+/// A server file a run just made, under its item.
+typedef _Created = ({String itemId, String fileId});
+
+/// The server's file ids each note and File item of [doc] names, by the item id [itemIdOf] gives its id.
+Map<String, Set<String>> kmFileIdsOf(SyncDoc doc, {required String Function(String entryId) itemIdOf}) => {
+  for (final note in doc.notes)
+    if (note.files.isNotEmpty) itemIdOf(note.id): {for (final file in note.files) ?kmServerFileId(file)},
+  for (final item in doc.files) itemIdOf(item.id): {?kmServerFileId(item.file)},
+};
+
+/// The ids in [after] that [before] doesn't hold, by item: the files a step uploaded. Items with none are left out.
+Map<String, Set<String>> kmNewFileIds(Map<String, Set<String>> before, Map<String, Set<String>> after) => {
+  for (final MapEntry(key: itemId, value: ids) in after.entries)
+    if (ids.difference(before[itemId] ?? const {}).isNotEmpty) itemId: ids.difference(before[itemId] ?? const {}),
+};
+
 /// The files of one vault, uploaded and fetched.
 class KmFiles {
   KmFiles({required this.store, required this.connection, required this.server, this.fetchMissing = true});
@@ -252,18 +268,25 @@ class KmFiles {
   }) async {
     final notes = <SecureNote>[];
     final items = <VaultFile>[];
+    final created = <_Created>[];
     var any = false;
-    for (final note in doc.notes) {
-      final itemId = itemIdOf(note.id);
-      final sent = note.files.isEmpty || !onServer(itemId) ? null : await _uploadAll(itemId, note.files);
-      any |= sent != null;
-      notes.add(sent == null ? note : note.copyWith(attachments: sent, updatedAt: now));
-    }
-    for (final item in doc.files) {
-      final itemId = itemIdOf(item.id);
-      final sent = onServer(itemId) ? await _uploadAll(itemId, [item.file]) : null;
-      any |= sent != null;
-      items.add(sent == null ? item : item.copyWith(file: sent.single).stamped(now));
+    try {
+      for (final note in doc.notes) {
+        final itemId = itemIdOf(note.id);
+        final sent = note.files.isEmpty || !onServer(itemId) ? null : await _uploadAll(itemId, note.files, created);
+        any |= sent != null;
+        notes.add(sent == null ? note : note.copyWith(attachments: sent, updatedAt: now));
+      }
+      for (final item in doc.files) {
+        final itemId = itemIdOf(item.id);
+        final sent = onServer(itemId) ? await _uploadAll(itemId, [item.file], created) : null;
+        any |= sent != null;
+        items.add(sent == null ? item : item.copyWith(file: sent.single).stamped(now));
+      }
+    } catch (_) {
+      // No body names what went up before this stopped, so it is of no use to anyone
+      await _discard(created);
+      rethrow;
     }
     if (!any) {
       return null;
@@ -286,8 +309,9 @@ class KmFiles {
     );
   }
 
-  /// [files] with each one that has no server file uploaded and named; null when none went up.
-  Future<List<NoteAttachment>?> _uploadAll(String itemId, List<NoteAttachment> files) async {
+  /// [files] with each one that has no server file uploaded and named; null when none went up. Each file that went up is added to
+  /// [created], also when a later one throws.
+  Future<List<NoteAttachment>?> _uploadAll(String itemId, List<NoteAttachment> files, List<_Created> created) async {
     final out = <NoteAttachment>[];
     var changed = false;
     for (final file in files) {
@@ -297,11 +321,31 @@ class KmFiles {
         out.add(file);
       } else {
         changed = true;
+        created.add((itemId: itemId, fileId: kmServerFileId(sent)!));
         out.add(sent);
       }
     }
     return changed ? out : null;
   }
+
+  /// Deletes the files just [created], best effort: a file left behind is only a copy of bytes the server already held.
+  Future<void> _discard(List<_Created> created) async {
+    for (final (:itemId, :fileId) in created) {
+      try {
+        await connection.call((token) => _api.deleteFile(server, token, itemId, fileId));
+      } on KmError {
+        continue;
+      }
+    }
+  }
+
+  /// Deletes from the server the files [ids] names (the server's file ids by item id): what a caller does when the write that was to
+  /// name the files it has just uploaded failed, so none stays that no body names. Best effort; call it with the ids that went up
+  /// during this attempt only, never with a file a body of the item already names.
+  Future<void> discard(Map<String, Set<String>> ids) => _discard([
+    for (final MapEntry(key: itemId, value: files) in ids.entries)
+      for (final fileId in files) (itemId: itemId, fileId: fileId),
+  ]);
 
   /// Uploads each file [entry], a note or a File item whose item [itemId] is on the server, names that has no server file and
   /// [store] holds, as [upload] does for a whole document. Returns the entry naming the server's ids and each file's `sha256`,
@@ -311,8 +355,14 @@ class KmFiles {
     if (files.isEmpty) {
       return null;
     }
-    final sent = await _uploadAll(itemId, files);
-    return sent == null ? null : kmWithAttachments(entry, sent, at: now);
+    final created = <_Created>[];
+    try {
+      final sent = await _uploadAll(itemId, files, created);
+      return sent == null ? null : kmWithAttachments(entry, sent, at: now);
+    } catch (_) {
+      await _discard(created);
+      rethrow;
+    }
   }
 
   /// [file] naming its upload, or null when this phone doesn't have the file, it isn't the size its item says, it doesn't open

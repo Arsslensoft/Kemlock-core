@@ -7,6 +7,7 @@ import 'dart:typed_data';
 
 import 'package:kemlock_core/crypto/attachment_format.dart';
 import 'package:kemlock_core/crypto/bytes.dart';
+import 'package:kemlock_core/features/sync/kemlock/km_api.dart';
 import 'package:kemlock_core/features/sync/kemlock/km_files.dart';
 import 'package:kemlock_core/features/sync/kemlock/km_kinds.dart';
 import 'package:kemlock_core/features/sync/kemlock/km_move_server.dart';
@@ -36,6 +37,18 @@ VaultFile _item(String id, NoteAttachment file, {int? updatedAt}) =>
     VaultFile(id: id, name: file.name, file: file, addedAt: 1, updatedAt: updatedAt);
 
 KmEntry _entry(String id, NoteAttachment file) => (kind: KmKind.file, json: _item(id, file).toJson());
+
+/// Makes every batch the server gets after one more file was uploaded fail as stale, as when another device wrote the item meanwhile.
+void _staleAfterNextFile(FakeKemlockServer server) {
+  final files = server.events.where((event) => event == 'file').length;
+  server.respond = (request) async {
+    final second = request.method == 'POST' && request.url.path.endsWith('/items:batch');
+    if (second && server.events.where((event) => event == 'file').length > files) {
+      return server.problem(409, 'stale-revision', extra: {'itemId': _one, 'currentRevision': 9});
+    }
+    return server.handle(request);
+  };
+}
 
 void main() {
   group('sync', () {
@@ -179,6 +192,22 @@ void main() {
       expect(w.server.files.keys, isNot(contains(oldFile)));
       expect(w.server.files.values.single.bytes, second.sealed);
       expect(kmServerFileId(one.lists.files.single.file), w.server.files.keys.single);
+    });
+
+    test('a run whose second write goes stale removes the files it uploaded, so none stays that no item names', () async {
+      final w = _world();
+      final made = await _sealed(1000);
+      final one = KmPhone(
+        w.server,
+        clock: w.clock,
+        fileStore: FakeFileStore()..files[made.entry.id] = made.sealed,
+        lists: Lists(files: [_item(_one, made.entry)]),
+      );
+      _staleAfterNextFile(w.server);
+
+      await expectLater(one.run(), throwsA(isA<KmError>().having((e) => e.problem, 'problem', KmProblem.stale)));
+
+      expect(w.server.files, isEmpty);
     });
 
     test('a run that fetches nothing asks the store for nothing', () async {
@@ -411,6 +440,37 @@ void main() {
       expect(kmAttachmentsOf(kmTrustedFiles(previous, null)).single.extra, isNot(contains(kmFileKey)));
       final otherKey = NoteAttachment(id: named.id, name: named.name, size: named.size, key: b64(randomBytes(32)), addedAt: 1);
       expect(kmServerFileId(kmAttachmentsOf(kmTrustedFiles(_entry(_one, kmNamedFile(otherKey, 'f9')), previous)).single), isNull);
+    });
+
+    test('a second write that fails removes the files this call uploaded, and none the item already names', () async {
+      final w = _world();
+      final first = await _sealed(1000);
+      final second = await _sealed(1200, name: 'Second.pdf');
+      final phone = KmPhone(w.server, clock: w.clock);
+      final store = FakeFileStore()
+        ..files[first.entry.id] = first.sealed
+        ..files[second.entry.id] = second.sealed;
+      final files = KmFiles(store: store, connection: phone.connection, server: FakeKemlockServer.url);
+      final server = KmMoveServer(connection: phone.connection, server: FakeKemlockServer.url, crypto: phone.crypto);
+      KmEntry note(List<NoteAttachment> attached) =>
+          (kind: KmKind.note, json: SecureNote(id: _one, title: 'Papers', addedAt: 1, attachments: attached).toJson());
+      final pushed = await kmPushItemWithFiles(server: server, files: files, entry: note([first.entry]), now: 5);
+      final kept = w.server.files.keys.single;
+
+      _staleAfterNextFile(w.server);
+      await expectLater(
+        kmPushItemWithFiles(
+          server: server,
+          files: files,
+          entry: note([...kmAttachmentsOf(pushed.entry), second.entry]),
+          revision: pushed.revision,
+          previous: pushed.entry,
+          now: 6,
+        ),
+        throwsA(isA<KmError>().having((e) => e.problem, 'problem', KmProblem.stale)),
+      );
+
+      expect(w.server.files.keys, [kept], reason: 'only the file the failed write would have named is gone');
     });
 
     test('a file the store lacks is left unsent and listed, the item written without it', () async {

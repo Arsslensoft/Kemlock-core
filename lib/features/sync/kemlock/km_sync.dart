@@ -251,8 +251,16 @@ class KmScopeSync {
         onServer: (itemId) => work.items[itemId]?.applied ?? false,
       );
       if (stamped != null) {
+        final before = kmFileIdsOf(doc, itemIdOf: (id) => kmItemId(id, owner));
         doc = stamped;
-        wrote = await _send(work, _plan(work, local, doc).writes, now) || wrote;
+        try {
+          wrote = await _send(work, _plan(work, local, doc).writes, now) || wrote;
+        } catch (_) {
+          // The items don't name the files just uploaded (another device wrote one: the run is made again, and uploads them
+          // again): remove them, and never a file an item already named
+          await files.discard(kmNewFileIds(before, kmFileIdsOf(stamped, itemIdOf: (id) => kmItemId(id, owner))));
+          rethrow;
+        }
       }
       await files.deleteRemoved(_fileIds(stored), _fileIds(work));
     }
