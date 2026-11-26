@@ -36,6 +36,17 @@ library;
 
 import '../../../crypto/account/encoding.dart';
 import '../../../crypto/account/legacy_ids.dart';
+import '../../../models/backup_service.dart';
+import '../../../models/contact.dart';
+import '../../../models/identity.dart';
+import '../../../models/key_account.dart';
+import '../../../models/login.dart';
+import '../../../models/otp_account.dart';
+import '../../../models/passkey.dart';
+import '../../../models/payment_card.dart';
+import '../../../models/secure_note.dart';
+import '../../../models/vault_entry.dart';
+import '../../../models/vault_file.dart';
 import '../../../models/vault_key.dart' show KeyKind, VaultKey;
 import '../sync_merge.dart';
 
@@ -113,6 +124,23 @@ String _kindOfKey(Map<String, Object?> json) => switch (json['kind']) {
   KeyKind.ssh => KmKind.sshKey,
   _ when json['certificate'] != null => KmKind.certificate,
   _ => KmKind.key,
+};
+
+/// The kind of the item [entry] is stored as: `login`, `otp`, `note`, `file`, `pgp-key` and so on, the one its list
+/// gives (see the table above). A key is told by its kind, and a key holding a certificate is a `certificate`.
+String itemKindOf(VaultEntry<dynamic> entry) => switch (entry) {
+  OtpAccount() => KmKind.otp,
+  BackupService() => KmKind.backupCodes,
+  VaultKey() => _kindOfKey(entry.toJson()),
+  SecureNote() => KmKind.note,
+  Passkey() => KmKind.passkey,
+  KeyAccount() => KmKind.keyOtp,
+  Contact() => KmKind.contact,
+  Login() => KmKind.login,
+  PaymentCard() => KmKind.card,
+  Identity() => KmKind.identity,
+  VaultFile() => 'file',
+  _ => throw ArgumentError.value(entry, 'entry', 'not an entry of a kind this version knows'),
 };
 
 /// An entry as an item holds it: its kind and its own JSON.
