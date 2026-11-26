@@ -86,6 +86,7 @@ class KmHost implements KemlockBackend {
     required this.clientFor,
     required this.proofsFor,
     this.fileStore,
+    this.fetchMissing = true,
     this.anchors,
     this.clock = DateTime.now,
     this.onAway,
@@ -107,6 +108,11 @@ class KmHost implements KemlockBackend {
 
   /// The phone's attached files, when its sync handles them.
   final KmFileStore? fileStore;
+
+  /// Whether a run fetches the files its merged notes and File items name and the [fileStore] lacks (`KmFiles.fetchMissing`). A
+  /// host that keeps no file bytes, such as the browser extension, turns it off so a sync never downloads every file; it fetches
+  /// one when asked (`KmFiles.fetchPlain`). Passed to every `KmFiles` the host builds.
+  final bool fetchMissing;
 
   /// The anchors of the account's server spaces, carried in an item of their own beside the entries.
   final KmAnchors? anchors;
@@ -296,7 +302,7 @@ class KmHost implements KemlockBackend {
         server: url,
         crypto: crypto,
         dedup: dedup,
-        files: fileStore == null ? null : KmFiles(store: fileStore!, connection: connection, server: url),
+        files: fileStore == null ? null : KmFiles(store: fileStore!, connection: connection, server: url, fetchMissing: fetchMissing),
         anchors: anchors,
         loadCache: () async => KmCache.fromJson(await values.load(keyKemlockCache)),
         saveCache: (cache) => values.save(keyKemlockCache, cache.toJson()),
