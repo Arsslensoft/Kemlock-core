@@ -9,6 +9,7 @@
 import 'dart:convert';
 
 import '../../models/backup_service.dart';
+import '../../models/contact.dart';
 import '../../models/identity.dart';
 import '../../models/login.dart';
 import '../../models/otp_account.dart';
@@ -41,6 +42,12 @@ enum TagKind {
 
   /// An identity's full name and email.
   identity,
+
+  /// A contact's email and phone.
+  contact,
+
+  /// One identity document's number.
+  document,
 }
 
 /// Why a group of items is shown (design 5).
@@ -54,6 +61,8 @@ enum DuplicateReason {
   sameKey(TagKind.key),
   sameCodes(TagKind.codes),
   sameIdentity(TagKind.identity),
+  sameContact(TagKind.contact),
+  sameDocument(TagKind.document),
 
   /// One item held in the vault and in a space, or in two spaces.
   inTwoPlaces(null);
@@ -287,6 +296,24 @@ TagInput? keyTagInput(String? identity) {
 TagInput? identityTagInput(Identity identity) {
   final values = [normaliseUsername(identity.fullName ?? ''), normaliseUsername(identity.email ?? '')];
   return values.every((value) => value.isEmpty) ? null : TagInput(TagKind.identity, values);
+}
+
+/// The tag inputs of an identity's documents: one `document` input for each document number, each number once, in
+/// order. A document whose number has too few letters and digits makes none.
+List<TagInput> documentTagInputs(Identity identity) {
+  final numbers = <String>{
+    for (final document in identity.documents ?? const <IdentityDocument>[]) ?normaliseDocumentNumber(document.number),
+  };
+  return [for (final number in numbers) TagInput(TagKind.document, [number])];
+}
+
+/// The tag input of a contact: its email, trimmed, in NFC and in lower case as a username is, and its phone as its digits
+/// only; the one is the empty string when the other is all there is. Null for a contact with neither. The address a key
+/// was looked up by (`sourceEmail`) is not read.
+TagInput? contactTagInput(Contact contact) {
+  final email = normaliseUsername(contact.email ?? '');
+  final phone = normalisePhone(contact.phone ?? '');
+  return email.isEmpty && phone.isEmpty ? null : TagInput(TagKind.contact, [email, phone]);
 }
 
 /// Whether [a] and [b] are one credential, by the rules import and the cleaner share. [a] and

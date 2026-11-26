@@ -8,9 +8,12 @@ library;
 
 import 'dart:typed_data';
 
+import 'package:crypto/crypto.dart' as hash;
+
 import '../../crypto/account/encoding.dart' show wipe;
 import '../../crypto/bytes.dart' show unb64;
 import '../../crypto/keys/keys.dart' as crypto;
+import '../../crypto/keys/pem.dart' show readPemBlocks;
 import '../../models/contact.dart';
 import '../../models/vault_key.dart';
 import '../../vault/vault_store.dart';
@@ -24,6 +27,9 @@ import 'duplicate_normalise.dart';
 /// key's primary fingerprint as upper-case hex (version 4 or 6), and an SSH key's OpenSSH
 /// `SHA256:` fingerprint, the one `ssh-keygen -l` prints. A contact is a PGP key.
 ///
+/// A key that holds a certificate is a certificate, told by the certificate's fingerprint: the one its body stores, else the
+/// SHA-256 thumbprint of its DER, as upper-case hexadecimal; null when neither can be read, which makes no tag.
+///
 /// `crypto.md` names no other key kind. One that has no fingerprint of those two forms, or whose
 /// public half can't be read, is told by its public half, else its private one, as import tells
 /// keys (`keyIdentity`). Null for a contact whose key can't be read. Other items have none.
@@ -33,7 +39,11 @@ String? dedupKeyIdentity(Object item) => switch (item) {
   _ => null,
 };
 
-String _keyFingerprint(VaultKey key) {
+String? _keyFingerprint(VaultKey key) {
+  final certificate = key.extra['certificate'];
+  if (certificate is String) {
+    return _certificateFingerprint(key, certificate);
+  }
   final public = key.publicKey;
   if (public != null) {
     try {
@@ -53,6 +63,25 @@ String _keyFingerprint(VaultKey key) {
     }
   }
   return keyIdentity(key);
+}
+
+/// The fingerprint of the certificate [pem] that [key] holds: the `fingerprint` its body stores, as `normaliseFingerprint` reads
+/// it, else the SHA-256 of the certificate's DER as upper-case hexadecimal. Null when neither reads.
+String? _certificateFingerprint(VaultKey key, String pem) {
+  final stored = key.extra['fingerprint'];
+  if (stored is String && normaliseFingerprint(stored) != null) {
+    return normaliseFingerprint(stored);
+  }
+  try {
+    for (final block in readPemBlocks(pem)) {
+      if (block.label == 'CERTIFICATE') {
+        return hash.sha256.convert(block.decode()).toString().toUpperCase();
+      }
+    }
+  } on crypto.KeyFormatException {
+    return null;
+  }
+  return null;
 }
 
 String? _contactFingerprint(Contact contact) {

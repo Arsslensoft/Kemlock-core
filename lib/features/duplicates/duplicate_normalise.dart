@@ -135,6 +135,37 @@ String? secretBase32(String secret) {
   return bytes.isEmpty ? null : base32Encode(bytes);
 }
 
+/// A key's or a certificate's fingerprint, as `crypto.md` "Normalisation" has it: an OpenSSH `SHA256:…` (the prefix in
+/// capitals) as it is, or 40 or 64 hexadecimal digits (a PGP v4 or v6 fingerprint, a certificate's SHA-1 or SHA-256
+/// thumbprint) in upper case, without the white space, the colons and a leading `0x`, so `AB:CD:…` and `abcd…` are
+/// one value. Null for anything else, which makes no tag.
+String? normaliseFingerprint(String text) {
+  final trimmed = trimWhite(text);
+  if (trimmed.startsWith('SHA256:')) {
+    return trimmed.length > 'SHA256:'.length ? trimmed : null;
+  }
+  final squeezed = trimmed.replaceAll(RegExp(r'[\s:]+'), '').toUpperCase();
+  final hex = squeezed.startsWith('0X') ? squeezed.substring(2) : squeezed;
+  return RegExp(r'^(?:[0-9A-F]{40}|[0-9A-F]{64})$').hasMatch(hex) ? hex : null;
+}
+
+/// A contact's phone number as its ASCII digits only, so `+1 (555) 0142` and `15550142` are one. May be empty.
+String normalisePhone(String text) => text.replaceAll(RegExp(r'[^0-9]'), '');
+
+/// The fewest letters and digits an identity document's number needs to make a tag.
+const minDocumentNumberLength = 4;
+
+final _notAlphanumeric = RegExp(r'[^\p{L}\p{N}\p{M}]', unicode: true);
+
+/// An identity document's number as `crypto.md` "Normalisation" has it: in NFC, in lower case, and only its letters
+/// and digits, so `X 1234-567` and `x1234567` are one. Null for one of fewer than [minDocumentNumberLength] letters and
+/// digits: a placeholder would match unrelated papers. (Letters, numbers and the marks that join them, for Unicode's
+/// alphabetic and numeric characters.)
+String? normaliseDocumentNumber(String text) {
+  final kept = lowerCase(unorm.nfc(text)).replaceAll(_notAlphanumeric, '');
+  return kept.runes.length >= minDocumentNumberLength ? kept : null;
+}
+
 /// A card number as its digits, or null when it has none.
 String? normaliseCardNumber(String? number) {
   final digits = cardDigits(number ?? '');

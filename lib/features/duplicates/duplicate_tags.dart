@@ -53,9 +53,10 @@ List<TagInput> tagInputsOf(Object item, {SiteResolver sites = const SiteResolver
   Passkey() => [passkeyTagInput(item)],
   PaymentCard() => [?cardTagInput(item)],
   SecureNote() => [?noteTagInput(item)],
-  VaultKey() || Contact() => [?keyTagInput(keyIdentityOf?.call(item))],
+  VaultKey() => [?keyTagInput(keyIdentityOf?.call(item))],
+  Contact() => [?contactTagInput(item), ?keyTagInput(keyIdentityOf?.call(item))],
   BackupService() => [?codesTagInput(item)],
-  Identity() => [?identityTagInput(item)],
+  Identity() => [?identityTagInput(item), ...documentTagInputs(item)].take(maxTagsPerItem).toList(),
   _ => const [],
 };
 

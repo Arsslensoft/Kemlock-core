@@ -15,6 +15,7 @@ import '../../core/ids.dart';
 import '../../crypto/account/dedup.dart';
 import '../../crypto/account/encoding.dart';
 import '../../crypto/bytes.dart';
+import '../../models/identity.dart';
 import 'dedup_cache.dart';
 import 'dedup_tagger.dart';
 import 'duplicate_normalise.dart';
@@ -224,9 +225,14 @@ List<List<int>> _candidates(
 List<_IndexGroup> _verified(List<DedupItem> items, List<int> candidate, SiteResolver sites, KeyIdentityOf? keyIdentityOf) {
   final sets = _Sets(candidate.length);
   final inputs = [for (final index in candidate) tagInputsOf(items[index].item, sites: sites, keyIdentityOf: keyIdentityOf)];
+  // Identities are told apart by their documents (see [_identityCopies]), not by the `identity` input alone
+  final identities = _identityCopies(items, candidate, inputs);
   final shared = <TagInput, List<int>>{};
   for (var i = 0; i < candidate.length; i++) {
     for (final input in inputs[i]) {
+      if (input.kind == TagKind.identity) {
+        continue;
+      }
       final holders = shared.putIfAbsent(input, () => []);
       if (!holders.contains(i)) {
         holders.add(i);
@@ -238,7 +244,15 @@ List<_IndexGroup> _verified(List<DedupItem> items, List<int> candidate, SiteReso
       sets.union(holders.first, holders[i]);
     }
   }
+  for (final copies in identities) {
+    for (var i = 1; i < copies.length; i++) {
+      sets.union(copies.first, copies[i]);
+    }
+  }
   final kinds = <int, Set<TagKind>>{};
+  for (final copies in identities) {
+    kinds.putIfAbsent(sets.find(copies.first), () => {}).add(TagKind.identity);
+  }
   for (final MapEntry(:key, :value) in shared.entries) {
     if (value.length >= 2) {
       kinds.putIfAbsent(sets.find(value.first), () => {}).add(key.kind);
@@ -261,4 +275,33 @@ List<_IndexGroup> _verified(List<DedupItem> items, List<int> candidate, SiteReso
     groups.add((reason: places.length > 1 ? DuplicateReason.inTwoPlaces : reason, indexes: value..sort()));
   }
   return groups;
+}
+
+/// The identities of [candidate] (positions in it) that are copies by their `identity` input, as `crypto.md` "Normalisation"
+/// has it: two identities that share a document number are copies (by their `document` inputs, not here); an identity with no
+/// document is a copy of every identity with no document that shares its `identity` input, and of the one identity with
+/// documents that shares it. With several identities with documents sharing it, it is a copy of none of them (it could be of
+/// any), and two identities that both have documents are never copies by `identity` alone: one person's passport and
+/// licence share a name and an email. Each list is a set of copies, two or more.
+List<List<int>> _identityCopies(List<DedupItem> items, List<int> candidate, List<List<TagInput>> inputs) {
+  final byInput = <TagInput, ({List<int> bare, List<int> documented})>{};
+  for (var i = 0; i < candidate.length; i++) {
+    if (items[candidate[i]].item is! Identity) {
+      continue;
+    }
+    final identity = inputs[i].where((input) => input.kind == TagKind.identity).firstOrNull;
+    if (identity == null) {
+      continue;
+    }
+    final holders = byInput.putIfAbsent(identity, () => (bare: [], documented: []));
+    (inputs[i].any((input) => input.kind == TagKind.document) ? holders.documented : holders.bare).add(i);
+  }
+  final out = <List<int>>[];
+  for (final holders in byInput.values) {
+    final copies = [...holders.bare, if (holders.documented.length == 1) ...holders.documented];
+    if (copies.length >= 2) {
+      out.add(copies);
+    }
+  }
+  return out;
 }
