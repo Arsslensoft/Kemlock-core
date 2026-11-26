@@ -243,6 +243,9 @@ class KmScopeSync {
     await _resolve(joined.ids, plan.writes);
     final files = this.files;
     if (files != null) {
+      files.refused
+        ..clear()
+        ..addAll(kmRefusedFilesOf(state.extra));
       // A file goes up once its note's or File item's item is on the server, and the item is written again naming it
       final stamped = await files.upload(
         doc,
@@ -287,7 +290,7 @@ class KmScopeSync {
     return (
       doc: doc,
       known: merged.known,
-      state: state.extra,
+      state: files == null ? state.extra : kmWithRefusedFiles(state.extra, files.refused),
       skipped: work.items.values.where((item) => item.kind != KmKind.spaceAnchors && (item.opaque || item.heldSince != null)).length,
     );
   }

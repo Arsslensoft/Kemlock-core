@@ -95,6 +95,39 @@ void main() {
       expect(kmServerFileId(files[_two]!), isNull, reason: 'the key does not open it');
     });
 
+    test('an attachment with no hash that cannot be sent is remembered as refused, and not read or decrypted again', () async {
+      final w = _world();
+      final made = await _sealed(1000);
+      final other = await _sealed(1000);
+      final broken = NoteAttachment(id: other.entry.id, name: 'x', size: 1000, key: made.entry.key, addedAt: 1);
+      final store = _CountingStore()..files[broken.id] = other.sealed;
+      final one = KmPhone(w.server, clock: w.clock, fileStore: store, lists: Lists(files: [_item(_one, broken)]));
+
+      await one.run();
+      expect(store.reads, [broken.id]);
+      expect(kmRefusedFilesOf(one.state.extra), {broken.id});
+
+      await one.run();
+      await one.run();
+      expect(store.reads, [broken.id], reason: 'asked once: it is refused, and the next runs leave it alone');
+      expect(kmRefusedFilesOf(one.state.extra), {broken.id});
+      expect(w.server.files, isEmpty);
+    });
+
+    test('an attachment the server refuses for its size is remembered the same way, when it holds no hash', () async {
+      final w = _world();
+      w.server.maxFileSize = 100;
+      final made = await _sealed(1000);
+      final store = _CountingStore()..files[made.entry.id] = made.sealed;
+      final one = KmPhone(w.server, clock: w.clock, fileStore: store, lists: Lists(files: [_item(_one, _withoutHash(made.entry))]));
+
+      await one.run();
+      await one.run();
+
+      expect(store.reads, [made.entry.id]);
+      expect(w.server.files, isEmpty);
+    });
+
     test('a file the body already names is never sent again, and a file the phone lacks is left to another phone', () async {
       final w = _world();
       final made = await _sealed(1000);
@@ -487,6 +520,17 @@ void main() {
       expect(w.server.files, isEmpty);
     });
   });
+}
+
+/// A store that remembers which files were read.
+class _CountingStore extends FakeFileStore {
+  final reads = <String>[];
+
+  @override
+  Future<Uint8List?> readSealed(String id) async {
+    reads.add(id);
+    return super.readSealed(id);
+  }
 }
 
 /// A store that remembers what it was asked.

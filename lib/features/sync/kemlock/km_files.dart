@@ -229,6 +229,26 @@ Future<Uint8List> kmFetchFile({
 /// A server file a run just made, under its item.
 typedef _Created = ({String itemId, String fileId});
 
+/// The key of the scope state that holds [KmFiles.refused].
+const kmRefusedFilesKey = 'refusedFiles';
+
+/// The most attachments a scope state remembers as refused: the latest.
+const _refusedLimit = 500;
+
+/// The attachment ids [extra], a scope state's `extra`, holds as refused; none for a member of another shape.
+Set<String> kmRefusedFilesOf(Map<String, Object?> extra) => {
+  if (extra[kmRefusedFilesKey] case final List<Object?> ids) ...ids.whereType<String>(),
+};
+
+/// [extra] holding [refused] (the latest few hundred) and every other key as it was; without the member when there are none.
+Map<String, Object?> kmWithRefusedFiles(Map<String, Object?> extra, Set<String> refused) {
+  if (refused.isEmpty) {
+    return extra.containsKey(kmRefusedFilesKey) ? ({...extra}..remove(kmRefusedFilesKey)) : extra;
+  }
+  final ids = refused.toList();
+  return {...extra, kmRefusedFilesKey: ids.length > _refusedLimit ? ids.sublist(ids.length - _refusedLimit) : ids};
+}
+
 /// The server's file ids each note and File item of [doc] names, by the item id [itemIdOf] gives its id.
 Map<String, Set<String>> kmFileIdsOf(SyncDoc doc, {required String Function(String entryId) itemIdOf}) => {
   for (final note in doc.notes)
@@ -244,7 +264,8 @@ Map<String, Set<String>> kmNewFileIds(Map<String, Set<String>> before, Map<Strin
 
 /// The files of one vault, uploaded and fetched.
 class KmFiles {
-  KmFiles({required this.store, required this.connection, required this.server, this.fetchMissing = true});
+  KmFiles({required this.store, required this.connection, required this.server, this.fetchMissing = true, Set<String>? refused})
+    : refused = refused ?? <String>{};
 
   final KmFileStore store;
   final KmConnection connection;
@@ -253,6 +274,11 @@ class KmFiles {
   /// Whether a run fetches the files the merged items name and the [store] lacks (step 5). A host that keeps no file bytes (the
   /// browser extension) turns it off, so a sync never downloads every file; it opens one when asked ([fetchPlain]).
   final bool fetchMissing;
+
+  /// The ids of the attachments with no `sha256` that a run couldn't send, because they don't open with their key or the server refused
+  /// them: a later run leaves them alone instead of reading and decrypting them again to find their hash. A sync run keeps the set
+  /// in its scope state ([kmRefusedFilesOf], [kmWithRefusedFiles]); an attachment that holds its hash is never listed.
+  final Set<String> refused;
 
   KmApi get _api => connection.api;
 
@@ -368,7 +394,7 @@ class KmFiles {
   /// [file] naming its upload, or null when this phone doesn't have the file, it isn't the size its item says, it doesn't open
   /// with its key (only checked for a file whose item holds no `sha256`, to write it), or the server won't take it.
   Future<NoteAttachment?> _uploadOne(String itemId, NoteAttachment file) async {
-    if (file.size < 0 || file.size > attachmentSizeLimit) {
+    if (file.size < 0 || file.size > attachmentSizeLimit || (file.sha256 == null && refused.contains(file.id))) {
       return null;
     }
     final bytes = await store.readSealed(file.id);
@@ -381,12 +407,17 @@ class KmFiles {
       try {
         hash = sha256Hex(await kma1Decrypt(bytes, unb64(file.key)));
       } on AttachmentDamagedError {
+        refused.add(file.id);
         return null;
       } on FormatException {
+        refused.add(file.id);
         return null;
       }
     }
     final fileId = await _send(itemId, bytes);
+    if (fileId == null && file.sha256 == null) {
+      refused.add(file.id);
+    }
     return fileId == null ? null : kmNamedFile(file, fileId, sha256: hash);
   }
 
