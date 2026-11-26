@@ -18,15 +18,18 @@
 /// Pure Dart, no Flutter.
 library;
 
+import 'dart:convert' show jsonEncode;
+
 import '../crypto/account/encoding.dart' show MalformedException, Owner;
 import '../crypto/account/legacy_ids.dart' show spaceUuid;
 import '../features/sync/kemlock/km_kinds.dart' show kmItemId;
 import '../features/sync/sync_merge.dart' show Lists;
 import '../models/backup_service.dart';
 import '../models/contact.dart';
+import '../models/custom_field.dart';
 import '../models/identity.dart';
 import '../models/item_link.dart';
-import '../models/json.dart' show unset;
+import '../models/json.dart' show jsonEquals, unset;
 import '../models/key_account.dart';
 import '../models/login.dart';
 import '../models/otp_account.dart';
@@ -364,4 +367,302 @@ List<VaultEntry<Object?>> relinkedAfterMove(Lists lists, {required String oldLin
     }
   }
   return out;
+}
+
+// ─── Merging duplicates, and deleting ──────────────────────────────────────────────────────────────
+
+/// The members of an entry's body that a merge may rewrite on an entry that isn't merged.
+const _relinkMembers = ['links', 'linkedLoginId', 'accountId'];
+
+/// What a merge or a delete wrote on one entry besides the ones it merged, for Undo: the entry's [id] and, for each member it changed
+/// (`links`, `linkedLoginId`, `accountId`), what the body held before ([before]) and what the merge wrote ([after]). A member the
+/// body didn't hold is `null`. Undo ([undoRelink]) puts [before] back only where the entry still holds [after].
+///
+/// It is plain JSON (see [toJson]) so a merge record can keep it.
+class RelinkUndo {
+  const RelinkUndo({required this.id, required this.before, required this.after});
+
+  /// A step read from [json] (what [toJson] wrote); null for anything else.
+  static RelinkUndo? tryFromJson(Object? json) {
+    if (json is! Map) {
+      return null;
+    }
+    final id = json['id'];
+    final before = json['before'];
+    final after = json['after'];
+    if (id is! String || before is! Map || after is! Map) {
+      return null;
+    }
+    Map<String, Object?> members(Map<Object?, Object?> from) => {
+      for (final key in _relinkMembers)
+        if (from.containsKey(key)) key: from[key],
+    };
+    return RelinkUndo(id: id, before: members(before), after: members(after));
+  }
+
+  /// A step read from [json]; an [ArgumentError] when it isn't one.
+  factory RelinkUndo.fromJson(Object? json) => tryFromJson(json) ?? (throw ArgumentError.value(json, 'json', 'not a relink step'));
+
+  /// The id of the entry the merge rewrote.
+  final String id;
+
+  /// The members it changed, as the body held them; `null` for one it didn't hold.
+  final Map<String, Object?> before;
+
+  /// The same members as the merge wrote them; `null` for one it removed.
+  final Map<String, Object?> after;
+
+  Map<String, Object?> toJson() => {'id': id, 'before': before, 'after': after};
+
+  @override
+  bool operator ==(Object other) => other is RelinkUndo && jsonEquals(toJson(), other.toJson());
+
+  @override
+  int get hashCode => id.hashCode;
+
+  @override
+  String toString() => 'RelinkUndo($id, ${before.keys.join(', ')})';
+}
+
+/// What [relinkForMerge] made: the item that stays, the other entries to save, and what Undo needs.
+class MergeRelink {
+  const MergeRelink({required this.kept, required this.others, required this.undo});
+
+  /// The item that stays: as it was given when nothing changed, else with the links and custom fields of the items that go joined to
+  /// its own, stamped.
+  final VaultEntry<Object?> kept;
+
+  /// The entries of the vault, other than the merged ones, that the merge rewrites, stamped.
+  final List<VaultEntry<Object?>> others;
+
+  /// What each of [others] held before and holds now, for [undoRelink]. [kept] is not in it: Undo puts the kept item back whole.
+  final List<RelinkUndo> undo;
+}
+
+/// What a merge does to the entries that point at the entries it removes (the web vault's `relink.ts`). Links are two-way, so when
+/// the [removed] items are folded into [kept]:
+///
+/// - every other entry of [lists] whose `links` named a removed item now names [kept], and so does one that [kept] is now linked to
+///   and that didn't name it (both ends are written); an MFA code whose `linkedLoginId` named a removed login now names [kept], and a
+///   login whose `accountId` named a removed code now names [kept]'s id;
+/// - [kept] links to every item the removed ones linked to, and to every entry outside the merge that names one of the merged items,
+///   never to itself or to one of the removed; nothing is written to [kept]'s links when [keptWritable] is false (a space the person
+///   can only read), and then the entries that named a removed item still come to name [kept], from their end alone;
+/// - [kept] carries over each custom field it lacks from the removed items, in order: a field of an admin's definition once (the
+///   kept item's own wins), any other by its name, kind and value, so two values of one field both stay.
+///
+/// [kept] is the item as the merge made it (`MergeChoices.merged`); the removed ones are as the vault holds them. [now] (epoch ms)
+/// stamps what changes; [account] is the Kemlock Server account's user owner, which an entry with a legacy id needs to be given
+/// its item id. Nothing changes for an entry the merge doesn't touch, and it is not returned.
+MergeRelink relinkForMerge(
+  Lists lists, {
+  required VaultEntry<Object?> kept,
+  required List<VaultEntry<Object?>> removed,
+  required int now,
+  Owner? account,
+  bool keptWritable = true,
+}) {
+  final merged = {kept.id, for (final entry in removed) entry.id};
+  final keptNames = _namesOf(kept, account);
+  final removedNames = {for (final entry in removed) ..._namesOf(entry, account)};
+  final members = {...keptNames, ...removedNames};
+  final keptLink = linkIdOf(kept, account: account).toLowerCase();
+  final others = [
+    for (final entry in entriesOf(lists))
+      if (!merged.contains(entry.id)) entry,
+  ];
+
+  var keptOut = kept;
+  var keptLinks = kept.links;
+  if (keptWritable) {
+    final outside = [
+      for (final other in others)
+        if (other.links.ids.any(members.contains) && isLinkId(linkIdOf(other, account: account)))
+          ItemLink(linkIdOf(other, account: account).toLowerCase()),
+    ];
+    final readable = <ItemLink>[];
+    final unread = <ItemLink>[];
+    for (final link in [...kept.links, for (final entry in removed) ...entry.links, ...outside]) {
+      if (link.isReadable) {
+        readable.add(link);
+      } else if (!unread.contains(link)) {
+        unread.add(link);
+      }
+    }
+    keptLinks = normaliseLinks([...readable, ...unread], ownIds: members);
+    if (!jsonEquals([for (final link in keptLinks) link.toJson()], [for (final link in kept.links) link.toJson()])) {
+      keptOut = _withLinks(keptOut, keptLinks, members);
+    }
+    final held = _fieldsOf(kept);
+    final fields = _unionOfFields(held, [for (final entry in removed) ..._fieldsOf(entry)]);
+    if (fields.length != held.length) {
+      keptOut = _withFields(keptOut, fields);
+    }
+    if (!identical(keptOut, kept)) {
+      keptOut = _stamped(keptOut, now);
+    }
+  }
+
+  final listed = {for (final link in keptLinks.readable) link.key};
+  final rewritten = <VaultEntry<Object?>>[];
+  final undo = <RelinkUndo>[];
+  for (final other in others) {
+    var next = other;
+    final held = other.links.ids;
+    final names = _namesOf(other, account);
+    final namesKept = held.any(keptNames.contains);
+    // It named an item that goes, or [kept] now links to it and it doesn't link back
+    if (held.any(removedNames.contains) || (keptWritable && names.any(listed.contains) && !namesKept)) {
+      next = _withLinks(next, [
+        for (final link in other.links)
+          if (!link.isReadable || !removedNames.contains(link.key)) link,
+        if (!namesKept && isLinkId(keptLink)) ItemLink(keptLink),
+      ], names);
+    }
+    final code = next;
+    if (code is OtpAccount && kept is Login && removedNames.contains(code.linkedLoginId?.toLowerCase())) {
+      next = code.copyWith(linkedLoginId: keptLink);
+    }
+    final login = next;
+    if (login is Login && kept is OtpAccount && removed.any((entry) => entry is OtpAccount && entry.id == login.accountId)) {
+      next = login.copyWith(accountId: kept.id);
+    }
+    if (identical(next, other)) {
+      continue;
+    }
+    final step = _undoOf(other, next);
+    if (step == null) {
+      continue;
+    }
+    rewritten.add(_stamped(next, now));
+    undo.add(step);
+  }
+  return MergeRelink(kept: keptOut, others: rewritten, undo: undo);
+}
+
+/// The entries of [lists] to save to put back what a merge wrote, from the [undo] steps it returned: each member goes back to what the
+/// entry held before the merge, but only where the entry still holds what the merge wrote. An entry edited or linked elsewhere since
+/// keeps what it holds there, and an entry the vault no longer holds is skipped. Stamped [now].
+List<VaultEntry<Object?>> undoRelink(Lists lists, List<RelinkUndo> undo, {required int now}) {
+  final held = {for (final entry in entriesOf(lists)) entry.id: entry};
+  final out = <VaultEntry<Object?>>[];
+  for (final step in undo) {
+    final entry = held[step.id];
+    if (entry == null) {
+      continue;
+    }
+    final json = entry.toJson();
+    final put = <String, Object?>{
+      for (final key in step.after.keys)
+        if (jsonEquals(json[key], step.after[key])) key: step.before[key],
+    };
+    if (put.isNotEmpty) {
+      out.add(_stamped(_withMembers(entry, put), now));
+    }
+  }
+  return out;
+}
+
+/// The entries of [lists] to save when [removed] is deleted: every other entry that names it, in its `links`, as the login a code's
+/// `linkedLoginId` is, or as the code a login's `accountId` is, without that link, so none is left naming an item that is gone. Stamped
+/// [now]; the entries that don't name it are not returned. [account] is the Kemlock Server account's user owner.
+List<VaultEntry<Object?>> droppedLinksTo(Lists lists, VaultEntry<Object?> removed, {required int now, Owner? account}) {
+  final everyone = entriesOf(lists);
+  final index = _Index(everyone, account);
+  return [
+    for (final entry in everyone)
+      if (entry.id != removed.id)
+        if (_dropping(entry, removed, index, now) case final next when !identical(next, entry)) next,
+  ];
+}
+
+/// What [before] held of the members a merge rewrites and [after] holds now; null when they are the same.
+RelinkUndo? _undoOf(VaultEntry<Object?> before, VaultEntry<Object?> after) {
+  final was = before.toJson();
+  final now = after.toJson();
+  final changed = [
+    for (final key in _relinkMembers)
+      if (!jsonEquals(was[key], now[key])) key,
+  ];
+  if (changed.isEmpty) {
+    return null;
+  }
+  return RelinkUndo(id: before.id, before: {for (final key in changed) key: was[key]}, after: {for (final key in changed) key: now[key]});
+}
+
+/// [entry] with [members] of its body set to the values given (removed for a `null`), the rest of the body as it was.
+VaultEntry<Object?> _withMembers(VaultEntry<Object?> entry, Map<String, Object?> members) {
+  final json = {...entry.toJson()};
+  for (final MapEntry(:key, :value) in members.entries) {
+    if (value == null) {
+      json.remove(key);
+    } else {
+      json[key] = value;
+    }
+  }
+  return switch (entry) {
+    OtpAccount() => OtpAccount.fromJson(json),
+    BackupService() => BackupService.fromJson(json),
+    VaultKey() => VaultKey.fromJson(json),
+    SecureNote() => SecureNote.fromJson(json),
+    Passkey() => Passkey.fromJson(json),
+    KeyAccount() => KeyAccount.fromJson(json),
+    Contact() => Contact.fromJson(json),
+    Login() => Login.fromJson(json),
+    PaymentCard() => PaymentCard.fromJson(json),
+    Identity() => Identity.fromJson(json),
+    VaultFile() => VaultFile.fromJson(json),
+    _ => throw ArgumentError.value(entry, 'entry', 'not an entry of a kind this version knows'),
+  };
+}
+
+/// The custom fields [entry] holds; none for a kind that has none (a passkey, a File item).
+List<CustomField> _fieldsOf(VaultEntry<Object?> entry) => switch (entry) {
+  final OtpAccount entry => entry.fields,
+  final BackupService entry => entry.fields,
+  final VaultKey entry => entry.fields,
+  final SecureNote entry => entry.fields,
+  final KeyAccount entry => entry.fields,
+  final Contact entry => entry.fields,
+  final Login entry => entry.fields,
+  final PaymentCard entry => entry.fields,
+  final Identity entry => entry.fields,
+  _ => const [],
+};
+
+/// [entry] with [fields] as its custom fields; as it is for a kind that has none.
+VaultEntry<Object?> _withFields(VaultEntry<Object?> entry, List<CustomField> fields) => switch (entry) {
+  final OtpAccount entry => entry.copyWith(fields: fields),
+  final BackupService entry => entry.copyWith(fields: fields),
+  final VaultKey entry => entry.copyWith(fields: fields),
+  final SecureNote entry => entry.copyWith(fields: fields),
+  final KeyAccount entry => entry.copyWith(fields: fields),
+  final Contact entry => entry.copyWith(fields: fields),
+  final Login entry => entry.copyWith(fields: fields),
+  final PaymentCard entry => entry.copyWith(fields: fields),
+  final Identity entry => entry.copyWith(fields: fields),
+  _ => entry,
+};
+
+/// What tells one custom field from another in a merge: its admin definition, else its name, kind and value; a field this version
+/// can't edit, by what it holds.
+String _fieldKey(CustomField field) {
+  final admin = field.adminField;
+  if (admin != null) {
+    return 'admin:$admin';
+  }
+  if (!field.isEditable) {
+    return 'raw:${jsonEncode(field.toJson())}';
+  }
+  return 'field:${field.name.trim()}\u0000${field.kind}\u0000${field.value}';
+}
+
+/// [held] and then each field of [more] that [held] and the ones before it lack, in order.
+List<CustomField> _unionOfFields(List<CustomField> held, List<CustomField> more) {
+  final seen = {for (final field in held) _fieldKey(field)};
+  return [
+    ...held,
+    for (final field in more)
+      if (!field.isBlank && seen.add(_fieldKey(field))) field,
+  ];
 }

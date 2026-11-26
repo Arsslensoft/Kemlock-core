@@ -15,6 +15,7 @@
 // Pure Dart, no Flutter package.
 library;
 
+import '../../crypto/account/encoding.dart' show Owner;
 import '../../models/backup_service.dart';
 import '../../models/contact.dart';
 import '../../models/identity.dart';
@@ -28,6 +29,8 @@ import '../../models/vault_entry.dart';
 import '../../models/vault_file.dart';
 import '../../models/vault_key.dart';
 import '../../models/website_rule.dart';
+import '../../vault/item_links.dart';
+import '../sync/sync_merge.dart' show Lists;
 import 'dedup_cache.dart';
 import 'dedup_tagger.dart';
 
@@ -144,8 +147,22 @@ final class MergeChoices {
   /// These choices with [itemId] staying, and every pick left to the newest again.
   MergeChoices withKept(String itemId) => MergeChoices._(items, itemId, const {}, readOnlySlots, hiddenPasswords);
 
+  /// What the merge does to the links and custom fields of the vault [lists] hold (`relinkForMerge`): the item that results with the
+  /// links and fields of the items that go joined to its own, and the other entries that named one of them now naming it. [account]
+  /// is the Kemlock Server account's user owner. The kept item is [merged] (`MergeRelink.kept`), so save that one, the entries in
+  /// `MergeRelink.others`, and delete the [removed]; a merge record keeps `MergeRelink.undo` ([MergeRecord.relinkUndo]).
+  MergeRelink relink(Lists lists, {required int now, Owner? account}) => relinkForMerge(
+    lists,
+    kept: merged(now) as VaultEntry<Object?>,
+    removed: [for (final item in removed) item.item as VaultEntry<Object?>],
+    now: now,
+    account: account,
+    keptWritable: !keptIsReadOnly,
+  );
+
   /// The item that results, made at [now] (epoch ms): the kept item with the picked fields and what
-  /// the others add. It isn't stamped; the controller does that on saving.
+  /// the others add. It isn't stamped; the controller does that on saving. Its links and custom fields are as the kept item held
+  /// them: [relink] joins the others'.
   Object merged(int now) {
     final keptItem = kept.item;
     if (keptIsReadOnly) {
@@ -415,6 +432,7 @@ final class MergeRecord {
     required this.kept,
     required this.removed,
     this.relinked = const [],
+    this.relinkUndo = const [],
     this.extra = const {},
   });
 
@@ -448,7 +466,11 @@ final class MergeRecord {
                 if (item is Map) object(item),
             ]
           : const [],
-      extra: extraKeys(Map<String, Object?>.from(json), const {'id', 'at', 'kind', 'kept', 'removed', 'relinked'}),
+      relinkUndo: [
+        if (json['relinkUndo'] case final List<Object?> steps)
+          for (final step in steps) ?RelinkUndo.tryFromJson(step),
+      ],
+      extra: extraKeys(Map<String, Object?>.from(json), const {'id', 'at', 'kind', 'kept', 'removed', 'relinked', 'relinkUndo'}),
     );
   }
 
@@ -469,6 +491,10 @@ final class MergeRecord {
   /// The logins that were relinked to the code that stayed, before the merge.
   final List<Map<String, Object?>> relinked;
 
+  /// What the merge wrote on the other entries (`MergeRelink.undo`): their links, `linkedLoginId` and `accountId`, before and after,
+  /// which `undoRelink` puts back where the entry still holds what was written. Absent from a record made before it.
+  final List<RelinkUndo> relinkUndo;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
@@ -486,7 +512,16 @@ final class MergeRecord {
   /// Whether Undo is still offered at [now] (epoch ms).
   bool undoable(int now) => now - at < const Duration(days: mergeUndoDays).inMilliseconds;
 
-  Map<String, Object?> toJson() => {'id': id, 'at': at, 'kind': kind, 'kept': kept, 'removed': removed, 'relinked': relinked, ...extra};
+  Map<String, Object?> toJson() => {
+    'id': id,
+    'at': at,
+    'kind': kind,
+    'kept': kept,
+    'removed': removed,
+    'relinked': relinked,
+    if (relinkUndo.isNotEmpty) 'relinkUndo': [for (final step in relinkUndo) step.toJson()],
+    ...extra,
+  };
 }
 
 /// What Undo merge puts back (design 7), worked out from the record and the items the vault holds now, so that nothing the person
@@ -498,7 +533,14 @@ final class MergeRecord {
 /// - the item that stayed goes back to what it was before the merge, which loses any change made to it since. [keptEdited] says it was
 ///   changed after the merge (its change time is later than [MergeRecord.at], which the merge stamped it with), and the caller asks first.
 class MergeUndo {
-  const MergeUndo({required this.kept, required this.keptEdited, required this.keptGone, required this.removed, required this.relinks});
+  const MergeUndo({
+    required this.kept,
+    required this.keptEdited,
+    required this.keptGone,
+    required this.removed,
+    required this.relinks,
+    this.relinkUndo = const [],
+  });
 
   /// The item that stayed, as it was before the merge.
   final Object kept;
@@ -514,6 +556,9 @@ class MergeUndo {
 
   /// Login id to the `accountId` it had before the merge, for the logins that still point at the code that stayed.
   final Map<String, String> relinks;
+
+  /// What the merge wrote on the other entries, for `undoRelink`; empty for a record made before it was kept.
+  final List<RelinkUndo> relinkUndo;
 }
 
 /// The plan to undo [record], or null when the record's items can't be read. [find] gives the item the vault holds with an id, or null.
@@ -540,5 +585,6 @@ MergeUndo? planUndo(MergeRecord record, {required Object? Function(String id) fi
     keptGone: now == null,
     removed: removed,
     relinks: relinks,
+    relinkUndo: record.relinkUndo,
   );
 }
