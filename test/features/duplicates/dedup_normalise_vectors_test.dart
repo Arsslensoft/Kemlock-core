@@ -56,7 +56,15 @@ import '../../crypto/vectors.dart';
     case 'key':
       final fingerprint = normaliseFingerprint(text('fingerprint'));
       return (
-        item: const VaultKey(id: 'k', name: 'Key', kind: KeyKind.ssh, algorithm: 'ed25519', privateKey: 'p', origin: 'imported', addedAt: 1),
+        item: const VaultKey(
+          id: 'k',
+          name: 'Key',
+          kind: KeyKind.ssh,
+          algorithm: 'ed25519',
+          privateKey: 'p',
+          origin: 'imported',
+          addedAt: 1,
+        ),
         identity: (_) => fingerprint,
       );
     case 'codes':
@@ -72,10 +80,18 @@ import '../../crypto/vectors.dart';
     case 'identity':
       return (item: Identity(id: 'i', name: 'Me', givenName: text('full_name'), email: text('email'), addedAt: 1), identity: null);
     case 'contact':
-      return (item: Contact(id: 'k', name: 'C', email: text('email'), phone: text('phone'), source: ContactSource.manual, addedAt: 1), identity: null);
+      return (
+        item: Contact(id: 'k', name: 'C', email: text('email'), phone: text('phone'), source: ContactSource.manual, addedAt: 1),
+        identity: null,
+      );
     case 'document':
       return (
-        item: Identity(id: 'i', name: 'Me', documents: [IdentityDocument(id: 'd', number: text('number'))], addedAt: 1),
+        item: Identity(
+          id: 'i',
+          name: 'Me',
+          documents: [IdentityDocument(id: 'd', number: text('number'))],
+          addedAt: 1,
+        ),
         identity: null,
       );
   }

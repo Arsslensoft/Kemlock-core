@@ -106,7 +106,10 @@ String linkIdOf(VaultEntry<dynamic> entry, {Owner? account}) {
 bool isLinkId(String id) => _uuid.hasMatch(id);
 
 /// The ids that name [entry] in a link or in `linkedLoginId`, lower case: its item id and its own id.
-Set<String> _namesOf(VaultEntry<dynamic> entry, Owner? account) => {linkIdOf(entry, account: account).toLowerCase(), entry.id.toLowerCase()};
+Set<String> _namesOf(VaultEntry<dynamic> entry, Owner? account) => {
+  linkIdOf(entry, account: account).toLowerCase(),
+  entry.id.toLowerCase(),
+};
 
 /// Every entry by the ids that name it.
 class _Index {
@@ -269,7 +272,12 @@ VaultEntry<dynamic> _dropping(VaultEntry<dynamic> entry, VaultEntry<dynamic> oth
 /// account's user owner.
 ///
 /// Both entries go to be saved together, all or none: a link that is written to one end alone is what [mendedLinks] repairs.
-({VaultEntry<dynamic> a, VaultEntry<dynamic> b}) linkEntries(VaultEntry<dynamic> a, VaultEntry<dynamic> b, {required int now, Owner? account}) {
+({VaultEntry<dynamic> a, VaultEntry<dynamic> b}) linkEntries(
+  VaultEntry<dynamic> a,
+  VaultEntry<dynamic> b, {
+  required int now,
+  Owner? account,
+}) {
   final idA = linkIdOf(a, account: account);
   final idB = linkIdOf(b, account: account);
   final index = _Index([a, b], account);
@@ -282,7 +290,12 @@ VaultEntry<dynamic> _dropping(VaultEntry<dynamic> entry, VaultEntry<dynamic> oth
 /// [a] and [b] no longer linked: each loses the other from its links, and a code's `linkedLoginId` or a login's `accountId`
 /// that ties them is cleared, from whichever side it is asked. An end that wasn't linked is returned as it is, and the
 /// others are stamped [now].
-({VaultEntry<dynamic> a, VaultEntry<dynamic> b}) unlinkEntries(VaultEntry<dynamic> a, VaultEntry<dynamic> b, {required int now, Owner? account}) {
+({VaultEntry<dynamic> a, VaultEntry<dynamic> b}) unlinkEntries(
+  VaultEntry<dynamic> a,
+  VaultEntry<dynamic> b, {
+  required int now,
+  Owner? account,
+}) {
   final index = _Index([a, b], account);
   return (a: _dropping(a, b, index, now), b: _dropping(b, a, index, now));
 }

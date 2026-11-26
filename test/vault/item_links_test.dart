@@ -9,6 +9,7 @@ import 'package:kemlock_core/models/login.dart';
 import 'package:kemlock_core/models/otp_account.dart';
 import 'package:kemlock_core/models/payment_card.dart';
 import 'package:kemlock_core/models/secure_note.dart';
+import 'package:kemlock_core/models/vault_entry.dart';
 import 'package:kemlock_core/vault/item_links.dart';
 import 'package:test/test.dart';
 
@@ -112,7 +113,7 @@ void main() {
 
     test('clears the linkedLoginId of a code, from either side', () {
       const code = OtpAccount(id: _code, issuer: 'X', label: 'me', secret: 'S', linkedLoginId: _login, addedAt: 1);
-      for (final (a, b) in [(code, _l), (_l, code)]) {
+      for (final (a, b) in <(VaultEntry<dynamic>, VaultEntry<dynamic>)>[(code, _l), (_l, code)]) {
         final unlinked = unlinkEntries(a, b, now: 9);
         final cleared = (unlinked.a is OtpAccount ? unlinked.a : unlinked.b) as OtpAccount;
         expect(cleared.linkedLoginId, isNull);
@@ -210,9 +211,30 @@ void main() {
     test('has nothing to mend for a link both name, a link to nothing, or a tie of a code and its login', () {
       final both = linkEntries(_l, _n, now: 1);
       expect(mendedLinks(Lists(logins: [both.a as Login], notes: [both.b as SecureNote]), now: 5), isEmpty);
-      expect(mendedLinks(Lists(logins: [_l.withLinks([const ItemLink(_gone)])]), now: 5), isEmpty);
+      expect(
+        mendedLinks(
+          Lists(
+            logins: [
+              _l.withLinks([const ItemLink(_gone)]),
+            ],
+          ),
+          now: 5,
+        ),
+        isEmpty,
+      );
       const code = OtpAccount(id: _code, issuer: 'X', label: 'me', secret: 'S', linkedLoginId: _login, addedAt: 1);
-      expect(mendedLinks(Lists(logins: [_l.withLinks([const ItemLink(_code)])], accounts: const [code]), now: 5), isEmpty);
+      expect(
+        mendedLinks(
+          Lists(
+            logins: [
+              _l.withLinks([const ItemLink(_code)]),
+            ],
+            accounts: const [code],
+          ),
+          now: 5,
+        ),
+        isEmpty,
+      );
     });
   });
 }

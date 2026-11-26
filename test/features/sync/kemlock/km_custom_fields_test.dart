@@ -19,8 +19,18 @@ final _server = Uri.parse('https://kem.example.com');
 const _answer = {
   'fields': [
     {'id': '7d0f0000-0000-4000-8000-000000000001', 'name': 'Employee ID', 'type': 'text', 'kinds': 'all'},
-    {'id': '1b9e0000-0000-4000-8000-000000000002', 'name': 'Cost center', 'type': 'hidden', 'kinds': ['login', 'card']},
-    {'id': '2c000000-0000-4000-8000-000000000003', 'name': 'Remote', 'type': 'checkbox', 'kinds': ['note']},
+    {
+      'id': '1b9e0000-0000-4000-8000-000000000002',
+      'name': 'Cost center',
+      'type': 'hidden',
+      'kinds': ['login', 'card'],
+    },
+    {
+      'id': '2c000000-0000-4000-8000-000000000003',
+      'name': 'Remote',
+      'type': 'checkbox',
+      'kinds': ['note'],
+    },
   ],
   'allowOwn': false,
 };
@@ -114,7 +124,9 @@ void main() {
     });
 
     test('a server without the route offers none', () async {
-      final api = KmCustomFieldsApi(KmApi(MockClient((request) async => json({'type': 'urn:kemlock:problem:not-found', 'status': 404}, 404))));
+      final api = KmCustomFieldsApi(
+        KmApi(MockClient((request) async => json({'type': 'urn:kemlock:problem:not-found', 'status': 404}, 404))),
+      );
       final read = await api.list(_server, 'token-1');
       expect(read.fields, isEmpty);
       expect(read.allowOwn, isTrue);

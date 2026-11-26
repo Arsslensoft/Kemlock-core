@@ -86,16 +86,8 @@ class NoteAttachment {
   };
 
   /// This attachment with its digest set to [sha256], 64 lower-case hex digits.
-  NoteAttachment withSha256(String sha256) => NoteAttachment(
-    id: id,
-    name: name,
-    size: size,
-    type: type,
-    key: key,
-    addedAt: addedAt,
-    sha256: sha256,
-    extra: extra,
-  );
+  NoteAttachment withSha256(String sha256) =>
+      NoteAttachment(id: id, name: name, size: size, type: type, key: key, addedAt: addedAt, sha256: sha256, extra: extra);
 
   @override
   bool operator ==(Object other) => other is NoteAttachment && jsonEquals(toJson(), other.toJson());

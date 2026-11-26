@@ -183,4 +183,5 @@ Map<String, Object?> extraWithUrls(Map<String, Object?> extra, Websites before, 
 }
 
 bool _sameWebsites(Websites a, Websites b) =>
-    jsonEquals(a.websites, b.websites) && jsonEquals(a.uris?.map((rule) => rule.toJson()).toList(), b.uris?.map((rule) => rule.toJson()).toList());
+    jsonEquals(a.websites, b.websites) &&
+    jsonEquals(a.uris?.map((rule) => rule.toJson()).toList(), b.uris?.map((rule) => rule.toJson()).toList());

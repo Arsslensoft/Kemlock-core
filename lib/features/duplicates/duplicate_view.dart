@@ -6,12 +6,12 @@ library;
 import '../../models/backup_service.dart';
 import '../../models/contact.dart';
 import '../../models/identity.dart';
-import '../../models/vault_file.dart';
 import '../../models/login.dart';
 import '../../models/otp_account.dart';
 import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
+import '../../models/vault_file.dart';
 import '../../models/vault_key.dart';
 import 'duplicate_matcher.dart';
 

@@ -101,7 +101,12 @@ void main() {
       expect(w.server.files, hasLength(1));
 
       final small = await _sealed(10, name: 'b.txt');
-      final lacking = KmPhone(w.server, clock: w.clock, fileStore: FakeFileStore(), lists: Lists(files: [_item(_two, small.entry)]));
+      final lacking = KmPhone(
+        w.server,
+        clock: w.clock,
+        fileStore: FakeFileStore(),
+        lists: Lists(files: [_item(_two, small.entry)]),
+      );
       await lacking.run();
       expect(w.server.files, hasLength(1), reason: 'nothing to send: the bytes are not on this phone');
       expect(w.server.items[_two]!.revision, 1);
@@ -161,7 +166,12 @@ void main() {
       final store = FakeFileStore()
         ..files[first.entry.id] = first.sealed
         ..files[second.entry.id] = second.sealed;
-      final one = KmPhone(w.server, clock: w.clock, fileStore: store, lists: Lists(files: [_item(_one, first.entry)]));
+      final one = KmPhone(
+        w.server,
+        clock: w.clock,
+        fileStore: store,
+        lists: Lists(files: [_item(_one, first.entry)]),
+      );
       await one.run();
       final oldFile = w.server.files.keys.single;
 

@@ -419,11 +419,7 @@ class KmFiles {
   /// then saves the returned entry. A file that can't be read or sent (gone from the old item, too large, the wrong length)
   /// stays unnamed in the result and is listed in `failed` by its attachment id; the phone's own copy uploads it at a later
   /// run when it has one. A [KmError] that isn't about the file itself (no network, the session) is thrown.
-  Future<({KmEntry entry, List<String> failed})> resendFiles(
-    KmEntry entry, {
-    required String fromItemId,
-    required String toItemId,
-  }) async {
+  Future<({KmEntry entry, List<String> failed})> resendFiles(KmEntry entry, {required String fromItemId, required String toItemId}) async {
     final files = kmAttachmentsOf(entry);
     final out = <NoteAttachment>[];
     final failed = <String>[];

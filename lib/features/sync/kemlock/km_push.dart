@@ -58,14 +58,7 @@ Future<KmPushResult> kmPushItemWithFiles({
 
   Future<int> write(KmEntry next, int? expected) async {
     final stored = await server.send([
-      KmMoveWrite(
-        itemId: itemId,
-        entryId: entryId,
-        kind: next.kind,
-        revision: (expected ?? 0) + 1,
-        expected: expected,
-        json: next.json,
-      ),
+      KmMoveWrite(itemId: itemId, entryId: entryId, kind: next.kind, revision: (expected ?? 0) + 1, expected: expected, json: next.json),
     ]);
     return stored.single.revision;
   }
@@ -90,7 +83,4 @@ Future<KmPushResult> kmPushItemWithFiles({
   );
 }
 
-Set<String> _fileIds(KmEntry entry) => {
-  for (final file in kmAttachmentsOf(entry))
-    if (kmServerFileId(file) case final id?) id,
-};
+Set<String> _fileIds(KmEntry entry) => {for (final file in kmAttachmentsOf(entry)) ?kmServerFileId(file)};

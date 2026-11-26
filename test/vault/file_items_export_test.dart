@@ -42,9 +42,7 @@ void main() {
 
   group('an import', () {
     test('adds the File items the vault does not hold, by id, each once', () {
-      final preview = ImportPreview.of(
-        VaultExportPayload(accounts: const [], backupServices: const [], files: const [_lease, _lease]),
-      );
+      final preview = ImportPreview.of(VaultExportPayload(accounts: const [], backupServices: const [], files: const [_lease, _lease]));
 
       expect(newFiles(preview, const []), [_lease]);
       expect(newFiles(preview, const [_lease]), isEmpty);

@@ -29,7 +29,6 @@ import 'package:crypto/crypto.dart' as hash;
 import '../../../crypto/account/encoding.dart';
 import '../sync_merge.dart' show SyncDoc;
 import 'km_api.dart';
-import 'km_cache.dart';
 import 'km_files.dart';
 import 'km_kinds.dart';
 import 'km_move_plan.dart';

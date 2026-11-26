@@ -309,7 +309,9 @@ List<TagInput> documentTagInputs(Identity identity) {
   final numbers = <String>{
     for (final document in identity.documents ?? const <IdentityDocument>[]) ?normaliseDocumentNumber(document.number),
   };
-  return [for (final number in numbers) TagInput(TagKind.document, [number])];
+  return [
+    for (final number in numbers) TagInput(TagKind.document, [number]),
+  ];
 }
 
 /// The tag input of a contact: its email, trimmed, in NFC and in lower case as a username is, and its phone as its digits

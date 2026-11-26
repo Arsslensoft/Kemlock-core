@@ -41,7 +41,10 @@ Map<String, Object?> _json(Object? value) => jsonDecode(jsonEncode(value)) as Ma
 void main() {
   group('a sync document', () {
     test('without File items is written as it always was', () {
-      final doc = SyncDoc(accounts: [_account('a1')], deleted: [Tombstone(id: 'x', at: 5)]);
+      final doc = SyncDoc(
+        accounts: [_account('a1')],
+        deleted: [Tombstone(id: 'x', at: 5)],
+      );
 
       expect(doc.toJson().keys, ['accounts', 'backupServices', 'deleted']);
       expect(SyncDoc.fromJson(_json(doc.toJson())), doc);
@@ -68,7 +71,12 @@ void main() {
         addedAt: 9,
       );
 
-      final merged = mergeScope(Lists(files: [renamed]), [_lease.id], SyncDoc(files: const [_lease, other]), now: _now);
+      final merged = mergeScope(
+        Lists(files: [renamed]),
+        [_lease.id],
+        SyncDoc(files: const [_lease, other]),
+        now: _now,
+      );
 
       expect({for (final file in merged.doc.files) file.id: file.name}, {_lease.id: 'Lease 2026.pdf', other.id: 'Other'});
       expect(merged.known..sort(), [_lease.id, other.id]);

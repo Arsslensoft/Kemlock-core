@@ -320,7 +320,10 @@ List<VaultFile> newFiles(ImportPreview preview, List<VaultFile> current) {
 List<Contact> newContacts(ImportPreview preview, List<Contact> current) {
   String? fingerprint(Contact contact) => contactKeyInfo(contact)?.primary.fingerprintHex;
   final held = {for (final contact in current) ?fingerprint(contact)};
-  final keyless = {for (final contact in current) if (!contact.hasKey) contact.id};
+  final keyless = {
+    for (final contact in current)
+      if (!contact.hasKey) contact.id,
+  };
   bool isNew(Contact contact) {
     if (!contact.hasKey) return keyless.add(contact.id);
     final print = fingerprint(contact);

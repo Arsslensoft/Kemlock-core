@@ -516,7 +516,10 @@ bool sameDoc(SyncDoc a, SyncDoc b) {
       'identities': [
         for (final identity in _sortById([...doc.identities])) identity.toJson(),
       ],
-      if (doc.files.isNotEmpty) 'files': [for (final file in _sortById([...doc.files])) file.toJson()],
+      if (doc.files.isNotEmpty)
+        'files': [
+          for (final file in _sortById([...doc.files])) file.toJson(),
+        ],
       'deleted': [for (final tomb in deleted) tomb.toJson()],
     });
   }

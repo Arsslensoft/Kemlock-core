@@ -13,16 +13,15 @@ import 'package:kemlock_core/models/identity.dart';
 import 'package:kemlock_core/models/vault_key.dart';
 import 'package:test/test.dart';
 
-Identity _identity(String id, {String name = 'Zoe Muller', String email = 'zoe@example.org', List<String> documents = const []}) => Identity(
-  id: id,
-  name: 'Identity $id',
-  givenName: name,
-  email: email,
-  documents: [
-    for (final (index, number) in documents.indexed) IdentityDocument(id: '$id-$index', number: number),
-  ],
-  addedAt: 1,
-);
+Identity _identity(String id, {String name = 'Zoe Muller', String email = 'zoe@example.org', List<String> documents = const []}) =>
+    Identity(
+      id: id,
+      name: 'Identity $id',
+      givenName: name,
+      email: email,
+      documents: [for (final (index, number) in documents.indexed) IdentityDocument(id: '$id-$index', number: number)],
+      addedAt: 1,
+    );
 
 Contact _contact(String id, {String? email, String? phone, String publicKey = ''}) => Contact(
   id: id,
@@ -40,20 +39,21 @@ List<String> _groups(List<Object> entries, {KeyIdentityOf? keyIdentityOf}) {
   final result = refreshTags(cache, items, dedupOwners(cache, const []), keyIdentityOf: keyIdentityOf);
   final tags = {for (final MapEntry(:key, :value) in result.cache.owners.entries) key: value.items};
   final groups = findDuplicates(items: items, tags: tags, keyIdentityOf: keyIdentityOf);
-  return [
-    for (final group in groups) '${group.reason.name}: ${(group.items.map((item) => item.id).toList()..sort()).join(',')}',
-  ];
+  return [for (final group in groups) '${group.reason.name}: ${(group.items.map((item) => item.id).toList()..sort()).join(',')}'];
 }
 
 void main() {
   group('the tags of an identity', () {
     test('are one identity tag and one document tag for each document number, each once', () {
       final inputs = tagInputsOf(_identity('a', documents: ['X 1234-567', 'x1234567', 'P 99 88']));
-      expect([for (final input in inputs) input.array], [
-        ['identity', 'zoe muller', 'zoe@example.org'],
-        ['document', 'x1234567'],
-        ['document', 'p9988'],
-      ]);
+      expect(
+        [for (final input in inputs) input.array],
+        [
+          ['identity', 'zoe muller', 'zoe@example.org'],
+          ['document', 'x1234567'],
+          ['document', 'p9988'],
+        ],
+      );
     });
 
     test('leave out a document number of fewer than four letters and digits', () {
@@ -75,21 +75,49 @@ void main() {
     });
 
     test('with no document and the one identity with documents that shares them', () {
-      expect(_groups([_identity('a'), _identity('b', documents: ['X 1234-567'])]), ['sameIdentity: a,b']);
       expect(
-        _groups([_identity('a'), _identity('b'), _identity('c', documents: ['X 1234-567'])]),
+        _groups([
+          _identity('a'),
+          _identity('b', documents: ['X 1234-567']),
+        ]),
+        ['sameIdentity: a,b'],
+      );
+      expect(
+        _groups([
+          _identity('a'),
+          _identity('b'),
+          _identity('c', documents: ['X 1234-567']),
+        ]),
         ['sameIdentity: a,b,c'],
       );
     });
 
     test('of none of several that have documents, nor are two that have documents', () {
-      expect(_groups([_identity('a'), _identity('b', documents: ['X 1234-567']), _identity('c', documents: ['Y 7654-321'])]), isEmpty);
-      expect(_groups([_identity('a', documents: ['X 1234-567']), _identity('b', documents: ['Y 7654-321'])]), isEmpty);
+      expect(
+        _groups([
+          _identity('a'),
+          _identity('b', documents: ['X 1234-567']),
+          _identity('c', documents: ['Y 7654-321']),
+        ]),
+        isEmpty,
+      );
+      expect(
+        _groups([
+          _identity('a', documents: ['X 1234-567']),
+          _identity('b', documents: ['Y 7654-321']),
+        ]),
+        isEmpty,
+      );
     });
 
     test('but two without documents are still copies when others with documents share their name', () {
       expect(
-        _groups([_identity('a'), _identity('b'), _identity('c', documents: ['X 1234-567']), _identity('d', documents: ['Y 7654-321'])]),
+        _groups([
+          _identity('a'),
+          _identity('b'),
+          _identity('c', documents: ['X 1234-567']),
+          _identity('d', documents: ['Y 7654-321']),
+        ]),
         ['sameIdentity: a,b'],
       );
     });
@@ -97,9 +125,12 @@ void main() {
 
   group('contacts', () {
     test('make a tag of the email and the phone', () {
-      expect([for (final input in tagInputsOf(_contact('a', email: ' Alex.Chen@Example.ORG ', phone: '+1 (555) 0142'))) input.array], [
-        ['contact', 'alex.chen@example.org', '15550142'],
-      ]);
+      expect(
+        [for (final input in tagInputsOf(_contact('a', email: ' Alex.Chen@Example.ORG ', phone: '+1 (555) 0142'))) input.array],
+        [
+          ['contact', 'alex.chen@example.org', '15550142'],
+        ],
+      );
       expect(tagInputsOf(_contact('b', email: ' ', phone: 'call me')), isEmpty);
     });
 
@@ -144,7 +175,10 @@ void main() {
     });
 
     test('is told by the fingerprint its body stores, as normalised', () {
-      expect(dedupKeyIdentity(certificate({'fingerprint': 'ab:cd:ef:01:23:45:67:89:ab:cd:ef:01:23:45:67:89:ab:cd:ef:01'})), 'ABCDEF0123456789ABCDEF0123456789ABCDEF01');
+      expect(
+        dedupKeyIdentity(certificate({'fingerprint': 'ab:cd:ef:01:23:45:67:89:ab:cd:ef:01:23:45:67:89:ab:cd:ef:01'})),
+        'ABCDEF0123456789ABCDEF0123456789ABCDEF01',
+      );
     });
 
     test('makes no tag when the certificate cannot be read', () {

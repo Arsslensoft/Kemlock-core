@@ -38,11 +38,27 @@ final _links = <Object?>[
 /// A body the web vault wrote for each kind that takes custom fields, with `links` and `fields` added to it.
 final _bodies = <String, ({Map<String, Object?> json, Map<String, Object?> Function(Map<String, Object?>) read})>{
   'login': (
-    json: {'id': 'l1', 'name': 'Mail', 'username': 'ada', 'password': 'pw', 'websites': ['mail.example'], 'addedAt': 1},
+    json: {
+      'id': 'l1',
+      'name': 'Mail',
+      'username': 'ada',
+      'password': 'pw',
+      'websites': ['mail.example'],
+      'addedAt': 1,
+    },
     read: (json) => Login.fromJson(json).toJson(),
   ),
   'otp': (
-    json: {'id': 'o1', 'issuer': 'X', 'label': 'me', 'secret': 'JBSWY3DPEHPK3PXP', 'algorithm': 'SHA1', 'digits': 6, 'period': 30, 'addedAt': 1},
+    json: {
+      'id': 'o1',
+      'issuer': 'X',
+      'label': 'me',
+      'secret': 'JBSWY3DPEHPK3PXP',
+      'algorithm': 'SHA1',
+      'digits': 6,
+      'period': 30,
+      'addedAt': 1,
+    },
     read: (json) => OtpAccount.fromJson(json).toJson(),
   ),
   'backup-codes': (
@@ -57,7 +73,10 @@ final _bodies = <String, ({Map<String, Object?> json, Map<String, Object?> Funct
     read: (json) => BackupService.fromJson(json).toJson(),
   ),
   'note': (json: {'id': 'n1', 'title': 'T', 'text': 'x', 'addedAt': 1}, read: (json) => SecureNote.fromJson(json).toJson()),
-  'card': (json: {'id': 'c1', 'name': 'Visa', 'number': '4111111111111111', 'addedAt': 1}, read: (json) => PaymentCard.fromJson(json).toJson()),
+  'card': (
+    json: {'id': 'c1', 'name': 'Visa', 'number': '4111111111111111', 'addedAt': 1},
+    read: (json) => PaymentCard.fromJson(json).toJson(),
+  ),
   'identity': (json: {'id': 'i1', 'name': 'Me', 'email': 'me@example.org', 'addedAt': 1}, read: (json) => Identity.fromJson(json).toJson()),
   'contact': (
     json: {'id': 'k1', 'name': 'Ada', 'public': 'AAAA', 'source': 'file', 'addedAt': 1},
@@ -68,7 +87,17 @@ final _bodies = <String, ({Map<String, Object?> json, Map<String, Object?> Funct
     read: (json) => VaultKey.fromJson(json).toJson(),
   ),
   'key-otp': (
-    json: {'id': 'y1', 'device': 'd', 'name': 'X:me', 'issuer': '', 'label': 'me', 'period': 30, 'type': 'totp', 'algorithm': 'SHA1', 'addedAt': 1},
+    json: {
+      'id': 'y1',
+      'device': 'd',
+      'name': 'X:me',
+      'issuer': '',
+      'label': 'me',
+      'period': 30,
+      'type': 'totp',
+      'algorithm': 'SHA1',
+      'addedAt': 1,
+    },
     read: (json) => KeyAccount.fromJson(json).toJson(),
   ),
 };
@@ -122,7 +151,12 @@ void main() {
 
     test('copyWith changes the fields, and an edited field writes only what changed', () {
       final login = Login.fromJson({..._bodies['login']!.json, 'fields': _fields});
-      final edited = login.copyWith(fields: [login.fields.first.copyWith(value: 'E-2'), ...login.fields.skip(1)]);
+      final edited = login.copyWith(
+        fields: [
+          login.fields.first.copyWith(value: 'E-2'),
+          ...login.fields.skip(1),
+        ],
+      );
       final written = edited.toJson()['fields']! as List<Object?>;
       expect(written.first, {'name': 'Employee ID', 'value': 'E-2', 'kind': 'text', 'adminField': '7d0f2c8e-0000-4000-8000-000000000001'});
       expect(written.skip(1), _fields.skip(1));
@@ -178,7 +212,12 @@ void main() {
     });
 
     test('a login that never had urls does not gain them', () {
-      final login = Login.fromJson({'id': 'l1', 'name': 'Mail', 'websites': ['a.example'], 'addedAt': 1});
+      final login = Login.fromJson({
+        'id': 'l1',
+        'name': 'Mail',
+        'websites': ['a.example'],
+        'addedAt': 1,
+      });
       expect(login.copyWith(websites: ['b.example']).toJson().containsKey('urls'), isFalse);
     });
   });
@@ -247,7 +286,10 @@ void main() {
       expect(json['source'], 'manual');
       final read = Contact.fromJson(jsonDecode(jsonEncode(json)) as Map<String, Object?>);
       expect(read, contact);
-      expect((read.company, read.email, read.phone, read.address), ('Analytical Engines', 'ada@example.org', '+44 20 7946 0000', '12 Crown Row\nLondon'));
+      expect(
+        (read.company, read.email, read.phone, read.address),
+        ('Analytical Engines', 'ada@example.org', '+44 20 7946 0000', '12 Crown Row\nLondon'),
+      );
     });
 
     test('a body written before them has none of the new members', () {

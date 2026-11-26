@@ -397,7 +397,7 @@ void main() {
   group('files', () {
     const itemId = '3f2c9a71-e4b0-4856-8a00-000000000001';
 
-    test('a pre-signed address is never used: the bytes go to the server's own route, with the token', () async {
+    test("a pre-signed address is never used: the bytes go to the server's own route, with the token", () async {
       final seen = <http.Request>[];
       final api = _api((_) async => _json({}), seen: seen);
       final start = const KmFileStart(
