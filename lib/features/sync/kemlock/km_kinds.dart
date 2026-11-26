@@ -143,7 +143,7 @@ String _kindOfKey(Map<String, Object?> json) => switch (json['kind']) {
 
 /// The kind of the item [entry] is stored as: `login`, `otp`, `note`, `file`, `pgp-key` and so on, the one its list
 /// gives (see the table above). A key is told by its kind, and a key holding a certificate is a `certificate`.
-String itemKindOf(VaultEntry<dynamic> entry) => switch (entry) {
+String itemKindOf(VaultEntry<Object?> entry) => switch (entry) {
   OtpAccount() => KmKind.otp,
   BackupService() => KmKind.backupCodes,
   VaultKey() => _kindOfKey(entry.toJson()),

@@ -47,7 +47,7 @@ class LinkedItem {
   final String id;
 
   /// The entry that is linked; null when the vault holds none with that id ("item not available"). The link is kept.
-  final VaultEntry<dynamic>? entry;
+  final VaultEntry<Object?>? entry;
 
   /// Only one end names the other (a write that failed halfway): [mendedLinks] writes the other end.
   final bool oneWay;
@@ -58,7 +58,7 @@ class LinkedItem {
 }
 
 /// Every entry of [lists], of every kind, files included.
-List<VaultEntry<dynamic>> entriesOf(Lists lists) => [
+List<VaultEntry<Object?>> entriesOf(Lists lists) => [
   ...lists.accounts,
   ...lists.backupServices,
   ...lists.keys,
@@ -74,7 +74,7 @@ List<VaultEntry<dynamic>> entriesOf(Lists lists) => [
 
 /// The owner an entry's item id is made for: its space when it is in one, else [account] (the Kemlock Server account's
 /// user owner), which is null when there is none.
-Owner? _ownerOf(VaultEntry<dynamic> entry, Owner? account) {
+Owner? _ownerOf(VaultEntry<Object?> entry, Owner? account) {
   final space = entry.spaceId;
   if (space != null && space.isNotEmpty) {
     try {
@@ -89,7 +89,7 @@ Owner? _ownerOf(VaultEntry<dynamic> entry, Owner? account) {
 /// The id [entry] is linked by: its item id, `kmItemId(entry.id, owner)`, which is the entry's id for a UUID. The owner is
 /// the entry's space, else [account]. Without an owner an entry whose id isn't a UUID can't be given one, and its own id
 /// comes back, which is not a UUID.
-String linkIdOf(VaultEntry<dynamic> entry, {Owner? account}) {
+String linkIdOf(VaultEntry<Object?> entry, {Owner? account}) {
   final id = entry.id;
   final owner = _ownerOf(entry, account);
   if (owner == null) {
@@ -106,7 +106,7 @@ String linkIdOf(VaultEntry<dynamic> entry, {Owner? account}) {
 bool isLinkId(String id) => _uuid.hasMatch(id);
 
 /// The ids that name [entry] in a link or in `linkedLoginId`, lower case: its item id and its own id.
-Set<String> _namesOf(VaultEntry<dynamic> entry, Owner? account) => {
+Set<String> _namesOf(VaultEntry<Object?> entry, Owner? account) => {
   linkIdOf(entry, account: account).toLowerCase(),
   entry.id.toLowerCase(),
 };
@@ -121,18 +121,18 @@ class _Index {
     }
   }
 
-  final List<VaultEntry<dynamic>> all;
+  final List<VaultEntry<Object?>> all;
   final Owner? account;
-  final byName = <String, VaultEntry<dynamic>>{};
+  final byName = <String, VaultEntry<Object?>>{};
 
-  VaultEntry<dynamic>? operator [](String id) => byName[id.toLowerCase()];
+  VaultEntry<Object?>? operator [](String id) => byName[id.toLowerCase()];
 
-  Set<String> names(VaultEntry<dynamic> entry) => _namesOf(entry, account);
+  Set<String> names(VaultEntry<Object?> entry) => _namesOf(entry, account);
 }
 
 /// Whether the code and the login [a] and [b] are tied by the code's `linkedLoginId` or the login's `accountId`.
-bool _legacyLinked(VaultEntry<dynamic> a, VaultEntry<dynamic> b, _Index index) {
-  bool tied(VaultEntry<dynamic> code, VaultEntry<dynamic> login) =>
+bool _legacyLinked(VaultEntry<Object?> a, VaultEntry<Object?> b, _Index index) {
+  bool tied(VaultEntry<Object?> code, VaultEntry<Object?> login) =>
       code is OtpAccount &&
       login is Login &&
       ((code.linkedLoginId != null && index.names(login).contains(code.linkedLoginId!.toLowerCase())) || login.accountId == code.id);
@@ -140,7 +140,7 @@ bool _legacyLinked(VaultEntry<dynamic> a, VaultEntry<dynamic> b, _Index index) {
 }
 
 /// Whether [from] names [to] in its `links`.
-bool _names(VaultEntry<dynamic> from, VaultEntry<dynamic> to, _Index index) => from.links.ids.any(index.names(to).contains);
+bool _names(VaultEntry<Object?> from, VaultEntry<Object?> to, _Index index) => from.links.ids.any(index.names(to).contains);
 
 /// The items [entry] is linked to, by the three ways a link is written, in the order of their ids:
 ///
@@ -151,12 +151,12 @@ bool _names(VaultEntry<dynamic> from, VaultEntry<dynamic> to, _Index index) => f
 ///
 /// A link naming no entry [lists] holds is returned with a null entry. [account] is the Kemlock Server account's user
 /// owner, which a legacy entry id needs to be given its item id; entries in a space use the space.
-List<LinkedItem> linkedItemsOf(Lists lists, VaultEntry<dynamic> entry, {Owner? account}) {
+List<LinkedItem> linkedItemsOf(Lists lists, VaultEntry<Object?> entry, {Owner? account}) {
   final index = _Index(entriesOf(lists), account);
   final mine = index.names(entry);
   final found = <String, _Found>{};
 
-  _Found at(String id, VaultEntry<dynamic>? target) {
+  _Found at(String id, VaultEntry<Object?>? target) {
     final key = target == null ? id.toLowerCase() : linkIdOf(target, account: account).toLowerCase();
     return found.putIfAbsent(key, () => _Found(key, target));
   }
@@ -203,14 +203,14 @@ class _Found {
   _Found(this.id, this.entry);
 
   final String id;
-  final VaultEntry<dynamic>? entry;
+  final VaultEntry<Object?>? entry;
   bool forward = false;
   bool reverse = false;
   bool legacy = false;
 }
 
 /// A copy of [entry] linked to [links], by its kind's own `withLinks`.
-VaultEntry<dynamic> _withLinks(VaultEntry<dynamic> entry, List<ItemLink> links) => switch (entry) {
+VaultEntry<Object?> _withLinks(VaultEntry<Object?> entry, List<ItemLink> links) => switch (entry) {
   final OtpAccount entry => entry.withLinks(links),
   final BackupService entry => entry.withLinks(links),
   final VaultKey entry => entry.withLinks(links),
@@ -226,7 +226,7 @@ VaultEntry<dynamic> _withLinks(VaultEntry<dynamic> entry, List<ItemLink> links) 
 };
 
 /// [entry] marked as changed [at].
-VaultEntry<dynamic> _stamped(VaultEntry<dynamic> entry, int at) => switch (entry) {
+VaultEntry<Object?> _stamped(VaultEntry<Object?> entry, int at) => switch (entry) {
   final OtpAccount entry => entry.stamped(at),
   final BackupService entry => entry.stamped(at),
   final VaultKey entry => entry.stamped(at),
@@ -242,12 +242,12 @@ VaultEntry<dynamic> _stamped(VaultEntry<dynamic> entry, int at) => switch (entry
 };
 
 /// [entry] naming [id] in its links, or as it is when it does already.
-VaultEntry<dynamic> _naming(VaultEntry<dynamic> entry, String id, int now) =>
+VaultEntry<Object?> _naming(VaultEntry<Object?> entry, String id, int now) =>
     entry.links.names(id) ? entry : _stamped(_withLinks(entry, [...entry.links, ItemLink(id.toLowerCase())]), now);
 
 /// [entry] with every name of the other entry out of its links, and its own `linkedLoginId` or `accountId` cleared when
 /// that is what ties it to [other].
-VaultEntry<dynamic> _dropping(VaultEntry<dynamic> entry, VaultEntry<dynamic> other, _Index index, int now) {
+VaultEntry<Object?> _dropping(VaultEntry<Object?> entry, VaultEntry<Object?> other, _Index index, int now) {
   final others = index.names(other);
   var next = entry;
   if (entry.links.readable.any((link) => others.contains(link.key))) {
@@ -272,9 +272,9 @@ VaultEntry<dynamic> _dropping(VaultEntry<dynamic> entry, VaultEntry<dynamic> oth
 /// account's user owner.
 ///
 /// Both entries go to be saved together, all or none: a link that is written to one end alone is what [mendedLinks] repairs.
-({VaultEntry<dynamic> a, VaultEntry<dynamic> b}) linkEntries(
-  VaultEntry<dynamic> a,
-  VaultEntry<dynamic> b, {
+({VaultEntry<Object?> a, VaultEntry<Object?> b}) linkEntries(
+  VaultEntry<Object?> a,
+  VaultEntry<Object?> b, {
   required int now,
   Owner? account,
 }) {
@@ -290,9 +290,9 @@ VaultEntry<dynamic> _dropping(VaultEntry<dynamic> entry, VaultEntry<dynamic> oth
 /// [a] and [b] no longer linked: each loses the other from its links, and a code's `linkedLoginId` or a login's `accountId`
 /// that ties them is cleared, from whichever side it is asked. An end that wasn't linked is returned as it is, and the
 /// others are stamped [now].
-({VaultEntry<dynamic> a, VaultEntry<dynamic> b}) unlinkEntries(
-  VaultEntry<dynamic> a,
-  VaultEntry<dynamic> b, {
+({VaultEntry<Object?> a, VaultEntry<Object?> b}) unlinkEntries(
+  VaultEntry<Object?> a,
+  VaultEntry<Object?> b, {
   required int now,
   Owner? account,
 }) {
@@ -303,10 +303,10 @@ VaultEntry<dynamic> _dropping(VaultEntry<dynamic> entry, VaultEntry<dynamic> oth
 /// The entries of [lists] to save so that every link that only one end names has both: the other end, which the vault
 /// holds, now names it too, stamped [now]. A link naming no entry the vault holds is left as it is, and so is a pair that a
 /// code's `linkedLoginId` or a login's `accountId` ties. Empty when nothing needs mending.
-List<VaultEntry<dynamic>> mendedLinks(Lists lists, {required int now, Owner? account}) {
+List<VaultEntry<Object?>> mendedLinks(Lists lists, {required int now, Owner? account}) {
   final index = _Index(entriesOf(lists), account);
-  final changed = <VaultEntry<dynamic>, VaultEntry<dynamic>>{};
-  VaultEntry<dynamic> current(VaultEntry<dynamic> entry) => changed[entry] ?? entry;
+  final changed = <VaultEntry<Object?>, VaultEntry<Object?>>{};
+  VaultEntry<Object?> current(VaultEntry<Object?> entry) => changed[entry] ?? entry;
   for (final from in index.all) {
     for (final link in from.links.readable) {
       final to = index[link.key];
