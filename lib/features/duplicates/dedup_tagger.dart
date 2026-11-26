@@ -19,6 +19,7 @@ import '../../models/otp_account.dart';
 import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
+import '../../models/vault_file.dart';
 import '../../models/vault_key.dart';
 import 'dedup_cache.dart';
 import 'duplicate_normalise.dart';
@@ -53,6 +54,7 @@ List<DedupItem> dedupItems({
   List<PaymentCard> cards = const [],
   List<Identity> identities = const [],
   List<Contact> contacts = const [],
+  List<VaultFile> files = const [],
 }) => [
   for (final item in accounts) DedupItem(item, id: item.id, changedAt: item.changedAt, spaceId: item.spaceId),
   for (final item in services) DedupItem(item, id: item.id, changedAt: item.changedAt, spaceId: item.spaceId),
@@ -63,6 +65,7 @@ List<DedupItem> dedupItems({
   for (final item in cards) DedupItem(item, id: item.id, changedAt: item.changedAt, spaceId: item.spaceId),
   for (final item in identities) DedupItem(item, id: item.id, changedAt: item.changedAt, spaceId: item.spaceId),
   for (final item in contacts) DedupItem(item, id: item.id, changedAt: item.changedAt, spaceId: item.spaceId),
+  for (final item in files) DedupItem(item, id: item.id, changedAt: item.changedAt, spaceId: item.spaceId),
 ];
 
 /// One owner of items and the key its tags are made under: the vault's own items, or a space's.

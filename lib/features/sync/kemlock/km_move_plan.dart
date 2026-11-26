@@ -51,12 +51,17 @@ class KmMoveItem {
   String toString() => 'KmMoveItem($kind, $entryId -> $itemId)';
 }
 
-/// A file a moved note names.
+/// A file a moved note or File item names.
 class KmMoveFile {
-  const KmMoveFile({required this.itemId, required this.noteId, required this.file});
+  const KmMoveFile({required this.itemId, required this.noteId, required this.file, this.kind = KmKind.note});
 
   final String itemId;
+
+  /// The id of the entry that names the file: a note's, or a File item's (the name says note for the notes it began with).
   final String noteId;
+
+  /// [KmKind.note] or [KmKind.file].
+  final String kind;
   final NoteAttachment file;
 }
 
@@ -67,7 +72,7 @@ class KmMovePlan {
   /// At most [KmApi.batchSize] items each, in kind order.
   final List<List<KmMoveItem>> batches;
 
-  /// Every file the moved notes name.
+  /// Every file the moved notes and File items name.
   final List<KmMoveFile> files;
 
   /// Every item, in order.
@@ -119,6 +124,10 @@ KmMovePlan planKmMove(Lists own, Owner owner, {int batchSize = KmApi.batchSize})
     for (final file in note.files) {
       files.add(KmMoveFile(itemId: kmItemId(note.id, owner), noteId: note.id, file: file));
     }
+  }
+  for (final item in own.files) {
+    if (item.id.isEmpty) continue;
+    files.add(KmMoveFile(itemId: kmItemId(item.id, owner), noteId: item.id, file: item.file, kind: KmKind.file));
   }
   final ordered = [for (final rank in ranked.keys.toList()..sort()) ...ranked[rank]!];
   return KmMovePlan(

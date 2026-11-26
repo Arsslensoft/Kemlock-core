@@ -16,8 +16,10 @@
 ///    once the written document no longer names them. A phone never
 ///    deletes a file it didn't remove: one nothing names yet may belong to
 ///    a document another phone is about to write.
-/// 5. Hand the files the merged notes name and the phone lacks to the
+/// 5. Hand the files the merged notes and File items name and the phone lacks to the
 ///    downloads, outside the run.
+///
+/// A File item's file travels as a note's attachment does, by its id.
 library;
 
 import 'dart:typed_data';
@@ -38,8 +40,11 @@ const fileIdsKey = 'files';
 /// the folder hasn't gone through yet.
 const removedFilesKey = 'removedFiles';
 
-/// The attachments [lists]' notes name.
-Iterable<NoteAttachment> attachmentsOf(Lists lists) => [for (final note in lists.notes) ...note.files];
+/// The attachments [lists]' notes name, and the file of each File item.
+Iterable<NoteAttachment> attachmentsOf(Lists lists) => [
+  for (final note in lists.notes) ...note.files,
+  for (final item in lists.files) item.file,
+];
 
 /// Steps 1, 2 and 4 of a scope's run, for one vault's files.
 class AttachmentSync {

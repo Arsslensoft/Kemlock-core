@@ -83,4 +83,5 @@ Lists rescopedTo(Lists lists, String space) => Lists(
   logins: [for (final entry in lists.logins) entry.inSpace(space)],
   cards: [for (final entry in lists.cards) entry.inSpace(space)],
   identities: [for (final entry in lists.identities) entry.inSpace(space)],
+  files: [for (final entry in lists.files) entry.inSpace(space)],
 );

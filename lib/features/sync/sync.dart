@@ -446,6 +446,7 @@ SyncDoc _counted(SyncDoc doc, int seq) => SyncDoc(
   logins: doc.logins,
   cards: doc.cards,
   identities: doc.identities,
+  files: doc.files,
   deleted: doc.deleted,
   seq: seq,
   extra: doc.extra,

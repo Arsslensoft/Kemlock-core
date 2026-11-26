@@ -18,6 +18,7 @@ import '../models/otp_account.dart';
 import '../models/passkey.dart';
 import '../models/payment_card.dart';
 import '../models/secure_note.dart';
+import '../models/vault_file.dart';
 import '../models/vault_key.dart';
 import '../platform/unlock_keys_interface.dart';
 import 'biometrics_interface.dart';
@@ -48,6 +49,9 @@ const _keyCardData = 'backmycodes_card_data';
 
 /// The vault's identities, kept the same way and only once there is one.
 const _keyIdentityData = 'backmycodes_identity_data';
+
+/// The vault's File items (each holds one attached file), kept the same way and only once there is one.
+const _keyFileData = 'backmycodes_file_data';
 
 /// The passwords AutoFill generated that no saved login holds, kept the same
 /// way for 30 days; never synced or exported.
@@ -1477,6 +1481,14 @@ class VaultStore {
 
   Future<void> saveIdentities(List<Identity> identities, VaultSession session) =>
       saveEncryptedValue(_keyIdentityData, [for (final identity in identities) identity.toJson()], session);
+
+  /// The active vault's File items, an empty list when none are saved yet.
+  Future<List<VaultFile>> loadFiles(VaultSession session) async => [
+    for (final json in await _loadList(_keyFileData, session)) VaultFile.fromJson(json! as Map<String, Object?>),
+  ];
+
+  Future<void> saveFiles(List<VaultFile> files, VaultSession session) =>
+      saveEncryptedValue(_keyFileData, [for (final file in files) file.toJson()], session);
 
   /// The passwords AutoFill generated that no saved login holds, an empty list when none.
   Future<List<GeneratedPassword>> loadGenerated(VaultSession session) async => [

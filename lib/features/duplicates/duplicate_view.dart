@@ -6,6 +6,7 @@ library;
 import '../../models/backup_service.dart';
 import '../../models/contact.dart';
 import '../../models/identity.dart';
+import '../../models/vault_file.dart';
 import '../../models/login.dart';
 import '../../models/otp_account.dart';
 import '../../models/passkey.dart';
@@ -54,6 +55,7 @@ String duplicateName(Object item) => switch (item) {
   Contact(:final name) => name,
   PaymentCard(:final name) => name,
   Identity(:final name) => name,
+  VaultFile(:final name) => name,
   _ => '',
 };
 

@@ -89,6 +89,7 @@ List<PlacedImport> placeImport(ImportPreview preview, ImportDestinations destina
       logins: of(preview.logins, (entry) => entry.id, destination),
       cards: of(preview.cards, (entry) => entry.id, destination),
       identities: of(preview.identities, (entry) => entry.id, destination),
+      files: of(preview.files, (entry) => entry.id, destination),
       unitOf: preview.unitOf,
       units: preview.units,
     );
@@ -102,7 +103,8 @@ List<PlacedImport> placeImport(ImportPreview preview, ImportDestinations destina
         part.contacts.isEmpty &&
         part.logins.isEmpty &&
         part.cards.isEmpty &&
-        part.identities.isEmpty;
+        part.identities.isEmpty &&
+        part.files.isEmpty;
     if (!empty) {
       placed.add((destination: destination, preview: part));
     }
@@ -125,6 +127,7 @@ List<PlacedImport> placeImport(ImportPreview preview, ImportDestinations destina
       logins: first.preview.logins,
       cards: first.preview.cards,
       identities: first.preview.identities,
+      files: first.preview.files,
       skips: preview.skips,
       notices: preview.notices,
       units: preview.units,
