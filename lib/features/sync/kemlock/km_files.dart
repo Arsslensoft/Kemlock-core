@@ -99,6 +99,7 @@ class KmFiles {
             type: file.type,
             key: file.key,
             addedAt: file.addedAt,
+            sha256: file.sha256,
             extra: {...file.extra, kmFileKey: fileId},
           ),
         );
