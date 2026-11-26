@@ -47,3 +47,9 @@ bool? asBool(Object? value) => value is bool ? value : null;
 List<String>? asStrings(Object? value) => value is List ? value.whereType<String>().toList() : null;
 
 String? asOptionalString(Object? value) => value is String ? value : null;
+
+/// The keys of [json] outside [known], and outside `links` and `fields` when a model reads them: those that
+/// are lists. A member of another shape stays among the keys the model doesn't know, written back as it was.
+/// [fields] is false for a kind that has no custom fields.
+Map<String, Object?> extraKeysOfBody(Map<String, Object?> json, Set<String> known, {bool fields = true}) =>
+    extraKeys(json, {...known, if (json['links'] is List) 'links', if (fields && json['fields'] is List) 'fields'});

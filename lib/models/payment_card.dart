@@ -1,3 +1,5 @@
+import 'custom_field.dart';
+import 'item_link.dart';
 import 'json.dart';
 import 'vault_entry.dart';
 
@@ -59,6 +61,8 @@ class PaymentCard implements VaultEntry<PaymentCard> {
     this.source,
     required this.addedAt,
     this.updatedAt,
+    this.links = const [],
+    this.fields = const [],
     this.extra = const {},
   });
 
@@ -81,7 +85,9 @@ class PaymentCard implements VaultEntry<PaymentCard> {
     source: asOptionalString(json['source']),
     addedAt: asInt(json['addedAt']) ?? 0,
     updatedAt: asInt(json['updatedAt']),
-    extra: extraKeys(json, _keys),
+    links: readLinks(json['links']),
+    fields: readFields(json['fields']),
+    extra: extraKeysOfBody(json, _keys),
   );
 
   static const _keys = {
@@ -150,6 +156,13 @@ class PaymentCard implements VaultEntry<PaymentCard> {
   /// Epoch ms of the last change, so sync can tell which copy is newer.
   final int? updatedAt;
 
+  /// The items linked to this one, as a body holds them (see [ItemLink]); none when it holds no `links`.
+  @override
+  final List<ItemLink> links;
+
+  /// The custom fields (see [CustomField]); none when it holds no `fields`.
+  final List<CustomField> fields;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
@@ -195,6 +208,8 @@ class PaymentCard implements VaultEntry<PaymentCard> {
     'source': ?source,
     'addedAt': addedAt,
     'updatedAt': ?updatedAt,
+    'links': ?writeLinks(links),
+    'fields': ?writeFields(fields),
     ...extra,
   };
 
@@ -218,6 +233,8 @@ class PaymentCard implements VaultEntry<PaymentCard> {
     Object? source = keep,
     int? addedAt,
     Object? updatedAt = keep,
+    List<ItemLink>? links,
+    List<CustomField>? fields,
   }) => PaymentCard(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -237,6 +254,8 @@ class PaymentCard implements VaultEntry<PaymentCard> {
     source: pick(source, this.source),
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
+    links: links ?? this.links,
+    fields: fields ?? this.fields,
     extra: extra,
   );
 
@@ -248,6 +267,11 @@ class PaymentCard implements VaultEntry<PaymentCard> {
 
   @override
   int get changedAt => updatedAt ?? addedAt;
+
+  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself.
+  /// It is not stamped.
+  @override
+  PaymentCard withLinks(List<ItemLink> links) => copyWith(links: normaliseLinks(links, ownIds: [id]));
 
   @override
   PaymentCard stamped(int at) => copyWith(updatedAt: at);

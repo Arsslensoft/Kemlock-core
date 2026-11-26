@@ -1,3 +1,5 @@
+import 'custom_field.dart';
+import 'item_link.dart';
 import 'json.dart';
 import 'vault_entry.dart';
 
@@ -48,6 +50,8 @@ class KeyAccount implements VaultEntry<KeyAccount> {
     this.note,
     required this.addedAt,
     this.updatedAt,
+    this.links = const [],
+    this.fields = const [],
     this.extra = const {},
   });
 
@@ -66,7 +70,9 @@ class KeyAccount implements VaultEntry<KeyAccount> {
     note: asOptionalString(json['note']),
     addedAt: asInt(json['addedAt']) ?? 0,
     updatedAt: asInt(json['updatedAt']),
-    extra: extraKeys(json, _keys),
+    links: readLinks(json['links']),
+    fields: readFields(json['fields']),
+    extra: extraKeysOfBody(json, _keys),
   );
 
   /// The keys this version reads, and the three it never keeps.
@@ -127,6 +133,13 @@ class KeyAccount implements VaultEntry<KeyAccount> {
   final int addedAt;
   final int? updatedAt;
 
+  /// The items linked to this one, as a body holds them (see [ItemLink]); none when it holds no `links`.
+  @override
+  final List<ItemLink> links;
+
+  /// The custom fields (see [CustomField]); none when it holds no `fields`.
+  final List<CustomField> fields;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
@@ -151,6 +164,8 @@ class KeyAccount implements VaultEntry<KeyAccount> {
     'note': ?note,
     'addedAt': addedAt,
     'updatedAt': ?updatedAt,
+    'links': ?writeLinks(links),
+    'fields': ?writeFields(fields),
     ...extra,
   };
 
@@ -170,6 +185,8 @@ class KeyAccount implements VaultEntry<KeyAccount> {
     Object? note = keep,
     int? addedAt,
     Object? updatedAt = keep,
+    List<ItemLink>? links,
+    List<CustomField>? fields,
   }) => KeyAccount(
     id: id ?? this.id,
     device: device ?? this.device,
@@ -185,6 +202,8 @@ class KeyAccount implements VaultEntry<KeyAccount> {
     note: pick(note, this.note),
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
+    links: links ?? this.links,
+    fields: fields ?? this.fields,
     extra: extra,
   );
 
@@ -200,6 +219,11 @@ class KeyAccount implements VaultEntry<KeyAccount> {
   /// An on-key account belongs to the vault alone, never to a shared space.
   @override
   String? get spaceId => null;
+
+  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself.
+  /// It is not stamped.
+  @override
+  KeyAccount withLinks(List<ItemLink> links) => copyWith(links: normaliseLinks(links, ownIds: [id]));
 
   @override
   KeyAccount stamped(int at) => copyWith(updatedAt: at);

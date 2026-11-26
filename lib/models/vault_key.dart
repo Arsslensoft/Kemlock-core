@@ -1,3 +1,5 @@
+import 'custom_field.dart';
+import 'item_link.dart';
 import 'json.dart';
 import 'vault_entry.dart';
 
@@ -59,6 +61,8 @@ class VaultKey implements VaultEntry<VaultKey> {
     required this.addedAt,
     this.updatedAt,
     this.card,
+    this.links = const [],
+    this.fields = const [],
     this.extra = const {},
   });
 
@@ -79,7 +83,9 @@ class VaultKey implements VaultEntry<VaultKey> {
     addedAt: asInt(json['addedAt']) ?? 0,
     updatedAt: asInt(json['updatedAt']),
     card: json['card'] is Map ? Map<String, Object?>.from(json['card']! as Map) : null,
-    extra: extraKeys(json, {..._keys, if (json['card'] is Map) 'card'}),
+    links: readLinks(json['links']),
+    fields: readFields(json['fields']),
+    extra: extraKeysOfBody(json, {..._keys, if (json['card'] is Map) 'card'}),
   );
 
   static const _keys = {
@@ -146,6 +152,13 @@ class VaultKey implements VaultEntry<VaultKey> {
   /// key. It is not one of the halves, and may change.
   final Map<String, Object?>? card;
 
+  /// The items linked to this one, as a body holds them (see [ItemLink]); none when it holds no `links`.
+  @override
+  final List<ItemLink> links;
+
+  /// The custom fields (see [CustomField]); none when it holds no `fields`.
+  final List<CustomField> fields;
+
   /// Keys this version doesn't know, kept as they were.
   final Map<String, Object?> extra;
 
@@ -173,6 +186,8 @@ class VaultKey implements VaultEntry<VaultKey> {
     'addedAt': addedAt,
     'updatedAt': ?updatedAt,
     'card': ?card,
+    'links': ?writeLinks(links),
+    'fields': ?writeFields(fields),
     ...extra,
   };
 
@@ -189,6 +204,8 @@ class VaultKey implements VaultEntry<VaultKey> {
     int? addedAt,
     Object? updatedAt = keep,
     Object? card = keep,
+    List<ItemLink>? links,
+    List<CustomField>? fields,
   }) => VaultKey(
     id: id ?? this.id,
     name: name ?? this.name,
@@ -206,6 +223,8 @@ class VaultKey implements VaultEntry<VaultKey> {
     addedAt: addedAt ?? this.addedAt,
     updatedAt: pick(updatedAt, this.updatedAt),
     card: pick(card, this.card),
+    links: links ?? this.links,
+    fields: fields ?? this.fields,
     extra: extra,
   );
 
@@ -231,6 +250,8 @@ class VaultKey implements VaultEntry<VaultKey> {
     addedAt: addedAt,
     updatedAt: at,
     card: card,
+    links: links,
+    fields: fields,
     extra: extra,
   );
 
@@ -259,12 +280,19 @@ class VaultKey implements VaultEntry<VaultKey> {
       addedAt: addedAt,
       updatedAt: updatedAt,
       card: card,
+      links: links,
+      fields: fields,
       extra: extra,
     );
   }
 
   @override
   int get changedAt => updatedAt ?? addedAt;
+
+  /// A copy that links to [links] and no other item: they are sorted by id, each once, and never the item itself.
+  /// It is not stamped.
+  @override
+  VaultKey withLinks(List<ItemLink> links) => copyWith(links: normaliseLinks(links, ownIds: [id]));
 
   @override
   VaultKey stamped(int at) => copyWith(updatedAt: at);

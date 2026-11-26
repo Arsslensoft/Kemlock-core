@@ -162,3 +162,25 @@ Websites websitesOf(List<WebsiteRule> rules) {
   if (rules.isEmpty) return (websites: null, uris: null);
   return (websites: fillHosts(rules), uris: needsUris(rules) ? rules : null);
 }
+
+/// The websites as a login's `urls` member holds them (`crypto.md`, "Login websites"): the addresses of [rules] in order,
+/// without the regular expressions.
+List<String> urlsOf(List<WebsiteRule> rules) => [
+  for (final rule in rules)
+    if (rule.match != WebsiteMatch.regularExpression) rule.uri,
+];
+
+/// [extra] with its `urls` in step with the websites [changed] to, for an item whose websites were edited: the web vault's
+/// own key, written beside `websites` and `uris`, would otherwise go stale. It is done only when the body already held
+/// `urls` as a list, and only when [changed] differs from [before]; an item nobody edited, or one that never had `urls`,
+/// is written exactly as it was.
+Map<String, Object?> extraWithUrls(Map<String, Object?> extra, Websites before, Websites changed) {
+  if (extra['urls'] is! List || _sameWebsites(before, changed)) {
+    return extra;
+  }
+  final rules = changed.uris ?? [for (final host in changed.websites ?? const <String>[]) WebsiteRule(host)];
+  return {...extra, 'urls': urlsOf(rules)};
+}
+
+bool _sameWebsites(Websites a, Websites b) =>
+    jsonEquals(a.websites, b.websites) && jsonEquals(a.uris?.map((rule) => rule.toJson()).toList(), b.uris?.map((rule) => rule.toJson()).toList());
