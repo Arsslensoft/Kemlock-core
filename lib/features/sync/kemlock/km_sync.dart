@@ -243,7 +243,7 @@ class KmScopeSync {
     await _resolve(joined.ids, plan.writes);
     final files = this.files;
     if (files != null) {
-      // A file goes up once its note's item is on the server, and the note is written again naming it
+      // A file goes up once its note's or File item's item is on the server, and the item is written again naming it
       final stamped = await files.upload(
         doc,
         now: now,
@@ -674,14 +674,16 @@ class KmScopeSync {
     );
   }
 
-  /// The server's file ids each applied note of [cache] names, by its item id.
+  /// The server's file ids each applied note or File item of [cache] names, by its item id.
   Map<String, Set<String>> _fileIds(KmCache cache) => {
     for (final MapEntry(:key, :value) in cache.items.entries)
-      if (value.kind == KmKind.note && value.applied)
+      if ((value.kind == KmKind.note || value.kind == KmKind.file) && value.applied)
         key: {
           if (value.entry!['attachments'] case final List<Object?> files)
             for (final file in files.whereType<Map<String, Object?>>())
               if (file[kmFileKey] case final String id when id.isNotEmpty) id,
+          if (value.entry!['file'] case final Map<String, Object?> file)
+            if (file[kmFileKey] case final String id when id.isNotEmpty) id,
         },
   };
 
