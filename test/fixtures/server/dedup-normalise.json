@@ -654,6 +654,224 @@
       "tags": [
         "2fda2418678bae438c707c30e6c118e82c3a7083057985f617c94e780e50bbc5"
       ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"key\",\"ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226b6579222c2241424344454630313233343536373839414243444546303132333435363738394142434445463031323334353637383941424344454630313233343536373839225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "key-certificate-sha256-colons",
+      "raw": {
+        "fingerprint": "AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89:AB:CD:EF:01:23:45:67:89"
+      },
+      "tag": "key",
+      "tags": [
+        "9c79de117009c2f12ea16c3dda2b8a1828fab1230176fefe71d17d0a1cc834e8"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"key\",\"ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226b6579222c2241424344454630313233343536373839414243444546303132333435363738394142434445463031323334353637383941424344454630313233343536373839225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "key-certificate-sha256-lower-case-no-colons",
+      "raw": {
+        "fingerprint": "abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789"
+      },
+      "tag": "key",
+      "tags": [
+        "9c79de117009c2f12ea16c3dda2b8a1828fab1230176fefe71d17d0a1cc834e8"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"key\",\"0F1E2D3C4B5A69788796A5B4C3D2E1F001122334\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226b6579222c2230463145324433433442354136393738383739364135423443334432453146303031313232333334225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "key-certificate-sha1-colons",
+      "raw": {
+        "fingerprint": "0f:1e:2d:3c:4b:5a:69:78:87:96:a5:b4:c3:d2:e1:f0:01:12:23:34"
+      },
+      "tag": "key",
+      "tags": [
+        "ff4ed0cff3bdd67f9975e36533d49f48e793db930132d08c65462f9c5d0c2bbe"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"key\",\"0F1E2D3C4B5A69788796A5B4C3D2E1F001122334\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b226b6579222c2230463145324433433442354136393738383739364135423443334432453146303031313232333334225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "key-certificate-0x-prefix",
+      "raw": {
+        "fingerprint": "0x0f1e2d3c4b5a69788796a5b4c3d2e1f001122334"
+      },
+      "tag": "key",
+      "tags": [
+        "ff4ed0cff3bdd67f9975e36533d49f48e793db930132d08c65462f9c5d0c2bbe"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "key-certificate-too-short",
+      "raw": {
+        "fingerprint": "AB:CD:EF:01"
+      },
+      "tag": "key",
+      "tags": []
+    },
+    {
+      "canonical_inputs": [
+        "[\"contact\",\"alex.chen@example.org\",\"15550142\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22636f6e74616374222c22616c65782e6368656e406578616d706c652e6f7267222c223135353530313432225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "contact-email-and-phone",
+      "raw": {
+        "email": " Alex.Chen@Example.ORG ",
+        "phone": "+1 (555) 0142"
+      },
+      "tag": "contact",
+      "tags": [
+        "860d1012da1c1a151f7a1dde4dc5e5c0e2fa746e77c96f5d93f536c8a576ea61"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"contact\",\"café@x.example\",\"\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22636f6e74616374222c22636166c3a940782e6578616d706c65222c22225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "contact-email-only",
+      "raw": {
+        "email": "Café@x.example",
+        "phone": ""
+      },
+      "tag": "contact",
+      "tags": [
+        "cc1fea6b70e9c0b7be80fe53820ab546de73e7687e722dd1e08731e36c7c1c7e"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"contact\",\"\",\"15550142\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22636f6e74616374222c22222c223135353530313432225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "contact-phone-only",
+      "raw": {
+        "email": "  ",
+        "phone": "1-555-0142"
+      },
+      "tag": "contact",
+      "tags": [
+        "f6ed21352f07daefdd4a267d60c354d54f6fec418e80081062c888804149c8a9"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "contact-nothing-to-hash",
+      "raw": {
+        "email": " ",
+        "phone": "call me"
+      },
+      "tag": "contact",
+      "tags": []
+    },
+    {
+      "canonical_inputs": [
+        "[\"document\",\"x1234567\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22646f63756d656e74222c227831323334353637225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "document-spaces-and-dashes",
+      "raw": {
+        "number": "X 1234-567"
+      },
+      "tag": "document",
+      "tags": [
+        "43d734329ded6217fd317bbf1d9e2d4f9fe10374921139eae3ad400a10f53415"
+      ]
+    },
+    {
+      "canonical_inputs": [
+        "[\"document\",\"café9\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b22646f63756d656e74222c22636166c3a939225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "document-decomposed-e",
+      "raw": {
+        "number": "Café 9"
+      },
+      "tag": "document",
+      "tags": [
+        "9297be098da94b2083e6ba84bb21bb2036fd0747db24b7ab0f849ea035b0fbf1"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "document-too-short",
+      "raw": {
+        "number": "1-2-3"
+      },
+      "tag": "document",
+      "tags": []
+    },
+    {
+      "canonical_inputs": [
+        "[\"file\",\"0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef\"]"
+      ],
+      "canonical_inputs_hex": [
+        "5b2266696c65222c2230313233343536373839616263646566303132333435363738396162636465663031323334353637383961626364656630313233343536373839616263646566225d"
+      ],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "file-upper-case-hash",
+      "raw": {
+        "content_hash": " 0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF0123456789ABCDEF "
+      },
+      "tag": "file",
+      "tags": [
+        "375689fe79d3db9294744e6e9d981a1a72480eba53567c52f06d0c7c9dd5460a"
+      ]
+    },
+    {
+      "canonical_inputs": [],
+      "canonical_inputs_hex": [],
+      "dedup_key": "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f",
+      "name": "file-not-a-hash",
+      "raw": {
+        "content_hash": "sha256:abc"
+      },
+      "tag": "file",
+      "tags": []
     }
   ],
   "description": "Raw item values in, canonical inputs out (docs/crypto.md, Duplicate tags, Normalisation). raw holds the values as the app stores them; for a login, websites are {uri, rule} and shared_hosts the app's shared hosts. canonical_inputs are the RFC 8785 arrays, one per site for a login (none when the item makes no tag); tags are HMAC-SHA256(dedup_key, canonical input). The Public Suffix List is test-vectors/public_suffix_list.dat.",
