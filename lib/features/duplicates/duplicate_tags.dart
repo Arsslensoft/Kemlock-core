@@ -14,6 +14,7 @@ import '../../models/otp_account.dart';
 import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
+import '../../models/vault_file.dart';
 import '../../models/vault_key.dart';
 import 'duplicate_normalise.dart';
 import 'duplicate_rules.dart';
@@ -56,6 +57,7 @@ List<TagInput> tagInputsOf(Object item, {SiteResolver sites = const SiteResolver
   VaultKey() || Contact() => [?keyTagInput(keyIdentityOf?.call(item))],
   BackupService() => [?codesTagInput(item)],
   Identity() => [?identityTagInput(item)],
+  VaultFile() => [?fileTagInput(item)],
   _ => const [],
 };
 

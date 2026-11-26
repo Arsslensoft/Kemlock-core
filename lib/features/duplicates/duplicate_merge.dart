@@ -25,6 +25,7 @@ import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
 import '../../models/vault_entry.dart';
+import '../../models/vault_file.dart';
 import '../../models/vault_key.dart';
 import '../../models/website_rule.dart';
 import 'dedup_cache.dart';
@@ -56,6 +57,7 @@ List<MergeField> mergeFieldsOf(Object item) => switch (item) {
     MergeField('cardholder', (item) => (item as PaymentCard).cardholder),
   ],
   Identity() => [MergeField('name', (item) => (item as Identity).name)],
+  VaultFile() => [MergeField('name', (item) => (item as VaultFile).name)],
   VaultKey() => [MergeField('name', (item) => (item as VaultKey).name)],
   Contact() => [MergeField('name', (item) => (item as Contact).name)],
   _ => const [],
@@ -171,6 +173,7 @@ final class MergeChoices {
         cardholder: text.containsKey('cardholder') ? text['cardholder'] ?? unset : keep,
       ),
       final Identity identity => identity.copyWith(name: value('name', identity.name) ?? ''),
+      final VaultFile file => file.copyWith(name: value('name', file.name) ?? ''),
       final VaultKey key => key.copyWith(name: value('name', key.name) ?? ''),
       final Contact contact => contact.copyWith(name: value('name', contact.name) ?? ''),
       _ => keptItem,
@@ -329,6 +332,7 @@ String mergeKindOf(Object item) => switch (item) {
   Login() => 'login',
   PaymentCard() => 'card',
   Identity() => 'identity',
+  VaultFile() => 'file',
   _ => throw ArgumentError.value(item, 'item', 'is not an item a merge keeps'),
 };
 
@@ -343,6 +347,7 @@ Map<String, Object?> mergeJsonOf(Object item) => switch (item) {
   final Login item => item.toJson(),
   final PaymentCard item => item.toJson(),
   final Identity item => item.toJson(),
+  final VaultFile item => item.toJson(),
   _ => throw ArgumentError.value(item, 'item', 'is not an item a merge keeps'),
 };
 
@@ -357,6 +362,7 @@ Object? mergeItemOf(String kind, Map<String, Object?> json) => switch (kind) {
   'login' => Login.fromJson(json),
   'card' => PaymentCard.fromJson(json),
   'identity' => Identity.fromJson(json),
+  'file' => VaultFile.fromJson(json),
   _ => null,
 };
 

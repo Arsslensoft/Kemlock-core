@@ -15,6 +15,7 @@ import '../../models/otp_account.dart';
 import '../../models/passkey.dart';
 import '../../models/payment_card.dart';
 import '../../models/secure_note.dart';
+import '../../models/vault_file.dart';
 import 'duplicate_normalise.dart';
 
 /// The kinds of tag, in the order of how strongly each says two items are
@@ -41,6 +42,9 @@ enum TagKind {
 
   /// An identity's full name and email.
   identity,
+
+  /// A File item's content hash (the SHA-256 of the file's plain bytes).
+  file,
 }
 
 /// Why a group of items is shown (design 5).
@@ -54,6 +58,7 @@ enum DuplicateReason {
   sameKey(TagKind.key),
   sameCodes(TagKind.codes),
   sameIdentity(TagKind.identity),
+  sameFile(TagKind.file),
 
   /// One item held in the vault and in a space, or in two spaces.
   inTwoPlaces(null);
@@ -289,14 +294,33 @@ TagInput? identityTagInput(Identity identity) {
   return values.every((value) => value.isEmpty) ? null : TagInput(TagKind.identity, values);
 }
 
+/// The tag input of a File item: the SHA-256 of its file's plain bytes as 64 lower-case hex digits, which the entry's `sha256`
+/// holds (any case is read); null for a file with none, or one that isn't 64 hex digits, which makes no tag.
+TagInput? fileTagInput(VaultFile item) {
+  final hash = item.file.sha256?.trim().toLowerCase();
+  return hash == null || !_sha256Hex.hasMatch(hash) ? null : TagInput(TagKind.file, [hash]);
+}
+
+final _sha256Hex = RegExp(r'^[0-9a-f]{64}$');
+
+/// Whether [a] and [b] are one File item: the same id, or the same file hash. A file with no hash is its own.
+bool sameFile(VaultFile a, VaultFile b) {
+  if (a.id == b.id) {
+    return true;
+  }
+  final hash = fileTagInput(a);
+  return hash != null && hash == fileTagInput(b);
+}
+
 /// Whether [a] and [b] are one credential, by the rules import and the cleaner share. [a] and
 /// [b] are the same kind of item, one of the kinds whose rule is here: a login, a code, a passkey,
-/// a backup-code list or a note. Two items of other kinds, or of two kinds, are not.
+/// a backup-code list, a note or a File item. Two items of other kinds, or of two kinds, are not.
 bool sameCredential(Object a, Object b, {SiteResolver sites = const SiteResolver()}) => switch ((a, b)) {
   (final Login a, final Login b) => sameLogin(a, b, sites: sites),
   (final OtpAccount a, final OtpAccount b) => sameCode(a, b),
   (final Passkey a, final Passkey b) => samePasskey(a, b),
   (final BackupService a, final BackupService b) => sameBackupCodes(a, b),
   (final SecureNote a, final SecureNote b) => sameNote(a, b),
+  (final VaultFile a, final VaultFile b) => sameFile(a, b),
   _ => false,
 };
