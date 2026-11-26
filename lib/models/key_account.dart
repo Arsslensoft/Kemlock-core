@@ -14,7 +14,15 @@ enum KeyAccountType {
 /// An account as a key listed it at a read, for [KeyAccount]s to be made
 /// equal to (openspec: add-security-key-codes, decision 4).
 class KeyAccountSeen {
-  const KeyAccountSeen({required this.name, required this.type, this.algorithm = 'SHA1', this.touch, this.tags, this.note});
+  const KeyAccountSeen({
+    required this.name,
+    required this.type,
+    this.algorithm = 'SHA1',
+    this.touch,
+    this.tags,
+    this.note,
+    this.fields = const [],
+  });
 
   /// The account's name on the key.
   final String name;
@@ -27,6 +35,11 @@ class KeyAccountSeen {
   /// The tags and note an account moved from the vault brings with it.
   final List<String>? tags;
   final String? note;
+
+  /// The custom fields an account moved from the vault (an MFA code taken onto a security key) brings with it. When a read of the key
+  /// makes or updates the [KeyAccount], these are the account's `fields`; empty when the account brings none, and the account keeps
+  /// the fields it already held.
+  final List<CustomField> fields;
 }
 
 /// What the vault remembers of an account whose secret lives on a security
