@@ -322,3 +322,46 @@ List<VaultEntry<Object?>> mendedLinks(Lists lists, {required int now, Owner? acc
   }
   return changed.values.toList();
 }
+
+/// The entries of [lists] to save so that the links to an entry that moved to another owner still find it. A move gives an entry
+/// whose id isn't a UUID a new item id (`legacy_ids.dart` makes it for the owner it goes to), and every `links` entry and every
+/// `linkedLoginId` that named the old one ([oldLinkId], what [linkIdOf] gave before the move) must now name [newLinkId] (what it
+/// gives after). An entry with a UUID id keeps its item id whatever its owner, and has nothing to rename.
+///
+/// An entry that links to [oldLinkId] has it replaced, once, by [newLinkId] (a link made beside it keeps the rest it carries), and a
+/// code whose `linkedLoginId` is [oldLinkId] has it replaced; the entries are stamped [now] and the others are not returned. Ids are
+/// compared in lower case. Pass every entry of the vault in [lists], the moved entry included or not: an entry whose own id is
+/// either id is left alone.
+///
+/// The app calls it when it moves an entry between the vault and a space, or between two spaces, with the entry's [linkIdOf] before and
+/// after, and saves what it returns with the moved entry. The core moves no entry between owners itself.
+List<VaultEntry<Object?>> relinkedAfterMove(Lists lists, {required String oldLinkId, required String newLinkId, required int now}) {
+  final old = oldLinkId.toLowerCase();
+  final next = newLinkId.toLowerCase();
+  if (old == next) {
+    return const [];
+  }
+  final out = <VaultEntry<Object?>>[];
+  for (final entry in entriesOf(lists)) {
+    if (entry.id.toLowerCase() == old || entry.id.toLowerCase() == next) {
+      continue;
+    }
+    var renamed = entry;
+    final held = entry.links.where((link) => link.isReadable && link.key == old).firstOrNull;
+    if (held != null) {
+      final links = [
+        for (final link in entry.links)
+          if (!link.isReadable || link.key != old) link,
+        if (!entry.links.names(next)) ItemLink(next, extra: held.extra),
+      ];
+      renamed = _withLinks(renamed, links, [entry.id]);
+    }
+    if (renamed is OtpAccount && renamed.linkedLoginId?.toLowerCase() == old) {
+      renamed = renamed.copyWith(linkedLoginId: next);
+    }
+    if (!identical(renamed, entry)) {
+      out.add(_stamped(renamed, now));
+    }
+  }
+  return out;
+}

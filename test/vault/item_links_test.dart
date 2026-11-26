@@ -212,6 +212,51 @@ void main() {
     });
   });
 
+  group('relinkedAfterMove', () {
+    const legacy = Login(id: 'acc-1', name: 'Old', addedAt: 1);
+    final oldId = itemUuid('acc-1', _owner);
+    final newId = itemUuid('acc-1', Owner.space(spaceUuid('family')));
+
+    test('renames the link and the linkedLoginId that named the moved entry, and stamps only those entries', () {
+      final note = _n.withLinks([ItemLink(oldId.toUpperCase()), const ItemLink(_card)]);
+      final code = OtpAccount(id: _code, issuer: 'X', label: 'me', secret: 'S', linkedLoginId: oldId, addedAt: 1);
+      final unrelated = _c.withLinks([const ItemLink(_note)]);
+
+      final saved = relinkedAfterMove(
+        Lists(logins: const [legacy], notes: [note], accounts: [code], cards: [unrelated]),
+        oldLinkId: oldId,
+        newLinkId: newId,
+        now: 90,
+      );
+
+      expect(saved.map((entry) => entry.id), unorderedEquals([_note, _code]));
+      final renamedNote = saved.firstWhere((entry) => entry.id == _note);
+      expect(renamedNote.links.map((link) => link.id), unorderedEquals([_card, newId]), reason: 'the other link stays');
+      expect(renamedNote.changedAt, 90);
+      final renamedCode = saved.firstWhere((entry) => entry.id == _code) as OtpAccount;
+      expect(renamedCode.linkedLoginId, newId);
+      expect(renamedCode.changedAt, 90);
+    });
+
+    test('keeps what the old link carried, names the new id once, and leaves the entries that do not name the old one', () {
+      final both = _n.withLinks([ItemLink(oldId, extra: const {'note': 'x'}), ItemLink(newId)]);
+      final only = _c.withLinks([ItemLink(oldId, extra: const {'note': 'y'})]);
+
+      final saved = relinkedAfterMove(Lists(notes: [both], cards: [only], logins: const [_l]), oldLinkId: oldId, newLinkId: newId, now: 5);
+
+      expect(saved, hasLength(2));
+      expect(saved.firstWhere((entry) => entry.id == _note).links.map((link) => link.id), [newId]);
+      expect(saved.firstWhere((entry) => entry.id == _card).links.single.toJson(), {'id': newId, 'note': 'y'});
+    });
+
+    test('has nothing to do for an entry whose item id does not change, or one nothing names', () {
+      final note = _n.withLinks([const ItemLink(_login)]);
+
+      expect(relinkedAfterMove(Lists(notes: [note]), oldLinkId: _login, newLinkId: _login, now: 5), isEmpty);
+      expect(relinkedAfterMove(Lists(notes: [note], cards: const [_c]), oldLinkId: oldId, newLinkId: newId, now: 5), isEmpty);
+    });
+  });
+
   group('mendedLinks', () {
     test('writes the end that is missing, stamped, and nothing else', () {
       final login = _l.withLinks([const ItemLink(_note)]);
