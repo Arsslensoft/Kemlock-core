@@ -101,9 +101,7 @@ void main() {
       expect(w.server.files, hasLength(1));
 
       final small = await _sealed(10, name: 'b.txt');
-      final lacking = KmPhone(
-        w.server,
-        clock: w.clock,
+      final lacking = one.another(
         fileStore: FakeFileStore(),
         lists: Lists(files: [_item(_two, small.entry)]),
       );

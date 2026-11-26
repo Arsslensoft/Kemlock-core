@@ -83,7 +83,7 @@ void main() {
       expect(identical(unchanged.b, _n), isTrue);
       // with the account it can be linked, by its legacy-id UUID
       final linked = linkEntries(legacy, _n, now: 5, account: _owner);
-      expect(linked.a.links.single.id, itemUuid('acc-1', _owner));
+      expect(linked.b.links.single.id, itemUuid('acc-1', _owner));
     });
 
     test('leaves a code and its login that are tied by linkedLoginId or accountId', () {
@@ -113,7 +113,7 @@ void main() {
 
     test('clears the linkedLoginId of a code, from either side', () {
       const code = OtpAccount(id: _code, issuer: 'X', label: 'me', secret: 'S', linkedLoginId: _login, addedAt: 1);
-      for (final (a, b) in <(VaultEntry<dynamic>, VaultEntry<dynamic>)>[(code, _l), (_l, code)]) {
+      for (final (a, b) in <(VaultEntry<Object?>, VaultEntry<Object?>)>[(code, _l), (_l, code)]) {
         final unlinked = unlinkEntries(a, b, now: 9);
         final cleared = (unlinked.a is OtpAccount ? unlinked.a : unlinked.b) as OtpAccount;
         expect(cleared.linkedLoginId, isNull);
