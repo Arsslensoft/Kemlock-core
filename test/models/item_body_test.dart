@@ -275,6 +275,43 @@ void main() {
       expect(edited.toJson()['urls'], ['a.example', 'https://b.example/x', 'd.example']);
     });
 
+    group('a web login with urls alone', () {
+      final alone = {
+        'id': 'l1',
+        'name': 'Mail',
+        'urls': ['https://a.example/login', 'https://www.b.example', 'not a website'],
+        'addedAt': 1,
+      };
+
+      test('has its addresses as websites on the default rule, and is written back with no member of its own', () {
+        final login = Login.fromJson(alone);
+
+        expect(login.websites, ['a.example', 'b.example']);
+        expect(login.rules.map((rule) => rule.host), ['a.example', 'b.example']);
+        expect(login.rules.every((rule) => rule.match == null), isTrue);
+        expect(login.toJson(), alone);
+        expect(login.stamped(9).toJson()..remove('updatedAt'), alone);
+        expect(login.copyWith(name: 'Mail 2').toJson()['urls'], alone['urls']);
+        expect(login.copyWith(name: 'Mail 2').toJson().containsKey('websites'), isFalse);
+      });
+
+      test('an edit keeps the full address of a host still listed, adds the new ones and drops the removed', () {
+        final edited = Login.fromJson(alone).copyWith(websites: ['a.example', 'c.example']);
+
+        expect(edited.websites, ['a.example', 'c.example']);
+        expect(edited.toJson()['urls'], ['https://a.example/login', 'not a website', 'c.example']);
+        expect(edited.toJson()['websites'], ['a.example', 'c.example']);
+      });
+
+      test('a body with websites or uris of its own reads them, not its urls', () {
+        final login = Login.fromJson({...alone, 'websites': ['z.example']});
+
+        expect(login.websites, ['z.example']);
+        expect(login.sitesFromUrls, isFalse);
+        expect(login.toJson()['websites'], ['z.example']);
+      });
+    });
+
     test('a login that never had urls does not gain them', () {
       final login = Login.fromJson({
         'id': 'l1',

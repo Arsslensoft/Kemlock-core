@@ -47,6 +47,7 @@ class Login implements VaultEntry<Login> {
     this.password,
     this.websites,
     this.uris,
+    this.sitesFromUrls = false,
     this.note,
     this.tags,
     this.pinned,
@@ -68,8 +69,9 @@ class Login implements VaultEntry<Login> {
     name: asString(json['name']),
     username: asOptionalString(json['username']),
     password: asOptionalString(json['password']),
-    websites: readWebsites(json).websites,
-    uris: readWebsites(json).uris,
+    websites: readWebsites(json, urls: true).websites,
+    uris: readWebsites(json, urls: true).uris,
+    sitesFromUrls: websitesFromUrls(json),
     note: asOptionalString(json['note']),
     tags: asStrings(json['tags']),
     pinned: asBool(json['pinned']),
@@ -125,6 +127,10 @@ class Login implements VaultEntry<Login> {
 
   /// The hosts it is filled on (`normaliseWebsite`), and their subdomains under the domain each is under.
   final List<String>? websites;
+
+  /// Whether [websites] are those of the `urls` a web body holds alone (no `websites`, no `uris`): the body is written back without
+  /// them, as it was, until its websites are edited.
+  final bool sitesFromUrls;
 
   /// Each website with the rule that says where it fills, always the full list when it
   /// is set; null when the login holds hosts alone. Written only when it says more than
@@ -188,7 +194,7 @@ class Login implements VaultEntry<Login> {
     'name': name,
     'username': ?username,
     'password': ?password,
-    ...writeWebsites(websites, uris),
+    if (!sitesFromUrls) ...writeWebsites(websites, uris),
     'note': ?note,
     'tags': ?tags,
     'pinned': ?pinned,
@@ -233,6 +239,7 @@ class Login implements VaultEntry<Login> {
     password: pick(password, this.password),
     websites: _changed(websites, uris).websites,
     uris: _changed(websites, uris).uris,
+    sitesFromUrls: sitesFromUrls && identical(websites, keep) && identical(uris, keep),
     note: pick(note, this.note),
     tags: pick(tags, this.tags),
     pinned: pick(pinned, this.pinned),
