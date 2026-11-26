@@ -8,7 +8,7 @@ import 'package:unorm_dart/unorm_dart.dart' as unorm;
 
 import '../../core/websites.dart';
 import '../../models/payment_card.dart' show cardDigits;
-import '../accounts/otp.dart' show base32Decode, base32Encode, normalizeSecret;
+import '../accounts/otp.dart' show base32Decode, base32Encode;
 
 final _ipv4 = RegExp(r'^\d{1,3}(?:\.\d{1,3}){3}$');
 
@@ -123,14 +123,14 @@ String _trimEnd(String line) {
 /// base32, in upper case and without padding. `JBSWY3DPEHPK3PXP` and `jbsw y3dp ehpk 3pxp=` are one.
 /// Bits left over that don't fill a byte are dropped, as the decoder drops them.
 ///
-/// A secret that isn't base32 isn't covered by `crypto.md`: it is told by the bytes of its text,
-/// in upper case and without spaces and dashes, written the same way. An empty one is null.
+/// A secret that isn't base32 makes no tag, as the server's vector `secret-not-base32` has it, and neither does an empty one:
+/// both are null.
 String? secretBase32(String secret) {
-  List<int> bytes;
+  final List<int> bytes;
   try {
     bytes = base32Decode(secret);
   } on FormatException {
-    bytes = utf8.encode(normalizeSecret(secret));
+    return null;
   }
   return bytes.isEmpty ? null : base32Encode(bytes);
 }

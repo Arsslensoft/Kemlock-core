@@ -103,11 +103,7 @@ void main() {
     final cases = readServerCases('dedup-normalise.json');
     const covered = {'secret', 'passkey', 'card', 'note', 'key', 'codes', 'identity', 'contact', 'document'};
 
-    // The vector says a secret that is not base32 makes no tag; `secretBase32` tells it by the bytes of its text, as it did
-    // before crypto.md named the case. It is the one case the core does not meet, kept until that rule is decided.
-    const knownDifferences = {'secret-not-base32'};
-
-    for (final c in cases.where((c) => covered.contains(c['tag']) && !knownDifferences.contains(c['name']))) {
+    for (final c in cases.where((c) => covered.contains(c['tag']))) {
       final tag = c['tag']! as String;
       test('${c['name']}: the canonical inputs and the tags', () {
         final (:item, :identity) = _itemOf(tag, c['raw']! as Map<String, Object?>);
